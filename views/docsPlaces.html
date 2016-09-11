@@ -1,0 +1,127 @@
+<div class="container">
+    <div class="col-md-10">
+
+        <h1>Places</h1>
+        <hr>
+        <p class="lead">This module provides a set of light weight, easy to use directives for exposing the google places library.</p>
+
+        <!-- -->
+        <!-- gPlace -->
+        <!-- -->
+        <h2>gPlace</h2>
+        <p>The gPlace directive allows for requesting place details for a single place and displaying the information in a custom template. The directive requires 2 things, a template for displaying the information and a variable, defined in your controller, that contains a string with a google place Id.</p>
+        <p>Use the directive as an element and pass the template url and the id variable as attributes. In your template, access the place details with the <code>details</code> object. For more details on the details object and what information it holds, please see <a href="https://developers.google.com/maps/documentation/javascript/3.exp/reference#PlaceResult">Google Maps API Docs</a> </p>
+
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a show-tab href="#placeMarkup" aria-controls="markup" role="tab" data-toggle="tab">View</a></li>
+            <li role="presentation"><a show-tab href="#placeController" aria-controls="controller" role="tab" data-toggle="tab">Controller</a></li>
+            <li role="presentation"><a show-tab href="#placeTemplate" aria-controls="template" role="tab" data-toggle="tab">Template</a></li>
+        </ul>
+
+        <!-- Example Code Blocks -->
+        <div class="tab-content">
+            <!-- View -->
+            <div role="tabpanel" class="tab-pane active" id="placeMarkup">
+                <div hljs><g-place temp-url="path/to/template" place-id="id"></g-place></div>
+            </div>
+            <!-- Controller -->
+            <div role="tabpanel" class="tab-pane" id="placeController">
+                <div hljs>
+angular.module('myApp').controller('PlacesCtrl', function($scope) {
+    // Variable must be a string with a place ID
+    $scope.id = 'ChIJR4dOl_hYwokRApSCaQiBidk';
+});
+                </div>
+            </div>
+            <!-- Template -->
+            <div role="tabpanel" class="tab-pane" id="placeTemplate">
+                <div hljs>
+<h3>{{details.name}}</h3>
+
+
+<img ng-src="{{details.photos[0].getUrl({'maxWidth': 768, 'maxHeight': 576})}}">
+
+<ul>
+    <li>{{details.formatted_phone_number}}</li>
+    <li>{{details.vicinity}}</li>
+</ul>
+                </div>
+            </div>
+        </div>
+
+        <a class="demo" ui-sref=".exPlace">Demo</a>
+
+        <!-- -->
+        <!-- gPlaces -->
+        <!-- -->
+        <h2>gPlaces</h2>
+        <p>The gPlaces directive works just like the gPlace directive but takes an array of place id's as opposed to just one. The place id's array is defined in your controller and passed to the directive as an attribute just like in the gplace directive.</p>
+        <p>In your template, use <code>ng-repeat</code> to iterate over the <code>details</code> array. The directive has built in pagination that will activate should you be looking up more than 10 places.</p>
+
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a show-tab href="#placesMarkup" aria-controls="markup" role="tab" data-toggle="tab">View</a></li>
+            <li role="presentation"><a show-tab href="#placesController" aria-controls="controller" role="tab" data-toggle="tab">Controller</a></li>
+            <li role="presentation"><a show-tab href="#placesTemplate" aria-controls="template" role="tab" data-toggle="tab">Template</a></li>
+        </ul>
+
+        <!-- Example Code Blocks -->
+        <div class="tab-content">
+            <!-- View -->
+            <div role="tabpanel" class="tab-pane active" id="placesMarkup">
+                <div hljs><g-places temp-url="pages/places/multiTemp.html" model="idModel"></g-places></div>
+            </div>
+            <!-- Controller -->
+            <div role="tabpanel" class="tab-pane" id="placesController">
+                <div hljs>
+angular.module('myApp').controller('PlacesCtrl', function($scope) {
+
+    // Variable must be an array of place id's
+    $scope.idModel = [
+    'ChIJR4dOl_hYwokRApSCaQiBidk',
+    'ChIJv-Ghof5YwokRMtWLEV12hJI',
+    'ChIJjyX2GqRZwokRT-gdcGoPuSI',
+    'ChIJqSurReFYwokRec7JFACToas',
+    'ChIJn8dCo-NYwokRC_4nRUQWbNE',
+    'ChIJszmN0-JYwokRk-XCDbO6X_Y',
+    'ChIJt4TrE_1YwokRVedrKxaqYoo',
+    'ChIJiW0WvwJZwokRIWyzCvo3o5k',
+    'ChIJsS1xLQJZwokRGfXJPMwXA1A',
+    'ChIJI5xCX6NZwokR3jdSQwsw2DI',
+    'ChIJuVE5aLtZwokR-K75OxUEtzI',
+    'ChIJ7R4tgLtZwokRM8thlhlzE2o',
+    'ChIJxbWTG_pYwokRPgtFVKi-Cuc',
+    'ChIJKZVnwFVYwokRgDw_sxw3NCo',
+    'ChIJw_JUgvhYwokR91EMxVDhB8M',
+    'ChIJZ3oXOVZYwokRNnAXaDRKAzg',
+    'ChIJP9idxlZYwokRLH-I1mNfzYQ',
+    'ChIJndGJ5FNYwokRricJvhT0t1s',
+    'ChIJhZ0Sn1ZYwokRRA1MZJZHrHA',
+    'ChIJhTdv51NYwokR7V105uVzf8g',
+    'ChIJvfVwDFJYwokRtWobbwOMEVM',
+    'ChIJpY9Tg01YwokRCr_aQpDrqgk',
+    'ChIJ-fRuLFdYwokR0KKQ6Av_WhQ',
+    'ChIJh-DIsE1YwokRhuFrdM1ge5E'
+    ];
+});
+                </div>
+            </div>
+            <!-- Template -->
+            <div role="tabpanel" class="tab-pane" id="placesTemplate">
+                <div hljs>
+<h4>{{details.name}}</h4>
+
+<img class="img-responsive" ng-src="{{details.photos[0].getUrl({'maxWidth': 768, 'maxHeight': 576})}}">
+
+<ul>
+    <li>{{details.formatted_phone_number}}</li>
+    <li>{{details.vicinity}}</li>
+</ul>
+
+                </div>
+            </div>
+        </div>
+        <a class="demo" href="#/multiple">Demo</a>
+
+
+    </div>
+</div>

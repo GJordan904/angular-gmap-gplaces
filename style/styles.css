@@ -1,0 +1,23 @@
+.panelHeight {
+    height: 600px;
+}
+.panel-body {
+    padding-bottom: 0;
+}
+.poweredBy {
+    float: right;
+    width: 45%;
+}
+.demo {
+    font-size: 22px;
+    font-weight: bold;
+}
+#map-canvas {
+    height: 550px;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+#pagination {
+    text-align: center;
+}

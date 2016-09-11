@@ -1,0 +1,28 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand"  ui-sref=".home">angular-gmap-gplace</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a ui-sref=".home">Getting Started</a></li>
+            <li class="dropdown">
+                <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Docs<span class="caret"></span></a>
+                <ul  class="dropdown-menu">
+                    <li><a ui-sref=".docsPlaces">Places</a></li>
+                    <li><a ui-sref=".docsMap">Map</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Examples<span class="caret"></span></a>
+                <ul  class="dropdown-menu">
+                    <li><a ui-sref=".exPlace">gPlace</a></li>
+                    <li><a ui-sref=".exPlaces">gPlaces</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a ui-sref=".exMap">gMap</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main ui-view="mainContent"></main>
