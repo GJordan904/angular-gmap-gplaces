@@ -4,8 +4,7 @@ angular.module('myApp', [
 	'app.controllers',
 	'angular-gmap-gplace',
 	'hljs',
-	'ui.router',
-	'ngAnimate'
+	'ui.router'
 ])
 .config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
