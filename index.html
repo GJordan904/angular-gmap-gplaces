@@ -2,7 +2,7 @@
 <html lang="en" ng-app="myApp">
 <head>
     <meta charset="utf-8">
-    <title>angular-gmap-gplace</title>
+    <title>angular-gmap-gplaces</title>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
 	<link rel="stylesheet" href="style/styles.css">
@@ -12,24 +12,18 @@
 
 	<ui-view ></ui-view>
 
-	<script src="https://code.jquery.com/jquery-1.12.3.min.js"   integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ="   crossorigin="anonymous"></script>
-	<script type="text/javascript" src="../bower_components/angular/angular.min.js"></script>
-	<script type="text/javascript" src="../bower_components/angular-animate/angular-animate.min.js"></script>
-	<script type="text/javascript" src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<!-- Vendor js -->
+	<script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript" src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
 	<script src="http://pc035860.github.io/angular-highlightjs/angular-highlightjs.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 	<!-- Google maps -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUmYH5tWFnfSu-Q8A2kRF7VzXo9KfyU9g&libraries=places"></script>
 
 	<!-- Project files -->
 	<script type="text/javascript" src="app.js"></script>
-	<script type="text/javascript" src="../dist/angular-gmap-gplace.js"></script>
-	<!--<script type="text/javascript" src="../src/modules/aggGeolocation.js"></script>
-	<script type="text/javascript" src="../src/modules/aggMap.js"></script>
-	<script type="text/javascript" src="../src/modules/aggPlaces.js"></script>
-	<script type="text/javascript" src="../src/modules/aggDirections.js"></script>-->
+	<script type="text/javascript" src="js/angular-gmap-gplace.js"></script>
 	<script type="text/javascript" src="js/controllers.js"></script>
 </body>
 </html>
