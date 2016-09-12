@@ -53,9 +53,9 @@
 
 	(function(){'use strict';
 	    var aggDirections = __webpack_require__(2);
-	    var aggGeolocation = __webpack_require__(3);
-	    var aggMap = __webpack_require__(8);
-	    var aggPlaces = __webpack_require__(9);
+	    var aggGeolocation = __webpack_require__(4);
+	    var aggMap = __webpack_require__(9);
+	    var aggPlaces = __webpack_require__(10);
 
 	    angular.module('angular-gmap-gplace', [
 	        'aggGeolocation',
@@ -69,9 +69,11 @@
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	(function () {'use strict';
+
+	var gStepsControlTemp = __webpack_require__(3);
 
 	angular.module('aggDirections', [])
 
@@ -95,7 +97,7 @@
 	        return {
 	            restrict: 'E',
 	            require: '^gMap',
-	            templateUrl: '../src/templates/gStepsControl.html',
+	            templateUrl: gStepsControlTemp,
 	            link: function() {
 
 	            }
@@ -161,10 +163,19 @@
 
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+	var path = '/home/grant/Development/Projects/angular-gmap-gplaces/master/src/templates/gStepsControl.html';
+	var html = "<div class=\"directButton\">\n<h3>Directions</h3>\n</div>\n\n<div class=\"directControls\">\n\n    <div class=\"directSearch\">\n        <input type=\"text\" name=\"from\" ng-model=\"route.origin\" placeholder=\"Choose a starting point\">\n        <input type=\"text\" name=\"to\" ng-model=\"route.destination\" placeholder=\"Destination\">\n    </div>\n\n    <div class=\"directOptions\">\n        <button class=\"directWalking\"></button>\n        <button class=\"directDriving\"></button>\n        <button class=\"directBus\"></button>\n    </div>\n\n</div>";
+	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+	module.exports = path;
+
+/***/ },
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function () {'use strict';
-	var markerCss = __webpack_require__(4);
+	var markerCss = __webpack_require__(5);
 	//
 	// The aggGeolocation module is home to all things geolocation related
 	// Included is the gLocation directive and supporting service and factory
@@ -286,16 +297,16 @@
 	}());
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(5);
+	var content = __webpack_require__(6);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(7)(content, {});
+	var update = __webpack_require__(8)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -312,10 +323,10 @@
 	}
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(6)();
+	exports = module.exports = __webpack_require__(7)();
 	// imports
 
 
@@ -326,7 +337,7 @@
 
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports) {
 
 	/*
@@ -382,7 +393,7 @@
 
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -634,7 +645,7 @@
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	(function () {'use strict';
@@ -717,12 +728,12 @@
 	}());
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function () {'use strict';
 
-	var gPlacesTemp = __webpack_require__(10);
+	var gPlacesTemp = __webpack_require__(11);
 	//
 	// Google Places Factory and Directives
 	//
@@ -864,10 +875,10 @@
 
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
-	var path = '/home/grant/Development/Projects/angular-gmap-gplace/src/templates/gPlaces.html';
+	var path = '/home/grant/Development/Projects/angular-gmap-gplaces/master/src/templates/gPlaces.html';
 	var html = "<div ng-include=\"tempUrl\"></div>\n\n<nav id=\"pagination\" aria-label=\"Page navigation\" ng-show=\"needsPagination()\">\n    <ul class=\"pagination\">\n        <li>\n            <a href=\"#\" aria-label=\"Previous\">\n                <span aria-hidden=\"true\">&laquo;</span>\n            </a>\n        </li>\n\n        <li ng-repeat=\"page in numPages track by $index\">\n            <a href=\"\" ng-click=\"getPage($index)\">{{$index+1}}</a>\n        </li>\n\n        <li>\n            <a href=\"#\" aria-label=\"Next\">\n                <span aria-hidden=\"true\">&raquo;</span>\n            </a>\n        </li>\n    </ul>\n</nav>";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
