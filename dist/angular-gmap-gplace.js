@@ -51,239 +51,121 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	(function(){'use strict';
-	    var aggDirections = __webpack_require__(2);
-	    var aggGeolocation = __webpack_require__(3);
-	    var aggMap = __webpack_require__(8);
-	    var aggPlaces = __webpack_require__(9);
+	
+	var aggDirections = __webpack_require__(2);
+	var aggGeolocation = __webpack_require__(8);
+	var aggMap = __webpack_require__(12);
+	var aggPlaces = __webpack_require__(13);
 
-	    angular.module('angular-gmap-gplace', [
-	        'aggGeolocation',
-	        'aggMap',
-	        'aggPlaces',
-	        'aggDirections'
-	    ]);
+	angular.module('angular-gmap-gplace', [
+	    'aggGeolocation',
+	    'aggMap',
+	    'aggPlaces',
+	    'aggDirections'
+	]);
 
-	}());
 
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	(function () {'use strict';
+	var gStepsControlTemp = __webpack_require__(3);
+	var gStepsControlCss = __webpack_require__(4);
 
 	angular.module('aggDirections', [])
 
-	    .directive('gSteps', function (directionsService) {
-	        return {
-	            restrict: 'E',
-	            require: '^gMap',
-	            scope: {
-	                request: '='
-	            },
-	            templateUrl: '',
-	            link: function(scope, elem, attrs, gMapCtrl) {
-	                var gmap = gMapCtrl.map;
+	.directive('gSteps', function (directionsService) {
+	    return {
+	        restrict: 'E',
+	        require: '^gMap',
+	        scope: {
+	            request: '='
+	        },
+	        templateUrl: '',
+	        link: function(scope, elem, attrs, gMapCtrl) {
+	            var gmap = gMapCtrl.map;
 
-	                directionsService.get(scope.request, gmap);
-	            }
-	        };
-	    })
-
-	    .directive('gStepsControl', function() {
-	        return {
-	            restrict: 'E',
-	            require: '^gMap',
-	            templateUrl: '../src/templates/gStepsControl.html',
-	            link: function() {
-
-	            }
+	            directionsService.get(scope.request, gmap);
 	        }
-	    })
+	    };
+	})
 
-	    .service('directionsService', function(locService, $q){
-	        var self = this;
+	.directive('gStepsControl', function() {
+	    return {
+	        restrict: 'E',
+	        require: '^gMap',
+	        templateUrl: gStepsControlTemp,
+	        link: function() {
 
-	        function getDirections(request) {
-	            var service = new google.maps.DirectionsService();
-	            var deferred = $q.defer();
-
-	            service.route(request, callback);
-
-	            function callback(response, status) {
-	                if(status === 'OK') {
-	                    deferred.resolve(response);
-	                }else{
-	                    console.log("getDirections failed");
-	                }
-	            }
-
-	            return deferred.promise;
 	        }
+	    }
+	})
 
-	        function buildSteps(directions, map) {
-	            var markers = [];
-	            var route = directions.routes[0].legs[0];
+	.service('directionsService', function(locService, $q){
+	    var self = this;
 
-	            for(var i = 0; i< route.steps.length; i++) {
-	                var marker = self.markers[i] = self.markers[i] || new google.maps.Marker();
-	                marker.setMap(map);
-	                marker.setPosition(route.steps[i].start_location);
-	                makeInfoWindow(marker, route.steps[i].instructions, map);
-	            }
+	    function getDirections(request) {
+	        var service = new google.maps.DirectionsService();
+	        var deferred = $q.defer();
 
-	            function makeInfoWindow(marker, text, map) {
-	                var infoWindow = new  google.maps.InfoWindow();
+	        service.route(request, callback);
 
-	                infoWindow.setContent(text);
-	                // Attach click handler to marker
-	                marker.addListener('click', function() {
-	                    infoWindow.open(map, marker);
-	                });
+	        function callback(response, status) {
+	            if(status === 'OK') {
+	                deferred.resolve(response);
+	            }else{
+	                console.log("getDirections failed");
 	            }
 	        }
 
-	        this.markers = [];
+	        return deferred.promise;
+	    }
 
-	        this.get = function(request, map) {
-	            var renderer = new google.maps.DirectionsRenderer({map: map});
+	    function buildSteps(directions, map) {
+	        var markers = [];
+	        var route = directions.routes[0].legs[0];
 
-	            getDirections(request).then(function(response){
-	                renderer.setDirections(response);
-	                buildSteps(response, map);
+	        for(var i = 0; i< route.steps.length; i++) {
+	            var marker = self.markers[i] = self.markers[i] || new google.maps.Marker();
+	            marker.setMap(map);
+	            marker.setPosition(route.steps[i].start_location);
+	            makeInfoWindow(marker, route.steps[i].instructions, map);
+	        }
+
+	        function makeInfoWindow(marker, text, map) {
+	            var infoWindow = new  google.maps.InfoWindow();
+
+	            infoWindow.setContent(text);
+	            // Attach click handler to marker
+	            marker.addListener('click', function() {
+	                infoWindow.open(map, marker);
 	            });
-	        };
-	    });
+	        }
+	    }
 
-	}());
+	    this.markers = [];
+
+	    this.get = function(request, map) {
+	        var renderer = new google.maps.DirectionsRenderer({map: map});
+
+	        getDirections(request).then(function(response){
+	            renderer.setDirections(response);
+	            buildSteps(response, map);
+	        });
+	    };
+	});
+
 
 
 /***/ },
 /* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	(function () {'use strict';
-	var markerCss = __webpack_require__(4);
-	//
-	// The aggGeolocation module is home to all things geolocation related
-	// Included is the gLocation directive and supporting service and factory
-	//
-	angular.module('aggGeolocation', [])
-	    //
-	    // Directive for showing user location
-	    //
-	    .directive('gLocation', function(mapFact, locService, locMarker) {
-	        return {
-	            restrict: 'E',
-	            require: '^gMap',
-	            link: function(scope, elem, attrs, gMapCtrl) {
-	                var gmap = gMapCtrl.map;
-	                var location = locService.getLoc();
-
-	                location.then(
-	                    function(success){
-	                        var markOptions = {
-	                            position: new google.maps.LatLng(success.lat, success.lng),
-	                            cursor: 'pointer',
-	                            map: gmap
-	                        };
-	                        var marker = new locMarker(markOptions);
-
-	                    },
-	                    function(failed){
-	                        alert(failed);
-	                    }
-	                );
-	            }
-	        };
-	    })
-	    //
-	    // This factory creates a custom google maps overlay object
-	    //
-	    .factory('locMarker', function() {
-	        // Animated Location Marker
-	        LocationMarker.prototype = new google.maps.OverlayView();
-
-	        function LocationMarker(opts) {
-	            this.setValues(opts);
-	        }
-
-	        LocationMarker.prototype.draw = function() {
-	            var self = this;
-	            var div = this.div;
-
-	            if(!div) {
-	                div = this.div = document.createElement('div');
-	                div.style.position = 'absolute';
-	                div.style.cursor = 'pointer';
-
-	                var pulse = document.createElement('div');
-	                pulse.className = 'locMarker';
-	                div.appendChild(pulse);
-
-	                var center = document.createElement('div');
-	                center.className = 'markerCenter';
-	                div.appendChild(center);
-
-	                var panes = this.getPanes();
-	                panes.overlayImage.appendChild(div);
-	            }
-	            var point = this.getProjection().fromLatLngToDivPixel(this.position);
-	            if (point) {
-	                div.style.left = point.x + 'px';
-	                div.style.top = point.y + 'px';
-	            }
-	        };
-	        return LocationMarker;
-	    })
-
-	    //
-	    // This service gets the users location and handles errors
-	    //
-	    .service('locService', function($q) {
-	        var deferred = $q.defer();
-
-	        // Check User Location
-	        var navGeo = navigator.geolocation;
-	        var geoOptions = {
-	            enableHighAccuracy: true,
-	            timeout: 30000,
-	            maximumAge: 27000
-	        };
-	        function geoSuccess(position) {
-	            deferred.resolve({lat: position.coords.latitude, lng: position.coords.longitude});
-	        }
-	        function geoError(error) {
-	            switch(error.code) {
-	                case error.PERMISSION_DENIED:
-	                    deferred.reject("You did not allow access to your location");
-	                    break;
-	                case error.POSITION_UNAVAILABLE:
-	                    deferred.reject("Your location information is unavailable");
-	                    break;
-	                case error.TIMEOUT:
-	                    deferred.reject("The location request timed out");
-	                    break;
-	                case error.UNKNOWN_ERROR:
-	                    deferred.reject("An unknown error has occurred");
-	                    break;
-	            }
-	        }
-
-	        this.watchLoc = function(){};
-
-	        this.getLoc = function(){
-	            if(navGeo) {
-	                navGeo.watchPosition(geoSuccess, geoError);
-	            }else {
-	                deferred.reject("Geolocation service is unavailable.");
-	            }
-	            return deferred.promise;
-	        };
-	    });
-
-	}());
+	var path = '/home/grant/Development/Projects/angular-gmap-gplaces/master/src/templates/gStepsControl.html';
+	var html = "<div class=\"directButton\">\n<p>Directions</p>\n</div>\n\n<div class=\"directControls\">\n\n    <div class=\"directSearch\">\n        <input type=\"text\" name=\"from\" ng-model=\"route.origin\" placeholder=\"Choose a starting point\">\n        <input type=\"text\" name=\"to\" ng-model=\"route.destination\" placeholder=\"Destination\">\n    </div>\n\n    <div class=\"directOptions\">\n        <button class=\"directWalking\"></button>\n        <button class=\"directDriving\"></button>\n        <button class=\"directBus\"></button>\n    </div>\n\n</div>";
+	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+	module.exports = path;
 
 /***/ },
 /* 4 */
@@ -301,8 +183,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./gLocation.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./gLocation.css");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./gStepsControl.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./gStepsControl.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -320,7 +202,7 @@
 
 
 	// module
-	exports.push([module.id, "@keyframes aggPulsate {\n    0% {\n        transform: scale(.1);\n        opacity: 0\n    }\n    50% {\n        opacity: 1\n    }\n    to {\n        transform: scale(1.2);\n        opacity: 0\n    }\n}\n\n.locMarker {\n    position: absolute;\n    margin-top: -50px;\n    margin-left: -50px;\n    transform: rotateX(55deg)\n}\n\n.locMarker:after {\n    display: block;\n    width: 100px;\n    height: 100px;\n    content: '';\n    animation: aggPulsate 1s ease-out;\n    animation-delay: 1.1s;\n    animation-iteration-count: infinite;\n    opacity: 0;\n    border-radius: 50%;\n    box-shadow: 0 0 1px 2px rgba(0, 0, 0, .5);\n    box-shadow: 0 0 6px 3px #f93c11\n}", ""]);
+	exports.push([module.id, ".directButton {\n    position: absolute;\n    text-align: center;\n    top: 150px;\n    right: 0;\n    color: rgba(39, 39, 39, 0.91);\n    height: 75px;\n    width: 150px;\n    border-radius: 5px;\n    border: thin rgba(0, 0, 0, 0.91);\n    background-color: rgba(255, 75, 51, 0.76);\n}\n.directControls {\n\n}", ""]);
 
 	// exports
 
@@ -635,9 +517,176 @@
 
 /***/ },
 /* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var markerCss = __webpack_require__(9);
+	//
+	// The aggGeolocation module is home to all things geolocation related
+	// Included is the gLocation directive and supporting service and factory
+	//
+	angular.module('aggGeolocation', [])
+	//
+	// Directive for showing user location
+	//
+	.directive('gLocation', function(mapFact, locService, locMarker) {
+	    return {
+	        restrict: 'E',
+	        require: '^gMap',
+	        link: function(scope, elem, attrs, gMapCtrl) {
+	            var gmap = gMapCtrl.map;
+	            var location = locService.getLoc();
+
+	            location.then(
+	                function(success){
+	                    var markOptions = {
+	                        position: new google.maps.LatLng(success.lat, success.lng),
+	                        cursor: 'pointer',
+	                        map: gmap
+	                    };
+	                    var marker = new locMarker(markOptions);
+
+	                },
+	                function(failed){
+	                    alert(failed);
+	                }
+	            );
+	        }
+	    };
+	})
+	//
+	// This factory creates a custom google maps overlay object
+	//
+	.factory('locMarker', function() {
+	    // Animated Location Marker
+	    LocationMarker.prototype = new google.maps.OverlayView();
+
+	    function LocationMarker(opts) {
+	        this.setValues(opts);
+	    }
+
+	    LocationMarker.prototype.draw = function() {
+	        var div = this.div;
+
+	        if(!div) {
+	            div = this.div = document.createElement('div');
+	            div.style.position = 'absolute';
+
+	            var pulse = document.createElement('div');
+	            pulse.className = 'locMarker';
+	            div.appendChild(pulse);
+
+	            var center = document.createElement('img');
+	            center.className = 'markerCenter';
+	            center.src = __webpack_require__(11);
+	            div.appendChild(center);
+
+	            var panes = this.getPanes();
+	            panes.overlayImage.appendChild(div);
+	        }
+	        var point = this.getProjection().fromLatLngToDivPixel(this.position);
+	        if (point) {
+	            div.style.left = point.x + 'px';
+	            div.style.top = point.y + 'px';
+	        }
+	    };
+	    return LocationMarker;
+	})
+
+	//
+	// This service gets the users location and handles errors
+	//
+	.service('locService', function($q) {
+	    var deferred = $q.defer();
+
+	    // Check User Location
+	    var navGeo = navigator.geolocation;
+	    var geoOptions = {
+	        enableHighAccuracy: true,
+	        timeout: 30000,
+	        maximumAge: 27000
+	    };
+	    function geoSuccess(position) {
+	        deferred.resolve({lat: position.coords.latitude, lng: position.coords.longitude});
+	    }
+	    function geoError(error) {
+	        switch(error.code) {
+	            case error.PERMISSION_DENIED:
+	                deferred.reject("You did not allow access to your location");
+	                break;
+	            case error.POSITION_UNAVAILABLE:
+	                deferred.reject("Your location information is unavailable");
+	                break;
+	            case error.TIMEOUT:
+	                deferred.reject("The location request timed out");
+	                break;
+	            case error.UNKNOWN_ERROR:
+	                deferred.reject("An unknown error has occurred");
+	                break;
+	        }
+	    }
+
+	    this.watchLoc = function(){};
+
+	    this.getLoc = function(){
+	        if(navGeo) {
+	            navGeo.watchPosition(geoSuccess, geoError);
+	        }else {
+	            deferred.reject("Geolocation service is unavailable.");
+	        }
+	        return deferred.promise;
+	    };
+	});
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(10);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(7)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./gLocation.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./gLocation.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(6)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "@keyframes aggPulsate {\n    0% {\n        transform: scale(.1);\n        opacity: 0\n    }\n    50% {\n        opacity: 1\n    }\n    to {\n        transform: scale(1.2);\n        opacity: 0\n    }\n}\n\n.locMarker {\n    position: absolute;\n    margin-top: -50px;\n    margin-left: -50px;\n    transform: rotateX(55deg)\n}\n\n.locMarker:after {\n    display: block;\n    width: 100px;\n    height: 100px;\n    content: '';\n    animation: aggPulsate 1s ease-out;\n    animation-delay: 1.1s;\n    animation-iteration-count: infinite;\n    opacity: 0;\n    border-radius: 50%;\n    box-shadow: 0 0 6px 3px #f93c11\n}\n.markerCenter {\n    position: absolute;\n    height: 15px;\n    width: 15px;\n    margin-top: -7.5px;\n    margin-left: -7.5px;\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 11 */
 /***/ function(module, exports) {
 
-	(function () {'use strict';
+	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AkMDhUt5aL7gAAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAE4SURBVGje7drLEYMwDARQ1iXRSGpNI7QE52SGA9JaH7y6cYn1ItuDsbZNoXhVYPLvn9XyQiFkSI4oDJ2SKxpAqTmjEZSSO5pizfmjMdZkQDT2u+8/z5/jCEUjAvuPvAsnHkzwORNKhIMBPqOgJDjCwCyoE+4Cp2PZ6MFIZjaWOQa81Y3AGisNeoWjsYwxR5O3Kdrr7+hUXcbYY1ssYJnOmdU1bGBYusKj09pl5KIKC1x0OltzUoUFXhlM+uCWeU5WhQWuPK0tuei01OXEZDkpaQ13WcuescfDqd5+uY6sfzprTMrNQ9QG5v0mTdu0IirNGkOXaR4wG551XWpCe+DZF+Iu9BN4pZYHN/oOX7mphYYOOg9Q36iWakyrgg5tPcyEpzWXRsPLtA/PhpdtEGfi33A8VSgUCn9ckxdqTPOyv3QAAAAASUVORK5CYII="
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
 
 	//
 	// Google Map Factory and Directives
@@ -645,60 +694,33 @@
 	//
 	angular.module('aggMap', [])
 
-	    .factory('mapFact', function() {
-	        var map = {};
+	// The map directive
+	.directive('gMap', function() {
+	    return {
+	        restrict: 'E',
+	        scope: {
+	            'options': '='
+	        },
+	        transclude: true,
+	        controller: function($scope, mapFact) {
+	            this.map = mapFact.map($scope.options);
+	        },
+	        template: '<div id="map-canvas"></div><div ng-transclude></div>'
+	    };
+	})
+	// Directive for a single marker
+	.directive('gMarker', function(mapFact) {
+	    return {
+	        restrict: 'E',
+	        require: '^gMap',
+	        scope: {
+	            'options': '=',
+	            'click': '&'
+	        },
+	        link: function(scope, elem, attrs, gMapCtrl) {
+	            var gmap = gMapCtrl.map;
 
-	        var setOptions = function(defs, args) {
-	            var options = angular.copy(defs, {});
-	            angular.extend(options, args);
-	            return options;
-	        };
-
-	        map.map = function(args) {
-	            var defaults = {
-	                zoom: 8,
-	                center: {lat: -34.397, lng: 150.644}
-	            };
-	            return new google.maps.Map(document.getElementById('map-canvas'), setOptions(defaults, args));
-	        };
-
-	        map.marker = function(map, args) {
-	            var options = args;
-	            options.map = map;
-
-	            return new google.maps.Marker(options);
-	        };
-
-	        map.markers = function() {
-	            // Create multiple markers
-	        };
-	        return map;
-	    })
-	    // The map directive
-	    .directive('gMap', function() {
-	        return {
-	            restrict: 'E',
-	            scope: {
-	                'options': '='
-	            },
-	            transclude: true,
-	            controller: function($scope, mapFact) {
-	                this.map = mapFact.map($scope.options);
-	            },
-	            template: '<div id="map-canvas"></div><div ng-transclude></div>'
-	        };
-	    })
-	    // Directive for a single marker
-	    .directive('gMarker', function(mapFact) {
-	        return {
-	            restrict: 'E',
-	            require: '^gMap',
-	            scope: {
-	                'options': '=',
-	                'click': '&'
-	            },
-	            link: function(scope, elem, attrs, gMapCtrl) {
-	                var gmap = gMapCtrl.map;
+	            var watcher = scope.$watch('options', function() {
 	                var marker = mapFact.marker(gmap, scope.options);
 
 	                // Attach click function to marker if defined
@@ -709,20 +731,50 @@
 	                if(userFunct !== undefined) {
 	                    marker.addListener('click', clickFunc);
 	                }
+	                watcher();
+	            })
 
-	            }
+	        }
+	    };
+	})
+
+	.factory('mapFact', function() {
+	    var map = {};
+
+	    var setOptions = function(defs, args) {
+	        var options = angular.copy(defs, {});
+	        angular.extend(options, args);
+	        return options;
+	    };
+
+	    map.map = function(args) {
+	        var defaults = {
+	            zoom: 8,
+	            center: {lat: -34.397, lng: 150.644}
 	        };
-	    });
+	        return new google.maps.Map(document.getElementById('map-canvas'), setOptions(defaults, args));
+	    };
 
-	}());
+	    map.marker = function(map, args) {
+	        var options = args;
+	        options.map = map;
+
+	        return new google.maps.Marker(options);
+	    };
+
+	    map.markers = function() {
+	        // Create multiple markers
+	    };
+	    return map;
+	});
 
 /***/ },
-/* 9 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function () {'use strict';
 
-	var gPlacesTemp = __webpack_require__(10);
+	var gPlacesTemp = __webpack_require__(14);
 	//
 	// Google Places Factory and Directives
 	//
@@ -864,10 +916,10 @@
 
 
 /***/ },
-/* 10 */
+/* 14 */
 /***/ function(module, exports) {
 
-	var path = '/home/grant/Development/Projects/angular-gmap-gplace/src/templates/gPlaces.html';
+	var path = '/home/grant/Development/Projects/angular-gmap-gplaces/master/src/templates/gPlaces.html';
 	var html = "<div ng-include=\"tempUrl\"></div>\n\n<nav id=\"pagination\" aria-label=\"Page navigation\" ng-show=\"needsPagination()\">\n    <ul class=\"pagination\">\n        <li>\n            <a href=\"#\" aria-label=\"Previous\">\n                <span aria-hidden=\"true\">&laquo;</span>\n            </a>\n        </li>\n\n        <li ng-repeat=\"page in numPages track by $index\">\n            <a href=\"\" ng-click=\"getPage($index)\">{{$index+1}}</a>\n        </li>\n\n        <li>\n            <a href=\"#\" aria-label=\"Next\">\n                <span aria-hidden=\"true\">&raquo;</span>\n            </a>\n        </li>\n    </ul>\n</nav>";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;

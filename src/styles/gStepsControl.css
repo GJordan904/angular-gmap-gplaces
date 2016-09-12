@@ -1,0 +1,15 @@
+.directButton {
+    position: absolute;
+    text-align: center;
+    top: 150px;
+    right: 0;
+    color: rgba(39, 39, 39, 0.91);
+    height: 75px;
+    width: 150px;
+    border-radius: 5px;
+    border: thin rgba(0, 0, 0, 0.91);
+    background-color: rgba(255, 75, 51, 0.76);
+}
+.directControls {
+
+}

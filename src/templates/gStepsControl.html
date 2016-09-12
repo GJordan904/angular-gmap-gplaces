@@ -1,1 +1,18 @@
-<div class="directionsCtrl"
+<div class="directButton">
+<p>Directions</p>
+</div>
+
+<div class="directControls">
+
+    <div class="directSearch">
+        <input type="text" name="from" ng-model="route.origin" placeholder="Choose a starting point">
+        <input type="text" name="to" ng-model="route.destination" placeholder="Destination">
+    </div>
+
+    <div class="directOptions">
+        <button class="directWalking"></button>
+        <button class="directDriving"></button>
+        <button class="directBus"></button>
+    </div>
+
+</div>
