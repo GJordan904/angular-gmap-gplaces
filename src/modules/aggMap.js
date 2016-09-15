@@ -12,14 +12,19 @@ angular.module('aggMap', [])
             'options': '='
         },
         transclude: true,
-        controller: function($scope, mapFact) {
-            this.map = mapFact.map($scope.options);
+        controllerAs: 'vm',
+        bindToController: true,
+        controller: function(mapService) {
+            this.divId = this.options.mapId;
+
+            mapService.get(this.options);
+            this.map = mapService.maps[this.divId];
         },
         template: '<div id="map-canvas"></div><div ng-transclude></div>'
     };
 })
 // Directive for a single marker
-.directive('gMarker', function(mapFact) {
+.directive('gMarker', function(markerFact) {
     return {
         restrict: 'E',
         require: '^gMap',
@@ -31,7 +36,7 @@ angular.module('aggMap', [])
             var gmap = gMapCtrl.map;
 
             var watcher = scope.$watch('options', function() {
-                var marker = mapFact.marker(gmap, scope.options);
+                var marker = markerFact.getMarker(gmap, scope.options);
 
                 // Attach click function to marker if defined
                 var userFunct = scope.click();
@@ -48,32 +53,44 @@ angular.module('aggMap', [])
     };
 })
 
-.factory('mapFact', function() {
-    var map = {};
+.factory('markerFact', function() {
+    var marker = {};
 
-    var setOptions = function(defs, args) {
-        var options = angular.copy(defs, {});
-        angular.extend(options, args);
-        return options;
-    };
-
-    map.map = function(args) {
-        var defaults = {
-            zoom: 8,
-            center: {lat: -34.397, lng: 150.644}
-        };
-        return new google.maps.Map(document.getElementById('map-canvas'), setOptions(defaults, args));
-    };
-
-    map.marker = function(map, args) {
+    marker.getMarker = function(map, args) {
         var options = args;
         options.map = map;
 
         return new google.maps.Marker(options);
     };
+    return marker;
+})
 
-    map.markers = function() {
-        // Create multiple markers
+.service('mapService', function() {
+    var self = this;
+    var setOptions = function(args) {
+        var defaults = {
+            zoom: 8,
+            center: {lat: -34.397, lng: 150.644}
+        };
+        var options = angular.copy(defaults, {});
+        angular.extend(options, args);
+        return options;
     };
-    return map;
+
+    this.maps = {};
+
+    this.get = function(options) {
+        var id = options.mapId,
+            instance = self.maps[id];
+
+        if(self.maps.hasOwnProperty(id) == false){
+            var opt = setOptions(options);
+            self.maps[id] = new google.maps.Map(document.getElementById(id), opt);
+        }else{
+            self.maps[id] = new google.maps.Map(document.getElementById(id), {
+                center: instance.center,
+                zoom: instance.zoom
+            });
+        }
+    }
 });

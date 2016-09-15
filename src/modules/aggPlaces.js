@@ -93,20 +93,22 @@ angular.module('aggPlaces', [])
 
         // Makes request for details of single place id
         places.getPlace = function(id) {
-            var deferred = $q.defer(),
-                request = {placeId: id};
 
-            var map = new google.maps.Map(document.createElement('div'));
+        var deferred = $q.defer(),
+            request = {placeId: id};
 
-            var service = new google.maps.places.PlacesService(map);
+        var map = new google.maps.Map(document.createElement('div'));
 
-            function callback(results, status){
-                if(status === google.maps.places.PlacesServiceStatus.OK) {
-                    deferred.resolve(results);
-                }
+        var service = new google.maps.places.PlacesService(map);
+
+        function callback(results, status){
+            if(status === google.maps.places.PlacesServiceStatus.OK) {
+                deferred.resolve(results);
             }
-            service.getDetails(request, callback);
-            return deferred.promise;
+        }
+
+        service.getDetails(request, callback);
+        return deferred.promise;
         };
 
         // When ID array is longer than 10 it is split. This function allows showing of more results
