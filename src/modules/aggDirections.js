@@ -3,6 +3,7 @@ var gStepsControlCss = require('./../styles/gStepsControl.css');
 
 angular.module('aggDirections', [])
 
+// Provides Directions with steps
 .directive('gSteps', function (directionsService) {
     return {
         restrict: 'E',

@@ -15,6 +15,7 @@ angular.module('aggMap', [])
         controllerAs: 'vm',
         bindToController: true,
         controller: function(mapService) {
+            // Set user defined div id
             this.divId = this.options.mapId;
 
             mapService.get(this.options);

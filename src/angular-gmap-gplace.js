@@ -11,6 +11,6 @@ angular.module('angular-gmap-gplace', [
     'aggPlaces',
     'aggDirections',
     'aggUtils'
-])
+]);
 
 

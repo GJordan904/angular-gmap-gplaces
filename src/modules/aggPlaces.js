@@ -106,7 +106,6 @@ angular.module('aggPlaces', [])
                 deferred.resolve(results);
             }
         }
-
         service.getDetails(request, callback);
         return deferred.promise;
         };

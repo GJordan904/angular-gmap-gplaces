@@ -36,7 +36,7 @@ angular.module('aggGeolocation', [])
 // This factory creates a custom google maps overlay object
 //
 .factory('locMarker', function(googleMapService) {
-    // Animated Location Marker
+    // Animated Location Marker made with custom Overlay
     LocationMarker.prototype = new google.maps.OverlayView();
 
     function LocationMarker(opts) {
