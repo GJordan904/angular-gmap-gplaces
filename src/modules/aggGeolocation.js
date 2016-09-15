@@ -7,7 +7,7 @@ angular.module('aggGeolocation', [])
 //
 // Directive for showing user location
 //
-.directive('gLocation', function(mapFact, locService, locMarker) {
+.directive('gLocation', function(markerFact, locService, locMarker) {
     return {
         restrict: 'E',
         require: '^gMap',
@@ -22,8 +22,8 @@ angular.module('aggGeolocation', [])
                         cursor: 'pointer',
                         map: gmap
                     };
-                    var marker = new locMarker(markOptions);
 
+                    var marker = new locMarker(markOptions);
                 },
                 function(failed){
                     alert(failed);
@@ -36,17 +36,18 @@ angular.module('aggGeolocation', [])
 // This factory creates a custom google maps overlay object
 //
 .factory('locMarker', function() {
-    // Animated Location Marker
+
+    // Animated Location Marker made with custom Overlay
     LocationMarker.prototype = new google.maps.OverlayView();
 
     function LocationMarker(opts) {
         this.setValues(opts);
     }
 
-    LocationMarker.prototype.draw = function() {
+    LocationMarker.prototype.draw = function () {
         var div = this.div;
 
-        if(!div) {
+        if (!div) {
             div = this.div = document.createElement('div');
             div.style.position = 'absolute';
 
@@ -68,7 +69,7 @@ angular.module('aggGeolocation', [])
             div.style.top = point.y + 'px';
         }
     };
-    return LocationMarker;
+return LocationMarker;
 })
 
 //

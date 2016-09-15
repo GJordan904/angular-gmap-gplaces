@@ -56,13 +56,16 @@
 	var aggGeolocation = __webpack_require__(8);
 	var aggMap = __webpack_require__(12);
 	var aggPlaces = __webpack_require__(13);
+	var aggUtils = __webpack_require__(15);
 
 	angular.module('angular-gmap-gplace', [
 	    'aggGeolocation',
 	    'aggMap',
 	    'aggPlaces',
-	    'aggDirections'
-	]);
+	    'aggDirections',
+	    'aggUtils'
+	])
+
 
 
 
@@ -528,7 +531,7 @@
 	//
 	// Directive for showing user location
 	//
-	.directive('gLocation', function(mapFact, locService, locMarker) {
+	.directive('gLocation', function(markerFact, locService, locMarker) {
 	    return {
 	        restrict: 'E',
 	        require: '^gMap',
@@ -543,8 +546,8 @@
 	                        cursor: 'pointer',
 	                        map: gmap
 	                    };
-	                    var marker = new locMarker(markOptions);
 
+	                    var marker = new locMarker(markOptions);
 	                },
 	                function(failed){
 	                    alert(failed);
@@ -556,7 +559,7 @@
 	//
 	// This factory creates a custom google maps overlay object
 	//
-	.factory('locMarker', function() {
+	.factory('locMarker', function(googleMapService) {
 	    // Animated Location Marker
 	    LocationMarker.prototype = new google.maps.OverlayView();
 
@@ -564,10 +567,10 @@
 	        this.setValues(opts);
 	    }
 
-	    LocationMarker.prototype.draw = function() {
+	    LocationMarker.prototype.draw = function () {
 	        var div = this.div;
 
-	        if(!div) {
+	        if (!div) {
 	            div = this.div = document.createElement('div');
 	            div.style.position = 'absolute';
 
@@ -589,7 +592,7 @@
 	            div.style.top = point.y + 'px';
 	        }
 	    };
-	    return LocationMarker;
+	return LocationMarker;
 	})
 
 	//
@@ -702,14 +705,19 @@
 	            'options': '='
 	        },
 	        transclude: true,
-	        controller: function($scope, mapFact) {
-	            this.map = mapFact.map($scope.options);
+	        controllerAs: 'vm',
+	        bindToController: true,
+	        controller: function(mapService) {
+	            this.divId = this.options.mapId;
+
+	            mapService.get(this.options);
+	            this.map = mapService.maps[this.divId];
 	        },
 	        template: '<div id="map-canvas"></div><div ng-transclude></div>'
 	    };
 	})
 	// Directive for a single marker
-	.directive('gMarker', function(mapFact) {
+	.directive('gMarker', function(markerFact) {
 	    return {
 	        restrict: 'E',
 	        require: '^gMap',
@@ -721,7 +729,7 @@
 	            var gmap = gMapCtrl.map;
 
 	            var watcher = scope.$watch('options', function() {
-	                var marker = mapFact.marker(gmap, scope.options);
+	                var marker = markerFact.getMarker(gmap, scope.options);
 
 	                // Attach click function to marker if defined
 	                var userFunct = scope.click();
@@ -738,34 +746,46 @@
 	    };
 	})
 
-	.factory('mapFact', function() {
-	    var map = {};
+	.factory('markerFact', function() {
+	    var marker = {};
 
-	    var setOptions = function(defs, args) {
-	        var options = angular.copy(defs, {});
-	        angular.extend(options, args);
-	        return options;
-	    };
-
-	    map.map = function(args) {
-	        var defaults = {
-	            zoom: 8,
-	            center: {lat: -34.397, lng: 150.644}
-	        };
-	        return new google.maps.Map(document.getElementById('map-canvas'), setOptions(defaults, args));
-	    };
-
-	    map.marker = function(map, args) {
+	    marker.getMarker = function(map, args) {
 	        var options = args;
 	        options.map = map;
 
 	        return new google.maps.Marker(options);
 	    };
+	    return marker;
+	})
 
-	    map.markers = function() {
-	        // Create multiple markers
+	.service('mapService', function() {
+	    var self = this;
+	    var setOptions = function(args) {
+	        var defaults = {
+	            zoom: 8,
+	            center: {lat: -34.397, lng: 150.644}
+	        };
+	        var options = angular.copy(defaults, {});
+	        angular.extend(options, args);
+	        return options;
 	    };
-	    return map;
+
+	    this.maps = {};
+
+	    this.get = function(options) {
+	        var id = options.mapId,
+	            instance = self.maps[id];
+
+	        if(self.maps.hasOwnProperty(id) == false){
+	            var opt = setOptions(options);
+	            self.maps[id] = new google.maps.Map(document.getElementById(id), opt);
+	        }else{
+	            self.maps[id] = new google.maps.Map(document.getElementById(id), {
+	                center: instance.center,
+	                zoom: instance.zoom
+	            });
+	        }
+	    }
 	});
 
 /***/ },
@@ -867,20 +887,22 @@
 
 	        // Makes request for details of single place id
 	        places.getPlace = function(id) {
-	            var deferred = $q.defer(),
-	                request = {placeId: id};
 
-	            var map = new google.maps.Map(document.createElement('div'));
+	        var deferred = $q.defer(),
+	            request = {placeId: id};
 
-	            var service = new google.maps.places.PlacesService(map);
+	        var map = new google.maps.Map(document.createElement('div'));
 
-	            function callback(results, status){
-	                if(status === google.maps.places.PlacesServiceStatus.OK) {
-	                    deferred.resolve(results);
-	                }
+	        var service = new google.maps.places.PlacesService(map);
+
+	        function callback(results, status){
+	            if(status === google.maps.places.PlacesServiceStatus.OK) {
+	                deferred.resolve(results);
 	            }
-	            service.getDetails(request, callback);
-	            return deferred.promise;
+	        }
+
+	        service.getDetails(request, callback);
+	        return deferred.promise;
 	        };
 
 	        // When ID array is longer than 10 it is split. This function allows showing of more results
@@ -923,6 +945,49 @@
 	var html = "<div ng-include=\"tempUrl\"></div>\n\n<nav id=\"pagination\" aria-label=\"Page navigation\" ng-show=\"needsPagination()\">\n    <ul class=\"pagination\">\n        <li>\n            <a href=\"#\" aria-label=\"Previous\">\n                <span aria-hidden=\"true\">&laquo;</span>\n            </a>\n        </li>\n\n        <li ng-repeat=\"page in numPages track by $index\">\n            <a href=\"\" ng-click=\"getPage($index)\">{{$index+1}}</a>\n        </li>\n\n        <li>\n            <a href=\"#\" aria-label=\"Next\">\n                <span aria-hidden=\"true\">&raquo;</span>\n            </a>\n        </li>\n    </ul>\n</nav>";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
+
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
+
+	
+	angular.module('aggUtils', [])
+
+	.provider('googleMapService', function () {
+	    // Default Options
+	    var language = 'en-US',
+	        apiKey = '',
+	        libraries = '';
+
+
+	    function loadScript($document, callback, success) {
+	        var scriptTag = $document.createElement('script');
+	        scriptTag.src = 'https://maps.googleapis.com/maps/api/js?key='+apiKey+'&libraries='+libraries+'&callback=mapReady&language='+language;
+	        $document.getElementsByTagName('body')[0].appendChild(scriptTag);
+	    }
+
+	    this.setOptions = function(opt) {
+	        language = opt.lang;
+	        apiKey = opt.key;
+	        libraries = opt.libs;
+	    };
+
+	    this.$get = function($document, $q, $window) {
+
+	        var deferred = $q.defer();
+	        loadScript($document[0]);
+
+	        $window.mapReady = (function(deferred) {
+	            return function() {
+	                deferred.resolve(google);
+	                delete $window.mapReady
+	            }
+	        })(deferred);
+
+	        return deferred.promise;
+	    };
+
+	});
 
 /***/ }
 /******/ ]);
