@@ -24,7 +24,7 @@ angular.module('aggMap', [])
         template: '<div id="map-canvas"></div><div ng-transclude></div>'
     };
 })
-// Directive for a single marker
+// Directive for a single map marker
 .directive('gMarker', function(markerFact) {
     return {
         restrict: 'E',

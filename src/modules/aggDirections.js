@@ -2,7 +2,7 @@ var gStepsControlTemp = require('./../templates/gStepsControl.html');
 var gStepsControlCss = require('./../styles/gStepsControl.css');
 
 angular.module('aggDirections', [])
-
+// Directions with step by step instructions
 .directive('gSteps', function (directionsService) {
     return {
         restrict: 'E',

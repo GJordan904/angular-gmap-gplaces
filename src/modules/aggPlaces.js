@@ -55,7 +55,7 @@ angular.module('aggPlaces', [])
     .factory('placesFact', function ($q) {
         var places = {};
 
-        // Performs Multiple requests for place details
+        // Performs Multiple requests for details
         // If ID array is longer than 10 the array is split using the split() function
         places.getPlaces = function(ids) {
             var promises = [];
