@@ -4,14 +4,33 @@
             <a class="navbar-brand"  ui-sref=".home">angular-gmap-gplace</a>
         </div>
         <ul class="nav navbar-nav">
+
             <li><a ui-sref=".home">Getting Started</a></li>
+
             <li class="dropdown">
-                <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Docs<span class="caret"></span></a>
-                <ul  class="dropdown-menu">
-                    <li><a ui-sref=".docsPlaces">Places</a></li>
-                    <li><a ui-sref=".docsMap">Map</a></li>
+                <a data-toggle="dropdown" role="button" data-target="#">Docs<span class="caret"></span></a>
+
+                <ul  class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+
+                    <li class="dropdown-submenu">
+                        <a ui-sref=".docsPlaces" tabindex="-1" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Directives</a>
+                        <ul class="dropdown-menu">
+                            <li><a tabindex="-1" ui-sref=".docsPlaces({scrollTo: 'g-place'})">gPlace</a></li>
+                            <li><a tabindex="-1" ui-sref=".docsPlaces({scrollTo: 'g-places'})">gPlaces</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown-submenu">
+                        <a tabindex="-1" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services</a>
+                        <ul class="dropdown-menu">
+                            <li><a tabindex="-1" ui-sref=".docsPlaces">Places</a></li>
+                            <li><a tabindex="-1" ui-sref=".docsMap">Map</a></li>
+                        </ul>
+                    </li>
+
                 </ul>
             </li>
+
             <li class="dropdown">
                 <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Examples<span class="caret"></span></a>
                 <ul  class="dropdown-menu">
