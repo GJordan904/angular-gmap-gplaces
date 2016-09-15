@@ -6,7 +6,6 @@ angular.module('aggUtils', [])
     var language = 'en-US',
         apiKey = '',
         libraries = '';
-
     // Add Google maps Script to page
     function loadScript($document, callback, success) {
         var scriptTag = $document.createElement('script');

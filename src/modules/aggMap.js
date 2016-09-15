@@ -65,7 +65,7 @@ angular.module('aggMap', [])
     };
     return marker;
 })
-
+// Service to create map and store maps data
 .service('mapService', function() {
     var self = this;
     var setOptions = function(args) {
