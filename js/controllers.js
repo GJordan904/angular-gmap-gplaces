@@ -40,35 +40,40 @@
             ];
         })
 
-        .controller('MapCtrl', function () {
+        .controller('MapCtrl', function (locService) {
             var vm = this;
+            var getLocation = locService.getLoc();
 
             vm.mapOptions = {
+                mapId: 'map-canvas',
                 center: {lat: 29.892410, lng: -81.31445},
                 zoom: 10,
                 mapTypeId: 'roadmap'
             };
 
-            vm.marker = {
-                position: {lat: 29.892410, lng: -81.31445},
-                animation: google.maps.Animation.DROP
-            };
+            getLocation.then(function(results) {
+                vm.marker = {
+                    position: {lat: results.lat, lng: results.lng},
+                    animation: google.maps.Animation.DROP
+                };
 
-            vm.click = function (arg) {
-                if (arg.getAnimation() !== null) {
-                    arg.setAnimation(null);
-                    console.log('clicked true');
-                } else {
-                    arg.setAnimation(google.maps.Animation.BOUNCE);
-                    console.log('clicked false');
-                }
-            };
+                vm.click = function (marker, map) {
+                    if (marker.getAnimation() !== null) {
+                        marker.setAnimation(null);
+                        console.log('clicked true');
+                    } else {
+                        marker.setAnimation(google.maps.Animation.BOUNCE);
+                        console.log('clicked false');
+                    }
+                };
 
-            vm.directions = {
-                origin: '625 8th Avenue, New York, NY, 10018',
-                destination: '260 Broadway New York NY 10007',
-                travelMode: 'WALKING'
-            };
+                vm.directions = {
+                    origin: '625 8th Avenue, New York, NY, 10018',
+                    destination: '260 Broadway New York NY 10007',
+                    travelMode: 'WALKING'
+                };
+            });
+
         });
 
 }());

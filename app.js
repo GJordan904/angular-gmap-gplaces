@@ -2,11 +2,18 @@
 
 angular.module('myApp', [
 	'app.controllers',
+	'app.directives',
 	'angular-gmap-gplace',
 	'hljs',
 	'ui.router'
 ])
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, googleMapServiceProvider) {
+	googleMapServiceProvider.setOptions({
+		lang: 'en-US',
+		key: 'AIzaSyCUmYH5tWFnfSu-Q8A2kRF7VzXo9KfyU9g',
+		libs: 'places'
+	});
+
 	$stateProvider
 		.state('app', {
 			url: '',
@@ -22,7 +29,7 @@ angular.module('myApp', [
 			}
 		})
 		.state('app.docsPlaces', {
-			url: '/docs/places',
+			url: '/docs/places/:scrollTo',
 			views: {
 				'mainContent': {
 					templateUrl: 'views/docsPlaces.html'
@@ -53,6 +60,9 @@ angular.module('myApp', [
 					templateUrl: 'views/exPlaces.html',
 					controller: 'PlacesCtrl as places'
 				}
+			},
+			resolve: {
+				googleMap: 'googleMapService'
 			}
 		})
 		.state('app.exMap', {
@@ -62,20 +72,23 @@ angular.module('myApp', [
 					templateUrl: 'views/exMap.html',
 					controller: 'MapCtrl as map'
 				}
+			},
+			resolve: {
+				googleMap: 'googleMapService'
 			}
 		});
 
 	$urlRouterProvider.otherwise('/home');
 })
-.directive('showTab', function() {
-	return {
-		link: function (scope, element, attrs) {
-			element.click(function(e) {
-				e.preventDefault();
-				$(element).tab('show');
-			});
-		}
-	};
-});
+
+.run(function($rootScope, $location, $anchorScroll, $stateParams, $timeout) {
+	// This allows changing state and scrolling to a specific ID on the page
+	$rootScope.$on('$stateChangeSuccess', function(newRoute, oldRoute) {
+		$timeout(function() {
+			$location.hash($stateParams.scrollTo);
+			$anchorScroll()
+		}, 100)
+	});
+})
 
 }());
