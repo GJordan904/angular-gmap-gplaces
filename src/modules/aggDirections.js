@@ -2,6 +2,7 @@ var gStepsControlTemp = require('./../templates/gStepsControl.html');
 var gStepsControlCss = require('./../styles/gStepsControl.css');
 
 angular.module('aggDirections', [])
+
 // Directions with step by step instructions
 .directive('gSteps', function (directionsService) {
     return {
@@ -14,7 +15,7 @@ angular.module('aggDirections', [])
         link: function(scope, elem, attrs, gMapCtrl) {
             var gmap = gMapCtrl.map;
 
-            directionsService.get(scope.request, gmap);
+            directionsService.getSteps(scope.request, gmap);
         }
     };
 })
@@ -51,7 +52,6 @@ angular.module('aggDirections', [])
     }
 
     function buildSteps(directions, map) {
-        var markers = [];
         var route = directions.routes[0].legs[0];
 
         for(var i = 0; i< route.steps.length; i++) {
@@ -74,12 +74,20 @@ angular.module('aggDirections', [])
 
     this.markers = [];
 
-    this.get = function(request, map) {
+    this.getSteps = function(request, map) {
         var renderer = new google.maps.DirectionsRenderer({map: map});
 
         getDirections(request).then(function(response){
             renderer.setDirections(response);
             buildSteps(response, map);
+        });
+    };
+
+    this.getDirections = function(request, map) {
+        var renderer = new google.maps.DirectionsRenderer(({map: map}));
+
+        getDirections(request).then(function(response) {
+            renderer.setDirections(response);
         });
     };
 });

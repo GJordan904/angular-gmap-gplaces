@@ -51,7 +51,6 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
 	var aggDirections = __webpack_require__(2);
 	var aggGeolocation = __webpack_require__(8);
 	var aggMap = __webpack_require__(12);
@@ -64,7 +63,7 @@
 	    'aggPlaces',
 	    'aggDirections',
 	    'aggUtils'
-	])
+	]);
 
 
 
@@ -78,6 +77,7 @@
 
 	angular.module('aggDirections', [])
 
+	// Directions with step by step instructions
 	.directive('gSteps', function (directionsService) {
 	    return {
 	        restrict: 'E',
@@ -89,7 +89,7 @@
 	        link: function(scope, elem, attrs, gMapCtrl) {
 	            var gmap = gMapCtrl.map;
 
-	            directionsService.get(scope.request, gmap);
+	            directionsService.getSteps(scope.request, gmap);
 	        }
 	    };
 	})
@@ -126,7 +126,6 @@
 	    }
 
 	    function buildSteps(directions, map) {
-	        var markers = [];
 	        var route = directions.routes[0].legs[0];
 
 	        for(var i = 0; i< route.steps.length; i++) {
@@ -149,12 +148,20 @@
 
 	    this.markers = [];
 
-	    this.get = function(request, map) {
+	    this.getSteps = function(request, map) {
 	        var renderer = new google.maps.DirectionsRenderer({map: map});
 
 	        getDirections(request).then(function(response){
 	            renderer.setDirections(response);
 	            buildSteps(response, map);
+	        });
+	    };
+
+	    this.getDirections = function(request, map) {
+	        var renderer = new google.maps.DirectionsRenderer(({map: map}));
+
+	        getDirections(request).then(function(response) {
+	            renderer.setDirections(response);
 	        });
 	    };
 	});
@@ -166,7 +173,7 @@
 /***/ function(module, exports) {
 
 	var path = '/home/grant/Development/Projects/angular-gmap-gplaces/master/src/templates/gStepsControl.html';
-	var html = "<div class=\"directButton\">\n<p>Directions</p>\n</div>\n\n<div class=\"directControls\">\n\n    <div class=\"directSearch\">\n        <input type=\"text\" name=\"from\" ng-model=\"route.origin\" placeholder=\"Choose a starting point\">\n        <input type=\"text\" name=\"to\" ng-model=\"route.destination\" placeholder=\"Destination\">\n    </div>\n\n    <div class=\"directOptions\">\n        <button class=\"directWalking\"></button>\n        <button class=\"directDriving\"></button>\n        <button class=\"directBus\"></button>\n    </div>\n\n</div>";
+	var html = "<div class=\"directButton\">\n<i class=\"fa fa-chevron-left fa-3x\"></i>\n</div>\n\n<div class=\"directControls\">\n\n    <div class=\"directSearch\">\n        <input type=\"text\" name=\"from\" ng-model=\"route.origin\" placeholder=\"Choose a starting point\">\n        <input type=\"text\" name=\"to\" ng-model=\"route.destination\" placeholder=\"Destination\">\n    </div>\n\n    <div class=\"directOptions\">\n        <button class=\"directWalking\"></button>\n        <button class=\"directDriving\"></button>\n        <button class=\"directBus\"></button>\n    </div>\n\n</div>";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
 
@@ -559,8 +566,9 @@
 	//
 	// This factory creates a custom google maps overlay object
 	//
-	.factory('locMarker', function(googleMapService) {
-	    // Animated Location Marker
+	.factory('locMarker', function() {
+
+	    // Animated Location Marker made with custom Overlay
 	    LocationMarker.prototype = new google.maps.OverlayView();
 
 	    function LocationMarker(opts) {
@@ -708,6 +716,7 @@
 	        controllerAs: 'vm',
 	        bindToController: true,
 	        controller: function(mapService) {
+	            // Set user defined div id
 	            this.divId = this.options.mapId;
 
 	            mapService.get(this.options);
@@ -716,7 +725,7 @@
 	        template: '<div id="map-canvas"></div><div ng-transclude></div>'
 	    };
 	})
-	// Directive for a single marker
+	// Directive for a single map marker
 	.directive('gMarker', function(markerFact) {
 	    return {
 	        restrict: 'E',
@@ -757,7 +766,7 @@
 	    };
 	    return marker;
 	})
-
+	// Service to create map and store maps data
 	.service('mapService', function() {
 	    var self = this;
 	    var setOptions = function(args) {
@@ -900,7 +909,6 @@
 	                deferred.resolve(results);
 	            }
 	        }
-
 	        service.getDetails(request, callback);
 	        return deferred.promise;
 	        };
@@ -942,7 +950,7 @@
 /***/ function(module, exports) {
 
 	var path = '/home/grant/Development/Projects/angular-gmap-gplaces/master/src/templates/gPlaces.html';
-	var html = "<div ng-include=\"tempUrl\"></div>\n\n<nav id=\"pagination\" aria-label=\"Page navigation\" ng-show=\"needsPagination()\">\n    <ul class=\"pagination\">\n        <li>\n            <a href=\"#\" aria-label=\"Previous\">\n                <span aria-hidden=\"true\">&laquo;</span>\n            </a>\n        </li>\n\n        <li ng-repeat=\"page in numPages track by $index\">\n            <a href=\"\" ng-click=\"getPage($index)\">{{$index+1}}</a>\n        </li>\n\n        <li>\n            <a href=\"#\" aria-label=\"Next\">\n                <span aria-hidden=\"true\">&raquo;</span>\n            </a>\n        </li>\n    </ul>\n</nav>";
+	var html = " <div ng-include=\"tempUrl\"></div>\n\n<nav id=\"pagination\" aria-label=\"Page navigation\" ng-show=\"needsPagination()\">\n    <ul class=\"pagination\">\n        <li>\n            <a href=\"#\" aria-label=\"Previous\">\n                <span aria-hidden=\"true\">&laquo;</span>\n            </a>\n        </li>\n\n        <li ng-repeat=\"page in numPages track by $index\">\n            <a href=\"\" ng-click=\"getPage($index)\">{{$index+1}}</a>\n        </li>\n\n        <li>\n            <a href=\"#\" aria-label=\"Next\">\n                <span aria-hidden=\"true\">&raquo;</span>\n            </a>\n        </li>\n    </ul>\n</nav>";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
 
@@ -959,19 +967,19 @@
 	        apiKey = '',
 	        libraries = '';
 
-
+	    // Add Google maps Script to page
 	    function loadScript($document, callback, success) {
 	        var scriptTag = $document.createElement('script');
 	        scriptTag.src = 'https://maps.googleapis.com/maps/api/js?key='+apiKey+'&libraries='+libraries+'&callback=mapReady&language='+language;
 	        $document.getElementsByTagName('body')[0].appendChild(scriptTag);
 	    }
-
+	    // Set user defined options
 	    this.setOptions = function(opt) {
 	        language = opt.lang;
 	        apiKey = opt.key;
 	        libraries = opt.libs;
 	    };
-
+	    // Return a promise once google map is loaded
 	    this.$get = function($document, $q, $window) {
 
 	        var deferred = $q.defer();
