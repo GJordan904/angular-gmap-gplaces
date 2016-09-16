@@ -1,3 +1,4 @@
+/* Bootstrap Mods */
 .panelHeight {
     height: 600px;
 }
@@ -8,17 +9,10 @@
     float: right;
     width: 45%;
 }
+/* Custom CSS */
 .demo {
     font-size: 22px;
     font-weight: bold;
-}
-#map-canvas {
-    position: relative;
-    height: 100vh;
-    width: 100%;
-}
-.dropdown:hover .dropdown-menu {
-    display: block;
 }
 #pagination {
     text-align: center;
@@ -27,9 +21,20 @@
     font-weight: bold;
     text-align: center;
 }
-
-/* Sub menu
-*/
+/* Map Styles */
+.map-container {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+}
+#map-canvas {
+    height: 100%;
+    width: 100%;
+}
+/* Sub menu */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
 .dropdown-submenu {
     position: relative;
 }
