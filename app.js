@@ -8,6 +8,7 @@ angular.module('myApp', [
 	'ui.router'
 ])
 .config(function($stateProvider, $urlRouterProvider, googleMapServiceProvider) {
+	// Configuration for Google Maps
 	googleMapServiceProvider.setOptions({
 		lang: 'en-US',
 		key: 'AIzaSyCUmYH5tWFnfSu-Q8A2kRF7VzXo9KfyU9g',
