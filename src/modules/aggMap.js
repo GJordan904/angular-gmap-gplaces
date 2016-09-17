@@ -1,3 +1,4 @@
+'use strict';
 //
 // Google Map Factory and Directives
 // Directives for making the map and for making a marker
@@ -12,7 +13,7 @@ angular.module('aggMap', [])
             'options': '='
         },
         transclude: true,
-        controllerAs: 'vm',
+        controllerAs: 'map',
         bindToController: true,
         controller: function(mapService) {
             // Set user defined div id
@@ -36,6 +37,7 @@ angular.module('aggMap', [])
         link: function(scope, elem, attrs, gMapCtrl) {
             var gmap = gMapCtrl.map;
 
+            // Watcher setup to wait for the marker. Without it the map loads without the marker.
             var watcher = scope.$watch('options', function() {
                 var marker = markerFact.getMarker(gmap, scope.options);
 

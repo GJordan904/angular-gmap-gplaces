@@ -1,3 +1,5 @@
+'use strict';
+
 var gStepsControlTemp = require('./../templates/gStepsControl.html');
 var gStepsControlCss = require('./../styles/gStepsControl.css');
 
@@ -25,7 +27,20 @@ angular.module('aggDirections', [])
         restrict: 'E',
         require: '^gMap',
         templateUrl: gStepsControlTemp,
-        link: function() {
+        controllerAs: 'direct',
+        bindToController: true,
+        controller: function(){
+            // Holds route information
+            this.route = {};
+
+            // Toggle Menu
+            this.isOpen = false;
+            this.toggle = function() {
+                this.isOpen = !this.isOpen;
+            };
+        },
+        link: function(scope, elem, attrs, gMapCtrl) {
+            var map = gMapCtrl.map;
 
         }
     }

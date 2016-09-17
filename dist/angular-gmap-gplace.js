@@ -51,6 +51,8 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
 	var aggDirections = __webpack_require__(2);
 	var aggGeolocation = __webpack_require__(8);
 	var aggMap = __webpack_require__(12);
@@ -71,6 +73,8 @@
 /***/ },
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 
 	var gStepsControlTemp = __webpack_require__(3);
 	var gStepsControlCss = __webpack_require__(4);
@@ -99,7 +103,20 @@
 	        restrict: 'E',
 	        require: '^gMap',
 	        templateUrl: gStepsControlTemp,
-	        link: function() {
+	        controllerAs: 'direct',
+	        bindToController: true,
+	        controller: function(){
+	            // Holds route information
+	            this.route = {};
+
+	            // Toggle Menu
+	            this.isOpen = false;
+	            this.toggle = function() {
+	                this.isOpen = !this.isOpen;
+	            };
+	        },
+	        link: function(scope, elem, attrs, gMapCtrl) {
+	            var map = gMapCtrl.map;
 
 	        }
 	    }
@@ -173,7 +190,7 @@
 /***/ function(module, exports) {
 
 	var path = '/home/grant/Development/Projects/angular-gmap-gplaces/master/src/templates/gStepsControl.html';
-	var html = "<div class=\"directButton\">\n<i class=\"fa fa-chevron-left fa-3x\"></i>\n</div>\n\n<div class=\"directControls\">\n\n    <div class=\"directSearch\">\n        <input type=\"text\" name=\"from\" ng-model=\"route.origin\" placeholder=\"Choose a starting point\">\n        <input type=\"text\" name=\"to\" ng-model=\"route.destination\" placeholder=\"Destination\">\n    </div>\n\n    <div class=\"directOptions\">\n        <button class=\"directWalking\"></button>\n        <button class=\"directDriving\"></button>\n        <button class=\"directBus\"></button>\n    </div>\n\n</div>";
+	var html = "<div id=\"directionsBtn\" role=\"button\" ng-click=\"direct.toggle()\" ng-class=\"{animateMenu: direct.isOpen}\">\n    <i class=\"fa fa-bars fa-3x\"></i>\n</div>\n\n<div id=\"directionsMenu\" ng-class=\"{animateMenu: direct.isOpen}\">\n\n    <div class=\"directOptions\">\n        <button class=\"directWalking\" ng-click=\"direct.route.travelMode = 'WALKING'\"></button>\n        <button class=\"directDriving\" ng-click=\"direct.route.travelMode = 'DRIVING'\"></button>\n        <button class=\"directBus\" ng-click=\"direct.route.travelMode = 'TRANSIT'\"></button>\n        <button class=\"directBicycling\" ng-click=\"direct.route.travelMode = 'BICYCLING'\"></button>\n    </div>\n\n    <div class=\"directSearch\">\n        <input type=\"text\" name=\"from\" ng-model=\"direct.route.origin\" placeholder=\"Choose a starting point\">\n        <input type=\"text\" name=\"to\" ng-model=\"direct.route.destination\" placeholder=\"Destination\">\n    </div>\n\n</div>";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
 
@@ -212,7 +229,7 @@
 
 
 	// module
-	exports.push([module.id, ".directButton {\n    position: absolute;\n    text-align: center;\n    top: 150px;\n    right: 0;\n    color: rgba(39, 39, 39, 0.91);\n    height: 75px;\n    width: 150px;\n    border-radius: 5px;\n    border: thin rgba(0, 0, 0, 0.91);\n    background-color: rgba(255, 75, 51, 0.76);\n}\n.directControls {\n\n}", ""]);
+	exports.push([module.id, "#directionsBtn {\n    position: absolute;\n    text-align: center;\n    top: 10%;\n    right: 0;\n    color: rgba(39, 39, 39, 0.91);\n    height: 40px;\n    width: 50px;\n    border-radius: 5px;\n    border: thin rgba(0, 0, 0, 0.91);\n    background-color: rgba(255, 75, 51, 0.76);\n    box-shadow: -3px 5px 2px 0 rgba(0,0,0,0.35);\n    transition: .5s ease all;\n\n}\n#directionsMenu {\n    background-color: rgba(255, 75, 51, 0.55);\n    position: absolute;\n    top: 0;\n    right: -200px;\n    width: 200px;\n    height: 100%;\n    padding: 5px;\n    transition: .5s ease all;\n}\n.directSearch input{\n    width: 100%;\n\n}\n/* Animations */\n.animateMenu {\n    transform: translateX(-200px);\n}", ""]);
 
 	// exports
 
@@ -529,6 +546,8 @@
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
 	var markerCss = __webpack_require__(9);
 	//
 	// The aggGeolocation module is home to all things geolocation related
@@ -699,6 +718,7 @@
 /* 12 */
 /***/ function(module, exports) {
 
+	'use strict';
 	//
 	// Google Map Factory and Directives
 	// Directives for making the map and for making a marker
@@ -713,7 +733,7 @@
 	            'options': '='
 	        },
 	        transclude: true,
-	        controllerAs: 'vm',
+	        controllerAs: 'map',
 	        bindToController: true,
 	        controller: function(mapService) {
 	            // Set user defined div id
@@ -737,6 +757,7 @@
 	        link: function(scope, elem, attrs, gMapCtrl) {
 	            var gmap = gMapCtrl.map;
 
+	            // Watcher setup to wait for the marker. Without it the map loads without the marker.
 	            var watcher = scope.$watch('options', function() {
 	                var marker = markerFact.getMarker(gmap, scope.options);
 
@@ -801,7 +822,7 @@
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	(function () {'use strict';
+	'use strict';
 
 	var gPlacesTemp = __webpack_require__(14);
 	//
@@ -809,140 +830,138 @@
 	//
 	angular.module('aggPlaces', [])
 
-	    .directive('gPlaces', function() {
-	        return {
-	            restrict: 'E',
-	            scope: {
-	                model: '=',
-	                tempUrl: '@'
-	            },
-	            templateUrl: gPlacesTemp,
-	            controller: function($scope, placesFact) {
+	.directive('gPlaces', function() {
+	    return {
+	        restrict: 'E',
+	        scope: {
+	            model: '=',
+	            tempUrl: '@'
+	        },
+	        templateUrl: gPlacesTemp,
+	        controller: function($scope, placesFact) {
 
-	                $scope.getPage = function(pageNum) {
-	                    placesFact.getPage(pageNum).then(function(results){
-	                        console.log('$scope.getPage fired', results); // This only fires if I wait about 5 seconds after previous run.
-	                        $scope.details = results;
-	                    });
-	                };
-	                $scope.needsPagination = function() {
-	                    return placesFact.needsPagination();
-	                };
-
-	                placesFact.getPlaces($scope.model).then(function(results) {
-	                    $scope.details = results;
-	                    $scope.pageNum = placesFact.pagination.pageNum;
-	                    $scope.numPages = placesFact.pagination.getNumPages(placesFact.pagination.numPages);
-	                });
-
-	            }
-	        };
-	    })
-
-	    .directive('gPlace', function() {
-	        return {
-	            restrict: 'E',
-	            scope: {
-	                tempUrl: '@',
-	                placeId: '='
-	            },
-	            controller: function($scope, placesFact) {
-	                placesFact.getPlace($scope.placeId).then(function(results) {
+	            $scope.getPage = function(pageNum) {
+	                placesFact.getPage(pageNum).then(function(results){
+	                    console.log('$scope.getPage fired', results); // This only fires if I wait about 5 seconds after previous run.
 	                    $scope.details = results;
 	                });
-	            },
-	            template: '<div ng-include="tempUrl"></div>'
-	        };
-	    })
+	            };
+	            $scope.needsPagination = function() {
+	                return placesFact.needsPagination();
+	            };
 
-	    .factory('placesFact', function ($q) {
-	        var places = {};
+	            placesFact.getPlaces($scope.model).then(function(results) {
+	                $scope.details = results;
+	                $scope.pageNum = placesFact.pagination.pageNum;
+	                $scope.numPages = placesFact.pagination.getNumPages(placesFact.pagination.numPages);
+	            });
 
-	        // Performs Multiple requests for details
-	        // If ID array is longer than 10 the array is split using the split() function
-	        places.getPlaces = function(ids) {
-	            var promises = [];
-	            var i;
+	        }
+	    };
+	})
 
-	            if(ids.length > 10) {
-	                pages = splitIds(ids);
+	.directive('gPlace', function() {
+	    return {
+	        restrict: 'E',
+	        scope: {
+	            tempUrl: '@',
+	            placeId: '='
+	        },
+	        controller: function($scope, placesFact) {
+	            placesFact.getPlace($scope.placeId).then(function(results) {
+	                $scope.details = results;
+	            });
+	        },
+	        template: '<div ng-include="tempUrl"></div>'
+	    };
+	})
 
-	                for(i=0; i<pages[0].length; i++) {
-	                    promises.push(places.getPlace(pages[0][i]));
-	                }
-	                // Set Pagination values
-	                places.pagination.pageNum = 1;
-	                places.pagination.numPages = pages.length;
+	.factory('placesFact', function ($q) {
+	    var places = {};
 
-	            }else{
-	                for(i=0; i<ids.length; i++) {
-	                    promises.push(places.getPlace(ids[i]));
-	                }
+	    // Performs Multiple requests for details
+	    // If ID array is longer than 10 the array is split using the split() function
+	    places.getPlaces = function(ids) {
+	        var promises = [];
+	        var i;
+
+	        if(ids.length > 10) {
+	            pages = splitIds(ids);
+
+	            for(i=0; i<pages[0].length; i++) {
+	                promises.push(places.getPlace(pages[0][i]));
 	            }
-	            return $q.all(promises);
-	        };
+	            // Set Pagination values
+	            places.pagination.pageNum = 1;
+	            places.pagination.numPages = pages.length;
 
-	        // Split id array into groups of 10 since google will only process 10 place requests at a time
-	        var splitIds = function(ids) {
-	            var idSets = [],
-	                i, j, k;
-
-	            for (i=0, j=ids.length, k=0; i<j; i+=10){
-	                idSets[k] = ids.slice(i, i+10);
-	                k++;
-	            }
-	            return idSets;
-	        };
-
-	        // Makes request for details of single place id
-	        places.getPlace = function(id) {
-
-	        var deferred = $q.defer(),
-	            request = {placeId: id};
-
-	        var map = new google.maps.Map(document.createElement('div'));
-
-	        var service = new google.maps.places.PlacesService(map);
-
-	        function callback(results, status){
-	            if(status === google.maps.places.PlacesServiceStatus.OK) {
-	                deferred.resolve(results);
+	        }else{
+	            for(i=0; i<ids.length; i++) {
+	                promises.push(places.getPlace(ids[i]));
 	            }
 	        }
-	        service.getDetails(request, callback);
-	        return deferred.promise;
-	        };
+	        return $q.all(promises);
+	    };
 
-	        // When ID array is longer than 10 it is split. This function allows showing of more results
-	        places.getPage = function(pageNum) {
-	            var promises = [];
+	    // Split id array into groups of 10 since google will only process 10 place requests at a time
+	    var splitIds = function(ids) {
+	        var idSets = [],
+	            i, j, k;
 
-	            for(var i=0; i<pages[pageNum].length; i++) {
-	                promises.push(places.getPlace(pages[pageNum][i]));
-	            }
-	            // Set Page Number
-	            places.pagination.pageNum = pageNum;
-	            console.log("places.getPage fired", promises); // This fired and changes the array
+	        for (i=0, j=ids.length, k=0; i<j; i+=10){
+	            idSets[k] = ids.slice(i, i+10);
+	            k++;
+	        }
+	        return idSets;
+	    };
 
-	            return $q.all(promises);
-	        };
+	    // Makes request for details of single place id
+	    places.getPlace = function(id) {
 
-	        // Pagination
-	        var pages = [];
-	        places.pagination = {
-	            pageNum: 0,
-	            numPages: 0,
-	            getNumPages: function(numPages){return new Array(numPages);}
-	        };
+	    var deferred = $q.defer(),
+	        request = {placeId: id};
 
-	        places.needsPagination = function() {
-	            return places.pagination.numPages > 1;
-	        };
+	    var map = new google.maps.Map(document.createElement('div'));
 
-	        return places;
-	    });
+	    var service = new google.maps.places.PlacesService(map);
 
-	}());
+	    function callback(results, status){
+	        if(status === google.maps.places.PlacesServiceStatus.OK) {
+	            deferred.resolve(results);
+	        }
+	    }
+	    service.getDetails(request, callback);
+	    return deferred.promise;
+	    };
+
+	    // When ID array is longer than 10 it is split. This function allows showing of more results
+	    places.getPage = function(pageNum) {
+	        var promises = [];
+
+	        for(var i=0; i<pages[pageNum].length; i++) {
+	            promises.push(places.getPlace(pages[pageNum][i]));
+	        }
+	        // Set Page Number
+	        places.pagination.pageNum = pageNum;
+	        console.log("places.getPage fired", promises); // This fired and changes the array
+
+	        return $q.all(promises);
+	    };
+
+	    // Pagination
+	    var pages = [];
+	    places.pagination = {
+	        pageNum: 0,
+	        numPages: 0,
+	        getNumPages: function(numPages){return new Array(numPages);}
+	    };
+
+	    places.needsPagination = function() {
+	        return places.pagination.numPages > 1;
+	    };
+
+	    return places;
+	});
 
 
 /***/ },
@@ -958,9 +977,13 @@
 /* 15 */
 /***/ function(module, exports) {
 
-	
-	angular.module('aggUtils', [])
+	'use strict';
 
+	angular.module('aggUtils', [])
+	//
+	// The googleMapService provider is used to load google maps asynchronously
+	// It is configurable with the options for language, api key, and libraries
+	//
 	.provider('googleMapService', function () {
 	    // Default Options
 	    var language = 'en-US',

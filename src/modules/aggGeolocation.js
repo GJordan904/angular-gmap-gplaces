@@ -1,3 +1,5 @@
+'use strict';
+
 var markerCss = require('./../styles/gLocation.css');
 //
 // The aggGeolocation module is home to all things geolocation related

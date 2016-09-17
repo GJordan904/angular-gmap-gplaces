@@ -1,15 +1,33 @@
-.directButton {
+#directionsBtn {
     position: absolute;
     text-align: center;
-    top: 150px;
+    top: 10%;
     right: 0;
     color: rgba(39, 39, 39, 0.91);
-    height: 75px;
-    width: 150px;
+    height: 40px;
+    width: 50px;
     border-radius: 5px;
     border: thin rgba(0, 0, 0, 0.91);
     background-color: rgba(255, 75, 51, 0.76);
-}
-.directControls {
+    box-shadow: -3px 5px 2px 0 rgba(0,0,0,0.35);
+    transition: .5s ease all;
 
+}
+#directionsMenu {
+    background-color: rgba(255, 75, 51, 0.55);
+    position: absolute;
+    top: 0;
+    right: -200px;
+    width: 200px;
+    height: 100%;
+    padding: 5px;
+    transition: .5s ease all;
+}
+.directSearch input{
+    width: 100%;
+
+}
+/* Animations */
+.animateMenu {
+    transform: translateX(-200px);
 }
