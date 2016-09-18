@@ -40,9 +40,9 @@
             ];
         })
 
-        .controller('MapCtrl', function (locService) {
+        .controller('MapCtrl', function (aggLocationServ) {
             var vm = this;
-            var getLocation = locService.getLoc();
+            var getLocation = aggLocationServ.getLoc();
 
             vm.mapOptions = {
                 mapId: 'map-canvas',
