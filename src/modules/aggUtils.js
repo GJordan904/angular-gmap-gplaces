@@ -5,7 +5,7 @@ angular.module('aggUtils', [])
 // The googleMapService provider is used to load google maps asynchronously
 // It is configurable with the options for language, api key, and libraries
 //
-.provider('googleMapService', function () {
+.provider('$aggMap', function () {
     // Default Options
     var language = 'en-US',
         apiKey = '',
