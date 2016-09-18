@@ -1,0 +1,18 @@
+<div id="aggMenuBtn" role="button" ng-click="aggMenu.toggle()" ng-class="{animateMenu: aggMenu.isOpen}">
+    <i class="fa fa-bars fa-3x"></i>
+</div>
+
+<div id="aggMenu" ng-class="{animateMenu: aggMenu.isOpen}">
+    <!-- Use ng-switch to switch between the different directives -->
+    <div ng-switch="aggMenu.view">
+
+        <div ng-switch-when="search">
+            <agg-search></agg-search>
+        </div>
+
+        <div ng-switch-when="directions">
+            <agg-directions></agg-directions>
+        </div>
+
+    </div>
+</div>

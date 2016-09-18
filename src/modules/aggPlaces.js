@@ -6,7 +6,7 @@ var gPlacesTemp = require('./../templates/gPlaces.html');
 //
 angular.module('aggPlaces', [])
 
-.directive('gPlaces', function() {
+.directive('aggPlaces', function() {
     return {
         restrict: 'E',
         scope: {
@@ -14,37 +14,37 @@ angular.module('aggPlaces', [])
             tempUrl: '@'
         },
         templateUrl: gPlacesTemp,
-        controller: function($scope, placesFact) {
+        controller: function($scope, aggPlacesFact) {
 
             $scope.getPage = function(pageNum) {
-                placesFact.getPage(pageNum).then(function(results){
+                aggPlacesFact.getPage(pageNum).then(function(results){
                     console.log('$scope.getPage fired', results); // This only fires if I wait about 5 seconds after previous run.
                     $scope.details = results;
                 });
             };
             $scope.needsPagination = function() {
-                return placesFact.needsPagination();
+                return aggPlacesFact.needsPagination();
             };
 
-            placesFact.getPlaces($scope.model).then(function(results) {
+            aggPlacesFact.getPlaces($scope.model).then(function(results) {
                 $scope.details = results;
-                $scope.pageNum = placesFact.pagination.pageNum;
-                $scope.numPages = placesFact.pagination.getNumPages(placesFact.pagination.numPages);
+                $scope.pageNum = aggPlacesFact.pagination.pageNum;
+                $scope.numPages = aggPlacesFact.pagination.getNumPages(aggPlacesFact.pagination.numPages);
             });
 
         }
     };
 })
 
-.directive('gPlace', function() {
+.directive('aggPlace', function() {
     return {
         restrict: 'E',
         scope: {
             tempUrl: '@',
             placeId: '='
         },
-        controller: function($scope, placesFact) {
-            placesFact.getPlace($scope.placeId).then(function(results) {
+        controller: function($scope, aggPlacesFact) {
+            aggPlacesFact.getPlace($scope.placeId).then(function(results) {
                 $scope.details = results;
             });
         },
@@ -52,7 +52,7 @@ angular.module('aggPlaces', [])
     };
 })
 
-.factory('placesFact', function ($q) {
+.factory('aggPlacesFact', function ($q) {
     var places = {};
 
     // Performs Multiple requests for details

@@ -1,0 +1,12 @@
+<div class="directOptions">
+    <button class="directWalking" ng-click="direct.route.travelMode = 'WALKING'"></button>
+    <button class="directDriving" ng-click="direct.route.travelMode = 'DRIVING'"></button>
+    <button class="directBus" ng-click="direct.route.travelMode = 'TRANSIT'"></button>
+    <button class="directBicycling" ng-click="direct.route.travelMode = 'BICYCLING'"></button>
+</div>
+
+<div class="directSearch">
+    <input type="text" name="from" ng-model="direct.route.origin" placeholder="Choose a starting point">
+    <input type="text" name="to" ng-model="direct.route.destination" placeholder="Destination">
+</div>
+

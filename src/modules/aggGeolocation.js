@@ -9,13 +9,13 @@ angular.module('aggGeolocation', [])
 //
 // Directive for showing user location
 //
-.directive('gLocation', function(markerFact, locService, locMarker) {
+.directive('aggLocation', function(aggMarkerFact, aggLocationServ, aggLocationMarkerFact) {
     return {
         restrict: 'E',
-        require: '^gMap',
+        require: '^aggMap',
         link: function(scope, elem, attrs, gMapCtrl) {
             var gmap = gMapCtrl.map;
-            var location = locService.getLoc();
+            var location = aggLocationServ.getLoc();
 
             location.then(
                 function(success){
@@ -25,7 +25,7 @@ angular.module('aggGeolocation', [])
                         map: gmap
                     };
 
-                    var marker = new locMarker(markOptions);
+                    var marker = new aggLocationMarkerFact(markOptions);
                 },
                 function(failed){
                     alert(failed);
@@ -37,7 +37,7 @@ angular.module('aggGeolocation', [])
 //
 // This factory creates a custom google maps overlay object
 //
-.factory('locMarker', function() {
+.factory('aggLocationMarkerFact', function() {
 
     // Animated Location Marker made with custom Overlay
     LocationMarker.prototype = new google.maps.OverlayView();
@@ -77,7 +77,7 @@ return LocationMarker;
 //
 // This service gets the users location and handles errors
 //
-.service('locService', function($q) {
+.service('aggLocationServ', function($q) {
     var deferred = $q.defer();
 
     // Check User Location

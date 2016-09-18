@@ -1,15 +1,15 @@
 'use strict';
 
-var gStepsControlTemp = require('./../templates/gStepsControl.html');
-var gStepsControlCss = require('./../styles/gStepsControl.css');
+var aggDirectionsTemp = require('./../templates/aggDirections.html');
+var aggDirectionsCss = require('./../styles/aggDirections.css');
 
 angular.module('aggDirections', [])
 
 // Directions with step by step instructions
-.directive('gSteps', function (directionsService) {
+.directive('gSteps', function (aggDirectionsServ) {
     return {
         restrict: 'E',
-        require: '^gMap',
+        require: '^aggMap',
         scope: {
             request: '='
         },
@@ -17,16 +17,16 @@ angular.module('aggDirections', [])
         link: function(scope, elem, attrs, gMapCtrl) {
             var gmap = gMapCtrl.map;
 
-            directionsService.getSteps(scope.request, gmap);
+            aggDirectionsServ.getSteps(scope.request, gmap);
         }
     };
 })
 
-.directive('gStepsControl', function() {
+.directive('aggDirections', function() {
     return {
         restrict: 'E',
-        require: '^gMap',
-        templateUrl: gStepsControlTemp,
+        require: '^aggMap',
+        templateUrl: aggDirectionsTemp,
         controllerAs: 'direct',
         bindToController: true,
         controller: function(){
@@ -46,7 +46,7 @@ angular.module('aggDirections', [])
     }
 })
 
-.service('directionsService', function(locService, $q){
+.service('aggDirectionsServ', function(locService, $q){
     var self = this;
 
     function getDirections(request) {

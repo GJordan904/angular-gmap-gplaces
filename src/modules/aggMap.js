@@ -6,7 +6,7 @@
 angular.module('aggMap', [])
 
 // The map directive
-.directive('gMap', function() {
+.directive('aggMap', function() {
     return {
         restrict: 'E',
         scope: {
@@ -15,21 +15,21 @@ angular.module('aggMap', [])
         transclude: true,
         controllerAs: 'map',
         bindToController: true,
-        controller: function(mapService) {
+        controller: function(aggMapServ) {
             // Set user defined div id
             this.divId = this.options.mapId;
 
-            mapService.get(this.options);
-            this.map = mapService.maps[this.divId];
+            aggMapServ.get(this.options);
+            this.map = aggMapServ.maps[this.divId];
         },
         template: '<div id="map-canvas"></div><div ng-transclude></div>'
     };
 })
 // Directive for a single map marker
-.directive('gMarker', function(markerFact) {
+.directive('aggMarker', function(aggMarkerFact) {
     return {
         restrict: 'E',
-        require: '^gMap',
+        require: '^aggMap',
         scope: {
             'options': '=',
             'click': '&'
@@ -39,7 +39,7 @@ angular.module('aggMap', [])
 
             // Watcher setup to wait for the marker. Without it the map loads without the marker.
             var watcher = scope.$watch('options', function() {
-                var marker = markerFact.getMarker(gmap, scope.options);
+                var marker = aggMarkerFact.getMarker(gmap, scope.options);
 
                 // Attach click function to marker if defined
                 var userFunct = scope.click();
@@ -56,7 +56,7 @@ angular.module('aggMap', [])
     };
 })
 
-.factory('markerFact', function() {
+.factory('aggMarkerFact', function() {
     var marker = {};
 
     marker.getMarker = function(map, args) {
@@ -68,7 +68,7 @@ angular.module('aggMap', [])
     return marker;
 })
 // Service to create map and store maps data
-.service('mapService', function() {
+.service('aggMapServ', function() {
     var self = this;
     var setOptions = function(args) {
         var defaults = {

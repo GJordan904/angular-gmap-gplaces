@@ -58,13 +58,15 @@
 	var aggMap = __webpack_require__(12);
 	var aggPlaces = __webpack_require__(13);
 	var aggUtils = __webpack_require__(15);
+	var aggMapMenu = __webpack_require__(16);
 
 	angular.module('angular-gmap-gplace', [
 	    'aggGeolocation',
 	    'aggMap',
 	    'aggPlaces',
 	    'aggDirections',
-	    'aggUtils'
+	    'aggUtils',
+	    'aggMapMenu'
 	]);
 
 
@@ -76,16 +78,16 @@
 
 	'use strict';
 
-	var gStepsControlTemp = __webpack_require__(3);
-	var gStepsControlCss = __webpack_require__(4);
+	var aggDirectionsTemp = __webpack_require__(20);
+	var aggDirectionsCss = __webpack_require__(21);
 
 	angular.module('aggDirections', [])
 
 	// Directions with step by step instructions
-	.directive('gSteps', function (directionsService) {
+	.directive('gSteps', function (aggDirectionsServ) {
 	    return {
 	        restrict: 'E',
-	        require: '^gMap',
+	        require: '^aggMap',
 	        scope: {
 	            request: '='
 	        },
@@ -93,16 +95,16 @@
 	        link: function(scope, elem, attrs, gMapCtrl) {
 	            var gmap = gMapCtrl.map;
 
-	            directionsService.getSteps(scope.request, gmap);
+	            aggDirectionsServ.getSteps(scope.request, gmap);
 	        }
 	    };
 	})
 
-	.directive('gStepsControl', function() {
+	.directive('aggDirections', function() {
 	    return {
 	        restrict: 'E',
-	        require: '^gMap',
-	        templateUrl: gStepsControlTemp,
+	        require: '^aggMap',
+	        templateUrl: aggDirectionsTemp,
 	        controllerAs: 'direct',
 	        bindToController: true,
 	        controller: function(){
@@ -122,7 +124,7 @@
 	    }
 	})
 
-	.service('directionsService', function(locService, $q){
+	.service('aggDirectionsServ', function(locService, $q){
 	    var self = this;
 
 	    function getDirections(request) {
@@ -186,55 +188,9 @@
 
 
 /***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-	var path = '/home/grant/Development/Projects/angular-gmap-gplaces/master/src/templates/gStepsControl.html';
-	var html = "<div id=\"directionsBtn\" role=\"button\" ng-click=\"direct.toggle()\" ng-class=\"{animateMenu: direct.isOpen}\">\n    <i class=\"fa fa-bars fa-3x\"></i>\n</div>\n\n<div id=\"directionsMenu\" ng-class=\"{animateMenu: direct.isOpen}\">\n\n    <div class=\"directOptions\">\n        <button class=\"directWalking\" ng-click=\"direct.route.travelMode = 'WALKING'\"></button>\n        <button class=\"directDriving\" ng-click=\"direct.route.travelMode = 'DRIVING'\"></button>\n        <button class=\"directBus\" ng-click=\"direct.route.travelMode = 'TRANSIT'\"></button>\n        <button class=\"directBicycling\" ng-click=\"direct.route.travelMode = 'BICYCLING'\"></button>\n    </div>\n\n    <div class=\"directSearch\">\n        <input type=\"text\" name=\"from\" ng-model=\"direct.route.origin\" placeholder=\"Choose a starting point\">\n        <input type=\"text\" name=\"to\" ng-model=\"direct.route.destination\" placeholder=\"Destination\">\n    </div>\n\n</div>";
-	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
-	module.exports = path;
-
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(5);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(7)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./gStepsControl.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./gStepsControl.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(6)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "#directionsBtn {\n    position: absolute;\n    text-align: center;\n    top: 10%;\n    right: 0;\n    color: rgba(39, 39, 39, 0.91);\n    height: 40px;\n    width: 50px;\n    border-radius: 5px;\n    border: thin rgba(0, 0, 0, 0.91);\n    background-color: rgba(255, 75, 51, 0.76);\n    box-shadow: -3px 5px 2px 0 rgba(0,0,0,0.35);\n    transition: .5s ease all;\n\n}\n#directionsMenu {\n    background-color: rgba(255, 75, 51, 0.55);\n    position: absolute;\n    top: 0;\n    right: -200px;\n    width: 200px;\n    height: 100%;\n    padding: 5px;\n    transition: .5s ease all;\n}\n.directSearch input{\n    width: 100%;\n\n}\n/* Animations */\n.animateMenu {\n    transform: translateX(-200px);\n}", ""]);
-
-	// exports
-
-
-/***/ },
+/* 3 */,
+/* 4 */,
+/* 5 */,
 /* 6 */
 /***/ function(module, exports) {
 
@@ -557,13 +513,13 @@
 	//
 	// Directive for showing user location
 	//
-	.directive('gLocation', function(markerFact, locService, locMarker) {
+	.directive('aggLocation', function(aggMarkerFact, aggLocationServ, aggLocationMarkerFact) {
 	    return {
 	        restrict: 'E',
-	        require: '^gMap',
+	        require: '^aggMap',
 	        link: function(scope, elem, attrs, gMapCtrl) {
 	            var gmap = gMapCtrl.map;
-	            var location = locService.getLoc();
+	            var location = aggLocationServ.getLoc();
 
 	            location.then(
 	                function(success){
@@ -573,7 +529,7 @@
 	                        map: gmap
 	                    };
 
-	                    var marker = new locMarker(markOptions);
+	                    var marker = new aggLocationMarkerFact(markOptions);
 	                },
 	                function(failed){
 	                    alert(failed);
@@ -585,7 +541,7 @@
 	//
 	// This factory creates a custom google maps overlay object
 	//
-	.factory('locMarker', function() {
+	.factory('aggLocationMarkerFact', function() {
 
 	    // Animated Location Marker made with custom Overlay
 	    LocationMarker.prototype = new google.maps.OverlayView();
@@ -625,7 +581,7 @@
 	//
 	// This service gets the users location and handles errors
 	//
-	.service('locService', function($q) {
+	.service('aggLocationServ', function($q) {
 	    var deferred = $q.defer();
 
 	    // Check User Location
@@ -726,7 +682,7 @@
 	angular.module('aggMap', [])
 
 	// The map directive
-	.directive('gMap', function() {
+	.directive('aggMap', function() {
 	    return {
 	        restrict: 'E',
 	        scope: {
@@ -735,21 +691,21 @@
 	        transclude: true,
 	        controllerAs: 'map',
 	        bindToController: true,
-	        controller: function(mapService) {
+	        controller: function(aggMapServ) {
 	            // Set user defined div id
 	            this.divId = this.options.mapId;
 
-	            mapService.get(this.options);
-	            this.map = mapService.maps[this.divId];
+	            aggMapServ.get(this.options);
+	            this.map = aggMapServ.maps[this.divId];
 	        },
 	        template: '<div id="map-canvas"></div><div ng-transclude></div>'
 	    };
 	})
 	// Directive for a single map marker
-	.directive('gMarker', function(markerFact) {
+	.directive('aggMarker', function(aggMarkerFact) {
 	    return {
 	        restrict: 'E',
-	        require: '^gMap',
+	        require: '^aggMap',
 	        scope: {
 	            'options': '=',
 	            'click': '&'
@@ -759,7 +715,7 @@
 
 	            // Watcher setup to wait for the marker. Without it the map loads without the marker.
 	            var watcher = scope.$watch('options', function() {
-	                var marker = markerFact.getMarker(gmap, scope.options);
+	                var marker = aggMarkerFact.getMarker(gmap, scope.options);
 
 	                // Attach click function to marker if defined
 	                var userFunct = scope.click();
@@ -776,7 +732,7 @@
 	    };
 	})
 
-	.factory('markerFact', function() {
+	.factory('aggMarkerFact', function() {
 	    var marker = {};
 
 	    marker.getMarker = function(map, args) {
@@ -788,7 +744,7 @@
 	    return marker;
 	})
 	// Service to create map and store maps data
-	.service('mapService', function() {
+	.service('aggMapServ', function() {
 	    var self = this;
 	    var setOptions = function(args) {
 	        var defaults = {
@@ -830,7 +786,7 @@
 	//
 	angular.module('aggPlaces', [])
 
-	.directive('gPlaces', function() {
+	.directive('aggPlaces', function() {
 	    return {
 	        restrict: 'E',
 	        scope: {
@@ -838,37 +794,37 @@
 	            tempUrl: '@'
 	        },
 	        templateUrl: gPlacesTemp,
-	        controller: function($scope, placesFact) {
+	        controller: function($scope, aggPlacesFact) {
 
 	            $scope.getPage = function(pageNum) {
-	                placesFact.getPage(pageNum).then(function(results){
+	                aggPlacesFact.getPage(pageNum).then(function(results){
 	                    console.log('$scope.getPage fired', results); // This only fires if I wait about 5 seconds after previous run.
 	                    $scope.details = results;
 	                });
 	            };
 	            $scope.needsPagination = function() {
-	                return placesFact.needsPagination();
+	                return aggPlacesFact.needsPagination();
 	            };
 
-	            placesFact.getPlaces($scope.model).then(function(results) {
+	            aggPlacesFact.getPlaces($scope.model).then(function(results) {
 	                $scope.details = results;
-	                $scope.pageNum = placesFact.pagination.pageNum;
-	                $scope.numPages = placesFact.pagination.getNumPages(placesFact.pagination.numPages);
+	                $scope.pageNum = aggPlacesFact.pagination.pageNum;
+	                $scope.numPages = aggPlacesFact.pagination.getNumPages(aggPlacesFact.pagination.numPages);
 	            });
 
 	        }
 	    };
 	})
 
-	.directive('gPlace', function() {
+	.directive('aggPlace', function() {
 	    return {
 	        restrict: 'E',
 	        scope: {
 	            tempUrl: '@',
 	            placeId: '='
 	        },
-	        controller: function($scope, placesFact) {
-	            placesFact.getPlace($scope.placeId).then(function(results) {
+	        controller: function($scope, aggPlacesFact) {
+	            aggPlacesFact.getPlace($scope.placeId).then(function(results) {
 	                $scope.details = results;
 	            });
 	        },
@@ -876,7 +832,7 @@
 	    };
 	})
 
-	.factory('placesFact', function ($q) {
+	.factory('aggPlacesFact', function ($q) {
 	    var places = {};
 
 	    // Performs Multiple requests for details
@@ -1019,6 +975,153 @@
 	    };
 
 	});
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var aggMenuView = __webpack_require__(23);
+	var aggMenuCss = __webpack_require__(24);
+
+	angular.module('aggMapMenu', [])
+
+	.directive('aggMenu', function(aggMenuFact) {
+	    return {
+	        restrict: 'E',
+	        require: '^aggMap',
+	        transclude: true,
+	        templateUrl: aggMenuView,
+	        controllerAs: 'aggMenu',
+	        bindToController: true,
+	        controller: function(){
+
+	            // Toggle Menu
+	            this.isOpen = false;
+	            this.toggle = function() {
+	                this.isOpen = !this.isOpen;
+	            };
+	            // Toggle search/directions
+	            this.view = 'directions';
+	        },
+	        link: function(scope, elem, attrs, gMapCtrl) {
+	            var map = aggMenuFact.menuObj.gmap = gMapCtrl.map;
+
+	        }
+	    }
+	})
+
+	.factory('aggMenuFact', function() {
+	    var menu = {};
+
+	    // The menuObj allows sharing data between the menu controllers
+	    menu.menuObj = {};
+
+	    return menu;
+	});
+
+
+/***/ },
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */
+/***/ function(module, exports) {
+
+	var path = '/home/grant/Development/Projects/angular-gmap-gplaces/master/src/templates/aggDirections.html';
+	var html = "<div class=\"directOptions\">\n    <button class=\"directWalking\" ng-click=\"direct.route.travelMode = 'WALKING'\"></button>\n    <button class=\"directDriving\" ng-click=\"direct.route.travelMode = 'DRIVING'\"></button>\n    <button class=\"directBus\" ng-click=\"direct.route.travelMode = 'TRANSIT'\"></button>\n    <button class=\"directBicycling\" ng-click=\"direct.route.travelMode = 'BICYCLING'\"></button>\n</div>\n\n<div class=\"directSearch\">\n    <input type=\"text\" name=\"from\" ng-model=\"direct.route.origin\" placeholder=\"Choose a starting point\">\n    <input type=\"text\" name=\"to\" ng-model=\"direct.route.destination\" placeholder=\"Destination\">\n</div>\n\n";
+	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+	module.exports = path;
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(22);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(7)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./aggDirections.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./aggDirections.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(6)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".directSearch input{\n    width: 100%;\n\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	var path = '/home/grant/Development/Projects/angular-gmap-gplaces/master/src/templates/aggMenu.html';
+	var html = "<div id=\"aggMenuBtn\" role=\"button\" ng-click=\"aggMenu.toggle()\" ng-class=\"{animateMenu: aggMenu.isOpen}\">\n    <i class=\"fa fa-bars fa-3x\"></i>\n</div>\n\n<div id=\"aggMenu\" ng-class=\"{animateMenu: aggMenu.isOpen}\">\n    <!-- Use ng-switch to switch between the different directives -->\n    <div ng-switch=\"aggMenu.view\">\n\n        <div ng-switch-when=\"search\">\n            <agg-search></agg-search>\n        </div>\n\n        <div ng-switch-when=\"directions\">\n            <agg-directions></agg-directions>\n        </div>\n\n    </div>\n</div>";
+	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+	module.exports = path;
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(25);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(7)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./aggMenu.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./aggMenu.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(6)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "#aggMenuBtn {\n    position: absolute;\n    text-align: center;\n    top: 10%;\n    right: 0;\n    color: rgba(39, 39, 39, 0.91);\n    height: 40px;\n    width: 50px;\n    border-radius: 5px;\n    border: thin rgba(0, 0, 0, 0.91);\n    background-color: rgba(255, 75, 51, 0.76);\n    box-shadow: -3px 5px 2px 0 rgba(0,0,0,0.35);\n    transition: .5s ease all;\n\n}\n#aggMenu {\n    background-color: rgba(255, 75, 51, 0.55);\n    position: absolute;\n    top: 0;\n    right: -300px;\n    width: 300px;\n    height: 100%;\n    padding: 5px;\n    transition: .5s ease all;\n}\n/* Animations */\n.animateMenu {\n    transform: translateX(-300px);\n}", ""]);
+
+	// exports
+
 
 /***/ }
 /******/ ]);
