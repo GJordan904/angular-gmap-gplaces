@@ -7,9 +7,9 @@ angular.module('myApp', [
 	'hljs',
 	'ui.router'
 ])
-.config(function($stateProvider, $urlRouterProvider, googleMapServiceProvider) {
+.config(function($stateProvider, $urlRouterProvider, $aggMapProvider) {
 	// Configuration for Google Maps
-	googleMapServiceProvider.setOptions({
+	$aggMapProvider.setOptions({
 		lang: 'en-US',
 		key: 'AIzaSyCUmYH5tWFnfSu-Q8A2kRF7VzXo9KfyU9g',
 		libs: 'places'
@@ -63,7 +63,7 @@ angular.module('myApp', [
 				}
 			},
 			resolve: {
-				googleMap: 'googleMapService'
+				googleMap: '$aggMap'
 			}
 		})
 		.state('app.exMap', {
@@ -75,7 +75,7 @@ angular.module('myApp', [
 				}
 			},
 			resolve: {
-				googleMap: 'googleMapService'
+				googleMap: '$aggMap'
 			}
 		});
 
