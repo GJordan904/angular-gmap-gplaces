@@ -1,6 +1,6 @@
- <div ng-include="tempUrl"></div>
+<div ng-include="agg.tempUrl"></div>
 
-<nav id="pagination" aria-label="Page navigation" ng-show="needsPagination()">
+<nav id="pagination" aria-label="Page navigation" ng-show="agg.needsPagination()">
     <ul class="pagination">
         <li>
             <a href="#" aria-label="Previous">
@@ -8,8 +8,8 @@
             </a>
         </li>
 
-        <li ng-repeat="page in numPages track by $index">
-            <a href="" ng-click="getPage($index)">{{$index+1}}</a>
+        <li ng-repeat="page in agg.numPages track by $index">
+            <a href="" ng-click="agg.getPage($index)">{{$index+1}}</a>
         </li>
 
         <li>

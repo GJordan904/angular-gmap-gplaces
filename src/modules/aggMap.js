@@ -37,7 +37,8 @@ angular.module('aggMap', [])
         link: function(scope, elem, attrs, gMapCtrl) {
             var gmap = gMapCtrl.map;
 
-            // Watcher setup to wait for the marker. Without it the map loads without the marker.
+            // Watcher setup to wait for the marker options. Without it the map loads without the marker
+            // because the marker tries to create with no options.
             var watcher = scope.$watch('options', function() {
                 var marker = aggMarkerFact.getMarker(gmap, scope.options);
 
@@ -90,9 +91,12 @@ angular.module('aggMap', [])
             var opt = setOptions(options);
             self.maps[id] = new google.maps.Map(document.getElementById(id), opt);
         }else{
+            console.log(instance);
             self.maps[id] = new google.maps.Map(document.getElementById(id), {
                 center: instance.center,
-                zoom: instance.zoom
+                zoom: instance.zoom,
+                styles: instance.styles,
+                mapTypeId: instance.mapTypeId
             });
         }
     }

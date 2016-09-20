@@ -1,0 +1,23 @@
+<div class="genSearch">
+    <i role="button" class="fa fa-arrow-left fa-2x" style="color: white;" ng-click="aggMenu.view = 'default'"></i>
+    <input id="menuSearchInput" type="text" placeholder="Search for something close by.">
+</div>
+
+<div class="searchResults">
+
+    <ul class="resultsList">
+        <li class="aggResult" ng-repeat="result in search.results">
+            <img ng-src="{{result.photos[0].getUrl({'maxWidth': 120, 'maxHeight': 240})}}">
+            <ul>
+                <li>{{result.name}}</li>
+                <li>{{}}</li>
+                <li class="openNow">{{search.isOpen(result.opening_hours.open_now)}}</li>
+            </ul>
+
+        </li>
+    </ul>
+
+</div>
+
+
+

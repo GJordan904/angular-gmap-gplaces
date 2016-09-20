@@ -54,11 +54,11 @@
 	'use strict';
 
 	var aggDirections = __webpack_require__(2);
-	var aggGeolocation = __webpack_require__(8);
-	var aggMap = __webpack_require__(12);
-	var aggPlaces = __webpack_require__(13);
-	var aggUtils = __webpack_require__(15);
-	var aggMapMenu = __webpack_require__(16);
+	var aggGeolocation = __webpack_require__(4);
+	var aggMap = __webpack_require__(10);
+	var aggPlaces = __webpack_require__(11);
+	var aggUtils = __webpack_require__(13);
+	var aggMapMenu = __webpack_require__(14);
 
 	angular.module('angular-gmap-gplace', [
 	    'aggGeolocation',
@@ -78,8 +78,7 @@
 
 	'use strict';
 
-	var aggDirectionsTemp = __webpack_require__(20);
-	var aggDirectionsCss = __webpack_require__(21);
+	var aggDirectionsTemp = __webpack_require__(19);
 
 	angular.module('aggDirections', [])
 
@@ -189,9 +188,173 @@
 
 /***/ },
 /* 3 */,
-/* 4 */,
-/* 5 */,
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var markerCss = __webpack_require__(5);
+	//
+	// The aggGeolocation module is home to all things geolocation related
+	// Included is the gLocation directive and supporting service and factory
+	//
+	angular.module('aggGeolocation', [])
+	//
+	// Directive for showing user location
+	//
+	.directive('aggLocation', function(aggMarkerFact, aggLocationServ, aggLocationMarkerFact) {
+	    return {
+	        restrict: 'E',
+	        require: '^aggMap',
+	        link: function(scope, elem, attrs, gMapCtrl) {
+	            var gmap = gMapCtrl.map;
+	            var location = aggLocationServ.getLoc();
+
+	            location.then(
+	                function(success){
+	                    var markOptions = {
+	                        position: new google.maps.LatLng(success.lat, success.lng),
+	                        cursor: 'pointer',
+	                        map: gmap
+	                    };
+
+	                    var marker = new aggLocationMarkerFact(markOptions);
+	                },
+	                function(failed){
+	                    alert(failed);
+	                }
+	            );
+	        }
+	    };
+	})
+	//
+	// This factory creates a custom google maps overlay object
+	//
+	.factory('aggLocationMarkerFact', function() {
+
+	    // Animated Location Marker made with custom Overlay
+	    LocationMarker.prototype = new google.maps.OverlayView();
+
+	    function LocationMarker(opts) {
+	        this.setValues(opts);
+	    }
+
+	    LocationMarker.prototype.draw = function () {
+	        var div = this.div;
+
+	        if (!div) {
+	            div = this.div = document.createElement('div');
+	            div.style.position = 'absolute';
+
+	            var pulse = document.createElement('div');
+	            pulse.className = 'locMarker';
+	            div.appendChild(pulse);
+
+	            var center = document.createElement('img');
+	            center.className = 'markerCenter';
+	            center.src = __webpack_require__(9);
+	            div.appendChild(center);
+
+	            var panes = this.getPanes();
+	            panes.overlayImage.appendChild(div);
+	        }
+	        var point = this.getProjection().fromLatLngToDivPixel(this.position);
+	        if (point) {
+	            div.style.left = point.x + 'px';
+	            div.style.top = point.y + 'px';
+	        }
+	    };
+	return LocationMarker;
+	})
+
+	//
+	// This service gets the users location and handles errors
+	//
+	.service('aggLocationServ', function($q) {
+	    var deferred = $q.defer();
+
+	    // Check User Location
+	    var navGeo = navigator.geolocation;
+	    var geoOptions = {
+	        enableHighAccuracy: true,
+	        timeout: 30000,
+	        maximumAge: 27000
+	    };
+	    function geoSuccess(position) {
+	        deferred.resolve({lat: position.coords.latitude, lng: position.coords.longitude});
+	    }
+	    function geoError(error) {
+	        switch(error.code) {
+	            case error.PERMISSION_DENIED:
+	                deferred.reject("You did not allow access to your location");
+	                break;
+	            case error.POSITION_UNAVAILABLE:
+	                deferred.reject("Your location information is unavailable");
+	                break;
+	            case error.TIMEOUT:
+	                deferred.reject("The location request timed out");
+	                break;
+	            case error.UNKNOWN_ERROR:
+	                deferred.reject("An unknown error has occurred");
+	                break;
+	        }
+	    }
+
+	    this.watchLoc = function(){};
+
+	    this.getLoc = function(){
+	        if(navGeo) {
+	            navGeo.watchPosition(geoSuccess, geoError);
+	        }else {
+	            deferred.reject("Geolocation service is unavailable.");
+	        }
+	        return deferred.promise;
+	    };
+	});
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(6);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./gLocation.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./gLocation.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
 /* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(7)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "@keyframes aggPulsate {\n    0% {\n        transform: scale(.1);\n        opacity: 0\n    }\n    50% {\n        opacity: 1\n    }\n    to {\n        transform: scale(1.2);\n        opacity: 0\n    }\n}\n\n.locMarker {\n    position: absolute;\n    margin-top: -50px;\n    margin-left: -50px;\n    transform: rotateX(55deg)\n}\n\n.locMarker:after {\n    display: block;\n    width: 100px;\n    height: 100px;\n    content: '';\n    animation: aggPulsate 1s ease-out;\n    animation-delay: 1.1s;\n    animation-iteration-count: infinite;\n    opacity: 0;\n    border-radius: 50%;\n    box-shadow: 0 0 6px 3px #f93c11\n}\n.markerCenter {\n    position: absolute;\n    height: 15px;\n    width: 15px;\n    margin-top: -7.5px;\n    margin-left: -7.5px;\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 7 */
 /***/ function(module, exports) {
 
 	/*
@@ -247,7 +410,7 @@
 
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -499,179 +662,13 @@
 
 
 /***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var markerCss = __webpack_require__(9);
-	//
-	// The aggGeolocation module is home to all things geolocation related
-	// Included is the gLocation directive and supporting service and factory
-	//
-	angular.module('aggGeolocation', [])
-	//
-	// Directive for showing user location
-	//
-	.directive('aggLocation', function(aggMarkerFact, aggLocationServ, aggLocationMarkerFact) {
-	    return {
-	        restrict: 'E',
-	        require: '^aggMap',
-	        link: function(scope, elem, attrs, gMapCtrl) {
-	            var gmap = gMapCtrl.map;
-	            var location = aggLocationServ.getLoc();
-
-	            location.then(
-	                function(success){
-	                    var markOptions = {
-	                        position: new google.maps.LatLng(success.lat, success.lng),
-	                        cursor: 'pointer',
-	                        map: gmap
-	                    };
-
-	                    var marker = new aggLocationMarkerFact(markOptions);
-	                },
-	                function(failed){
-	                    alert(failed);
-	                }
-	            );
-	        }
-	    };
-	})
-	//
-	// This factory creates a custom google maps overlay object
-	//
-	.factory('aggLocationMarkerFact', function() {
-
-	    // Animated Location Marker made with custom Overlay
-	    LocationMarker.prototype = new google.maps.OverlayView();
-
-	    function LocationMarker(opts) {
-	        this.setValues(opts);
-	    }
-
-	    LocationMarker.prototype.draw = function () {
-	        var div = this.div;
-
-	        if (!div) {
-	            div = this.div = document.createElement('div');
-	            div.style.position = 'absolute';
-
-	            var pulse = document.createElement('div');
-	            pulse.className = 'locMarker';
-	            div.appendChild(pulse);
-
-	            var center = document.createElement('img');
-	            center.className = 'markerCenter';
-	            center.src = __webpack_require__(11);
-	            div.appendChild(center);
-
-	            var panes = this.getPanes();
-	            panes.overlayImage.appendChild(div);
-	        }
-	        var point = this.getProjection().fromLatLngToDivPixel(this.position);
-	        if (point) {
-	            div.style.left = point.x + 'px';
-	            div.style.top = point.y + 'px';
-	        }
-	    };
-	return LocationMarker;
-	})
-
-	//
-	// This service gets the users location and handles errors
-	//
-	.service('aggLocationServ', function($q) {
-	    var deferred = $q.defer();
-
-	    // Check User Location
-	    var navGeo = navigator.geolocation;
-	    var geoOptions = {
-	        enableHighAccuracy: true,
-	        timeout: 30000,
-	        maximumAge: 27000
-	    };
-	    function geoSuccess(position) {
-	        deferred.resolve({lat: position.coords.latitude, lng: position.coords.longitude});
-	    }
-	    function geoError(error) {
-	        switch(error.code) {
-	            case error.PERMISSION_DENIED:
-	                deferred.reject("You did not allow access to your location");
-	                break;
-	            case error.POSITION_UNAVAILABLE:
-	                deferred.reject("Your location information is unavailable");
-	                break;
-	            case error.TIMEOUT:
-	                deferred.reject("The location request timed out");
-	                break;
-	            case error.UNKNOWN_ERROR:
-	                deferred.reject("An unknown error has occurred");
-	                break;
-	        }
-	    }
-
-	    this.watchLoc = function(){};
-
-	    this.getLoc = function(){
-	        if(navGeo) {
-	            navGeo.watchPosition(geoSuccess, geoError);
-	        }else {
-	            deferred.reject("Geolocation service is unavailable.");
-	        }
-	        return deferred.promise;
-	    };
-	});
-
-
-/***/ },
 /* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(10);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(7)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./gLocation.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./gLocation.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(6)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "@keyframes aggPulsate {\n    0% {\n        transform: scale(.1);\n        opacity: 0\n    }\n    50% {\n        opacity: 1\n    }\n    to {\n        transform: scale(1.2);\n        opacity: 0\n    }\n}\n\n.locMarker {\n    position: absolute;\n    margin-top: -50px;\n    margin-left: -50px;\n    transform: rotateX(55deg)\n}\n\n.locMarker:after {\n    display: block;\n    width: 100px;\n    height: 100px;\n    content: '';\n    animation: aggPulsate 1s ease-out;\n    animation-delay: 1.1s;\n    animation-iteration-count: infinite;\n    opacity: 0;\n    border-radius: 50%;\n    box-shadow: 0 0 6px 3px #f93c11\n}\n.markerCenter {\n    position: absolute;\n    height: 15px;\n    width: 15px;\n    margin-top: -7.5px;\n    margin-left: -7.5px;\n}", ""]);
-
-	// exports
-
-
-/***/ },
-/* 11 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AkMDhUt5aL7gAAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAE4SURBVGje7drLEYMwDARQ1iXRSGpNI7QE52SGA9JaH7y6cYn1ItuDsbZNoXhVYPLvn9XyQiFkSI4oDJ2SKxpAqTmjEZSSO5pizfmjMdZkQDT2u+8/z5/jCEUjAvuPvAsnHkzwORNKhIMBPqOgJDjCwCyoE+4Cp2PZ6MFIZjaWOQa81Y3AGisNeoWjsYwxR5O3Kdrr7+hUXcbYY1ssYJnOmdU1bGBYusKj09pl5KIKC1x0OltzUoUFXhlM+uCWeU5WhQWuPK0tuei01OXEZDkpaQ13WcuescfDqd5+uY6sfzprTMrNQ9QG5v0mTdu0IirNGkOXaR4wG551XWpCe+DZF+Iu9BN4pZYHN/oOX7mphYYOOg9Q36iWakyrgg5tPcyEpzWXRsPLtA/PhpdtEGfi33A8VSgUCn9ckxdqTPOyv3QAAAAASUVORK5CYII="
 
 /***/ },
-/* 12 */
+/* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -713,7 +710,8 @@
 	        link: function(scope, elem, attrs, gMapCtrl) {
 	            var gmap = gMapCtrl.map;
 
-	            // Watcher setup to wait for the marker. Without it the map loads without the marker.
+	            // Watcher setup to wait for the marker options. Without it the map loads without the marker
+	            // because the marker tries to create with no options.
 	            var watcher = scope.$watch('options', function() {
 	                var marker = aggMarkerFact.getMarker(gmap, scope.options);
 
@@ -766,21 +764,25 @@
 	            var opt = setOptions(options);
 	            self.maps[id] = new google.maps.Map(document.getElementById(id), opt);
 	        }else{
+	            console.log(instance);
 	            self.maps[id] = new google.maps.Map(document.getElementById(id), {
 	                center: instance.center,
-	                zoom: instance.zoom
+	                zoom: instance.zoom,
+	                styles: instance.styles,
+	                mapTypeId: instance.mapTypeId
 	            });
 	        }
 	    }
 	});
 
 /***/ },
-/* 13 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var gPlacesTemp = __webpack_require__(14);
+	var gPlacesTemp = __webpack_require__(12);
+
 	//
 	// Google Places Factory and Directives
 	//
@@ -794,22 +796,25 @@
 	            tempUrl: '@'
 	        },
 	        templateUrl: gPlacesTemp,
+	        controllerAs: 'agg',
+	        bindToController: true,
 	        controller: function($scope, aggPlacesFact) {
+	            var self = this;
 
-	            $scope.getPage = function(pageNum) {
+	            this.getPage = function(pageNum) {
 	                aggPlacesFact.getPage(pageNum).then(function(results){
 	                    console.log('$scope.getPage fired', results); // This only fires if I wait about 5 seconds after previous run.
-	                    $scope.details = results;
+	                    self.details = results;
 	                });
 	            };
-	            $scope.needsPagination = function() {
+	            this.needsPagination = function() {
 	                return aggPlacesFact.needsPagination();
 	            };
 
-	            aggPlacesFact.getPlaces($scope.model).then(function(results) {
-	                $scope.details = results;
-	                $scope.pageNum = aggPlacesFact.pagination.pageNum;
-	                $scope.numPages = aggPlacesFact.pagination.getNumPages(aggPlacesFact.pagination.numPages);
+	            aggPlacesFact.getPlaces(this.model).then(function(results) {
+	                self.details = results;
+	                self.pageNum = aggPlacesFact.pagination.pageNum;
+	                self.numPages = aggPlacesFact.pagination.getNumPages(aggPlacesFact.pagination.numPages);
 	            });
 
 	        }
@@ -921,16 +926,16 @@
 
 
 /***/ },
-/* 14 */
+/* 12 */
 /***/ function(module, exports) {
 
 	var path = '/home/grant/Development/Projects/angular-gmap-gplaces/master/src/templates/gPlaces.html';
-	var html = " <div ng-include=\"tempUrl\"></div>\n\n<nav id=\"pagination\" aria-label=\"Page navigation\" ng-show=\"needsPagination()\">\n    <ul class=\"pagination\">\n        <li>\n            <a href=\"#\" aria-label=\"Previous\">\n                <span aria-hidden=\"true\">&laquo;</span>\n            </a>\n        </li>\n\n        <li ng-repeat=\"page in numPages track by $index\">\n            <a href=\"\" ng-click=\"getPage($index)\">{{$index+1}}</a>\n        </li>\n\n        <li>\n            <a href=\"#\" aria-label=\"Next\">\n                <span aria-hidden=\"true\">&raquo;</span>\n            </a>\n        </li>\n    </ul>\n</nav>";
+	var html = "<div ng-include=\"agg.tempUrl\"></div>\n\n<nav id=\"pagination\" aria-label=\"Page navigation\" ng-show=\"agg.needsPagination()\">\n    <ul class=\"pagination\">\n        <li>\n            <a href=\"#\" aria-label=\"Previous\">\n                <span aria-hidden=\"true\">&laquo;</span>\n            </a>\n        </li>\n\n        <li ng-repeat=\"page in agg.numPages track by $index\">\n            <a href=\"\" ng-click=\"agg.getPage($index)\">{{$index+1}}</a>\n        </li>\n\n        <li>\n            <a href=\"#\" aria-label=\"Next\">\n                <span aria-hidden=\"true\">&raquo;</span>\n            </a>\n        </li>\n    </ul>\n</nav>";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
 
 /***/ },
-/* 15 */
+/* 13 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -977,13 +982,14 @@
 	});
 
 /***/ },
-/* 16 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var aggMenuView = __webpack_require__(23);
-	var aggMenuCss = __webpack_require__(24);
+	var aggMenuCss = __webpack_require__(15);
+	var aggMenuView = __webpack_require__(17);
+	var aggMenuSearchTemp = __webpack_require__(18);
 
 	angular.module('aggMapMenu', [])
 
@@ -991,7 +997,6 @@
 	    return {
 	        restrict: 'E',
 	        require: '^aggMap',
-	        transclude: true,
 	        templateUrl: aggMenuView,
 	        controllerAs: 'aggMenu',
 	        bindToController: true,
@@ -1003,7 +1008,15 @@
 	                this.isOpen = !this.isOpen;
 	            };
 	            // Toggle search/directions
-	            this.view = 'directions';
+	            this.view = '';
+
+	            // Clear Map
+	            this.clearMap = function() {
+	                aggMenuFact.menuObj.searchResults = [];
+	                aggMenuFact.menuObj.searchMarkers.forEach(function(marker) {
+	                    marker.setMap(null);
+	                });
+	            }
 	        },
 	        link: function(scope, elem, attrs, gMapCtrl) {
 	            var map = aggMenuFact.menuObj.gmap = gMapCtrl.map;
@@ -1012,88 +1025,151 @@
 	    }
 	})
 
-	.factory('aggMenuFact', function() {
+	.directive('aggMenuSearch', function() {
+	    return {
+	        restrict: 'E',
+	        templateUrl: aggMenuSearchTemp,
+	        controllerAs: 'search',
+	        bindToController: true,
+	        controller: function(aggMenuFact) {
+	            var self = this,
+	                markers = aggMenuFact.menuObj.searchMarkers,
+	                map = aggMenuFact.menuObj.gmap;
+
+	            // Create the SearchBox
+	            var input = document.getElementById('menuSearchInput'),
+	                searchBox = new google.maps.places.SearchBox(input);
+
+	            // Bias the SearchBox results towards current map's viewport.
+	            searchBox.setBounds(map.getBounds());
+	            map.addListener('bounds_changed', function() {
+	                searchBox.setBounds(map.getBounds());
+	            });
+
+	            // Add listener to handle search results
+	            searchBox.addListener('places_changed', function() {
+	                aggMenuFact.handleSearch(searchBox, map).then(function(){
+	                    self.results = aggMenuFact.menuObj.searchResults;
+	                    console.log(self.results);
+	                });
+	            });
+
+	            // Check if business is open
+	            this.isOpen = function(open) {
+	                var answer = '';
+	                if(open) {
+	                    answer =  'This business is open';
+	                }else{
+	                    answer = 'This business is closed';
+	                }
+	                return answer;
+	            };
+	        }
+	    }
+	})
+	.factory('aggMenuFact', function($q) {
 	    var menu = {};
 
-	    // The menuObj allows sharing data between the menu controllers
-	    menu.menuObj = {};
+	    menu.menuObj = {
+	        gmap: {},
+	        searchMarkers: [],
+	        searchResults: []
+	    };
+
+	    menu.handleSearch = function(box, map) {
+	        var places = box.getPlaces(),
+	            deferred = $q.defer();
+
+	        if (places.length == 0){
+	            alert('No places found');
+	        }
+
+	        // Clear out the old markers and search results
+	        menu.menuObj.searchResults = [];
+	        menu.menuObj.searchMarkers.forEach(function(marker) {
+	            marker.setMap(null);
+	        });
+
+	        // For each place, get the icon, name and location.
+	        var bounds = new google.maps.LatLngBounds();
+	        places.forEach(function(place) {
+	            if (!place.geometry) {
+	                console.log("Returned place contains no geometry");
+	                return;
+	            }
+	            var icon = {
+	                url: place.icon,
+	                size: new google.maps.Size(71, 71),
+	                origin: new google.maps.Point(0, 0),
+	                anchor: new google.maps.Point(17, 34),
+	                scaledSize: new google.maps.Size(25, 25)
+	            };
+
+	            // Create a marker for each place.
+	            menu.menuObj.searchMarkers.push(new google.maps.Marker({
+	                map: map,
+	                icon: icon,
+	                title: place.name,
+	                position: place.geometry.location
+	            }));
+
+	            // Push Places to searchResults array
+	            menu.menuObj.searchResults.push(place);
+
+	            if (place.geometry.viewport) {
+	                // Only geocodes have viewport.
+	                bounds.union(place.geometry.viewport);
+	            } else {
+	                bounds.extend(place.geometry.location);
+	            }
+
+	            deferred.resolve(menu.menuObj);
+	        });
+	        map.fitBounds(bounds);
+	        return deferred.promise;
+	    };
+
+	    menu.search = function(search, type) {
+	        var map = menu.menuObj.gmap,
+	            service = new google.maps.places.PlacesService(map),
+	            deferred = $q.defer(),
+	            request = {
+	                location: search.location,
+	                radius: search.radius,
+	                type: [type],
+	                rankBy: google.maps.places.RankBy.PROMINENCE,
+	                minPriceLevel: 2
+	            };
+
+	        function callback(results, status, pagination) {
+	            if (status === google.maps.places.PlacesServiceStatus.OK) {
+	                console.log('callback fired');
+	                test.searchObj.results = results;
+	                test.searchObj.pagination = pagination;
+	                deferred.resolve(test.searchObj);
+	            }else{
+	                console.log('Google maps status is: ', status)
+	            }
+	        }
+	        service.nearbySearch(request, callback);
+	        return deferred.promise;
+	    };
 
 	    return menu;
 	});
 
 
 /***/ },
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */
-/***/ function(module, exports) {
-
-	var path = '/home/grant/Development/Projects/angular-gmap-gplaces/master/src/templates/aggDirections.html';
-	var html = "<div class=\"directOptions\">\n    <button class=\"directWalking\" ng-click=\"direct.route.travelMode = 'WALKING'\"></button>\n    <button class=\"directDriving\" ng-click=\"direct.route.travelMode = 'DRIVING'\"></button>\n    <button class=\"directBus\" ng-click=\"direct.route.travelMode = 'TRANSIT'\"></button>\n    <button class=\"directBicycling\" ng-click=\"direct.route.travelMode = 'BICYCLING'\"></button>\n</div>\n\n<div class=\"directSearch\">\n    <input type=\"text\" name=\"from\" ng-model=\"direct.route.origin\" placeholder=\"Choose a starting point\">\n    <input type=\"text\" name=\"to\" ng-model=\"direct.route.destination\" placeholder=\"Destination\">\n</div>\n\n";
-	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
-	module.exports = path;
-
-/***/ },
-/* 21 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(22);
+	var content = __webpack_require__(16);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(7)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./aggDirections.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./aggDirections.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(6)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".directSearch input{\n    width: 100%;\n\n}\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 23 */
-/***/ function(module, exports) {
-
-	var path = '/home/grant/Development/Projects/angular-gmap-gplaces/master/src/templates/aggMenu.html';
-	var html = "<div id=\"aggMenuBtn\" role=\"button\" ng-click=\"aggMenu.toggle()\" ng-class=\"{animateMenu: aggMenu.isOpen}\">\n    <i class=\"fa fa-bars fa-3x\"></i>\n</div>\n\n<div id=\"aggMenu\" ng-class=\"{animateMenu: aggMenu.isOpen}\">\n    <!-- Use ng-switch to switch between the different directives -->\n    <div ng-switch=\"aggMenu.view\">\n\n        <div ng-switch-when=\"search\">\n            <agg-search></agg-search>\n        </div>\n\n        <div ng-switch-when=\"directions\">\n            <agg-directions></agg-directions>\n        </div>\n\n    </div>\n</div>";
-	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
-	module.exports = path;
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(25);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(7)(content, {});
+	var update = __webpack_require__(8)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -1110,18 +1186,45 @@
 	}
 
 /***/ },
-/* 25 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(6)();
+	exports = module.exports = __webpack_require__(7)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "#aggMenuBtn {\n    position: absolute;\n    text-align: center;\n    top: 10%;\n    right: 0;\n    color: rgba(39, 39, 39, 0.91);\n    height: 40px;\n    width: 50px;\n    border-radius: 5px;\n    border: thin rgba(0, 0, 0, 0.91);\n    background-color: rgba(255, 75, 51, 0.76);\n    box-shadow: -3px 5px 2px 0 rgba(0,0,0,0.35);\n    transition: .5s ease all;\n\n}\n#aggMenu {\n    background-color: rgba(255, 75, 51, 0.55);\n    position: absolute;\n    top: 0;\n    right: -300px;\n    width: 300px;\n    height: 100%;\n    padding: 5px;\n    transition: .5s ease all;\n}\n/* Animations */\n.animateMenu {\n    transform: translateX(-300px);\n}", ""]);
+	exports.push([module.id, "/* Menu Button */\n#aggMenuBtn {\n    position: absolute;\n    text-align: center;\n    top: 5%;\n    right: 0;\n    color: rgba(39, 39, 39, 0.91);\n    height: 40px;\n    width: 50px;\n    border-radius: 5px;\n    border: thin rgba(0, 0, 0, 0.91);\n    background-color: rgba(255, 75, 51, 0.76);\n    box-shadow: -3px 5px 2px 0 rgba(0,0,0,0.35);\n    transition: .5s ease all;\n\n}\n/* Menu */\n#aggMenu {\n    background-color: #3f3f3f;\n    position: absolute;\n    top: 0;\n    right: -400px;\n    width: 400px;\n    transition: .5s ease all;\n    border-radius: 5px;\n}\n.aggMenuChoices {\n    width: 100%;\n    height: 120px;\n    background-color: #1d1d1d;\n    padding: 5px;\n    border-radius: 5px;\n}\n.aggMenuItems {\n    display: block;\n    width: 300px;\n    background-color: #3f3f3f;\n    color: white;\n    margin: 10px auto;\n    border-radius: 5px;\n    border: thin;\n}\n.aggMenuItems:hover {\n    background-color: rgba(255, 75, 51, 0.76);\n}\n/* Animations */\n.animateMenu {\n    transform: translateX(-400px);\n}\n/* Search box and results */\n#aggMenu .genSearch {\n    width: 100%;\n    height: 125px;\n    background-color: #1d1d1d;\n    position: relative;\n}\n#menuSearchInput {\n    height: 50px;\n    width: 390px;\n    display: block;\n    margin: -25px -195px 0 0;\n    position: absolute;\n    top: 50%;\n    right: 50%;\n    background-color: #3f3f3f;\n    border: thin;\n    border-radius: 5px;\n    color: white;\n    font-size: 16px;\n}\n#aggMenu .searchResults {\n    width: 100%;\n    height: 650px;\n    overflow-y: auto;\n}\n#aggMenu ul {\n    list-style: none;\n    padding: 0;\n    display: inline-block;\n}\n.resultsList li {\n    color: white;\n}\n.aggResult li:first-child {\n    font-weight: bold;\n    font-size: 18px;\n}\n.aggResult .openNow {\n    font-size: 12px;\n    color: #326ea0;\n}\n#aggMenu .aggResult {\n    margin: 10px 0;\n}\n/* Directions search box and results */\n", ""]);
 
 	// exports
 
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	var path = '/home/grant/Development/Projects/angular-gmap-gplaces/master/src/templates/aggMenu.html';
+	var html = "<div id=\"aggMenuBtn\" role=\"button\" ng-click=\"aggMenu.toggle()\" ng-class=\"{animateMenu: aggMenu.isOpen}\">\n    <i class=\"fa fa-bars fa-3x\"></i>\n</div>\n\n<div id=\"aggMenu\" ng-class=\"{animateMenu: aggMenu.isOpen}\">\n    <!-- Use ng-switch to switch between the different directives -->\n    <div ng-switch=\"aggMenu.view\">\n\n        <div ng-switch-when=\"search\">\n            <agg-menu-search></agg-menu-search>\n        </div>\n\n        <div ng-switch-when=\"directions\">\n            <agg-directions></agg-directions>\n        </div>\n\n        <div ng-switch-default>\n            <div class=\"aggMenuChoices\">\n                <button class=\"aggMenuItems\" ng-click=\"aggMenu.view = 'search'\">Search the Map</button>\n                <button class=\"aggMenuItems\" ng-click=\"aggMenu.view = 'directions'\">Get Directions</button>\n                <button class=\"aggMenuItems\" ng-click=\"aggMenu.clearMap()\">Clear the Map</button>\n            </div>\n        </div>\n    </div>\n</div>";
+	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+	module.exports = path;
+
+/***/ },
+/* 18 */
+/***/ function(module, exports) {
+
+	var path = '/home/grant/Development/Projects/angular-gmap-gplaces/master/src/templates/aggMenuSearch.html';
+	var html = "<div class=\"genSearch\">\n    <i role=\"button\" class=\"fa fa-arrow-left fa-2x\" style=\"color: white;\" ng-click=\"aggMenu.view = 'default'\"></i>\n    <input id=\"menuSearchInput\" type=\"text\" placeholder=\"Search for something close by.\">\n</div>\n\n<div class=\"searchResults\">\n\n    <ul class=\"resultsList\">\n        <li class=\"aggResult\" ng-repeat=\"result in search.results\">\n            <img ng-src=\"{{result.photos[0].getUrl({'maxWidth': 120, 'maxHeight': 240})}}\">\n            <ul>\n                <li>{{result.name}}</li>\n                <li>{{}}</li>\n                <li class=\"openNow\">{{search.isOpen(result.opening_hours.open_now)}}</li>\n            </ul>\n\n        </li>\n    </ul>\n\n</div>\n\n\n\n";
+	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+	module.exports = path;
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	var path = '/home/grant/Development/Projects/angular-gmap-gplaces/master/src/templates/aggMenuDirections.html';
+	var html = "<i role=\"button\" class=\"fa fa-arrow-left fa-2x\" style=\"color: white;\" ng-click=\"aggMenu.view = 'default'\"></i>\n\n<div class=\"directBtnBar\">\n    <button class=\"searchType\" ng-click=\"direct.route.travelMode = 'WALKING'\"><i class=\"fa fa-blind\" ></i></button>\n    <button class=\"searchType\" ng-click=\"direct.route.travelMode = 'DRIVING'\"><i class=\"fa fa-car\"></i></button>\n    <button class=\"searchType\" ng-click=\"direct.route.travelMode = 'BICYCLING'\"><i class=\"fa fa-bicycle\"></i></button>\n    <button class=\"searchType\" ng-click=\"direct.route.travelMode = 'TRANSIT'\"><i class=\"fa fa-bus\"></i></button>\n</div>\n\n<div class=\"directSearch\">\n    <input type=\"text\" name=\"from\" ng-model=\"direct.route.origin\" placeholder=\"Choose a starting point\">\n    <input type=\"text\" name=\"to\" ng-model=\"direct.route.destination\" placeholder=\"Destination\">\n</div>\n\n<div class=\"directResults\">\n\n</div>";
+	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+	module.exports = path;
 
 /***/ }
 /******/ ]);

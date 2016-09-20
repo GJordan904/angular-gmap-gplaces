@@ -1,7 +1,6 @@
 'use strict';
 
-var aggDirectionsTemp = require('./../templates/aggDirections.html');
-var aggDirectionsCss = require('./../styles/aggDirections.css');
+var aggDirectionsTemp = require('./../templates/aggMenuDirections.html');
 
 angular.module('aggDirections', [])
 

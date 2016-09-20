@@ -7,12 +7,19 @@
     <div ng-switch="aggMenu.view">
 
         <div ng-switch-when="search">
-            <agg-search></agg-search>
+            <agg-menu-search></agg-menu-search>
         </div>
 
         <div ng-switch-when="directions">
             <agg-directions></agg-directions>
         </div>
 
+        <div ng-switch-default>
+            <div class="aggMenuChoices">
+                <button class="aggMenuItems" ng-click="aggMenu.view = 'search'">Search the Map</button>
+                <button class="aggMenuItems" ng-click="aggMenu.view = 'directions'">Get Directions</button>
+                <button class="aggMenuItems" ng-click="aggMenu.clearMap()">Clear the Map</button>
+            </div>
+        </div>
     </div>
 </div>

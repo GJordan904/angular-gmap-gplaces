@@ -1,0 +1,17 @@
+<i role="button" class="fa fa-arrow-left fa-2x" style="color: white;" ng-click="aggMenu.view = 'default'"></i>
+
+<div class="directBtnBar">
+    <button class="searchType" ng-click="direct.route.travelMode = 'WALKING'"><i class="fa fa-blind" ></i></button>
+    <button class="searchType" ng-click="direct.route.travelMode = 'DRIVING'"><i class="fa fa-car"></i></button>
+    <button class="searchType" ng-click="direct.route.travelMode = 'BICYCLING'"><i class="fa fa-bicycle"></i></button>
+    <button class="searchType" ng-click="direct.route.travelMode = 'TRANSIT'"><i class="fa fa-bus"></i></button>
+</div>
+
+<div class="directSearch">
+    <input type="text" name="from" ng-model="direct.route.origin" placeholder="Choose a starting point">
+    <input type="text" name="to" ng-model="direct.route.destination" placeholder="Destination">
+</div>
+
+<div class="directResults">
+
+</div>

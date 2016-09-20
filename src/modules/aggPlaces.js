@@ -1,6 +1,7 @@
 'use strict';
 
 var gPlacesTemp = require('./../templates/gPlaces.html');
+
 //
 // Google Places Factory and Directives
 //
@@ -14,22 +15,25 @@ angular.module('aggPlaces', [])
             tempUrl: '@'
         },
         templateUrl: gPlacesTemp,
+        controllerAs: 'agg',
+        bindToController: true,
         controller: function($scope, aggPlacesFact) {
+            var self = this;
 
-            $scope.getPage = function(pageNum) {
+            this.getPage = function(pageNum) {
                 aggPlacesFact.getPage(pageNum).then(function(results){
                     console.log('$scope.getPage fired', results); // This only fires if I wait about 5 seconds after previous run.
-                    $scope.details = results;
+                    self.details = results;
                 });
             };
-            $scope.needsPagination = function() {
+            this.needsPagination = function() {
                 return aggPlacesFact.needsPagination();
             };
 
-            aggPlacesFact.getPlaces($scope.model).then(function(results) {
-                $scope.details = results;
-                $scope.pageNum = aggPlacesFact.pagination.pageNum;
-                $scope.numPages = aggPlacesFact.pagination.getNumPages(aggPlacesFact.pagination.numPages);
+            aggPlacesFact.getPlaces(this.model).then(function(results) {
+                self.details = results;
+                self.pageNum = aggPlacesFact.pagination.pageNum;
+                self.numPages = aggPlacesFact.pagination.getNumPages(aggPlacesFact.pagination.numPages);
             });
 
         }
