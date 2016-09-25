@@ -1,0 +1,27 @@
+{
+  "name": "angular-gmap-gplaces",
+  "description": "Directives for google map, places, and directions",
+  "main": "angular-gmap-gplaces.js",
+  "authors": [
+    "Grant Jordan"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "google",
+    "maps",
+    "angular",
+    "places",
+    "geolocation",
+    "directions",
+    "autocomplete"
+  ],
+  "homepage": "https://github.com/gjordan904/angular-gmap-gplaces",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
