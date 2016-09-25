@@ -1,6 +1,6 @@
 'use strict';
 
-var markerCss = require('./../styles/gLocation.css');
+
 //
 // The aggGeolocation module is home to all things geolocation related
 // Included is the gLocation directive and supporting service and factory
@@ -9,12 +9,11 @@ angular.module('aggGeolocation', [])
 //
 // Directive for showing user location
 //
-.directive('aggLocation', function(aggMarkerFact, aggLocationServ, aggLocationMarkerFact) {
+.directive('aggLocation', function(aggMapServ, aggLocationServ, aggLocationMarkerFact) {
     return {
         restrict: 'E',
-        require: '^aggMap',
-        link: function(scope, elem, attrs, gMapCtrl) {
-            var gmap = gMapCtrl.map;
+        link: function(scope, elem, attrs) {
+            var gmap = aggMapServ.maps[0];
             var location = aggLocationServ.getLoc();
 
             location.then(

@@ -11,11 +11,18 @@ angular.module('aggUtils', [])
         apiKey = '',
         libraries = '';
 
+
     // Add Google maps Script to page
-    function loadScript($document, callback, success) {
-        var scriptTag = $document.createElement('script');
-        scriptTag.src = 'https://maps.googleapis.com/maps/api/js?key='+apiKey+'&libraries='+libraries+'&callback=mapReady&language='+language;
-        $document.getElementsByTagName('body')[0].appendChild(scriptTag);
+    function loadScript($document) {
+        var scripts = {
+            fontLoader: 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js',
+            gMaps: 'https://maps.googleapis.com/maps/api/js?key='+ apiKey + '&libraries=' + libraries + '&callback=mapReady&language=' + language
+        };
+        for(var script in scripts) {
+            var scriptTag = $document.createElement('script');
+            scriptTag.src = scripts[script];
+            $document.getElementsByTagName('body')[0].appendChild(scriptTag);
+        }
     }
     // Set user defined options
     this.setOptions = function(opt) {

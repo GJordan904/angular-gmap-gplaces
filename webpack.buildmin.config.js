@@ -4,7 +4,7 @@ var config = {
     entry: [path.resolve(__dirname, 'src/angular-gmap-gplace.js')],
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'angular-gmap-gplace.min.js'
+        filename: 'angular-gmap-gplaces.min.js'
     },
     externals: {
         'angular': 'angular'
@@ -13,7 +13,8 @@ var config = {
         loaders: [
             {test: /src.*\.js$/, loaders: ['ng-annotate']},
             {test: /\.html$/, loader: 'ngtemplate!html'},
-            {test: /\.css$/, loader: 'style!css'}
+            {test: /\.scss$/, loader: 'style!css!sass'},
+            {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'}
         ]
     }
 };
