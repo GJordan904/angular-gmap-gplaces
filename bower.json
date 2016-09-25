@@ -17,6 +17,10 @@
   ],
   "homepage": "https://github.com/gjordan904/angular-gmap-gplaces",
   "moduleType": [],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-animate": "^1.5.8"
+  },
   "ignore": [
     "**/.*",
     "node_modules",
