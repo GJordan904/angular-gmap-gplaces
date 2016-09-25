@@ -50,6 +50,7 @@
             var getLocation = aggLocationServ.getLoc();
 
             vm.mapOptions = {
+                index: 0,
                 mapId: 'map-canvas',
                 center: {lat: 29.892410, lng: -81.31445},
                 zoom: 10,
