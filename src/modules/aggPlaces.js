@@ -29,13 +29,15 @@ angular.module('aggPlaces', [])
             this.needsPagination = function() {
                 return aggPlacesFact.needsPagination();
             };
-
-            aggPlacesFact.getPlaces(this.model).then(function(results) {
-                self.details = results;
-                self.pageNum = aggPlacesFact.pagination.pageNum;
-                self.numPages = aggPlacesFact.pagination.getNumPages(aggPlacesFact.pagination.numPages);
+            $scope.$watch('self.model', function(newVal, oldVal) {
+                if(newVal !== undefined) {
+                    aggPlacesFact.getPlaces(self.model).then(function (results) {
+                        self.details = results;
+                        self.pageNum = aggPlacesFact.pagination.pageNum;
+                        self.numPages = aggPlacesFact.pagination.getNumPages(aggPlacesFact.pagination.numPages);
+                    });
+                }
             });
-
         }
     };
 })
