@@ -7,11 +7,11 @@
     <div ng-switch="aggMenu.view" style="height: 100%;">
 
         <div ng-switch-when="search" class="slide" style="height: 100%;">
-            <agg-menu-search></agg-menu-search>
+            <agg-menu-search map-id="0"></agg-menu-search>
         </div>
 
         <div ng-switch-when="directions" class="slide">
-            <agg-directions></agg-directions>
+            <agg-directions options="aggMenu.directOpt"></agg-directions>
         </div>
 
         <div ng-switch-default class="slide" style="height: 100%;">

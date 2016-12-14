@@ -24,6 +24,7 @@
   transition: .5s ease all;
   border-radius: 5px;
   font-family: 'Oswald', sans-serif;
+  overflow-x: hidden;
 
   // Menu Buttons
   .aggMenuChoices {
@@ -113,23 +114,22 @@
   }
 }
 /* Animations */
-@keyframes aggSlideDownOut {
+@keyframes aggSlideOutLeft {
   from {
-    transform: translate3d(0, 0, 0);
+    transform: translateX(0);
   }
 
   to {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
+    transform: translateX(-100%);
   }
 }
-@keyframes aggSlideDownIn {
+@keyframes aggSlideInRight {
   from {
-    transform: translate3d(0, -100%, 0);
+    transform: translateX(100%);
 
   }
   to {
-    transform: translate3d(0, 0, 0);
+    transform: translateX(0);
   }
 }
 .animateMenu {
@@ -139,10 +139,19 @@
   transform: translateX(-1071%)
 }
 .slide.ng-leave {
-  animation: aggSlideDownOut 2s ease-in;
+  animation: aggSlideOutLeft 1s ease-in;
 }
 .slide.ng-enter {
-  animation: aggSlideDownIn 2s ease-in;
+  animation: aggSlideInRight 1s ease-in;
+}
+.slide.ng-enter-active {
+  transform: translateX(100%);
+}
+.slide.ng-leave-active {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
 }
 
 /* Directions search box and results */

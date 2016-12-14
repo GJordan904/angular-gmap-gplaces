@@ -1,7 +1,8 @@
 {
   "name": "angular-gmap-gplaces",
+  "version": "1.0",
   "description": "Directives for google map, places, and directions",
-  "main": "angular-gmap-gplaces.js",
+  "main": "./dist/angular-gmap-gplaces.js",
   "authors": [
     "Grant Jordan"
   ],
@@ -19,7 +20,8 @@
   "moduleType": [],
   "dependencies": {
     "angular": "^1.5.8",
-    "angular-animate": "^1.5.8"
+    "angular-animate": "^1.5.8",
+    "angular-sanitize": "^1.5.8"
   },
   "ignore": [
     "**/.*",

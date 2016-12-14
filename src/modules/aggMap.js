@@ -76,7 +76,7 @@ angular.module('aggMap', [])
             index: 0,
             mapId: 'map-canvas',
             zoom: 8,
-            center: {lat: -34.397, lng: 150.644}
+            center: {lat: 0, lng: 0}
         };
         var options = angular.copy(defaults, {});
         angular.extend(options, args);

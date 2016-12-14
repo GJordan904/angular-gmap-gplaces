@@ -6,14 +6,16 @@ var aggMenuSearchTemp = require('./../templates/aggMenuSearch.html');
 
 angular.module('aggMapMenu', [])
 
-.directive('aggMenu', function(aggMenuFact, aggMapServ) {
+.directive('aggMenu', function(aggMenuFact, aggDirectionsServ) {
     return {
         restrict: 'E',
         templateUrl: aggMenuView,
+        scope: {
+            mapId: '@mapId'
+        },
         controllerAs: 'aggMenu',
         bindToController: true,
-        controller: function() {
-
+        controller: function($scope) {
             // Toggle Menu
             this.isOpen = false;
             this.toggle = function() {
@@ -28,9 +30,23 @@ angular.module('aggMapMenu', [])
                 aggMenuFact.menuObj.searchMarkers.forEach(function(marker) {
                     marker.setMap(null);
                 });
+                aggDirectionsServ.markers.forEach(function(marker) {
+                    marker.setMap(null);
+                });
+                aggDirectionsServ.renderer.setMap(null);
             }
         },
-        link: function() {
+        link: function(scope, elem, attrs, ctrl) {
+            // Direction Options
+            attrs.$observe('mapId', function(value) {
+                ctrl.directOpt = {
+                    inMenu: true,
+                    mapId: value,
+                    goBack: function () {
+                        ctrl.view = 'default';
+                    }
+                };
+            });
             WebFont.load({
                 google: {
                     families: ['Baloo Bhaina', 'Oswald']
@@ -40,34 +56,21 @@ angular.module('aggMapMenu', [])
     }
 })
 
-.directive('aggMenuSearch', function() {
+.directive('aggMenuSearch', function(aggMenuFact, aggMapServ) {
     return {
         restrict: 'E',
         templateUrl: aggMenuSearchTemp,
         controllerAs: 'search',
+        require: ['^aggMenu', 'aggMenuSearch'],
+        scope: {
+            mapId: '@mapId'
+        },
         bindToController: true,
-        controller: function(aggMenuFact, aggMapServ) {
+        controller: function() {
             var self = this,
-                markers = aggMenuFact.menuObj.searchMarkers,
-                map = aggMapServ.maps[0];
+                markers = aggMenuFact.menuObj.searchMarkers;
 
-            // Create the SearchBox
-            var input = document.getElementById('menuSearchInput'),
-                searchBox = new google.maps.places.SearchBox(input);
-
-            // Bias the SearchBox results towards current map's viewport.
-            // Change the SearchBox bounds on map bounds change
-            searchBox.setBounds(map.getBounds());
-            map.addListener('bounds_changed', function() {
-                searchBox.setBounds(map.getBounds());
-            });
-
-            // Add listener to handle search results
-            searchBox.addListener('places_changed', function() {
-                aggMenuFact.handleSearch(searchBox, map).then(function(){
-                    self.results = aggMenuFact.menuObj.searchResults;
-                });
-            });
+            this.results = [];
 
             // Check if business is open
             this.isOpen = function(open) {
@@ -80,11 +83,6 @@ angular.module('aggMapMenu', [])
                 return answer;
             };
 
-            // Opens associated marker when clicking on results in list and animates marker
-            this.openMarker = function(id) {
-                google.maps.event.trigger(aggMenuFact.menuObj.searchMarkers[id], 'click');
-            };
-
             // Calculate Star Rating
             this.getStars = function(rating) {
                 // Get the value
@@ -93,6 +91,36 @@ angular.module('aggMapMenu', [])
                 var size = val/5*100;
                 return size + '%';
             };
+        },
+        link: function(scope, elem, attrs, ctrls) {
+            // Create the SearchBox
+            var input = document.getElementById('menuSearchInput'),
+                searchBox = new google.maps.places.SearchBox(input),
+                map = aggMapServ.maps[parseInt(attrs.mapId)];
+
+            // Bias the SearchBox results towards current map's viewport.
+            // Change the SearchBox bounds on map bounds change
+            searchBox.setBounds(map.getBounds());
+            map.addListener('bounds_changed', function() {
+                searchBox.setBounds(map.getBounds());
+            });
+
+            // Add listener to handle search results
+            searchBox.addListener('places_changed', function() {
+                aggMenuFact.handleSearch(searchBox, map).then(function(){
+                    ctrls[1].results = aggMenuFact.menuObj.searchResults;
+                });
+            });
+
+            // Opens associated marker when clicking on results in list and animates marker
+            ctrls[1].openMarker = function(id) {
+                google.maps.event.trigger(aggMenuFact.menuObj.searchMarkers[id], 'click');
+                ctrls[0].toggle();
+            };
+
+            ctrls[1].goBack = function () {
+                ctrls[0].view = 'default'
+            }
         }
     }
 })
@@ -108,7 +136,6 @@ angular.module('aggMapMenu', [])
         var places = box.getPlaces(),
             bounds = new google.maps.LatLngBounds(),
             deferred = $q.defer();
-        console.log(box);
 
         // Alert if no results
         if (places.length == 0){
@@ -127,9 +154,6 @@ angular.module('aggMapMenu', [])
 
         // Create Info Box and map click handler for closing info box
         var infoBox = new aggInfoBoxFact();
-        google.maps.event.addListener(map, 'click', function () {
-            infoBox.close();
-        });
 
         // For each place, create an icon, marker, and info box
         // Push the markers and results to arrays for viewing
@@ -140,10 +164,8 @@ angular.module('aggMapMenu', [])
             }
             var icon = {
                 url: 'http://maps.google.com/mapfiles/ms/icons/blue.png',
-                size: new google.maps.Size(80, 80),
                 origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(17, 34),
-                scaledSize: new google.maps.Size(25, 25)
+                anchor: new google.maps.Point(17, 34)
             };
 
             // Create a marker for each place.
@@ -153,6 +175,12 @@ angular.module('aggMapMenu', [])
                 title: place.name,
                 placeId: place.place_id,
                 position: place.geometry.location
+            });
+
+            // Add listener to map for closing infobox and stopping marker animation
+            google.maps.event.addListener(map, 'click', function () {
+                if(marker.getAnimation() !== null) marker.setAnimation(null);
+                infoBox.close();
             });
 
             // Create info box and click handler for marker
@@ -171,7 +199,7 @@ angular.module('aggMapMenu', [])
                                          '<h3>' + results.name + '</h3>' +
                                       '</div>' +
                                       '<div class="ibBody">' +
-                                         '<img src="' + results.photos[0].getUrl({'maxWidth': 300, 'maxHeight': 300}) + '" width="100%" height="auto">' +
+                                         '<img src="' + results.photos[0].getUrl({'maxWidth': 250, 'maxHeight': 250}) + '" width="100%" height="auto">' +
                                          '<ul>' +
                                              '<li>' + results.formatted_phone_number + '</li>' +
                                              '<li>' + results.vicinity + '</li>' +
