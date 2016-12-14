@@ -17,8 +17,8 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "^1.5.8",
+    "angular": "^1.6.0",
     "angular-ui-router": "^0.3.1",
-    "angular-animate": "^1.5.8"
+    "angular-gmap-gplaces": "*"
   }
 }

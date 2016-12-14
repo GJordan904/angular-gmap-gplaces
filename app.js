@@ -5,8 +5,7 @@ angular.module('myApp', [
 	'app.directives',
 	'angular-gmap-gplace',
 	'hljs',
-	'ui.router',
-	'ngAnimate'
+	'ui.router'
 ])
 .config(function($stateProvider, $urlRouterProvider, $aggMapProvider) {
 	// Configuration for Google Maps
