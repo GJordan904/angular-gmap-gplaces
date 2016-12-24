@@ -52,7 +52,10 @@ angular.module('myApp', [
 					templateUrl: 'views/exPlace.html',
 					controller: 'PlacesCtrl as places'
 				}
-			}
+			},
+            resolve: {
+                googleMap: '$aggMap'
+            }
 		})
 		.state('app.exPlaces', {
 			url: '/ex/places',
