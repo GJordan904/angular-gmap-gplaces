@@ -1,7 +1,3 @@
-(function(){'use strict';
-
-var animate = require('../bower_components/angular-animate/angular-animate.min.js');
-var sanitize = require('../bower_components/angular-sanitize/angular-sanitize.min.js');
 var styles = require('./styles/main.scss');
 var aggDirections = require('./modules/aggDirections.js');
 var aggGeolocation = require('./modules/aggGeolocation.js');
@@ -9,6 +5,8 @@ var aggMap = require('./modules/aggMap.js');
 var aggPlaces = require('./modules/aggPlaces.js');
 var aggUtils = require('./modules/aggUtils.js');
 var aggMapMenu = require('./modules/aggMapMenu.js');
+var aggSearch = require('./modules/Search.js');
+var aggAnimations = require('./modules/Animations.js');
 
 angular.module('angular-gmap-gplace', [
     'ngAnimate',
@@ -18,9 +16,9 @@ angular.module('angular-gmap-gplace', [
     'aggPlaces',
     'aggDirections',
     'aggUtils',
-    'aggMapMenu'
+    'aggMapMenu',
+    'aggSearch',
+    'aggAnimations'
 ]);
-
-}());
 
 

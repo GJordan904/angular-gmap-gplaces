@@ -1,6 +1,6 @@
 {
   "name": "angular-gmap-gplaces",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "Directives for google map, places, and directions",
   "main": "./dist/angular-gmap-gplaces.js",
   "authors": [

@@ -1,26 +1,37 @@
 <div class="genSearch">
-    <i role="button" class="fa fa-arrow-left fa-4x" style="color: white;" ng-click="search.goBack()"></i>
-    <input id="menuSearchInput" type="text" placeholder="Search for something close by.">
+    <input id="aggSearch" agg-search="search.results" options="search.searchBox" type="text" placeholder="Search for something close by.">
+    <div class="directIcon" ng-click="search.getDirections()"></div>
 </div>
 
-<div class="searchResults">
+<div class="searchResults aggEnterDown" ng-if="search.results.length > 0">
+    <i role="button" class="fa fa-times fa-2x aggClear colored" ng-click="search.clearMap()"><span>Clear Results</span></i>
+    <div ng-switch="search.numResults">
+        <div ng-switch-when="1">
+            <div class="resultHeader">
+                <img ng-src="{{search.results[0].photos[0].getUrl({'maxWidth': 500, 'maxHeight': 500})}}">
+                <div class="title">{{search.results[0].name}}</div>
+                <div agg-star-rating="{{search.results}}"></div>
+            </div>
+        </div>
 
-    <ul class="resultsList">
-        <li class="aggResult" ng-repeat="result in search.results track by $index" ng-click="search.openMarker($index)" role="button">
+        <div ng-switch-default>
+            <ul class="resultsList">
+                <li class="aggResult" ng-repeat="result in search.results track by $index" ng-click="search.openMarker($index)" role="button">
 
-            <img ng-src="{{result.photos[0].getUrl({'maxWidth': 120, 'maxHeight': 240})}}">
-            <ul>
-                <li>{{result.name}}</li>
-                <li>
-                    <span class="stars">
-                        <span ng-style="{'width':search.getStars(result.rating)}"></span>
-                    </span>
+                    <ul>
+                        <li>{{result.name}}</li>
+                        <li>
+                            <div agg-star-rating="{{result.rating}}"></div>
+                        </li>
+                        <li>{{search.addressText(result.formatted_address)}}</li>
+                        <li class="openNow">{{search.openText(result.opening_hours.open_now)}}</li>
+                    </ul>
+                    <img ng-src="{{result.photos[0].getUrl({'maxWidth': 80, 'maxHeight': 92})}}">
+                    <hr>
                 </li>
-                <li class="openNow">{{search.isOpen(result.opening_hours.open_now)}}</li>
             </ul>
-
-        </li>
-    </ul>
+        </div>
+    </div>
 
 </div>
 

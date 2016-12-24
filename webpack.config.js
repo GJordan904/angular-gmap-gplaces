@@ -14,7 +14,8 @@ var config = {
         loaders: [
             {test: /\.html$/, loader: 'ngtemplate!html'},
             {test: /\.scss$/, loader: 'style!css!sass'},
-            {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'}
+            {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'},
+            {test: /\.svg/, loader: 'svg-url-loader'}
 
         ]
     },

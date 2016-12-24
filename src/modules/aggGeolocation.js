@@ -12,24 +12,29 @@ angular.module('aggGeolocation', [])
 .directive('aggLocation', function(aggMapServ, aggLocationServ, aggLocationMarkerFact) {
     return {
         restrict: 'E',
-        link: function(scope, elem, attrs) {
-            var gmap = aggMapServ.maps[0];
+        require: ['^aggMap'],
+        link: function(scope, elem, attrs, mapCtrl) {
             var location = aggLocationServ.getLoc();
 
-            location.then(
-                function(success){
-                    var markOptions = {
-                        position: new google.maps.LatLng(success.lat, success.lng),
-                        cursor: 'pointer',
-                        map: gmap
-                    };
+            var watcher = scope.$watch(function(){return mapCtrl[0].gMap;}, function(value) {
+                if(value !== undefined) {
+                    location.then(
+                        function (success) {
+                            var markOptions = {
+                                position: new google.maps.LatLng(success.lat, success.lng),
+                                cursor: 'pointer',
+                                map: value
+                            };
 
-                    var marker = new aggLocationMarkerFact(markOptions);
-                },
-                function(failed){
-                    alert(failed);
+                            var marker = new aggLocationMarkerFact(markOptions);
+                        },
+                        function (failed) {
+                            alert(failed);
+                        }
+                    );
+                    watcher();
                 }
-            );
+            });
         }
     };
 })

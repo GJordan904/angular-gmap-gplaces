@@ -51,17 +51,15 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	(function(){'use strict';
-
-	var animate = __webpack_require__(18);
-	var sanitize = __webpack_require__(19);
 	var styles = __webpack_require__(2);
-	var aggDirections = __webpack_require__(7);
-	var aggGeolocation = __webpack_require__(9);
-	var aggMap = __webpack_require__(11);
-	var aggPlaces = __webpack_require__(12);
-	var aggUtils = __webpack_require__(14);
-	var aggMapMenu = __webpack_require__(15);
+	var aggDirections = __webpack_require__(8);
+	var aggGeolocation = __webpack_require__(10);
+	var aggMap = __webpack_require__(12);
+	var aggPlaces = __webpack_require__(13);
+	var aggUtils = __webpack_require__(15);
+	var aggMapMenu = __webpack_require__(16);
+	var aggSearch = __webpack_require__(19);
+	var aggAnimations = __webpack_require__(20);
 
 	angular.module('angular-gmap-gplace', [
 	    'ngAnimate',
@@ -71,10 +69,10 @@
 	    'aggPlaces',
 	    'aggDirections',
 	    'aggUtils',
-	    'aggMapMenu'
+	    'aggMapMenu',
+	    'aggSearch',
+	    'aggAnimations'
 	]);
-
-	}());
 
 
 
@@ -89,7 +87,7 @@
 	var content = __webpack_require__(3);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(6)(content, {});
+	var update = __webpack_require__(7)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -114,7 +112,7 @@
 
 
 	// module
-	exports.push([module.id, "@keyframes aggPulsate {\n  0% {\n    transform: scale(0.1);\n    opacity: 0; }\n  50% {\n    opacity: 1; }\n  to {\n    transform: scale(1.2);\n    opacity: 0; } }\n\n.locMarker {\n  position: absolute;\n  margin-top: -50px;\n  margin-left: -50px;\n  transform: rotateX(55deg); }\n\n.locMarker:after {\n  display: block;\n  width: 100px;\n  height: 100px;\n  content: '';\n  animation: aggPulsate 1s ease-out;\n  animation-delay: 1.1s;\n  animation-iteration-count: infinite;\n  opacity: 0;\n  border-radius: 50%;\n  box-shadow: 0 0 6px 3px #f93c11; }\n\n.markerCenter {\n  position: absolute;\n  height: 15px;\n  width: 15px;\n  margin-top: -7.5px;\n  margin-left: -7.5px; }\n\n/* Menu Button */\n#aggMenuBtn {\n  position: absolute;\n  text-align: center;\n  top: 5%;\n  right: 0;\n  color: rgba(39, 39, 39, 0.91);\n  width: 7%;\n  border-radius: 5px;\n  border: thin rgba(0, 0, 0, 0.91);\n  background-color: rgba(255, 75, 51, 0.76);\n  box-shadow: -3px 5px 2px 0 rgba(0, 0, 0, 0.35);\n  transition: .5s ease all; }\n\n/* Menu */\n#aggMenu {\n  background-color: #3f3f3f;\n  position: absolute;\n  top: 0;\n  right: -75%;\n  height: 100%;\n  width: 75%;\n  transition: .5s ease all;\n  border-radius: 5px;\n  font-family: 'Oswald', sans-serif;\n  overflow-x: hidden;\n  /* Search box and results */ }\n  #aggMenu .aggMenuChoices {\n    height: 50%;\n    background-color: #1d1d1d;\n    padding: 2%;\n    border-radius: 5px; }\n  #aggMenu .aggMenuItems {\n    display: block;\n    width: 80%;\n    height: 25%;\n    background-color: rgba(255, 75, 51, 0.76);\n    color: white;\n    margin: 2% auto;\n    border-radius: 5px;\n    border: thin;\n    font-size: 32px; }\n    #aggMenu .aggMenuItems:hover {\n      background-color: rgba(255, 75, 51, 0.76); }\n  #aggMenu ul {\n    list-style: none;\n    padding: 0;\n    display: inline-block;\n    margin-left: 5px; }\n  #aggMenu #menuSearchInput {\n    height: 50%;\n    width: 90%;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    background-color: #3f3f3f;\n    border: thin;\n    border-radius: 5px;\n    color: white;\n    font-size: 32px;\n    transform: translate(-50%, -50%); }\n  #aggMenu .genSearch {\n    width: 100%;\n    height: 25%;\n    background-color: #1d1d1d;\n    position: relative; }\n  #aggMenu .searchResults {\n    width: 100%;\n    height: 100%;\n    overflow-y: auto; }\n  #aggMenu .resultsList {\n    width: 100%; }\n    #aggMenu .resultsList li {\n      color: white; }\n  #aggMenu .aggResult {\n    margin: 5px auto;\n    border: outset rgba(255, 75, 51, 0.76);\n    width: 90%;\n    background-color: black; }\n    #aggMenu .aggResult li:first-child {\n      font-weight: bold;\n      font-size: 16px;\n      font-family: 'Oswald', sans-serif; }\n    #aggMenu .aggResult .openNow {\n      font-size: 12px;\n      color: #72a078; }\n    #aggMenu .aggResult span.stars, #aggMenu .aggResult span.stars span {\n      display: inline-block;\n      background: url(" + __webpack_require__(5) + ") 0 -16px repeat-x;\n      width: 80px;\n      height: 16px; }\n    #aggMenu .aggResult span.stars span {\n      background-position: 0 0; }\n\n/* Animations */\n@keyframes aggSlideOutLeft {\n  from {\n    transform: translateX(0); }\n  to {\n    transform: translateX(-100%); } }\n\n@keyframes aggSlideInRight {\n  from {\n    transform: translateX(100%); }\n  to {\n    transform: translateX(0); } }\n\n.animateMenu {\n  transform: translateX(-100%); }\n\n.animateBtn {\n  transform: translateX(-1071%); }\n\n.slide.ng-leave {\n  animation: aggSlideOutLeft 1s ease-in; }\n\n.slide.ng-enter {\n  animation: aggSlideInRight 1s ease-in; }\n\n.slide.ng-enter-active {\n  transform: translateX(100%); }\n\n.slide.ng-leave-active {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0; }\n\n/* Directions search box and results */\n/* Info Box */\n.infoBox {\n  background-color: #3f3f3f;\n  width: 300px;\n  border-radius: 15px; }\n\n.ibHeader {\n  width: 100%;\n  background-color: #1d1d1d;\n  font-family: 'Oswald', sans-serif;\n  color: #72a078;\n  padding: 2px;\n  border-radius: 15px 15px 0 0; }\n  .ibHeader h3, .ibHeader hr {\n    margin: 0; }\n\n.ibBody {\n  color: #72a078;\n  font-family: 'Baloo Bhaina', sans-serif;\n  font-size: 16px; }\n  .ibBody ul {\n    list-style: none; }\n\n.directControls {\n  background-color: #f93c11;\n  height: 150px;\n  width: 100%; }\n\n.directBtnBar {\n  height: 25%; }\n\n.directSearch {\n  height: 75%; }\n  .directSearch input {\n    display: block;\n    width: 75%;\n    height: 40%;\n    margin: auto;\n    background-color: #f93c11;\n    color: #1d1d1d;\n    border-top: none;\n    border-left: none;\n    border-right: none;\n    border-bottom: 1px solid #1d1d1d; }\n    .directSearch input:focus {\n      color: #1d1d1d;\n      outline: none; }\n    .directSearch input::-webkit-input-placeholder {\n      color: #1d1d1d; }\n    .directSearch input::-moz-placeholder {\n      color: #1d1d1d; }\n    .directSearch input:-ms-input-placeholder {\n      color: #1d1d1d; }\n    .directSearch input:-moz-placeholder {\n      color: #1d1d1d; }\n", ""]);
+	exports.push([module.id, "@keyframes aggPulsate {\n  0% {\n    transform: scale(0.1);\n    opacity: 0; }\n  50% {\n    opacity: 1; }\n  to {\n    transform: scale(1.2);\n    opacity: 0; } }\n\n.locMarker {\n  position: absolute;\n  margin-top: -50px;\n  margin-left: -50px;\n  transform: rotateX(55deg); }\n\n.locMarker:after {\n  display: block;\n  width: 100px;\n  height: 100px;\n  content: '';\n  animation: aggPulsate 1s ease-out;\n  animation-delay: 1.1s;\n  animation-iteration-count: infinite;\n  opacity: 0;\n  border-radius: 50%;\n  box-shadow: 0 0 6px 3px #f93c11; }\n\n.markerCenter {\n  position: absolute;\n  height: 15px;\n  width: 15px;\n  margin-top: -7.5px;\n  margin-left: -7.5px; }\n\n.aggBack {\n  color: white; }\n\n.aggClear {\n  color: white;\n  float: right; }\n  .aggClear span {\n    font-size: .5em; }\n  .aggClear.colored {\n    color: #ff4b33; }\n\n/* Menu Button */\n#aggMenuBtn {\n  position: absolute;\n  text-align: center;\n  top: 2%;\n  right: 0;\n  color: rgba(39, 39, 39, 0.91);\n  width: 7%;\n  border-radius: 5px;\n  border: thin rgba(0, 0, 0, 0.91);\n  background-color: #eae6e3;\n  box-shadow: -3px 5px 2px 0 rgba(0, 0, 0, 0.35);\n  transition: .5s ease all; }\n  @media (min-width: 992px) {\n    #aggMenuBtn {\n      width: 3.75%; } }\n\n/* Menu */\n#aggMenu {\n  background-color: transparent;\n  position: absolute;\n  top: 2%;\n  right: -75%;\n  height: 95%;\n  width: 75%;\n  transition: .5s ease all;\n  border-radius: 5px;\n  overflow: hidden;\n  /* Search box and results */ }\n  @media (min-width: 992px) {\n    #aggMenu {\n      right: -25%;\n      width: 25%; }\n      #aggMenu.animateDirections {\n        width: 35%;\n        right: -35%; } }\n  #aggMenu ul {\n    list-style: none;\n    padding: 0;\n    display: inline-block;\n    margin-left: 5px; }\n  #aggMenu #aggSearch {\n    height: 100%;\n    width: 80%;\n    background-color: #eae6e3;\n    border: thin;\n    border-radius: 5px;\n    font-size: 1.25em;\n    position: absolute;\n    left: 0;\n    border-right: 1px solid #c4c0bd; }\n    #aggMenu #aggSearch:focus {\n      outline: none; }\n  #aggMenu .genSearch {\n    width: 100%;\n    height: 42px;\n    position: relative;\n    background-color: #eae6e3;\n    box-shadow: -3px 5px 2px 0 rgba(0, 0, 0, 0.35); }\n  #aggMenu .searchResults {\n    position: absolute;\n    top: 7%;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    padding: .75em;\n    overflow: auto;\n    background-color: #f5f1ee; }\n    #aggMenu .searchResults hr {\n      background-color: #3f3f3f; }\n  #aggMenu .resultsList {\n    width: 100%; }\n    #aggMenu .resultsList li:first-child {\n      margin-top: 1em; }\n    #aggMenu .resultsList img {\n      float: right; }\n    #aggMenu .resultsList .aggResult li {\n      font-size: .95em;\n      color: #1d1d1d; }\n      #aggMenu .resultsList .aggResult li:first-child {\n        font-weight: bold;\n        font-size: .95em; }\n    #aggMenu .resultsList .aggResult .openNow {\n      font-size: .75em;\n      color: #72a078; }\n\n/* Directions search box and results */\n/* Info Box */\n.infoBox {\n  background-color: #3f3f3f;\n  width: 300px;\n  border-radius: 15px; }\n\n.ibHeader {\n  width: 100%;\n  background-color: #1d1d1d;\n  color: #72a078;\n  padding: 2px;\n  border-radius: 15px 15px 0 0; }\n  .ibHeader h3, .ibHeader hr {\n    margin: 0; }\n\n.ibBody {\n  color: #72a078;\n  font-size: 16px; }\n  .ibBody ul {\n    list-style: none; }\n\n.directIcon {\n  background: url(" + __webpack_require__(5) + ") no-repeat;\n  height: 100%;\n  width: 16.5%;\n  position: absolute;\n  right: 0; }\n\n.directControls {\n  background-color: #f93c11;\n  width: 100%; }\n\n.directBtnBar {\n  width: 95%;\n  margin: 0 auto;\n  text-align: center; }\n  .directBtnBar .searchType {\n    width: 45px;\n    height: 45px;\n    border-radius: 50%;\n    border: none;\n    margin: 0 16px 16px 16px;\n    background-color: #f93c11; }\n    @media (max-width: 1350px) {\n      .directBtnBar .searchType {\n        margin: 0 10px 10px 10px; } }\n    .directBtnBar .searchType.selected {\n      background-color: #a02104; }\n    .directBtnBar .searchType:focus {\n      outline: none; }\n    .directBtnBar .searchType i {\n      text-align: center;\n      font-size: 2em; }\n\n.directSearch input {\n  display: block;\n  width: 75%;\n  margin: 16px auto;\n  background-color: #f93c11;\n  color: #1d1d1d;\n  border-top: none;\n  border-left: none;\n  border-right: none;\n  border-bottom: 1px solid #1d1d1d; }\n  .directSearch input:focus {\n    color: #1d1d1d;\n    outline: none; }\n  .directSearch input::-webkit-input-placeholder {\n    color: #1d1d1d; }\n  .directSearch input::-moz-placeholder {\n    color: #1d1d1d; }\n  .directSearch input:-ms-input-placeholder {\n    color: #1d1d1d; }\n  .directSearch input:-moz-placeholder {\n    color: #1d1d1d; }\n\n.directResults {\n  padding: 1em;\n  background-color: #eae6e3; }\n  .directResults hr {\n    background-color: #2d2622; }\n  .directResults .overview .duration {\n    display: inline;\n    font-size: 2em;\n    color: #72a078; }\n  .directResults .overview .distance {\n    display: inline;\n    font-size: 1.25em;\n    color: #3b583f; }\n  .directResults .route .start {\n    font-size: 1.25em;\n    font-weight: bold;\n    margin-bottom: 1.5em;\n    color: #72a078; }\n  .directResults .route .step .instruction p {\n    margin: 0; }\n  .directResults .route .step .duration {\n    display: inline;\n    font-size: .75em; }\n  .directResults .route .step .distance {\n    display: inline;\n    font-size: .75em; }\n  .directResults .route .end {\n    font-size: 1.25em;\n    font-weight: bold;\n    margin-top: 1.5em;\n    color: #72a078; }\n\n/**************************\nMenu Animations\n**************************/\n@keyframes aggSlideInLeft {\n  from {\n    transform: translateX(0); }\n  to {\n    transform: translateX(-100%); } }\n\n@keyframes aggSlideOutRight {\n  from {\n    transform: translateX(100%); }\n  to {\n    transform: translateX(0); } }\n\n.animateMenu {\n  transform: translateX(-105%); }\n\n.animateDirections {\n  transform: translateX(-100%); }\n\n.animateBtn {\n  transform: translateX(-1135%); }\n  @media (min-width: 992px) {\n    .animateBtn {\n      transform: translateX(-710%); } }\n\n.animateBtnDirect {\n  transform: translateX(-1071%); }\n  @media (min-width: 992px) {\n    .animateBtnDirect {\n      transform: translateX(-930%); } }\n\n.slide.ng-leave {\n  animation: aggSlideInLeft .5s ease-in; }\n\n.slide.ng-enter {\n  animation: aggSlideOutRight .5s ease-in; }\n\n.slide.ng-enter-active {\n  transform: translateX(100%); }\n\n.slide.ng-leave-active {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0; }\n\n/**********************************\nDirection Icon Animation\n**********************************/\n@keyframes aggSpin {\n  0% {\n    transform: rotate(0deg); }\n  50% {\n    transform: rotate(180deg); }\n  100% {\n    transform: rotate(360deg); } }\n\n.aggSpin {\n  animation: aggSpin .25s infinite; }\n\nspan.stars, span.stars span {\n  display: inline-block;\n  background: url(" + __webpack_require__(6) + ") 0 -11px repeat-x;\n  width: 60px;\n  height: 12px; }\n\nspan.stars span {\n  background-position: 0 0; }\n", ""]);
 
 	// exports
 
@@ -179,10 +177,16 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = "data:image/png;base64,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"
+	module.exports = "\"data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='utf-8'?%3E %3C!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E %3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E %3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 128 128' enable-background='new 0 0 128 128' xml:space='preserve'%3E %3Cg enable-background='new '%3E %3Cg%3E %3Cdefs%3E %3Crect id='SVGID_1_' x='18.5' y='4.2' width='87' height='104.1'/%3E %3C/defs%3E %3CclipPath id='SVGID_2_'%3E %3Cuse xlink:href='%23SVGID_1_' overflow='visible' /%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_2_)'%3E %3Cdefs%3E %3Crect id='SVGID_3_' x='-82.4' y='-1673.7' width='2122.2' height='8119'/%3E %3C/defs%3E %3CclipPath id='SVGID_4_'%3E %3Cuse xlink:href='%23SVGID_3_' overflow='visible' /%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_4_)'%3E %3Cdefs%3E %3Cpath id='SVGID_5_' d='M62.7,107.8C39.3,108,20.1,89.3,19.9,65.9c-0.2-23.4,18.5-42.5,41.9-42.7c23.4-0.2,42.5,18.5,42.7,41.9 C104.8,88.5,86,107.6,62.7,107.8'/%3E %3C/defs%3E %3CclipPath id='SVGID_6_'%3E %3Cuse xlink:href='%23SVGID_5_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_6_)'%3E %3Cdefs%3E %3Crect id='SVGID_7_' x='18.5' y='4.2' width='87' height='104.1'/%3E %3C/defs%3E %3CclipPath id='SVGID_8_'%3E %3Cuse xlink:href='%23SVGID_7_' overflow='visible'/%3E %3C/clipPath%3E %3Crect x='12.1' y='15.4' clip-path='url(%23SVGID_8_)' fill='%23FFDE44' width='100.2' height='100.1'/%3E %3C/g%3E %3C/g%3E %3C/g%3E %3Cg clip-path='url(%23SVGID_2_)'%3E %3Cdefs%3E %3Crect id='SVGID_9_' x='-82.4' y='-1673.7' width='2122.2' height='8119'/%3E %3C/defs%3E %3CclipPath id='SVGID_10_'%3E %3Cuse xlink:href='%23SVGID_9_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_10_)'%3E %3Cdefs%3E %3Cpolyline id='SVGID_11_' points='78.3,18.3 78.3,52.2 108.2,52.2 78.3,18.3 '/%3E %3C/defs%3E %3CclipPath id='SVGID_12_'%3E %3Cuse xlink:href='%23SVGID_11_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_12_)'%3E %3Cdefs%3E %3Crect id='SVGID_13_' x='18.5' y='4.2' width='87' height='104.1'/%3E %3C/defs%3E %3CclipPath id='SVGID_14_'%3E %3Cuse xlink:href='%23SVGID_13_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_14_)' enable-background='new '%3E %3Cg%3E %3Cdefs%3E %3Crect id='SVGID_15_' x='77.6' y='22.8' width='28' height='29.5'/%3E %3C/defs%3E %3CclipPath id='SVGID_16_'%3E %3Cuse xlink:href='%23SVGID_15_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_16_)'%3E %3Cdefs%3E %3Cpath id='SVGID_17_' d='M63,108.2c-23.4,0.2-42.5-18.5-42.7-41.9s18.5-42.5,41.9-42.7c23.4-0.2,42.5,18.5,42.7,41.9 S86.4,107.9,63,108.2'/%3E %3C/defs%3E %3CclipPath id='SVGID_18_'%3E %3Cuse xlink:href='%23SVGID_17_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_18_)'%3E %3Cdefs%3E %3Crect id='SVGID_19_' x='77.6' y='18.2' width='28' height='34.2'/%3E %3C/defs%3E %3CclipPath id='SVGID_20_'%3E %3Cuse xlink:href='%23SVGID_19_' overflow='visible'/%3E %3C/clipPath%3E %3Crect x='12.5' y='15.8' clip-path='url(%23SVGID_20_)' fill='%233F8CF4' width='100.2' height='100.1'/%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3Cg clip-path='url(%23SVGID_2_)'%3E %3Cdefs%3E %3Crect id='SVGID_21_' x='-82.4' y='-1673.7' width='2122.2' height='8119'/%3E %3C/defs%3E %3CclipPath id='SVGID_22_'%3E %3Cuse xlink:href='%23SVGID_21_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_22_)'%3E %3Cdefs%3E %3Cpath id='SVGID_23_' d='M72.6,87.5H24.4l10.8,15.8c0,0,26,12.7,26.3,12.7c0.3-0.1,11.1-9.4,11.1-9.4V87.5'/%3E %3C/defs%3E %3CclipPath id='SVGID_24_'%3E %3Cuse xlink:href='%23SVGID_23_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_24_)'%3E %3Cdefs%3E %3Crect id='SVGID_25_' x='18.5' y='4.2' width='87' height='104.1'/%3E %3C/defs%3E %3CclipPath id='SVGID_26_'%3E %3Cuse xlink:href='%23SVGID_25_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_26_)' enable-background='new '%3E %3Cg%3E %3Cdefs%3E %3Crect id='SVGID_27_' x='23.2' y='86.5' width='49.7' height='21.8'/%3E %3C/defs%3E %3CclipPath id='SVGID_28_'%3E %3Cuse xlink:href='%23SVGID_27_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_28_)'%3E %3Cdefs%3E %3Cpath id='SVGID_29_' d='M62.7,107.8C39.3,108,20.2,89.2,19.9,65.9c-0.2-23.4,18.5-42.5,41.9-42.7 c23.4-0.2,42.5,18.5,42.7,41.9C104.8,88.4,86.1,107.5,62.7,107.8'/%3E %3C/defs%3E %3CclipPath id='SVGID_30_'%3E %3Cuse xlink:href='%23SVGID_29_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_30_)'%3E %3Cdefs%3E %3Crect id='SVGID_31_' x='23.2' y='86.5' width='49.7' height='21.8'/%3E %3C/defs%3E %3CclipPath id='SVGID_32_'%3E %3Cuse xlink:href='%23SVGID_31_' overflow='visible'/%3E %3C/clipPath%3E %3Crect x='12.2' y='15.4' clip-path='url(%23SVGID_32_)' fill='%233F8CF4' width='100.2' height='100.1'/%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3Cg clip-path='url(%23SVGID_2_)'%3E %3Cdefs%3E %3Crect id='SVGID_33_' x='-82.4' y='-1673.7' width='2122.2' height='8119'/%3E %3C/defs%3E %3CclipPath id='SVGID_34_'%3E %3Cuse xlink:href='%23SVGID_33_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_34_)'%3E %3Cdefs%3E %3Cpolyline id='SVGID_35_' points='48.5,25.2 48.5,52.2 16.5,52.2 21.1,33.8 30.2,15.3 39.1,15.8 45.8,19.7 48.5,25.2 '/%3E %3C/defs%3E %3CclipPath id='SVGID_36_'%3E %3Cuse xlink:href='%23SVGID_35_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_36_)'%3E %3Cdefs%3E %3Crect id='SVGID_37_' x='18.5' y='4.2' width='87' height='104.1'/%3E %3C/defs%3E %3CclipPath id='SVGID_38_'%3E %3Cuse xlink:href='%23SVGID_37_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_38_)' enable-background='new '%3E %3Cg%3E %3Cdefs%3E %3Crect id='SVGID_39_' x='18.5' y='22.8' width='31.1' height='29.5'/%3E %3C/defs%3E %3CclipPath id='SVGID_40_'%3E %3Cuse xlink:href='%23SVGID_39_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_40_)'%3E %3Cdefs%3E %3Cpath id='SVGID_41_' d='M62.7,107.8C39.3,108,20.1,89.3,19.9,65.9c-0.2-23.4,18.5-42.5,41.9-42.7s42.5,18.5,42.7,41.9 C104.8,88.5,86,107.6,62.7,107.8'/%3E %3C/defs%3E %3CclipPath id='SVGID_42_'%3E %3Cuse xlink:href='%23SVGID_41_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_42_)'%3E %3Cdefs%3E %3Crect id='SVGID_43_' x='18.5' y='15.1' width='31.1' height='37.3'/%3E %3C/defs%3E %3CclipPath id='SVGID_44_'%3E %3Cuse xlink:href='%23SVGID_43_' overflow='visible'/%3E %3C/clipPath%3E %3Crect x='12.2' y='15.4' clip-path='url(%23SVGID_44_)' fill='%2320A362' width='100.2' height='100.1'/%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3Cg clip-path='url(%23SVGID_2_)'%3E %3Cdefs%3E %3Crect id='SVGID_45_' x='-82.4' y='-1673.7' width='2122.2' height='8119'/%3E %3C/defs%3E %3CclipPath id='SVGID_46_'%3E %3Cuse xlink:href='%23SVGID_45_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_46_)'%3E %3Cdefs%3E %3Cpolyline id='SVGID_47_' points='78.3,57.7 110.5,57.7 110.5,81.5 78.3,81.5 '/%3E %3C/defs%3E %3CclipPath id='SVGID_48_'%3E %3Cuse xlink:href='%23SVGID_47_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_48_)'%3E %3Cdefs%3E %3Crect id='SVGID_49_' x='18.5' y='4.2' width='87' height='104.1'/%3E %3C/defs%3E %3CclipPath id='SVGID_50_'%3E %3Cuse xlink:href='%23SVGID_49_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_50_)' enable-background='new '%3E %3Cg%3E %3Cdefs%3E %3Crect id='SVGID_51_' x='77.6' y='57' width='28' height='24.9'/%3E %3C/defs%3E %3CclipPath id='SVGID_52_'%3E %3Cuse xlink:href='%23SVGID_51_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_52_)'%3E %3Cdefs%3E %3Cpath id='SVGID_53_' d='M62.6,107.6C39.2,107.8,20.1,89,19.9,65.7C19.6,42.3,38.4,23.2,61.8,23 c23.4-0.2,42.5,18.5,42.7,41.9C104.8,88.2,86,107.3,62.6,107.6'/%3E %3C/defs%3E %3CclipPath id='SVGID_54_'%3E %3Cuse xlink:href='%23SVGID_53_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_54_)'%3E %3Cdefs%3E %3Crect id='SVGID_55_' x='77.6' y='57' width='28' height='24.9'/%3E %3C/defs%3E %3CclipPath id='SVGID_56_'%3E %3Cuse xlink:href='%23SVGID_55_' overflow='visible'/%3E %3C/clipPath%3E %3Crect x='12.1' y='15.2' clip-path='url(%23SVGID_56_)' fill='%2320A362' width='100.2' height='100.1'/%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3Cg clip-path='url(%23SVGID_2_)'%3E %3Cdefs%3E %3Crect id='SVGID_57_' x='-82.4' y='-1673.7' width='2122.2' height='8119'/%3E %3C/defs%3E %3CclipPath id='SVGID_58_'%3E %3Cuse xlink:href='%23SVGID_57_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_58_)'%3E %3Cdefs%3E %3Cpolyline id='SVGID_59_' points='119.3,87.5 119.3,81.8 78.3,81.8 78.3,57.9 118.3,57.9 118.3,52.2 78.3,52.2 78.3,20.6 72.6,20.6 72.6,52.2 54.2,52.2 54.2,-4.5 48.5,-4.5 48.5,52.2 10.2,52.2 10.2,57.9 72.6,57.9 72.6,81.8 5.4,81.8 5.4,87.5 72.6,87.5 72.6,111.9 78.3,111.9 78.3,87.5 119.3,87.5 '/%3E %3C/defs%3E %3CclipPath id='SVGID_60_'%3E %3Cuse xlink:href='%23SVGID_59_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_60_)'%3E %3Cdefs%3E %3Crect id='SVGID_61_' x='18.5' y='4.2' width='87' height='104.1'/%3E %3C/defs%3E %3CclipPath id='SVGID_62_'%3E %3Cuse xlink:href='%23SVGID_61_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_62_)' enable-background='new '%3E %3Cg%3E %3Cdefs%3E %3Crect id='SVGID_63_' x='18.5' y='22.8' width='87' height='85.4'/%3E %3C/defs%3E %3CclipPath id='SVGID_64_'%3E %3Cuse xlink:href='%23SVGID_63_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_64_)'%3E %3Cdefs%3E %3Cpath id='SVGID_65_' d='M62.8,107.8C39.4,108.1,20.3,89.3,20,65.9c-0.2-23.4,18.5-42.5,41.9-42.7 c23.4-0.2,42.5,18.5,42.7,41.9C104.9,88.5,86.1,107.6,62.8,107.8'/%3E %3C/defs%3E %3CclipPath id='SVGID_66_'%3E %3Cuse xlink:href='%23SVGID_65_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_66_)'%3E %3Cdefs%3E %3Crect id='SVGID_67_' x='18.5' y='4.2' width='87' height='104.1'/%3E %3C/defs%3E %3CclipPath id='SVGID_68_'%3E %3Cuse xlink:href='%23SVGID_67_' overflow='visible'/%3E %3C/clipPath%3E %3Crect x='12.3' y='15.5' clip-path='url(%23SVGID_68_)' fill='%23EEEEEE' width='100.2' height='100.1'/%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3Cg clip-path='url(%23SVGID_2_)'%3E %3Cdefs%3E %3Crect id='SVGID_69_' x='-82.4' y='-1673.7' width='2122.2' height='8119'/%3E %3C/defs%3E %3CclipPath id='SVGID_70_'%3E %3Cuse xlink:href='%23SVGID_69_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_70_)'%3E %3Cdefs%3E %3Crect id='SVGID_71_' x='18.5' y='4.2' width='87' height='104.1'/%3E %3C/defs%3E %3CclipPath id='SVGID_72_'%3E %3Cuse xlink:href='%23SVGID_71_' overflow='visible'/%3E %3C/clipPath%3E %3Cline clip-path='url(%23SVGID_72_)' fill='none' stroke='%23DC493C' stroke-width='18.0634' stroke-miterlimit='10' x1='73.8' y1='52.6' x2='73.8' y2='17.7'/%3E %3C/g%3E %3C/g%3E %3Cg clip-path='url(%23SVGID_2_)'%3E %3Cdefs%3E %3Crect id='SVGID_73_' x='-82.4' y='-1673.7' width='2122.2' height='8119'/%3E %3C/defs%3E %3CclipPath id='SVGID_74_'%3E %3Cuse xlink:href='%23SVGID_73_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_74_)'%3E %3Cdefs%3E %3Cpolyline id='SVGID_75_' points='58.2,19.8 89.4,19.8 73.8,4.2 58.2,19.8 '/%3E %3C/defs%3E %3CclipPath id='SVGID_76_'%3E %3Cuse xlink:href='%23SVGID_75_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_76_)'%3E %3Cdefs%3E %3Crect id='SVGID_77_' x='18.5' y='4.2' width='87' height='104.1'/%3E %3C/defs%3E %3CclipPath id='SVGID_78_'%3E %3Cuse xlink:href='%23SVGID_77_' overflow='visible'/%3E %3C/clipPath%3E %3Crect x='50.4' y='-3.5' clip-path='url(%23SVGID_78_)' fill='%23DC4A3D' width='46.7' height='31.1'/%3E %3C/g%3E %3C/g%3E %3C/g%3E %3Cg clip-path='url(%23SVGID_2_)'%3E %3Cdefs%3E %3Crect id='SVGID_79_' x='-82.4' y='-1673.7' width='2122.2' height='8119'/%3E %3C/defs%3E %3CclipPath id='SVGID_80_'%3E %3Cuse xlink:href='%23SVGID_79_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_80_)'%3E %3Cdefs%3E %3Cpolyline id='SVGID_81_' points='89.4,19.8 73.8,4.2 58.2,19.8 64.6,19.8 64.6,48.9 34.5,79.8 34.5,111.7 52.8,111.7 52.8,87.2 82.9,56.4 82.9,19.8 89.4,19.8 '/%3E %3C/defs%3E %3CclipPath id='SVGID_82_'%3E %3Cuse xlink:href='%23SVGID_81_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_82_)'%3E %3Cdefs%3E %3Crect id='SVGID_83_' x='18.5' y='4.2' width='87' height='104.1'/%3E %3C/defs%3E %3CclipPath id='SVGID_84_'%3E %3Cuse xlink:href='%23SVGID_83_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_84_)' enable-background='new '%3E %3Cg%3E %3Cdefs%3E %3Crect id='SVGID_85_' x='34.1' y='22.8' width='55.9' height='85.4'/%3E %3C/defs%3E %3CclipPath id='SVGID_86_'%3E %3Cuse xlink:href='%23SVGID_85_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_86_)'%3E %3Cdefs%3E %3Cpath id='SVGID_87_' d='M62.7,107.8C39.3,108,20.1,89.3,19.9,65.9c-0.2-23.4,18.5-42.5,41.9-42.7 c23.4-0.2,42.5,18.5,42.7,41.9C104.8,88.5,86,107.6,62.7,107.8'/%3E %3C/defs%3E %3CclipPath id='SVGID_88_'%3E %3Cuse xlink:href='%23SVGID_87_' overflow='visible'/%3E %3C/clipPath%3E %3Cg clip-path='url(%23SVGID_88_)'%3E %3Cdefs%3E %3Crect id='SVGID_89_' x='34.1' y='4.2' width='55.9' height='104.1'/%3E %3C/defs%3E %3CclipPath id='SVGID_90_'%3E %3Cuse xlink:href='%23SVGID_89_' overflow='visible'/%3E %3C/clipPath%3E %3Crect x='12.1' y='15.4' clip-path='url(%23SVGID_90_)' fill='%23DC4B3E' width='100.2' height='100.1'/%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/svg%3E\""
 
 /***/ },
 /* 6 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAYCAYAAADOMhxqAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AwQFh42TCl+OAAAAi9JREFUOMuNks1LlFEYxX/PnTu+M/iOTRiG7TKlQSFq4SKhvEulyKw/IWgTQWgQBFEUtA2igiBoVYv2tYnq0pQQtBX6giCkphGdSd908P1q0Ts2X4ln+Tzn3PPcwxFaUC4WBNgB9PQd+fCtda9ohwaOASc67NoFWmudTqenHcc53kkg5WJBxXFMGIb4vk8+n9+ptV4QEa9UKg0NTC5Uv78aVKlUChFBA4dEpM9xHOU4joRhOJzNZjOpVCpyXXd2aW7kDaCjKIriOF6UcrEwqJR67LruqFLq7ytaAxAEAXX3tbW1t0EQnJX6bUtzIzdd173Q1dWVbbzZ9/3l1dXVB71j85eaPt07Nn95ZWXlShiGm+QoitYrlcr9OrkeYd1BK6UKSinCMFwHQhHpzmQyQx1jVUpltdanfN//UalUbler1RsbGxu/tNZjX57u6Wly+Pl6vwRBcDCO40XP8873m8/Pk/l7x3Gu5XK5CeDJpoOIEMexW6vVxutkgN1HP770PG9KRAK2grXWtdYObKsa1loNTACntyUA0sB0UsD2LllrW0V54CsQAgVjTLmRo4EDQH/iJsA+oAdYB2attS8S1whYEmvtXuARcJit8Q741yVr7XVgBuhuIVaBh8aYGZITGhM6B9xpGNWAe8aY2bYuJXEWGog+kAOG/herk2RfAu4CV4FlYNRau6tJYK0VYBj4DZwxxlw0xtwCTgKfgMlODnlg3BjzrD4wxhSBqSRiAP4Aaj3QONtcBxwAAAAASUVORK5CYII="
+
+/***/ },
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -434,125 +438,18 @@
 
 
 /***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
+/* 8 */
+/***/ function(module, exports) {
 
 	'use strict';
 
-	var aggDirectionsTemp = __webpack_require__(8);
-
 	angular.module('aggDirections', [])
 
-	// Directions with step by step instructions
-	.directive('gSteps', function (aggDirectionsServ) {
-	    return {
-	        restrict: 'E',
-	        require: '^aggMap',
-	        scope: {
-	            request: '='
-	        },
-	        templateUrl: '',
-	        link: function(scope, elem, attrs, gMapCtrl) {
-	            var gmap = gMapCtrl.map;
-
-	            aggDirectionsServ.getSteps(scope.request, gmap);
-	        }
-	    };
-	})
 	/**
 	 * @desc Takes in an origin, destination, and travel mode; outputs directions.
 	 * Requires the aggMap directive to render directions
-	 * @attrs none
 	 */
-	.directive('aggDirections', function(aggDirectionsServ, aggMapServ) {
 
-	    function processAutoComp(origin, destination, mode) {
-	        console.log('processing request');
-	        return {
-	            origin: new google.maps.LatLng(origin.geometry.location.lat(), origin.geometry.location.lng()),
-	            destination: new google.maps.LatLng(destination.geometry.location.lat(), destination.geometry.location.lng()),
-	            travelMode: mode
-	        }
-	    }
-
-	    return {
-	        restrict: 'E',
-	        templateUrl: aggDirectionsTemp,
-	        scope: {
-	            options: '=options'
-	        },
-	        controllerAs: 'direct',
-	        bindToController: true,
-	        controller: function(){
-	            this.request = {
-	                origin: {},
-	                destination: {},
-	                travelMode: 'DRIVING'
-	            };
-	            this.showDirect = false;
-	            this.startLoc = '';
-	            this.endLoc = '';
-	            this.via = '';
-	            this.distance = '';
-	            this.duration = '';
-	            this.steps = [];
-	        },
-	        link: function(scope, elem, attrs, ctrl) {
-	            var mapId;
-	            var setOptions = scope.$watch('direct.options', function(value){
-	               mapId = value.mapId;
-	               scope.inMenu = value.inMenu;
-	                if(value.hasOwnProperty('goBack')) {
-	                    scope.goBack = value.goBack;
-	                }
-	                setOptions();
-	            });
-
-	            scope.$watch('direct.request', function(newVal, oldVal) {
-	                if(newVal.origin.hasOwnProperty('geometry') && newVal.destination.hasOwnProperty('geometry')) {
-	                    var req = processAutoComp(newVal.origin, newVal.destination, newVal.travelMode);
-
-	                    aggDirectionsServ.getSteps(req, aggMapServ.maps[mapId])
-	                        .then(function(response) {
-	                            var leg = response.routes[0].legs[0];
-
-	                            ctrl.via = response.routes[0].summary;
-	                            ctrl.distance = leg.distance.text;
-	                            ctrl.duration = leg.duration.text;
-	                            for(var i=0; i<leg.steps.length; i++) {
-	                                ctrl.steps.push(leg.steps[i])
-	                            }
-	                            ctrl.showDirect = true;
-	                            console.log(response);
-	                        });
-	                }
-
-	            }, true)
-	        }
-	    }
-	})
-	/**
-	 * @desc Turns an input box into a google place autocomplete box
-	 * @attrs takes the model to be updated with place details as an attribute
-	 */
-	.directive('aggAutoComplete', function () {
-	    return {
-	        restrict: 'A',
-	        scope: {
-	            model: '=aggAutoComplete'
-	        },
-	        link: function (scope, elem, attrs) {
-	           var input = document.getElementById(elem.attr('id'));
-	           var autocomplete = new google.maps.places.Autocomplete(input, {});
-	            autocomplete.addListener('place_changed', updateModel);
-
-	            function updateModel() {
-	                scope.model = autocomplete.getPlace();
-	                scope.$apply();
-	            }
-	        }
-	    }
-	})
 
 	.service('aggDirectionsServ', function($q){
 	    var self = this;
@@ -628,16 +525,16 @@
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	var path = '/home/grant/Development/Projects/Libraries/angular-gmap-gplaces/master/src/templates/aggMenuDirections.html';
-	var html = "<i ng-if=\"inMenu\" role=\"button\" class=\"fa fa-arrow-left fa-2x\" style=\"color: white;\" ng-click=\"goBack()\"></i>\n\n<div class=\"directControls\">\n    <div class=\"directBtnBar\">\n        <button class=\"searchType\" ng-click=\"direct.route.travelMode = 'WALKING'\"><i class=\"fa fa-blind\" ></i></button>\n        <button class=\"searchType\" ng-click=\"direct.route.travelMode = 'DRIVING'\"><i class=\"fa fa-car\"></i></button>\n        <button class=\"searchType\" ng-click=\"direct.route.travelMode = 'BICYCLING'\"><i class=\"fa fa-bicycle\"></i></button>\n        <button class=\"searchType\" ng-click=\"direct.route.travelMode = 'TRANSIT'\"><i class=\"fa fa-bus\"></i></button>\n    </div>\n\n    <div class=\"directSearch\">\n        <input id=\"from\" agg-auto-complete=\"direct.request.origin\" type=\"text\" name=\"from\" placeholder=\"Choose a starting point\">\n        <input id=\"destination\" agg-auto-complete=\"direct.request.destination\" type=\"text\" name=\"to\" placeholder=\"Destination\">\n    </div>\n</div>\n\n<div class=\"directResults\" ng-if=\"direct.showDirect\">\n    <div class=\"overview\">\n        <div class=\"duration\">\n            {{direct.duration}}\n        </div>\n        <div class=\"distance\">\n            {{direct.distance}}\n        </div>\n        <div class=\"via\">\n           via {{direct.via}}\n        </div>\n    </div>\n    <hr>\n    <div class=\"route\">\n        <div class=\"start\">\n            {{direct.startLoc}}\n        </div>\n        <div class=\"steps\">\n            <div class=\"step\" ng-repeat=\"step in direct.steps\">\n                <div class=\"instruction\">\n                    <p ng-bind-html=\"step.instructions\"></p>\n                </div>\n                <div class=\"duration\">\n                    {{step.duration.text}}\n                </div>\n                <div class=\"distance\">\n                    {{step.distance.text}}\n                </div>\n            </div>\n        </div>\n        <div class=\"end\">\n            {{direct.endLoc}}\n        </div>\n    </div>\n</div>";
+	var html = "<div class=\"directControls\">\n    <i ng-if=\"inMenu\" role=\"button\" class=\"fa fa-arrow-left fa-2x aggBack\" ng-click=\"direct.goBack()\"></i>\n    <i role=\"button\" class=\"fa fa-times fa-2x aggClear\" ng-click=\"direct.clearMap()\"><span>Clear Map</span></i>\n\n    <div class=\"directSearch\">\n        <input id=\"aggOrigin\" agg-auto-complete=\"direct.request.origin\" type=\"text\" name=\"from\" placeholder=\"Choose a starting point\">\n        <input id=\"aggDestination\" agg-auto-complete=\"direct.request.destination\" type=\"text\" name=\"to\" placeholder=\"Destination\">\n    </div>\n\n    <div class=\"directBtnBar\">\n        <button id=\"modeDriving\" class=\"searchType\" ng-class=\"{selected: direct.request.travelMode === 'DRIVING'}\" ng-click=\"direct.toggleMode('DRIVING')\">\n            <i class=\"fa fa-car fa-2x\"></i>\n        </button>\n        <button id=\"modeWalking\" class=\"searchType\" ng-class=\"{selected: direct.request.travelMode === 'WALKING'}\" ng-click=\"direct.toggleMode('WALKING')\">\n            <i class=\"fa fa-blind fa-2x\" ></i>\n        </button>\n        <button id=\"modeBicycling\" class=\"searchType\" ng-class=\"{selected: direct.request.travelMode === 'BICYCLING'}\" ng-click=\"direct.toggleMode('BICYCLING')\">\n            <i class=\"fa fa-bicycle fa-2x\"></i>\n        </button>\n        <button id=\"modeTransit\" class=\"searchType\" ng-class=\"{selected: direct.request.travelMode === 'TRANSIT'}\" ng-click=\"direct.toggleMode('TRANSIT')\">\n            <i class=\"fa fa-bus fa-2x\"></i>\n        </button>\n    </div>\n</div>\n\n<div class=\"directResults aggEnterDown\" ng-if=\"direct.showDirect\">\n    <div class=\"overview\">\n        <div class=\"duration\">\n            {{direct.duration}}\n        </div>\n        <div class=\"distance\">\n            ({{direct.distance}})\n        </div>\n        <div class=\"via\">\n           via {{direct.via}}\n        </div>\n    </div>\n    <hr>\n    <div class=\"route\">\n        <div class=\"start\">\n            {{direct.startLoc}}\n        </div>\n        <div class=\"steps\">\n            <div class=\"step\" ng-repeat=\"step in direct.steps\">\n                <div class=\"instruction\">\n                    <p ng-bind-html=\"step.instructions\"></p>\n                </div>\n                <div class=\"duration\">\n                    {{step.duration.text}}\n                </div>\n                <div class=\"distance\">\n                    ({{step.distance.text}})\n                </div>\n                <hr ng-hide=\"$last\">\n            </div>\n        </div>\n        <div class=\"end\">\n            {{direct.endLoc}}\n        </div>\n    </div>\n</div>";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -654,24 +551,29 @@
 	.directive('aggLocation', function(aggMapServ, aggLocationServ, aggLocationMarkerFact) {
 	    return {
 	        restrict: 'E',
-	        link: function(scope, elem, attrs) {
-	            var gmap = aggMapServ.maps[0];
+	        require: ['^aggMap'],
+	        link: function(scope, elem, attrs, mapCtrl) {
 	            var location = aggLocationServ.getLoc();
 
-	            location.then(
-	                function(success){
-	                    var markOptions = {
-	                        position: new google.maps.LatLng(success.lat, success.lng),
-	                        cursor: 'pointer',
-	                        map: gmap
-	                    };
+	            var watcher = scope.$watch(function(){return mapCtrl[0].gMap;}, function(value) {
+	                if(value !== undefined) {
+	                    location.then(
+	                        function (success) {
+	                            var markOptions = {
+	                                position: new google.maps.LatLng(success.lat, success.lng),
+	                                cursor: 'pointer',
+	                                map: value
+	                            };
 
-	                    var marker = new aggLocationMarkerFact(markOptions);
-	                },
-	                function(failed){
-	                    alert(failed);
+	                            var marker = new aggLocationMarkerFact(markOptions);
+	                        },
+	                        function (failed) {
+	                            alert(failed);
+	                        }
+	                    );
+	                    watcher();
 	                }
-	            );
+	            });
 	        }
 	    };
 	})
@@ -700,7 +602,7 @@
 
 	            var center = document.createElement('img');
 	            center.className = 'markerCenter';
-	            center.src = __webpack_require__(10);
+	            center.src = __webpack_require__(11);
 	            div.appendChild(center);
 
 	            var panes = this.getPanes();
@@ -762,13 +664,13 @@
 
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AkMDhUt5aL7gAAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAE4SURBVGje7drLEYMwDARQ1iXRSGpNI7QE52SGA9JaH7y6cYn1ItuDsbZNoXhVYPLvn9XyQiFkSI4oDJ2SKxpAqTmjEZSSO5pizfmjMdZkQDT2u+8/z5/jCEUjAvuPvAsnHkzwORNKhIMBPqOgJDjCwCyoE+4Cp2PZ6MFIZjaWOQa81Y3AGisNeoWjsYwxR5O3Kdrr7+hUXcbYY1ssYJnOmdU1bGBYusKj09pl5KIKC1x0OltzUoUFXhlM+uCWeU5WhQWuPK0tuei01OXEZDkpaQ13WcuescfDqd5+uY6sfzprTMrNQ9QG5v0mTdu0IirNGkOXaR4wG551XWpCe+DZF+Iu9BN4pZYHN/oOX7mphYYOOg9Q36iWakyrgg5tPcyEpzWXRsPLtA/PhpdtEGfi33A8VSgUCn9ckxdqTPOyv3QAAAAASUVORK5CYII="
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -781,21 +683,23 @@
 	angular.module('aggMap', [])
 
 	// The map directive
-	.directive('aggMap', function() {
+	.directive('aggMap', function(aggMapServ) {
 	    return {
 	        restrict: 'E',
 	        scope: {
-	            'options': '='
+	            'options': '=options'
 	        },
 	        transclude: true,
-	        controllerAs: 'map',
-	        bindToController: true,
-	        controller: function(aggMapServ) {
-	            this.divId = this.options.mapId;
-
-	            aggMapServ.make(this.options);
+	        controller: function ($scope) {
+	            $scope.divId = $scope.options.mapId;
 	        },
-	        template: '<div id="map-canvas"></div><div ng-transclude></div>'
+	        link: function(scope, elem, attrs, ctrlr) {
+	            var options = scope.$watch('options', function(value) {
+	                ctrlr.gMap = aggMapServ.make(value);
+	                options();
+	            });
+	        },
+	        template: '<div id="{{divId}}"></div><div ng-transclude></div>'
 	    };
 	})
 	// Directive for a single map marker
@@ -846,7 +750,7 @@
 	    var self = this;
 	    var setOptions = function(args) {
 	        var defaults = {
-	            index: 0,
+	            index: self.maps.length,
 	            mapId: 'map-canvas',
 	            zoom: 8,
 	            center: {lat: 0, lng: 0}
@@ -861,20 +765,24 @@
 	    this.make = function(options) {
 	        var index = options.index,
 	            id = options.mapId,
-	            instance = self.maps[index];
+	            instance = self.maps[index],
+	            map;
 
 	        if(instance === undefined){
 	            var opt = setOptions(options);
-	            self.maps.push(new google.maps.Map(document.getElementById(id), opt));
+	            map = new google.maps.Map(document.getElementById(id), opt);
+	            self.maps.push(map);
 	        }else{
 	            console.log(instance);
-	            self.maps.push(new google.maps.Map(document.getElementById(id), {
+	            map = new google.maps.Map(document.getElementById(id), {
 	                center: instance.center,
 	                zoom: instance.zoom,
 	                styles: instance.styles,
 	                mapTypeId: instance.mapTypeId
-	            }));
+	            });
+	            self.maps.push(map);
 	        }
+	        return map;
 	    }
 	})
 	// Factory creating custom info box class.
@@ -1684,12 +1592,12 @@
 	});
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var gPlacesTemp = __webpack_require__(13);
+	var gPlacesTemp = __webpack_require__(14);
 
 	//
 	// Google Places Factory and Directives
@@ -1836,7 +1744,7 @@
 
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports) {
 
 	var path = '/home/grant/Development/Projects/Libraries/angular-gmap-gplaces/master/src/templates/gPlaces.html';
@@ -1845,44 +1753,60 @@
 	module.exports = path;
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports) {
 
 	'use strict';
 
 	angular.module('aggUtils', [])
-	//
-	// The googleMapService provider is used to load google maps asynchronously
-	// It is configurable with the options for language, api key, and libraries
-	//
-	.provider('$aggMap', function () {
+
+	/**
+	 * @desc Provider that loads scripts for google maps api and font awesome
+	 *       configured in angular config and then used as a resolve for each state or route.
+	 *
+	 */
+	    .provider('$aggMap', function () {
 	    // Default Options
-	    var language = 'en-US',
-	        apiKey = '',
-	        libraries = '';
+	    var options = {
+	            lang: 'en-US',
+	            key: '',
+	            libs: 'places',
+	            loadFontAwesome: true
+	        };
 
 
 	    // Add Google maps Script to page
 	    function loadScript($document) {
 	        var scripts = {
-	            fontLoader: 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js',
-	            gMaps: 'https://maps.googleapis.com/maps/api/js?key='+ apiKey + '&libraries=' + libraries + '&callback=mapReady&language=' + language
+	            gMaps: 'https://maps.googleapis.com/maps/api/js?key='+ options.key + '&libraries=' + options.libs + '&callback=mapReady&language=' + options.lang
 	        };
+	        if(options.loadFontAwesome) {
+	            scripts.fontAwesome = 'https://use.fontawesome.com/1c2d7da634.js';
+	        }
 	        for(var script in scripts) {
 	            var scriptTag = $document.createElement('script');
 	            scriptTag.src = scripts[script];
 	            $document.getElementsByTagName('body')[0].appendChild(scriptTag);
 	        }
 	    }
-	    // Set user defined options
-	    this.setOptions = function(opt) {
-	        language = opt.lang;
-	        apiKey = opt.key;
-	        libraries = opt.libs;
-	    };
-	    // Return a promise once google map is loaded
-	    this.$get = function($document, $q, $window) {
 
+	    /**
+	     * @method setOptions - called from within angular config to set the provider options
+	     * @param {object} opt - the options object
+	     * @param {string} opt.lang - (optional) the language used for google maps
+	     * @param {string} opt.key - (required) API key for google maps
+	     * @param {string} opt.libs - (optional) Additional google maps javascript libraries to load
+	     * @param {boolean} opt.loadFontAwesome - (optional) defaults to true and adds script for font awesome to page
+	     */
+	    this.setOptions = function(opt) {
+	        angular.extend(options, opt);
+	    };
+
+	    /**
+	     * @desc $get - factory method used to load scripts
+	     * @returns {Promise} after scripts loaded
+	     */
+	    this.$get = function($document, $q, $window) {
 	        var deferred = $q.defer();
 	        loadScript($document[0]);
 
@@ -1896,21 +1820,41 @@
 	        return deferred.promise;
 	    };
 
+	})
+	/**
+	 * @desc Directive that displays a star rating based on a float input
+	 * @attrs {float} aggStarRating - a float <= 5 representing the rating
+	 */
+	    .directive('aggStarRating', function(){
+	    return {
+	        restrict: 'A',
+	        template: '<span class="stars"><span ng-style="{\'width\': starSize}"></span></span>',
+	        link: function(scope, elem, attrs) {
+	            var observer = attrs.$observe('aggStarRating', function(value) {
+	                scope.starSize = value/5*100+'%';
+	                observer();
+	            });
+	        }
+	    }
 	});
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 
-	var aggMenuView = __webpack_require__(16);
-	var aggMenuSearchTemp = __webpack_require__(17);
+	var aggMenuView = __webpack_require__(17);
+	var aggMenuSearchTemp = __webpack_require__(18);
+	var aggDirectionsTemp = __webpack_require__(9);
 
 	angular.module('aggMapMenu', [])
-
-	.directive('aggMenu', function(aggMenuFact, aggDirectionsServ) {
+	/**
+	 * @desc Animated off-screen menu for the map with directions and search
+	 * @attr {}
+	 */
+	    .directive('aggMenu', function() {
 	    return {
 	        restrict: 'E',
 	        templateUrl: aggMenuView,
@@ -1919,26 +1863,26 @@
 	        },
 	        controllerAs: 'aggMenu',
 	        bindToController: true,
-	        controller: function($scope) {
+	        controller: function() {
 	            // Toggle Menu
-	            this.isOpen = false;
+	            this.isSearch = false;
+	            this.isDirections = false;
 	            this.toggle = function() {
-	                this.isOpen = !this.isOpen;
+	                if(this.isSearch) {
+	                    this.isSearch = false;
+	                    return;
+	                }
+	                if(this.isDirections) {
+	                    this.isDirections = false;
+	                    return;
+	                }
+	                if(!this.isSearch && !this.isDirections) {
+	                    this.isSearch = true;
+	                }
 	            };
 	            // Toggle search/directions
 	            this.view = '';
 
-	            // Clear Map
-	            this.clearMap = function() {
-	                aggMenuFact.menuObj.searchResults = [];
-	                aggMenuFact.menuObj.searchMarkers.forEach(function(marker) {
-	                    marker.setMap(null);
-	                });
-	                aggDirectionsServ.markers.forEach(function(marker) {
-	                    marker.setMap(null);
-	                });
-	                aggDirectionsServ.renderer.setMap(null);
-	            }
 	        },
 	        link: function(scope, elem, attrs, ctrl) {
 	            // Direction Options
@@ -1948,19 +1892,16 @@
 	                    mapId: value,
 	                    goBack: function () {
 	                        ctrl.view = 'default';
+	                        ctrl.isSearch = true;
+	                        ctrl.isDirections = false;
 	                    }
 	                };
 	            });
-	            WebFont.load({
-	                google: {
-	                    families: ['Baloo Bhaina', 'Oswald']
-	                }
-	            })
 	        }
 	    }
 	})
 
-	.directive('aggMenuSearch', function(aggMenuFact, aggMapServ) {
+	.directive('aggMenuSearch', function(aggSearchFact, aggMapServ, aggDirectionsServ) {
 	    return {
 	        restrict: 'E',
 	        templateUrl: aggMenuSearchTemp,
@@ -1971,13 +1912,9 @@
 	        },
 	        bindToController: true,
 	        controller: function() {
-	            var self = this,
-	                markers = aggMenuFact.menuObj.searchMarkers;
-
 	            this.results = [];
 
-	            // Check if business is open
-	            this.isOpen = function(open) {
+	            this.openText = function(open) {
 	                var answer = '';
 	                if(open) {
 	                    answer =  'Open Now';
@@ -1986,201 +1923,144 @@
 	                }
 	                return answer;
 	            };
-
-	            // Calculate Star Rating
-	            this.getStars = function(rating) {
-	                // Get the value
-	                var val = parseFloat(rating);
-	                // Turn value into number/100
-	                var size = val/5*100;
-	                return size + '%';
+	            this.addressText = function (address) {
+	                var split = address.split(',');
+	                return split[0];
 	            };
+	            // Clear Map
+	            this.clearMap = function() {
+	                aggSearchFact.clear();
+	                this.results = [];
+	                aggDirectionsServ.markers.forEach(function(marker) {
+	                    marker.setMap(null);
+	                });
+	                aggDirectionsServ.renderer.setMap(null);
+	            }
 	        },
 	        link: function(scope, elem, attrs, ctrls) {
-	            // Create the SearchBox
-	            var input = document.getElementById('menuSearchInput'),
-	                searchBox = new google.maps.places.SearchBox(input),
-	                map = aggMapServ.maps[parseInt(attrs.mapId)];
-
-	            // Bias the SearchBox results towards current map's viewport.
-	            // Change the SearchBox bounds on map bounds change
-	            searchBox.setBounds(map.getBounds());
-	            map.addListener('bounds_changed', function() {
-	                searchBox.setBounds(map.getBounds());
-	            });
-
-	            // Add listener to handle search results
-	            searchBox.addListener('places_changed', function() {
-	                aggMenuFact.handleSearch(searchBox, map).then(function(){
-	                    ctrls[1].results = aggMenuFact.menuObj.searchResults;
-	                });
+	            var directionIcon = angular.element(elem.find('.directIcon'));
+	            // Options to pass to search box directive
+	            ctrls[1].searchBox = {
+	                map: aggMapServ.maps[parseInt(attrs.mapId)],
+	                start: function() {
+	                    console.log(directionIcon);
+	                    // TODO: This isn't working class is not being added. Element is valid angular.element
+	                    directionIcon.addClass('aggSpin');
+	                }
+	            };
+	            // Add watcher to handle search results
+	            scope.$watch('search.results', function(value) {
+	                if(value.length>0) {
+	                    aggSearchFact.handleSearch(value, ctrls[1].searchBox.map)
+	                        .then(function() {
+	                            // TODO: Mentioned above class isn't added
+	                            directionIcon.removeClass('aggSpin');
+	                            ctrls[1].showResults = true;
+	                        });
+	                }
 	            });
 
 	            // Opens associated marker when clicking on results in list and animates marker
 	            ctrls[1].openMarker = function(id) {
-	                google.maps.event.trigger(aggMenuFact.menuObj.searchMarkers[id], 'click');
+	                google.maps.event.trigger(aggMenuFact.searchObj.markers[id], 'click');
 	                ctrls[0].toggle();
 	            };
 
-	            ctrls[1].goBack = function () {
-	                ctrls[0].view = 'default'
+	            ctrls[1].getDirections = function () {
+	                ctrls[0].view = 'directions';
+	                ctrls[0].isSearch = false;
+	                ctrls[0].isDirections = true;
 	            }
 	        }
 	    }
 	})
-	.factory('aggMenuFact', function($q, aggPlacesFact, aggInfoBoxFact) {
-	    var menu = {};
 
-	    menu.menuObj = {
-	        searchMarkers: [],
-	        searchResults: []
-	    };
+	    .directive('aggMenuDirections', function(aggDirectionsServ, aggMapServ) {
 
-	    menu.handleSearch = function(box, map) {
-	        var places = box.getPlaces(),
-	            bounds = new google.maps.LatLngBounds(),
-	            deferred = $q.defer();
-
-	        // Alert if no results
-	        if (places.length == 0){
-	            alert('No places found');
+	        function processAutoComp(origin, destination, mode) {
+	            return {
+	                origin: new google.maps.LatLng(origin.geometry.location.lat(), origin.geometry.location.lng()),
+	                destination: new google.maps.LatLng(destination.geometry.location.lat(), destination.geometry.location.lng()),
+	                travelMode: mode
+	            }
 	        }
 
-	        // Activate more button and attach click handler
+	        return {
+	            restrict: 'E',
+	            templateUrl: aggDirectionsTemp,
+	            scope: {
+	                options: '=options'
+	            },
+	            controllerAs: 'direct',
+	            bindToController: true,
+	            controller: function(){
+	                this.request = {
+	                    origin: {},
+	                    destination: {},
+	                    travelMode: 'DRIVING'
+	                };
+	                this.showDirect = false;
+	                this.startLoc = '';
+	                this.endLoc = '';
+	                this.via = '';
+	                this.distance = '';
+	                this.duration = '';
+	                this.steps = [];
 
+	                this.toggleMode = function(mode) {
+	                    this.request.travelMode = mode;
+	                };
 
-	        // Clear out the old markers and search results
-	        menu.menuObj.searchResults = [];
-	        menu.menuObj.searchMarkers.forEach(function(marker) {
-	            marker.setMap(null);
-	        });
-	        menu.menuObj.searchMarkers = [];
-
-	        // Create Info Box and map click handler for closing info box
-	        var infoBox = new aggInfoBoxFact();
-
-	        // For each place, create an icon, marker, and info box
-	        // Push the markers and results to arrays for viewing
-	        places.forEach(function(place) {
-	            if (!place.geometry) {
-	                console.log("Returned place contains no geometry");
-	                return;
-	            }
-	            var icon = {
-	                url: 'http://maps.google.com/mapfiles/ms/icons/blue.png',
-	                origin: new google.maps.Point(0, 0),
-	                anchor: new google.maps.Point(17, 34)
-	            };
-
-	            // Create a marker for each place.
-	            var marker = new google.maps.Marker({
-	                map: map,
-	                icon: icon,
-	                title: place.name,
-	                placeId: place.place_id,
-	                position: place.geometry.location
-	            });
-
-	            // Add listener to map for closing infobox and stopping marker animation
-	            google.maps.event.addListener(map, 'click', function () {
-	                if(marker.getAnimation() !== null) marker.setAnimation(null);
-	                infoBox.close();
-	            });
-
-	            // Create info box and click handler for marker
-	            marker.addListener('click', function(){
-	                // Animate Marker
-	                if (marker.getAnimation() !== null) {
-	                    marker.setAnimation(null);
-	                } else {
-	                    marker.setAnimation(google.maps.Animation.BOUNCE);
+	                this.clearMap = function () {
+	                    this.showDirect = false;
+	                    aggDirectionsServ.markers.forEach(function(marker) {
+	                        marker.setMap(null);
+	                    });
+	                    aggDirectionsServ.renderer.setMap(null);
 	                }
-	                // Lookup place details for place associated with marker then fill info box with details
-	                aggPlacesFact.getPlace(place.place_id)
-	                    .then(function(results) {
-	                        // Info Box Content
-	                        var content = '<div class="ibHeader">' +
-	                                         '<h3>' + results.name + '</h3>' +
-	                                      '</div>' +
-	                                      '<div class="ibBody">' +
-	                                         '<img src="' + results.photos[0].getUrl({'maxWidth': 250, 'maxHeight': 250}) + '" width="100%" height="auto">' +
-	                                         '<ul>' +
-	                                             '<li>' + results.formatted_phone_number + '</li>' +
-	                                             '<li>' + results.vicinity + '</li>' +
-	                                             '<li>' + results.rating + '</li>' +
-	                                         '</ul>' +
-	                                      '</div> ';
-	                        // Set content of InfoBox
-	                        infoBox.setContent(content);
-	                        // Open Info Box on marker click
-	                        infoBox.open(map, marker);
-	                })
-	            });
+	            },
+	            link: function(scope, elem, attrs, ctrl) {
+	                var mapId;
+	                var setOptions = scope.$watch('direct.options', function(value){
+	                    mapId = value.mapId;
+	                    scope.inMenu = value.inMenu;
+	                    if(value.hasOwnProperty('goBack')) {
+	                        ctrl.goBack = value.goBack;
+	                    }
+	                    setOptions();
+	                });
 
-	            // Set bounds to include all results
-	            if (place.geometry.viewport) {
-	                // Only geocodes have viewport.
-	                bounds.union(place.geometry.viewport);
-	            } else {
-	                bounds.extend(place.geometry.location);
-	            }
+	                scope.$watch('direct.request', function(newVal) {
+	                    if(newVal.origin.hasOwnProperty('geometry') && newVal.destination.hasOwnProperty('geometry')) {
+	                        var req = processAutoComp(newVal.origin, newVal.destination, newVal.travelMode);
 
-	            // Push markers and search results to arrays.
-	            // The directives will watch these arrays and update the DOM as necessary
-	            menu.menuObj.searchMarkers.push(marker);
-	            menu.menuObj.searchResults.push(place);
+	                        aggDirectionsServ.getSteps(req, aggMapServ.maps[mapId])
+	                            .then(function(response) {
+	                                var leg = response.routes[0].legs[0];
+	                                ctrl.startLoc = leg.start_address;
+	                                ctrl.endLoc = leg.end_address;
+	                                ctrl.via = response.routes[0].summary;
+	                                ctrl.distance = leg.distance.text;
+	                                ctrl.duration = leg.duration.text;
+	                                for(var i=0; i<leg.steps.length; i++) {
+	                                    ctrl.steps.push(leg.steps[i])
+	                                }
+	                                ctrl.showDirect = true;
+	                            });
+	                    }
 
-	            deferred.resolve(menu.menuObj);
-	        });
-	        map.fitBounds(bounds);
-	        return deferred.promise;
-	    };
-
-	    menu.search = function(search, type) {
-	        var map = aggMapServ.maps[0],
-	            service = new google.maps.places.PlacesService(map),
-	            deferred = $q.defer(),
-	            request = {
-	                location: search.location,
-	                radius: search.radius,
-	                type: [type],
-	                rankBy: google.maps.places.RankBy.PROMINENCE,
-	                minPriceLevel: 2
-	            };
-
-	        function callback(results, status, pagination) {
-	            if (status === google.maps.places.PlacesServiceStatus.OK) {
-	                console.log('callback fired');
-	                test.searchObj.results = results;
-	                test.searchObj.pagination = pagination;
-	                deferred.resolve(test.searchObj);
-	            }else{
-	                console.log('Google maps status is: ', status)
+	                }, true)
 	            }
 	        }
-	        service.nearbySearch(request, callback);
-	        return deferred.promise;
-	    };
+	    });
 
-	    return menu;
-	});
-
-
-/***/ },
-/* 16 */
-/***/ function(module, exports) {
-
-	var path = '/home/grant/Development/Projects/Libraries/angular-gmap-gplaces/master/src/templates/aggMenu.html';
-	var html = "<div id=\"aggMenuBtn\" role=\"button\" ng-click=\"aggMenu.toggle()\" ng-class=\"{animateBtn: aggMenu.isOpen}\">\n    <i class=\"fa fa-4x\" ng-class=\"aggMenu.isOpen ? 'fa-chevron-right' : 'fa-bars'\"></i>\n</div>\n\n<div id=\"aggMenu\" ng-class=\"{animateMenu: aggMenu.isOpen}\">\n    <!-- Use ng-switch to switch between the different directives -->\n    <div ng-switch=\"aggMenu.view\" style=\"height: 100%;\">\n\n        <div ng-switch-when=\"search\" class=\"slide\" style=\"height: 100%;\">\n            <agg-menu-search map-id=\"0\"></agg-menu-search>\n        </div>\n\n        <div ng-switch-when=\"directions\" class=\"slide\">\n            <agg-directions options=\"aggMenu.directOpt\"></agg-directions>\n        </div>\n\n        <div ng-switch-default class=\"slide\" style=\"height: 100%;\">\n            <div class=\"aggMenuChoices\">\n                <button class=\"aggMenuItems\" ng-click=\"aggMenu.view = 'search'\">Search the Map</button>\n                <button class=\"aggMenuItems\" ng-click=\"aggMenu.view = 'directions'\">Get Directions</button>\n                <button class=\"aggMenuItems\" ng-click=\"aggMenu.clearMap()\">Clear the Map</button>\n            </div>\n        </div>\n    </div>\n</div>";
-	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
-	module.exports = path;
 
 /***/ },
 /* 17 */
 /***/ function(module, exports) {
 
-	var path = '/home/grant/Development/Projects/Libraries/angular-gmap-gplaces/master/src/templates/aggMenuSearch.html';
-	var html = "<div class=\"genSearch\">\n    <i role=\"button\" class=\"fa fa-arrow-left fa-4x\" style=\"color: white;\" ng-click=\"search.goBack()\"></i>\n    <input id=\"menuSearchInput\" type=\"text\" placeholder=\"Search for something close by.\">\n</div>\n\n<div class=\"searchResults\">\n\n    <ul class=\"resultsList\">\n        <li class=\"aggResult\" ng-repeat=\"result in search.results track by $index\" ng-click=\"search.openMarker($index)\" role=\"button\">\n\n            <img ng-src=\"{{result.photos[0].getUrl({'maxWidth': 120, 'maxHeight': 240})}}\">\n            <ul>\n                <li>{{result.name}}</li>\n                <li>\n                    <span class=\"stars\">\n                        <span ng-style=\"{'width':search.getStars(result.rating)}\"></span>\n                    </span>\n                </li>\n                <li class=\"openNow\">{{search.isOpen(result.opening_hours.open_now)}}</li>\n            </ul>\n\n        </li>\n    </ul>\n\n</div>\n\n\n\n";
+	var path = '/home/grant/Development/Projects/Libraries/angular-gmap-gplaces/master/src/templates/aggMenu.html';
+	var html = "<div id=\"aggMenuBtn\" role=\"button\" ng-click=\"aggMenu.toggle()\" ng-class=\"{animateBtn: aggMenu.isSearch, animateBtnDirect: aggMenu.isDirections}\">\n    <i class=\"fa fa-3x\" ng-class=\"{'fa-chevron-right': aggMenu.isSearch || aggMenu.isDirections, 'fa-bars': !aggMenu.isSearch && !aggMenu.isDirections}\"></i>\n</div>\n\n<div id=\"aggMenu\" ng-class=\"{animateMenu: aggMenu.isSearch, animateDirections: aggMenu.isDirections}\">\n    <!-- Use ng-switch to switch between the different directives -->\n    <div style=\"height: 100%\" ng-switch=\"aggMenu.view\">\n\n        <div style=\"height: 100%; overflow: auto\" ng-switch-when=\"directions\" class=\"slide\">\n            <agg-menu-directions options=\"aggMenu.directOpt\"></agg-menu-directions>\n        </div>\n\n        <div ng-switch-default class=\"slide\">\n            <agg-menu-search map-id=\"0\"></agg-menu-search>\n        </div>\n    </div>\n</div>";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
 
@@ -2188,85 +2068,283 @@
 /* 18 */
 /***/ function(module, exports) {
 
-	/*
-	 AngularJS v1.6.0
-	 (c) 2010-2016 Google, Inc. http://angularjs.org
-	 License: MIT
-	*/
-	(function(U,C){'use strict';function Ea(a,b,c){if(!a)throw Oa("areq",b||"?",c||"required");return a}function Fa(a,b){if(!a&&!b)return"";if(!a)return b;if(!b)return a;X(a)&&(a=a.join(" "));X(b)&&(b=b.join(" "));return a+" "+b}function Pa(a){var b={};a&&(a.to||a.from)&&(b.to=a.to,b.from=a.from);return b}function Y(a,b,c){var d="";a=X(a)?a:a&&G(a)&&a.length?a.split(/\s+/):[];r(a,function(a,e){a&&0<a.length&&(d+=0<e?" ":"",d+=c?b+a:a+b)});return d}function Qa(a){if(a instanceof w)switch(a.length){case 0:return a;
-	case 1:if(1===a[0].nodeType)return a;break;default:return w(ua(a))}if(1===a.nodeType)return w(a)}function ua(a){if(!a[0])return a;for(var b=0;b<a.length;b++){var c=a[b];if(1===c.nodeType)return c}}function Ra(a,b,c){r(b,function(b){a.addClass(b,c)})}function Sa(a,b,c){r(b,function(b){a.removeClass(b,c)})}function Z(a){return function(b,c){c.addClass&&(Ra(a,b,c.addClass),c.addClass=null);c.removeClass&&(Sa(a,b,c.removeClass),c.removeClass=null)}}function oa(a){a=a||{};if(!a.$$prepared){var b=a.domOperation||
-	N;a.domOperation=function(){a.$$domOperationFired=!0;b();b=N};a.$$prepared=!0}return a}function ha(a,b){Ga(a,b);Ha(a,b)}function Ga(a,b){b.from&&(a.css(b.from),b.from=null)}function Ha(a,b){b.to&&(a.css(b.to),b.to=null)}function V(a,b,c){var d=b.options||{};c=c.options||{};var f=(d.addClass||"")+" "+(c.addClass||""),e=(d.removeClass||"")+" "+(c.removeClass||"");a=Ta(a.attr("class"),f,e);c.preparationClasses&&(d.preparationClasses=ea(c.preparationClasses,d.preparationClasses),delete c.preparationClasses);
-	f=d.domOperation!==N?d.domOperation:null;va(d,c);f&&(d.domOperation=f);d.addClass=a.addClass?a.addClass:null;d.removeClass=a.removeClass?a.removeClass:null;b.addClass=d.addClass;b.removeClass=d.removeClass;return d}function Ta(a,b,c){function d(a){G(a)&&(a=a.split(" "));var b={};r(a,function(a){a.length&&(b[a]=!0)});return b}var f={};a=d(a);b=d(b);r(b,function(a,b){f[b]=1});c=d(c);r(c,function(a,b){f[b]=1===f[b]?null:-1});var e={addClass:"",removeClass:""};r(f,function(b,c){var d,f;1===b?(d="addClass",
-	f=!a[c]||a[c+"-remove"]):-1===b&&(d="removeClass",f=a[c]||a[c+"-add"]);f&&(e[d].length&&(e[d]+=" "),e[d]+=c)});return e}function z(a){return a instanceof w?a[0]:a}function Ua(a,b,c){var d="";b&&(d=Y(b,"ng-",!0));c.addClass&&(d=ea(d,Y(c.addClass,"-add")));c.removeClass&&(d=ea(d,Y(c.removeClass,"-remove")));d.length&&(c.preparationClasses=d,a.addClass(d))}function pa(a,b){var c=b?"-"+b+"s":"";ka(a,[la,c]);return[la,c]}function wa(a,b){var c=b?"paused":"",d=$+"PlayState";ka(a,[d,c]);return[d,c]}function ka(a,
-	b){a.style[b[0]]=b[1]}function ea(a,b){return a?b?a+" "+b:a:b}function Ia(a,b,c){var d=Object.create(null),f=a.getComputedStyle(b)||{};r(c,function(a,b){var c=f[a];if(c){var y=c.charAt(0);if("-"===y||"+"===y||0<=y)c=Va(c);0===c&&(c=null);d[b]=c}});return d}function Va(a){var b=0;a=a.split(/\s*,\s*/);r(a,function(a){"s"===a.charAt(a.length-1)&&(a=a.substring(0,a.length-1));a=parseFloat(a)||0;b=b?Math.max(a,b):a});return b}function xa(a){return 0===a||null!=a}function Ja(a,b){var c=R,d=a+"s";b?c+="Duration":
-	d+=" linear all";return[c,d]}function Ka(){var a=Object.create(null);return{flush:function(){a=Object.create(null)},count:function(b){return(b=a[b])?b.total:0},get:function(b){return(b=a[b])&&b.value},put:function(b,c){a[b]?a[b].total++:a[b]={total:1,value:c}}}}function La(a,b,c){r(c,function(c){a[c]=ya(a[c])?a[c]:b.style.getPropertyValue(c)})}var R,za,$,Aa;void 0===U.ontransitionend&&void 0!==U.onwebkittransitionend?(R="WebkitTransition",za="webkitTransitionEnd transitionend"):(R="transition",za=
-	"transitionend");void 0===U.onanimationend&&void 0!==U.onwebkitanimationend?($="WebkitAnimation",Aa="webkitAnimationEnd animationend"):($="animation",Aa="animationend");var qa=$+"Delay",Ba=$+"Duration",la=R+"Delay",Ma=R+"Duration",Oa=C.$$minErr("ng"),Wa={transitionDuration:Ma,transitionDelay:la,transitionProperty:R+"Property",animationDuration:Ba,animationDelay:qa,animationIterationCount:$+"IterationCount"},Xa={transitionDuration:Ma,transitionDelay:la,animationDuration:Ba,animationDelay:qa},Ca,va,
-	r,X,ya,aa,Da,ra,G,K,w,N;C.module("ngAnimate",[],function(){N=C.noop;Ca=C.copy;va=C.extend;w=C.element;r=C.forEach;X=C.isArray;G=C.isString;ra=C.isObject;K=C.isUndefined;ya=C.isDefined;Da=C.isFunction;aa=C.isElement}).directive("ngAnimateSwap",["$animate","$rootScope",function(a,b){return{restrict:"A",transclude:"element",terminal:!0,priority:600,link:function(b,d,f,e,m){var A,y;b.$watchCollection(f.ngAnimateSwap||f["for"],function(f){A&&a.leave(A);y&&(y.$destroy(),y=null);if(f||0===f)y=b.$new(),m(y,
-	function(b){A=b;a.enter(b,null,d)})})}}}]).directive("ngAnimateChildren",["$interpolate",function(a){return{link:function(b,c,d){function f(a){c.data("$$ngAnimateChildren","on"===a||"true"===a)}var e=d.ngAnimateChildren;G(e)&&0===e.length?c.data("$$ngAnimateChildren",!0):(f(a(e)(b)),d.$observe("ngAnimateChildren",f))}}}]).factory("$$rAFScheduler",["$$rAF",function(a){function b(a){d=d.concat(a);c()}function c(){if(d.length){for(var b=d.shift(),m=0;m<b.length;m++)b[m]();f||a(function(){f||c()})}}var d,
-	f;d=b.queue=[];b.waitUntilQuiet=function(b){f&&f();f=a(function(){f=null;b();c()})};return b}]).provider("$$animateQueue",["$animateProvider",function(a){function b(a){if(!a)return null;a=a.split(" ");var b=Object.create(null);r(a,function(a){b[a]=!0});return b}function c(a,c){if(a&&c){var d=b(c);return a.split(" ").some(function(a){return d[a]})}}function d(a,b,c,d){return e[a].some(function(a){return a(b,c,d)})}function f(a,b){var c=0<(a.addClass||"").length,d=0<(a.removeClass||"").length;return b?
-	c&&d:c||d}var e=this.rules={skip:[],cancel:[],join:[]};e.join.push(function(a,b,c){return!b.structural&&f(b)});e.skip.push(function(a,b,c){return!b.structural&&!f(b)});e.skip.push(function(a,b,c){return"leave"===c.event&&b.structural});e.skip.push(function(a,b,c){return c.structural&&2===c.state&&!b.structural});e.cancel.push(function(a,b,c){return c.structural&&b.structural});e.cancel.push(function(a,b,c){return 2===c.state&&b.structural});e.cancel.push(function(a,b,d){if(d.structural)return!1;a=
-	b.addClass;b=b.removeClass;var f=d.addClass;d=d.removeClass;return K(a)&&K(b)||K(f)&&K(d)?!1:c(a,d)||c(b,f)});this.$get=["$$rAF","$rootScope","$rootElement","$document","$$HashMap","$$animation","$$AnimateRunner","$templateRequest","$$jqLite","$$forceReflow","$$isDocumentHidden",function(b,c,y,e,ba,Ya,O,v,H,S,P){function I(){var a=!1;return function(b){a?b():c.$$postDigest(function(){a=!0;b()})}}function B(a,b,c){var g=z(b),d=z(a),E=[];(a=t[c])&&r(a,function(a){J.call(a.node,g)?E.push(a.callback):
-	"leave"===c&&J.call(a.node,d)&&E.push(a.callback)});return E}function n(a,b,c){var g=ua(b);return a.filter(function(a){return!(a.node===g&&(!c||a.callback===c))})}function p(a,h,u){function p(c,g,d,h){y(function(){var c=B(S,a,g);c.length?b(function(){r(c,function(b){b(a,d,h)});"close"!==d||a[0].parentNode||sa.off(a)}):"close"!==d||a[0].parentNode||sa.off(a)});c.progress(g,d,h)}function n(b){var c=a,g=k;g.preparationClasses&&(c.removeClass(g.preparationClasses),g.preparationClasses=null);g.activeClasses&&
-	(c.removeClass(g.activeClasses),g.activeClasses=null);Na(a,k);ha(a,k);k.domOperation();e.complete(!b)}var k=Ca(u),t,S;if(a=Qa(a))t=z(a),S=a.parent();var k=oa(k),e=new O,y=I();X(k.addClass)&&(k.addClass=k.addClass.join(" "));k.addClass&&!G(k.addClass)&&(k.addClass=null);X(k.removeClass)&&(k.removeClass=k.removeClass.join(" "));k.removeClass&&!G(k.removeClass)&&(k.removeClass=null);k.from&&!ra(k.from)&&(k.from=null);k.to&&!ra(k.to)&&(k.to=null);if(!t)return n(),e;u=[t.getAttribute("class"),k.addClass,
-	k.removeClass].join(" ");if(!F(u))return n(),e;var s=0<=["enter","move","leave"].indexOf(h),x=P(),v=!ma||x||g.get(t);u=!v&&E.get(t)||{};var J=!!u.state;v||J&&1===u.state||(v=!L(a,S,h));if(v)return x&&p(e,h,"start"),n(),x&&p(e,h,"close"),e;s&&ta(a);x={structural:s,element:a,event:h,addClass:k.addClass,removeClass:k.removeClass,close:n,options:k,runner:e};if(J){if(d("skip",a,x,u)){if(2===u.state)return n(),e;V(a,u,x);return u.runner}if(d("cancel",a,x,u))if(2===u.state)u.runner.end();else if(u.structural)u.close();
-	else return V(a,u,x),u.runner;else if(d("join",a,x,u))if(2===u.state)V(a,x,{});else return Ua(a,s?h:null,k),h=x.event=u.event,k=V(a,u,x),u.runner}else V(a,x,{});(J=x.structural)||(J="animate"===x.event&&0<Object.keys(x.options.to||{}).length||f(x));if(!J)return n(),l(a),e;var H=(u.counter||0)+1;x.counter=H;Q(a,1,x);c.$$postDigest(function(){var b=E.get(t),c=!b,b=b||{},g=0<(a.parent()||[]).length&&("animate"===b.event||b.structural||f(b));if(c||b.counter!==H||!g){c&&(Na(a,k),ha(a,k));if(c||s&&b.event!==
-	h)k.domOperation(),e.end();g||l(a)}else h=!b.structural&&f(b,!0)?"setClass":b.event,Q(a,2),b=Ya(a,h,b.options),e.setHost(b),p(e,h,"start",{}),b.done(function(b){n(!b);(b=E.get(t))&&b.counter===H&&l(z(a));p(e,h,"close",{})})});return e}function ta(a){a=z(a).querySelectorAll("[data-ng-animate]");r(a,function(a){var b=parseInt(a.getAttribute("data-ng-animate"),10),c=E.get(a);if(c)switch(b){case 2:c.runner.end();case 1:E.remove(a)}})}function l(a){a=z(a);a.removeAttribute("data-ng-animate");E.remove(a)}
-	function k(a,b){return z(a)===z(b)}function L(a,b,c){c=w(e[0].body);var d=k(a,c)||"HTML"===a[0].nodeName,h=k(a,y),f=!1,B,p=g.get(z(a));(a=w.data(a[0],"$ngAnimatePin"))&&(b=a);for(b=z(b);b;){h||(h=k(b,y));if(1!==b.nodeType)break;a=E.get(b)||{};if(!f){var n=g.get(b);if(!0===n&&!1!==p){p=!0;break}else!1===n&&(p=!1);f=a.structural}if(K(B)||!0===B)a=w.data(b,"$$ngAnimateChildren"),ya(a)&&(B=a);if(f&&!1===B)break;d||(d=k(b,c));if(d&&h)break;if(!h&&(a=w.data(b,"$ngAnimatePin"))){b=z(a);continue}b=b.parentNode}return(!f||
-	B)&&!0!==p&&h&&d}function Q(a,b,c){c=c||{};c.state=b;a=z(a);a.setAttribute("data-ng-animate",b);c=(b=E.get(a))?va(b,c):c;E.put(a,c)}var E=new ba,g=new ba,ma=null,h=c.$watch(function(){return 0===v.totalPendingRequests},function(a){a&&(h(),c.$$postDigest(function(){c.$$postDigest(function(){null===ma&&(ma=!0)})}))}),t=Object.create(null),x=a.classNameFilter(),F=x?function(a){return x.test(a)}:function(){return!0},Na=Z(H),J=U.Node.prototype.contains||function(a){return this===a||!!(this.compareDocumentPosition(a)&
-	16)},sa={on:function(a,b,c){var g=ua(b);t[a]=t[a]||[];t[a].push({node:g,callback:c});w(b).on("$destroy",function(){E.get(g)||sa.off(a,b,c)})},off:function(a,b,c){if(1!==arguments.length||G(arguments[0])){var g=t[a];g&&(t[a]=1===arguments.length?null:n(g,b,c))}else for(g in b=arguments[0],t)t[g]=n(t[g],b)},pin:function(a,b){Ea(aa(a),"element","not an element");Ea(aa(b),"parentElement","not an element");a.data("$ngAnimatePin",b)},push:function(a,b,c,g){c=c||{};c.domOperation=g;return p(a,b,c)},enabled:function(a,
-	b){var c=arguments.length;if(0===c)b=!!ma;else if(aa(a)){var d=z(a);1===c?b=!g.get(d):g.put(d,!b)}else b=ma=!!a;return b}};return sa}]}]).provider("$$animation",["$animateProvider",function(a){var b=this.drivers=[];this.$get=["$$jqLite","$rootScope","$injector","$$AnimateRunner","$$HashMap","$$rAFScheduler",function(a,d,f,e,m,A){function y(a){function b(a){if(a.processed)return a;a.processed=!0;var d=a.domNode,n=d.parentNode;f.put(d,a);for(var p;n;){if(p=f.get(n)){p.processed||(p=b(p));break}n=n.parentNode}(p||
-	c).children.push(a);return a}var c={children:[]},d,f=new m;for(d=0;d<a.length;d++){var e=a[d];f.put(e.domNode,a[d]={domNode:e.domNode,fn:e.fn,children:[]})}for(d=0;d<a.length;d++)b(a[d]);return function(a){var b=[],c=[],d;for(d=0;d<a.children.length;d++)c.push(a.children[d]);a=c.length;var f=0,e=[];for(d=0;d<c.length;d++){var k=c[d];0>=a&&(a=f,f=0,b.push(e),e=[]);e.push(k.fn);k.children.forEach(function(a){f++;c.push(a)});a--}e.length&&b.push(e);return b}(c)}var s=[],ba=Z(a);return function(m,O,v){function H(a){a=
-	a.hasAttribute("ng-animate-ref")?[a]:a.querySelectorAll("[ng-animate-ref]");var b=[];r(a,function(a){var c=a.getAttribute("ng-animate-ref");c&&c.length&&b.push(a)});return b}function S(a){var b=[],c={};r(a,function(a,d){var h=z(a.element),k=0<=["enter","move"].indexOf(a.event),h=a.structural?H(h):[];if(h.length){var f=k?"to":"from";r(h,function(a){var b=a.getAttribute("ng-animate-ref");c[b]=c[b]||{};c[b][f]={animationID:d,element:w(a)}})}else b.push(a)});var d={},k={};r(c,function(c,f){var e=c.from,
-	B=c.to;if(e&&B){var p=a[e.animationID],n=a[B.animationID],l=e.animationID.toString();if(!k[l]){var m=k[l]={structural:!0,beforeStart:function(){p.beforeStart();n.beforeStart()},close:function(){p.close();n.close()},classes:P(p.classes,n.classes),from:p,to:n,anchors:[]};m.classes.length?b.push(m):(b.push(p),b.push(n))}k[l].anchors.push({out:e.element,"in":B.element})}else e=e?e.animationID:B.animationID,B=e.toString(),d[B]||(d[B]=!0,b.push(a[e]))});return b}function P(a,b){a=a.split(" ");b=b.split(" ");
-	for(var c=[],d=0;d<a.length;d++){var k=a[d];if("ng-"!==k.substring(0,3))for(var f=0;f<b.length;f++)if(k===b[f]){c.push(k);break}}return c.join(" ")}function I(a){for(var c=b.length-1;0<=c;c--){var d=f.get(b[c])(a);if(d)return d}}function B(a,b){function c(a){(a=a.data("$$animationRunner"))&&a.setHost(b)}a.from&&a.to?(c(a.from.element),c(a.to.element)):c(a.element)}function n(){var a=m.data("$$animationRunner");!a||"leave"===O&&v.$$domOperationFired||a.end()}function p(b){m.off("$destroy",n);m.removeData("$$animationRunner");
-	ba(m,v);ha(m,v);v.domOperation();L&&a.removeClass(m,L);m.removeClass("ng-animate");l.complete(!b)}v=oa(v);var ta=0<=["enter","move","leave"].indexOf(O),l=new e({end:function(){p()},cancel:function(){p(!0)}});if(!b.length)return p(),l;m.data("$$animationRunner",l);var k=Fa(m.attr("class"),Fa(v.addClass,v.removeClass)),L=v.tempClasses;L&&(k+=" "+L,v.tempClasses=null);var Q;ta&&(Q="ng-"+O+"-prepare",a.addClass(m,Q));s.push({element:m,classes:k,event:O,structural:ta,options:v,beforeStart:function(){m.addClass("ng-animate");
-	L&&a.addClass(m,L);Q&&(a.removeClass(m,Q),Q=null)},close:p});m.on("$destroy",n);if(1<s.length)return l;d.$$postDigest(function(){var a=[];r(s,function(b){b.element.data("$$animationRunner")?a.push(b):b.close()});s.length=0;var b=S(a),c=[];r(b,function(a){c.push({domNode:z(a.from?a.from.element:a.element),fn:function(){a.beforeStart();var b,c=a.close;if((a.anchors?a.from.element||a.to.element:a.element).data("$$animationRunner")){var d=I(a);d&&(b=d.start)}b?(b=b(),b.done(function(a){c(!a)}),B(a,b)):
-	c()}})});A(y(c))});return l}}]}]).provider("$animateCss",["$animateProvider",function(a){var b=Ka(),c=Ka();this.$get=["$window","$$jqLite","$$AnimateRunner","$timeout","$$forceReflow","$sniffer","$$rAFScheduler","$$animateQueue",function(a,f,e,m,A,y,s,ba){function C(a,b){var c=a.parentNode;return(c.$$ngAnimateParentKey||(c.$$ngAnimateParentKey=++P))+"-"+a.getAttribute("class")+"-"+b}function O(e,n,p,m){var l;0<b.count(p)&&(l=c.get(p),l||(n=Y(n,"-stagger"),f.addClass(e,n),l=Ia(a,e,m),l.animationDuration=
-	Math.max(l.animationDuration,0),l.transitionDuration=Math.max(l.transitionDuration,0),f.removeClass(e,n),c.put(p,l)));return l||{}}function v(a){I.push(a);s.waitUntilQuiet(function(){b.flush();c.flush();for(var a=A(),d=0;d<I.length;d++)I[d](a);I.length=0})}function H(c,f,e){f=b.get(e);f||(f=Ia(a,c,Wa),"infinite"===f.animationIterationCount&&(f.animationIterationCount=1));b.put(e,f);c=f;e=c.animationDelay;f=c.transitionDelay;c.maxDelay=e&&f?Math.max(e,f):e||f;c.maxDuration=Math.max(c.animationDuration*
-	c.animationIterationCount,c.transitionDuration);return c}var S=Z(f),P=0,I=[];return function(a,c){function d(){l()}function s(){l(!0)}function l(b){if(!(A||P&&J)){A=!0;J=!1;g.$$skipPreparationClasses||f.removeClass(a,ga);f.removeClass(a,ea);wa(h,!1);pa(h,!1);r(t,function(a){h.style[a[0]]=""});S(a,g);ha(a,g);Object.keys(I).length&&r(I,function(a,b){a?h.style.setProperty(b,a):h.style.removeProperty(b)});if(g.onDone)g.onDone();fa&&fa.length&&a.off(fa.join(" "),Q);var c=a.data("$$animateCss");c&&(m.cancel(c[0].timer),
-	a.removeData("$$animateCss"));w&&w.complete(!b)}}function k(a){q.blockTransition&&pa(h,a);q.blockKeyframeAnimation&&wa(h,!!a)}function L(){w=new e({end:d,cancel:s});v(N);l();return{$$willAnimate:!1,start:function(){return w},end:d}}function Q(a){a.stopPropagation();var b=a.originalEvent||a;a=b.$manualTimeStamp||Date.now();b=parseFloat(b.elapsedTime.toFixed(3));Math.max(a-V,0)>=K&&b>=M&&(P=!0,l())}function E(){function b(){if(!A){k(!1);r(t,function(a){h.style[a[0]]=a[1]});S(a,g);f.addClass(a,ea);if(q.recalculateTimingStyles){na=
-	h.getAttribute("class")+" "+ga;ja=C(h,na);D=H(h,na,ja);ca=D.maxDelay;u=Math.max(ca,0);M=D.maxDuration;if(0===M){l();return}q.hasTransitions=0<D.transitionDuration;q.hasAnimations=0<D.animationDuration}q.applyAnimationDelay&&(ca="boolean"!==typeof g.delay&&xa(g.delay)?parseFloat(g.delay):ca,u=Math.max(ca,0),D.animationDelay=ca,da=[qa,ca+"s"],t.push(da),h.style[da[0]]=da[1]);K=1E3*u;U=1E3*M;if(g.easing){var d,e=g.easing;q.hasTransitions&&(d=R+"TimingFunction",t.push([d,e]),h.style[d]=e);q.hasAnimations&&
-	(d=$+"TimingFunction",t.push([d,e]),h.style[d]=e)}D.transitionDuration&&fa.push(za);D.animationDuration&&fa.push(Aa);V=Date.now();var E=K+1.5*U;d=V+E;var e=a.data("$$animateCss")||[],n=!0;if(e.length){var p=e[0];(n=d>p.expectedEndTime)?m.cancel(p.timer):e.push(l)}n&&(E=m(c,E,!1),e[0]={timer:E,expectedEndTime:d},e.push(l),a.data("$$animateCss",e));if(fa.length)a.on(fa.join(" "),Q);g.to&&(g.cleanupStyles&&La(I,h,Object.keys(g.to)),Ha(a,g))}}function c(){var b=a.data("$$animateCss");if(b){for(var d=
-	1;d<b.length;d++)b[d]();a.removeData("$$animateCss")}}if(!A)if(h.parentNode){var d=function(a){if(P)J&&a&&(J=!1,l());else if(J=!a,D.animationDuration)if(a=wa(h,J),J)t.push(a);else{var b=t,c=b.indexOf(a);0<=a&&b.splice(c,1)}},e=0<aa&&(D.transitionDuration&&0===W.transitionDuration||D.animationDuration&&0===W.animationDuration)&&Math.max(W.animationDelay,W.transitionDelay);e?m(b,Math.floor(e*aa*1E3),!1):b();G.resume=function(){d(!0)};G.pause=function(){d(!1)}}else l()}var g=c||{};g.$$prepared||(g=oa(Ca(g)));
-	var I={},h=z(a);if(!h||!h.parentNode||!ba.enabled())return L();var t=[],x=a.attr("class"),F=Pa(g),A,J,P,w,G,u,K,M,U,V,fa=[];if(0===g.duration||!y.animations&&!y.transitions)return L();var ia=g.event&&X(g.event)?g.event.join(" "):g.event,Z="",T="";ia&&g.structural?Z=Y(ia,"ng-",!0):ia&&(Z=ia);g.addClass&&(T+=Y(g.addClass,"-add"));g.removeClass&&(T.length&&(T+=" "),T+=Y(g.removeClass,"-remove"));g.applyClassesEarly&&T.length&&S(a,g);var ga=[Z,T].join(" ").trim(),na=x+" "+ga,ea=Y(ga,"-active"),x=F.to&&
-	0<Object.keys(F.to).length;if(!(0<(g.keyframeStyle||"").length||x||ga))return L();var ja,W;0<g.stagger?(F=parseFloat(g.stagger),W={transitionDelay:F,animationDelay:F,transitionDuration:0,animationDuration:0}):(ja=C(h,na),W=O(h,ga,ja,Xa));g.$$skipPreparationClasses||f.addClass(a,ga);g.transitionStyle&&(F=[R,g.transitionStyle],ka(h,F),t.push(F));0<=g.duration&&(F=0<h.style[R].length,F=Ja(g.duration,F),ka(h,F),t.push(F));g.keyframeStyle&&(F=[$,g.keyframeStyle],ka(h,F),t.push(F));var aa=W?0<=g.staggerIndex?
-	g.staggerIndex:b.count(ja):0;(ia=0===aa)&&!g.skipBlocking&&pa(h,9999);var D=H(h,na,ja),ca=D.maxDelay;u=Math.max(ca,0);M=D.maxDuration;var q={};q.hasTransitions=0<D.transitionDuration;q.hasAnimations=0<D.animationDuration;q.hasTransitionAll=q.hasTransitions&&"all"===D.transitionProperty;q.applyTransitionDuration=x&&(q.hasTransitions&&!q.hasTransitionAll||q.hasAnimations&&!q.hasTransitions);q.applyAnimationDuration=g.duration&&q.hasAnimations;q.applyTransitionDelay=xa(g.delay)&&(q.applyTransitionDuration||
-	q.hasTransitions);q.applyAnimationDelay=xa(g.delay)&&q.hasAnimations;q.recalculateTimingStyles=0<T.length;if(q.applyTransitionDuration||q.applyAnimationDuration)M=g.duration?parseFloat(g.duration):M,q.applyTransitionDuration&&(q.hasTransitions=!0,D.transitionDuration=M,F=0<h.style[R+"Property"].length,t.push(Ja(M,F))),q.applyAnimationDuration&&(q.hasAnimations=!0,D.animationDuration=M,t.push([Ba,M+"s"]));if(0===M&&!q.recalculateTimingStyles)return L();if(null!=g.delay){var da;"boolean"!==typeof g.delay&&
-	(da=parseFloat(g.delay),u=Math.max(da,0));q.applyTransitionDelay&&t.push([la,da+"s"]);q.applyAnimationDelay&&t.push([qa,da+"s"])}null==g.duration&&0<D.transitionDuration&&(q.recalculateTimingStyles=q.recalculateTimingStyles||ia);K=1E3*u;U=1E3*M;g.skipBlocking||(q.blockTransition=0<D.transitionDuration,q.blockKeyframeAnimation=0<D.animationDuration&&0<W.animationDelay&&0===W.animationDuration);g.from&&(g.cleanupStyles&&La(I,h,Object.keys(g.from)),Ga(a,g));q.blockTransition||q.blockKeyframeAnimation?
-	k(M):g.skipBlocking||pa(h,!1);return{$$willAnimate:!0,end:d,start:function(){if(!A)return G={end:d,cancel:s,resume:null,pause:null},w=new e(G),v(E),w}}}}]}]).provider("$$animateCssDriver",["$$animationProvider",function(a){a.drivers.push("$$animateCssDriver");this.$get=["$animateCss","$rootScope","$$AnimateRunner","$rootElement","$sniffer","$$jqLite","$document",function(a,c,d,f,e,m,A){function y(a){return a.replace(/\bng-\S+\b/g,"")}function s(a,b){G(a)&&(a=a.split(" "));G(b)&&(b=b.split(" "));return a.filter(function(a){return-1===
-	b.indexOf(a)}).join(" ")}function ba(c,e,f){function m(a){var b={},c=z(a).getBoundingClientRect();r(["width","height","top","left"],function(a){var d=c[a];switch(a){case "top":d+=v.scrollTop;break;case "left":d+=v.scrollLeft}b[a]=Math.floor(d)+"px"});return b}function n(){var c=y(f.attr("class")||""),d=s(c,l),c=s(l,c),d=a(A,{to:m(f),addClass:"ng-anchor-in "+d,removeClass:"ng-anchor-out "+c,delay:!0});return d.$$willAnimate?d:null}function p(){A.remove();e.removeClass("ng-animate-shim");f.removeClass("ng-animate-shim")}
-	var A=w(z(e).cloneNode(!0)),l=y(A.attr("class")||"");e.addClass("ng-animate-shim");f.addClass("ng-animate-shim");A.addClass("ng-anchor");H.append(A);var k;c=function(){var c=a(A,{addClass:"ng-anchor-out",delay:!0,from:m(e)});return c.$$willAnimate?c:null}();if(!c&&(k=n(),!k))return p();var L=c||k;return{start:function(){function a(){c&&c.end()}var b,c=L.start();c.done(function(){c=null;if(!k&&(k=n()))return c=k.start(),c.done(function(){c=null;p();b.complete()}),c;p();b.complete()});return b=new d({end:a,
-	cancel:a})}}}function C(a,b,c,e){var f=O(a,N),m=O(b,N),y=[];r(e,function(a){(a=ba(c,a.out,a["in"]))&&y.push(a)});if(f||m||0!==y.length)return{start:function(){function a(){r(b,function(a){a.end()})}var b=[];f&&b.push(f.start());m&&b.push(m.start());r(y,function(a){b.push(a.start())});var c=new d({end:a,cancel:a});d.all(b,function(a){c.complete(a)});return c}}}function O(c){var d=c.element,e=c.options||{};c.structural&&(e.event=c.event,e.structural=!0,e.applyClassesEarly=!0,"leave"===c.event&&(e.onDone=
-	e.domOperation));e.preparationClasses&&(e.event=ea(e.event,e.preparationClasses));c=a(d,e);return c.$$willAnimate?c:null}if(!e.animations&&!e.transitions)return N;var v=A[0].body;c=z(f);var H=w(c.parentNode&&11===c.parentNode.nodeType||v.contains(c)?c:v);return function(a){return a.from&&a.to?C(a.from,a.to,a.classes,a.anchors):O(a)}}]}]).provider("$$animateJs",["$animateProvider",function(a){this.$get=["$injector","$$AnimateRunner","$$jqLite",function(b,c,d){function f(c){c=X(c)?c:c.split(" ");for(var d=
-	[],e={},f=0;f<c.length;f++){var r=c[f],w=a.$$registeredAnimations[r];w&&!e[r]&&(d.push(b.get(w)),e[r]=!0)}return d}var e=Z(d);return function(a,b,d,s){function w(){s.domOperation();e(a,s)}function C(a,b,d,e,f){switch(d){case "animate":b=[b,e.from,e.to,f];break;case "setClass":b=[b,G,P,f];break;case "addClass":b=[b,G,f];break;case "removeClass":b=[b,P,f];break;default:b=[b,f]}b.push(e);if(a=a.apply(a,b))if(Da(a.start)&&(a=a.start()),a instanceof c)a.done(f);else if(Da(a))return a;return N}function z(a,
-	b,d,e,f){var l=[];r(e,function(e){var m=e[f];m&&l.push(function(){var e,f,g=!1,h=function(a){g||(g=!0,(f||N)(a),e.complete(!a))};e=new c({end:function(){h()},cancel:function(){h(!0)}});f=C(m,a,b,d,function(a){h(!1===a)});return e})});return l}function v(a,b,d,e,f){var l=z(a,b,d,e,f);if(0===l.length){var h,m;"beforeSetClass"===f?(h=z(a,"removeClass",d,e,"beforeRemoveClass"),m=z(a,"addClass",d,e,"beforeAddClass")):"setClass"===f&&(h=z(a,"removeClass",d,e,"removeClass"),m=z(a,"addClass",d,e,"addClass"));
-	h&&(l=l.concat(h));m&&(l=l.concat(m))}if(0!==l.length)return function(a){var b=[];l.length&&r(l,function(a){b.push(a())});b.length?c.all(b,a):a();return function(a){r(b,function(b){a?b.cancel():b.end()})}}}var H=!1;3===arguments.length&&ra(d)&&(s=d,d=null);s=oa(s);d||(d=a.attr("class")||"",s.addClass&&(d+=" "+s.addClass),s.removeClass&&(d+=" "+s.removeClass));var G=s.addClass,P=s.removeClass,I=f(d),B,n;if(I.length){var p,K;"leave"===b?(K="leave",p="afterLeave"):(K="before"+b.charAt(0).toUpperCase()+
-	b.substr(1),p=b);"enter"!==b&&"move"!==b&&(B=v(a,b,s,I,K));n=v(a,b,s,I,p)}if(B||n){var l;return{$$willAnimate:!0,end:function(){l?l.end():(H=!0,w(),ha(a,s),l=new c,l.complete(!0));return l},start:function(){function b(c){H=!0;w();ha(a,s);l.complete(c)}if(l)return l;l=new c;var d,e=[];B&&e.push(function(a){d=B(a)});e.length?e.push(function(a){w();a(!0)}):w();n&&e.push(function(a){d=n(a)});l.setHost({end:function(){H||((d||N)(void 0),b(void 0))},cancel:function(){H||((d||N)(!0),b(!0))}});c.chain(e,
-	b);return l}}}}}]}]).provider("$$animateJsDriver",["$$animationProvider",function(a){a.drivers.push("$$animateJsDriver");this.$get=["$$animateJs","$$AnimateRunner",function(a,c){function d(c){return a(c.element,c.event,c.classes,c.options)}return function(a){if(a.from&&a.to){var b=d(a.from),m=d(a.to);if(b||m)return{start:function(){function a(){return function(){r(d,function(a){a.end()})}}var d=[];b&&d.push(b.start());m&&d.push(m.start());c.all(d,function(a){f.complete(a)});var f=new c({end:a(),cancel:a()});
-	return f}}}else return d(a)}}]}])})(window,window.angular);
-	//# sourceMappingURL=angular-animate.min.js.map
-
+	var path = '/home/grant/Development/Projects/Libraries/angular-gmap-gplaces/master/src/templates/aggMenuSearch.html';
+	var html = "<div class=\"genSearch\">\n    <input id=\"aggSearch\" agg-search=\"search.results\" options=\"search.searchBox\" type=\"text\" placeholder=\"Search for something close by.\">\n    <div class=\"directIcon\" ng-click=\"search.getDirections()\"></div>\n</div>\n\n<div class=\"searchResults aggEnterDown\" ng-if=\"search.results.length > 0\">\n    <i role=\"button\" class=\"fa fa-times fa-2x aggClear colored\" ng-click=\"search.clearMap()\"><span>Clear Results</span></i>\n    <div ng-switch=\"search.numResults\">\n        <div ng-switch-when=\"1\">\n            <div class=\"resultHeader\">\n                <img ng-src=\"{{search.results[0].photos[0].getUrl({'maxWidth': 500, 'maxHeight': 500})}}\">\n                <div class=\"title\">{{search.results[0].name}}</div>\n                <div agg-star-rating=\"{{search.results}}\"></div>\n            </div>\n        </div>\n\n        <div ng-switch-default>\n            <ul class=\"resultsList\">\n                <li class=\"aggResult\" ng-repeat=\"result in search.results track by $index\" ng-click=\"search.openMarker($index)\" role=\"button\">\n\n                    <ul>\n                        <li>{{result.name}}</li>\n                        <li>\n                            <div agg-star-rating=\"{{result.rating}}\"></div>\n                        </li>\n                        <li>{{search.addressText(result.formatted_address)}}</li>\n                        <li class=\"openNow\">{{search.openText(result.opening_hours.open_now)}}</li>\n                    </ul>\n                    <img ng-src=\"{{result.photos[0].getUrl({'maxWidth': 80, 'maxHeight': 92})}}\">\n                    <hr>\n                </li>\n            </ul>\n        </div>\n    </div>\n\n</div>\n\n\n\n";
+	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+	module.exports = path;
 
 /***/ },
 /* 19 */
 /***/ function(module, exports) {
 
-	/*
-	 AngularJS v1.6.0
-	 (c) 2010-2016 Google, Inc. http://angularjs.org
-	 License: MIT
-	*/
-	(function(s,g){'use strict';function H(g){var l=[];t(l,A).chars(g);return l.join("")}var B=g.$$minErr("$sanitize"),C,l,D,E,q,A,F,t;g.module("ngSanitize",[]).provider("$sanitize",function(){function k(a,e){var b={},c=a.split(","),h;for(h=0;h<c.length;h++)b[e?q(c[h]):c[h]]=!0;return b}function I(a){for(var e={},b=0,c=a.length;b<c;b++){var h=a[b];e[h.name]=h.value}return e}function G(a){return a.replace(/&/g,"&amp;").replace(J,function(a){var b=a.charCodeAt(0);a=a.charCodeAt(1);return"&#"+(1024*(b-55296)+
-	(a-56320)+65536)+";"}).replace(K,function(a){return"&#"+a.charCodeAt(0)+";"}).replace(/</g,"&lt;").replace(/>/g,"&gt;")}function x(a){for(;a;){if(a.nodeType===s.Node.ELEMENT_NODE)for(var e=a.attributes,b=0,c=e.length;b<c;b++){var h=e[b],d=h.name.toLowerCase();if("xmlns:ns1"===d||0===d.lastIndexOf("ns1:",0))a.removeAttributeNode(h),b--,c--}(e=a.firstChild)&&x(e);a=a.nextSibling}}var u=!1;this.$get=["$$sanitizeUri",function(a){u&&l(v,w);return function(e){var b=[];F(e,t(b,function(b,h){return!/^unsafe:/.test(a(b,
-	h))}));return b.join("")}}];this.enableSvg=function(a){return E(a)?(u=a,this):u};C=g.bind;l=g.extend;D=g.forEach;E=g.isDefined;q=g.lowercase;A=g.noop;F=function(a,e){null===a||void 0===a?a="":"string"!==typeof a&&(a=""+a);f.innerHTML=a;var b=5;do{if(0===b)throw B("uinput");b--;s.document.documentMode&&x(f);a=f.innerHTML;f.innerHTML=a}while(a!==f.innerHTML);for(b=f.firstChild;b;){switch(b.nodeType){case 1:e.start(b.nodeName.toLowerCase(),I(b.attributes));break;case 3:e.chars(b.textContent)}var c;if(!(c=
-	b.firstChild)&&(1===b.nodeType&&e.end(b.nodeName.toLowerCase()),c=b.nextSibling,!c))for(;null==c;){b=b.parentNode;if(b===f)break;c=b.nextSibling;1===b.nodeType&&e.end(b.nodeName.toLowerCase())}b=c}for(;b=f.firstChild;)f.removeChild(b)};t=function(a,e){var b=!1,c=C(a,a.push);return{start:function(a,d){a=q(a);!b&&z[a]&&(b=a);b||!0!==v[a]||(c("<"),c(a),D(d,function(b,d){var f=q(d),g="img"===a&&"src"===f||"background"===f;!0!==m[f]||!0===n[f]&&!e(b,g)||(c(" "),c(d),c('="'),c(G(b)),c('"'))}),c(">"))},
-	end:function(a){a=q(a);b||!0!==v[a]||!0===y[a]||(c("</"),c(a),c(">"));a==b&&(b=!1)},chars:function(a){b||c(G(a))}}};var J=/[\uD800-\uDBFF][\uDC00-\uDFFF]/g,K=/([^#-~ |!])/g,y=k("area,br,col,hr,img,wbr"),d=k("colgroup,dd,dt,li,p,tbody,td,tfoot,th,thead,tr"),r=k("rp,rt"),p=l({},r,d),d=l({},d,k("address,article,aside,blockquote,caption,center,del,dir,div,dl,figure,figcaption,footer,h1,h2,h3,h4,h5,h6,header,hgroup,hr,ins,map,menu,nav,ol,pre,section,table,ul")),r=l({},r,k("a,abbr,acronym,b,bdi,bdo,big,br,cite,code,del,dfn,em,font,i,img,ins,kbd,label,map,mark,q,ruby,rp,rt,s,samp,small,span,strike,strong,sub,sup,time,tt,u,var")),
-	w=k("circle,defs,desc,ellipse,font-face,font-face-name,font-face-src,g,glyph,hkern,image,linearGradient,line,marker,metadata,missing-glyph,mpath,path,polygon,polyline,radialGradient,rect,stop,svg,switch,text,title,tspan"),z=k("script,style"),v=l({},y,d,r,p),n=k("background,cite,href,longdesc,src,xlink:href"),p=k("abbr,align,alt,axis,bgcolor,border,cellpadding,cellspacing,class,clear,color,cols,colspan,compact,coords,dir,face,headers,height,hreflang,hspace,ismap,lang,language,nohref,nowrap,rel,rev,rows,rowspan,rules,scope,scrolling,shape,size,span,start,summary,tabindex,target,title,type,valign,value,vspace,width"),
-	r=k("accent-height,accumulate,additive,alphabetic,arabic-form,ascent,baseProfile,bbox,begin,by,calcMode,cap-height,class,color,color-rendering,content,cx,cy,d,dx,dy,descent,display,dur,end,fill,fill-rule,font-family,font-size,font-stretch,font-style,font-variant,font-weight,from,fx,fy,g1,g2,glyph-name,gradientUnits,hanging,height,horiz-adv-x,horiz-origin-x,ideographic,k,keyPoints,keySplines,keyTimes,lang,marker-end,marker-mid,marker-start,markerHeight,markerUnits,markerWidth,mathematical,max,min,offset,opacity,orient,origin,overline-position,overline-thickness,panose-1,path,pathLength,points,preserveAspectRatio,r,refX,refY,repeatCount,repeatDur,requiredExtensions,requiredFeatures,restart,rotate,rx,ry,slope,stemh,stemv,stop-color,stop-opacity,strikethrough-position,strikethrough-thickness,stroke,stroke-dasharray,stroke-dashoffset,stroke-linecap,stroke-linejoin,stroke-miterlimit,stroke-opacity,stroke-width,systemLanguage,target,text-anchor,to,transform,type,u1,u2,underline-position,underline-thickness,unicode,unicode-range,units-per-em,values,version,viewBox,visibility,width,widths,x,x-height,x1,x2,xlink:actuate,xlink:arcrole,xlink:role,xlink:show,xlink:title,xlink:type,xml:base,xml:lang,xml:space,xmlns,xmlns:xlink,y,y1,y2,zoomAndPan",
-	!0),m=l({},n,r,p),f;(function(a){if(a.document&&a.document.implementation)a=a.document.implementation.createHTMLDocument("inert");else throw B("noinert");var e=(a.documentElement||a.getDocumentElement()).getElementsByTagName("body");1===e.length?f=e[0]:(e=a.createElement("html"),f=a.createElement("body"),e.appendChild(f),a.appendChild(e))})(s)});g.module("ngSanitize").filter("linky",["$sanitize",function(k){var l=/((ftp|https?):\/\/|(www\.)|(mailto:)?[A-Za-z0-9._%+-]+@)\S*[^\s.;,(){}<>"\u201d\u2019]/i,
-	q=/^mailto:/i,x=g.$$minErr("linky"),u=g.isDefined,s=g.isFunction,t=g.isObject,y=g.isString;return function(d,g,p){function w(a){a&&m.push(H(a))}function z(a,b){var c,d=v(a);m.push("<a ");for(c in d)m.push(c+'="'+d[c]+'" ');!u(g)||"target"in d||m.push('target="',g,'" ');m.push('href="',a.replace(/"/g,"&quot;"),'">');w(b);m.push("</a>")}if(null==d||""===d)return d;if(!y(d))throw x("notstring",d);for(var v=s(p)?p:t(p)?function(){return p}:function(){return{}},n=d,m=[],f,a;d=n.match(l);)f=d[0],d[2]||
-	d[4]||(f=(d[3]?"http://":"mailto:")+f),a=d.index,w(n.substr(0,a)),z(f,d[0].replace(q,"")),n=n.substring(a+d[0].length);w(n);return k(m.join(""))}}])})(window,window.angular);
-	//# sourceMappingURL=angular-sanitize.min.js.map
+	(function () {'use strict';
+
+	angular.module('aggSearch', [])
+
+	/**
+	 * @desc Turns an input box into a google place autocomplete box
+	 * @attr {obj} the model to be updated with place details
+	 */
+	    .directive('aggAutoComplete', function () {
+	        return {
+	            restrict: 'A',
+	            scope: {
+	                model: '=aggAutoComplete'
+	            },
+	            link: function (scope, elem, attrs) {
+	                var input = document.getElementById(elem.attr('id'));
+	                var autocomplete = new google.maps.places.Autocomplete(input, {});
+	                autocomplete.addListener('place_changed', updateModel);
+
+	                function updateModel() {
+	                    scope.model = autocomplete.getPlace();
+	                    scope.$apply();
+	                }
+	            }
+	        }
+	    })
+
+	/**
+	 * @desc Turns an input box into a google place search box
+	 * @attr {obj} the model to be updated with place details
+	 * @attr {google.maps.Map} the google map to bind search box to
+	  */
+	    .directive('aggSearch', function () {
+	        return {
+	            restrict: 'A',
+	            scope: {
+	                model: '=aggSearch',
+	                options: '=options'
+	            },
+	            link: function (scope, elem, attrs) {
+	                var input = document.getElementById(elem.attr('id')),
+	                    searchBox = new google.maps.places.SearchBox(input),
+	                    startFn = null;
+
+	                searchBox.addListener('places_changed', updateModel);
+
+	                // Bias the SearchBox results towards current map's viewport.
+	                // Change the SearchBox bounds on map bounds change
+	                var watcher = scope.$watch('options', function(value) {
+	                    if(value.hasOwnProperty('map')) {
+	                        searchBox.setBounds(value.map.getBounds());
+	                        value.map.addListener('bounds_changed', function() {
+	                            searchBox.setBounds(value.map.getBounds());
+	                        });
+	                    }
+	                    if(value.hasOwnProperty('start')) {
+	                        startFn = value.start;
+	                    }
+	                    watcher();
+	                });
+
+	                function updateModel() {
+	                    if(startFn !== null) startFn();
+	                    scope.model = searchBox.getPlaces();
+	                    scope.$apply();
+	                }
+	            }
+	        }
+	    })
+
+	/**
+	 * @desc Methods and properties for the Search Directives as well as methods for searching without directives
+	 *
+	 * @prop {obj} searchObj - holds reference to search results and the markers generated
+	 * @prop {google.maps.Marker[]} searchObj.markers - array for holding markers generated for search results
+	 * @prop {google.maps.places.PlaceResult[]} searchObj.results - array for holding PlaceResult objects returned by search
+	 */
+	    .factory('aggSearchFact', function($q, aggPlacesFact, aggInfoBoxFact) {
+	        return {
+	            searchObj: {
+	                markers: [],
+	                results: []
+	            },
+	            /**
+	             * @method nearbySearch - performs google search with supplied params
+	             * @param {object} opt - the search details
+	             * @param {google.maps.LatLng} opt.location - the point used as the center of the search
+	             * @param {int} opt.radius - the radius around search.location to search
+	             * @param {string} opt.type - the type of establishments to include in search
+	             * @param {int} opt.minPrice - the min price level to include in search
+	             * @returns {Promise} containing google PlaceResults[]
+	             */
+	            nearbySearch: function(opt) {
+	                var map = aggMapServ.maps[0],
+	                    service = new google.maps.places.PlacesService(map),
+	                    deferred = $q.defer(),
+	                    request = {
+	                        location: opt.location,
+	                        radius: opt.radius,
+	                        type: [opt.type],
+	                        rankBy: google.maps.places.RankBy.PROMINENCE,
+	                        minPriceLevel: opt.minPrice
+	                    };
+
+	                function callback(results, status, pagination) {
+	                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+	                        var resultObj = {results: results, pagination: pagination};
+	                        deferred.resolve(resultObj);
+	                    }else{
+	                        console.log('Google maps status is: ', status)
+	                    }
+	                }
+	                service.nearbySearch(request, callback);
+	                return deferred.promise;
+	            },
+	            /**
+	             * @method handleSearch - takes a search response and creates markers and infoboxes for each place. Updates the searchObj prop with results
+	             * @param {google.maps.places.PlaceResult[]} places - a place result array returned by one of the search directives
+	             * @param {google.maps.Map} map - the google maps Map object where the markers will be displayed
+	             * @returns {Promise} the updated searchObj is returned as a promise
+	             */
+	            handleSearch: function(places, map) {
+	            var self = this,
+	                bounds = new google.maps.LatLngBounds(),
+	                deferred = $q.defer();
+
+	            // Alert if no results
+	            if (places.length == 0){
+	                alert('No places found');
+	            }
+
+	            // TODO: Activate more button and attach click handler
+
+
+	            // Clear out the old markers and search results
+	            this.searchObj.results = [];
+	            this.searchObj.markers.forEach(function(marker) {
+	                marker.setMap(null);
+	            });
+	            this.searchObj.markers = [];
+
+	            // Create Info Box and map click handler for closing info box
+	            var infoBox = new aggInfoBoxFact();
+
+	            // For each place, create an icon, marker, and info box
+	            // Push the markers and results to arrays for viewing
+	            places.forEach(function(place) {
+	                if (!place.geometry) {
+	                    console.log("Returned place contains no geometry");
+	                    return;
+	                }
+	                var icon = {
+	                    url: 'http://maps.google.com/mapfiles/ms/icons/blue.png',
+	                    origin: new google.maps.Point(0, 0),
+	                    anchor: new google.maps.Point(17, 34)
+	                };
+
+	                // Create a marker for each place.
+	                var marker = new google.maps.Marker({
+	                    map: map,
+	                    icon: icon,
+	                    title: place.name,
+	                    placeId: place.place_id,
+	                    position: place.geometry.location
+	                });
+
+	                // Add listener to map for closing infobox and stopping marker animation
+	                google.maps.event.addListener(map, 'click', function () {
+	                    if(marker.getAnimation() !== null) marker.setAnimation(null);
+	                    infoBox.close();
+	                });
+
+	                // Create info box and click handler for marker
+	                marker.addListener('click', function(){
+	                    // Animate Marker
+	                    if (marker.getAnimation() !== null) {
+	                        marker.setAnimation(null);
+	                    } else {
+	                        marker.setAnimation(google.maps.Animation.BOUNCE);
+	                    }
+	                    // Lookup place details for place associated with marker then fill info box with details
+	                    aggPlacesFact.getPlace(place.place_id)
+	                        .then(function(results) {
+	                            // Info Box Content
+	                            var content = '<div class="ibHeader">' +
+	                                '<h3>' + results.name + '</h3>' +
+	                                '</div>' +
+	                                '<div class="ibBody">' +
+	                                '<img src="' + results.photos[0].getUrl({'maxWidth': 250, 'maxHeight': 250}) + '" width="100%" height="auto">' +
+	                                '<ul>' +
+	                                '<li>' + results.formatted_phone_number + '</li>' +
+	                                '<li>' + results.vicinity + '</li>' +
+	                                '<li>' + results.rating + '</li>' +
+	                                '</ul>' +
+	                                '</div> ';
+	                            // Set content of InfoBox
+	                            infoBox.setContent(content);
+	                            // Open Info Box on marker click
+	                            infoBox.open(map, marker);
+	                        })
+	                });
+
+	                // Set bounds to include all results
+	                if (place.geometry.viewport) {
+	                    // Only geocodes have viewport.
+	                    bounds.union(place.geometry.viewport);
+	                } else {
+	                    bounds.extend(place.geometry.location);
+	                }
+
+	                // Push markers and search results to arrays.
+	                // The directives will watch these arrays and update the DOM as necessary
+	                self.searchObj.markers.push(marker);
+	                self.searchObj.results.push(place);
+
+	                deferred.resolve(self.searchObj);
+	            });
+	            map.fitBounds(bounds);
+	            return deferred.promise;
+	            },
+	            /**
+	             * @method clear - clears out the searchObj
+	             */
+	            clear: function () {
+	                this.searchObj.results = [];
+	                this.searchObj.markers.forEach(function(marker) {
+	                    marker.setMap(null);
+	                });
+	            }
+	        }
+	    })
+	}());
+
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	(function () {'use strict';
+
+	angular.module('aggAnimations', [])
+
+	.animation('.aggEnterDown', function($animateCss) {
+	    return {
+	        enter: function (element) {
+	            var endHeight = element[0].offsetHeight;
+	            console.log(endHeight);
+	            return $animateCss(element, {
+	                event: 'enter',
+	                structural: true,
+	                from: {height: 0, overflow: 'hidden'},
+	                to: {height: endHeight+'px', overflow: 'auto'},
+	                duration: 2
+	            });
+	        },
+	        leave: function (element) {
+	            var height = element[0].offsetHeight;
+	            return $animateCss(element, {
+	                event: 'leave',
+	                structural: true,
+	                from: {height: height, overflow: 'auto'},
+	                to: {height: 0, overflow: 'hidden'},
+	                duration: 1
+	            });
+	        }
+	    }
+	});
+	}());
 
 
 /***/ }

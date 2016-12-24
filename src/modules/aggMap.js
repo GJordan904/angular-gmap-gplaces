@@ -8,21 +8,23 @@
 angular.module('aggMap', [])
 
 // The map directive
-.directive('aggMap', function() {
+.directive('aggMap', function(aggMapServ) {
     return {
         restrict: 'E',
         scope: {
-            'options': '='
+            'options': '=options'
         },
         transclude: true,
-        controllerAs: 'map',
-        bindToController: true,
-        controller: function(aggMapServ) {
-            this.divId = this.options.mapId;
-
-            aggMapServ.make(this.options);
+        controller: function ($scope) {
+            $scope.divId = $scope.options.mapId;
         },
-        template: '<div id="map-canvas"></div><div ng-transclude></div>'
+        link: function(scope, elem, attrs, ctrlr) {
+            var options = scope.$watch('options', function(value) {
+                ctrlr.gMap = aggMapServ.make(value);
+                options();
+            });
+        },
+        template: '<div id="{{divId}}"></div><div ng-transclude></div>'
     };
 })
 // Directive for a single map marker
@@ -73,7 +75,7 @@ angular.module('aggMap', [])
     var self = this;
     var setOptions = function(args) {
         var defaults = {
-            index: 0,
+            index: self.maps.length,
             mapId: 'map-canvas',
             zoom: 8,
             center: {lat: 0, lng: 0}
@@ -88,20 +90,24 @@ angular.module('aggMap', [])
     this.make = function(options) {
         var index = options.index,
             id = options.mapId,
-            instance = self.maps[index];
+            instance = self.maps[index],
+            map;
 
         if(instance === undefined){
             var opt = setOptions(options);
-            self.maps.push(new google.maps.Map(document.getElementById(id), opt));
+            map = new google.maps.Map(document.getElementById(id), opt);
+            self.maps.push(map);
         }else{
             console.log(instance);
-            self.maps.push(new google.maps.Map(document.getElementById(id), {
+            map = new google.maps.Map(document.getElementById(id), {
                 center: instance.center,
                 zoom: instance.zoom,
                 styles: instance.styles,
                 mapTypeId: instance.mapTypeId
-            }));
+            });
+            self.maps.push(map);
         }
+        return map;
     }
 })
 // Factory creating custom info box class.

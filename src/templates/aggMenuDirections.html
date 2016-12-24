@@ -1,26 +1,35 @@
-<i ng-if="inMenu" role="button" class="fa fa-arrow-left fa-2x" style="color: white;" ng-click="goBack()"></i>
-
 <div class="directControls">
-    <div class="directBtnBar">
-        <button class="searchType" ng-click="direct.route.travelMode = 'WALKING'"><i class="fa fa-blind" ></i></button>
-        <button class="searchType" ng-click="direct.route.travelMode = 'DRIVING'"><i class="fa fa-car"></i></button>
-        <button class="searchType" ng-click="direct.route.travelMode = 'BICYCLING'"><i class="fa fa-bicycle"></i></button>
-        <button class="searchType" ng-click="direct.route.travelMode = 'TRANSIT'"><i class="fa fa-bus"></i></button>
-    </div>
+    <i ng-if="inMenu" role="button" class="fa fa-arrow-left fa-2x aggBack" ng-click="direct.goBack()"></i>
+    <i role="button" class="fa fa-times fa-2x aggClear" ng-click="direct.clearMap()"><span>Clear Map</span></i>
 
     <div class="directSearch">
-        <input id="from" agg-auto-complete="direct.request.origin" type="text" name="from" placeholder="Choose a starting point">
-        <input id="destination" agg-auto-complete="direct.request.destination" type="text" name="to" placeholder="Destination">
+        <input id="aggOrigin" agg-auto-complete="direct.request.origin" type="text" name="from" placeholder="Choose a starting point">
+        <input id="aggDestination" agg-auto-complete="direct.request.destination" type="text" name="to" placeholder="Destination">
+    </div>
+
+    <div class="directBtnBar">
+        <button id="modeDriving" class="searchType" ng-class="{selected: direct.request.travelMode === 'DRIVING'}" ng-click="direct.toggleMode('DRIVING')">
+            <i class="fa fa-car fa-2x"></i>
+        </button>
+        <button id="modeWalking" class="searchType" ng-class="{selected: direct.request.travelMode === 'WALKING'}" ng-click="direct.toggleMode('WALKING')">
+            <i class="fa fa-blind fa-2x" ></i>
+        </button>
+        <button id="modeBicycling" class="searchType" ng-class="{selected: direct.request.travelMode === 'BICYCLING'}" ng-click="direct.toggleMode('BICYCLING')">
+            <i class="fa fa-bicycle fa-2x"></i>
+        </button>
+        <button id="modeTransit" class="searchType" ng-class="{selected: direct.request.travelMode === 'TRANSIT'}" ng-click="direct.toggleMode('TRANSIT')">
+            <i class="fa fa-bus fa-2x"></i>
+        </button>
     </div>
 </div>
 
-<div class="directResults" ng-if="direct.showDirect">
+<div class="directResults aggEnterDown" ng-if="direct.showDirect">
     <div class="overview">
         <div class="duration">
             {{direct.duration}}
         </div>
         <div class="distance">
-            {{direct.distance}}
+            ({{direct.distance}})
         </div>
         <div class="via">
            via {{direct.via}}
@@ -40,8 +49,9 @@
                     {{step.duration.text}}
                 </div>
                 <div class="distance">
-                    {{step.distance.text}}
+                    ({{step.distance.text}})
                 </div>
+                <hr ng-hide="$last">
             </div>
         </div>
         <div class="end">

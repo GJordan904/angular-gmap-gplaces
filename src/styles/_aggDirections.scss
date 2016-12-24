@@ -1,0 +1,126 @@
+.directIcon {
+  background: url('../img/icon_directions.svg') no-repeat;
+  height: 100%;
+  width: 16.5%;
+  position: absolute;
+  right: 0;
+}
+.directControls {
+  background-color: #f93c11;
+  width: 100%;
+}
+.directBtnBar {
+  width: 95%;
+  margin: 0 auto;
+  text-align: center;
+
+  .searchType {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    margin: 0 16px 16px 16px;
+    background-color: #f93c11;
+
+    @media(max-width: 1350px) {
+      margin: 0 10px 10px 10px;
+    }
+
+    &.selected {
+      background-color: darken(#f93c11, 20%);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    i {
+      text-align: center;
+      font-size: 2em;
+    }
+  }
+}
+.directSearch {
+
+  input {
+    display: block;
+    width: 75%;
+    margin: 16px auto;
+    background-color: #f93c11;
+    color: #1d1d1d;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #1d1d1d;
+
+    &:focus {
+      color: #1d1d1d;
+      outline: none;
+    }
+
+    &::-webkit-input-placeholder {
+      color: #1d1d1d;
+    }
+    &::-moz-placeholder {
+      color: #1d1d1d;
+    }
+    &:-ms-input-placeholder {
+      color: #1d1d1d;
+    }
+    &:-moz-placeholder {
+      color: #1d1d1d;
+    }
+  }
+}
+.directResults {
+  padding: 1em;
+  background-color: #eae6e3;
+
+  hr {
+    background-color: darken(#eae6e3, 75%);
+  }
+  .overview {
+    .duration {
+      display: inline;
+      font-size: 2em;
+      color: #72a078;
+    }
+    .distance {
+      display: inline;
+      font-size: 1.25em;
+      color: darken(#72a078, 25%);
+    }
+  }
+  .route {
+    .start {
+      font-size: 1.25em;
+      font-weight: bold;
+      margin-bottom: 1.5em;
+      color: #72a078;
+    }
+    .steps {
+
+    }
+    .step {
+      .instruction {
+        p {
+          margin: 0;
+        }
+      }
+      .duration {
+        display: inline;
+        font-size: .75em;
+      }
+      .distance {
+        display: inline;
+        font-size: .75em;
+      }
+    }
+    .end {
+      font-size: 1.25em;
+      font-weight: bold;
+      margin-top: 1.5em;
+      color: #72a078;
+    }
+  }
+}
