@@ -1,0 +1,59 @@
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h2 class="panel-title">agg-map</h2>
+    </div>
+
+    <div class="panel-body">
+        <p>The <code>agg-map</code> directive is used to instantiate a Google Map object. The directive accepts an object literal on the options attribute for configuring the map. </p>
+
+        <h3>Usage</h3>
+        <div class="well">
+            <pre class="prettyprint">
+&lt;agg-map options="{Object}"&gt;
+    &lt;!-- Directives requiring agg-map go here--&gt;
+&lt;/agg-map&gt;
+            </pre>
+        </div>
+
+        <h3>Attributes</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th class="col-xs-2">Attribute</th>
+                    <th class="col-xs-2">Type</th>
+                    <th class="col-xs-8">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>options</td>
+                    <td>Object</td>
+                    <td>An object literal containing the options for configuring the map. Below are the additional options unique to the <code>agg-map</code> directive. These are in addition to the standard <a href="https://developers.google.com/maps/documentation/javascript/reference#MapOptions" target="_blank">Google Maps options</a>. The required Google Maps options all have defaults and a default map will display if these options are not set.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Options</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th class="col-xs-2">Option</th>
+                    <th class="col-xs-2">Type</th>
+                    <th class="col-xs-8">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>index</td>
+                    <td>int</td>
+                    <td>The maps index in the array of maps. Used for identifying maps when there are multiple maps in the application. This value is set automatically starting at 0 for the first map and auto incrementing with each additional map</td>
+                </tr>
+                <tr>
+                    <td>mapId</td>
+                    <td>string</td>
+                    <td>The maps div id. Defaults to <code>map-canvas</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

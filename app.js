@@ -4,14 +4,13 @@ angular.module('myApp', [
 	'app.controllers',
 	'app.directives',
 	'angular-gmap-gplace',
-	'hljs',
 	'ui.router'
 ])
-.config(function($stateProvider, $urlRouterProvider, $aggMapProvider) {
+.config(function($stateProvider, $urlRouterProvider, $aggMapProvider, $provide) {
 	// Configuration for Google Maps
 	$aggMapProvider.setOptions({
 		lang: 'en-US',
-		key: 'AIzaSyCUmYH5tWFnfSu-Q8A2kRF7VzXo9KfyU9g',
+		key: 'AIzaSyDJ6F9fpMOP8urg1cVzPkMnrrmgOYCNuCQ',
 		libs: 'places'
 	});
 
@@ -29,19 +28,28 @@ angular.module('myApp', [
 				}
 			}
 		})
-		.state('app.docsPlaces', {
-			url: '/docs/places/:scrollTo',
+		.state('app.docs', {
+			url: '/docs',
+			abstract: true,
 			views: {
 				'mainContent': {
-					templateUrl: 'views/docsPlaces.html'
+					templateUrl: 'views/docs.html'
 				}
 			}
 		})
-		.state('app.docsMap', {
-			url: '/docs/map',
+		.state('app.docs.aggMap', {
+			url: '/agg-map',
 			views: {
-				'mainContent': {
-					templateUrl: 'views/docsMap.html'
+				'docs': {
+					templateUrl: 'views/docs/aggMap.html'
+				}
+			}
+		})
+		.state('app.docs.places', {
+			url: '/places',
+			views: {
+				'docs': {
+					templateUrl: 'views/docsPlaces.html'
 				}
 			}
 		})

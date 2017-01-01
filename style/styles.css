@@ -5,6 +5,9 @@
 .panel-body {
     padding-bottom: 0;
 }
+.navbar {
+    margin-bottom: 0;
+}
 .poweredBy {
     float: right;
     width: 45%;
@@ -21,6 +24,9 @@
 .menu-title {
     font-weight: bold;
     text-align: center;
+}
+.map-bg { 
+    background: url("../img/worldMap.jpg") no-repeat;
 }
 
 /* Map Styles */
@@ -67,9 +73,8 @@
     float: right;
     width: 0;
     height: 0;
-    border-color: transparent;
-    border-style: solid;
-    border-width: 5px 0 5px 5px;
+    border: 5px solid transparent;
+    border-right-width: 0;
     border-left-color: #ccc;
     margin-top: 5px;
     margin-right: -10px;
@@ -86,7 +91,5 @@
 .dropdown-submenu.pull-left>.dropdown-menu {
     left: -100%;
     margin-left: 10px;
-    -webkit-border-radius: 6px 0 6px 6px;
-    -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
 }

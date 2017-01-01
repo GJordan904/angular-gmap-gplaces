@@ -52,4 +52,13 @@ angular.module('app.directives', [])
         }
     })
 
+    .directive('prettyprint', function() {
+        return {
+            restrict: 'C',
+            link: function() {
+                prettyPrint();
+            }
+        }
+    })
+
 }());
