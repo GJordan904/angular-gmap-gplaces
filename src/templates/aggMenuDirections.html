@@ -1,6 +1,6 @@
 <div class="directControls">
-    <i ng-if="inMenu" role="button" class="fa fa-arrow-left fa-2x aggBack" ng-click="direct.goBack()"></i>
-    <i role="button" class="fa fa-times fa-2x aggClear" ng-click="direct.clearMap()"><span>Clear Map</span></i>
+    <i role="button" class="fa fa-arrow-left fa-2x aggBack" ng-click="aggMenu.goSearch()"></i>
+    <i role="button" class="fa fa-times fa-2x aggClear" ng-click="direct.clearMap()"></i>
 
     <div class="directSearch">
         <input id="aggOrigin" agg-auto-complete="direct.request.origin" type="text" name="from" placeholder="Choose a starting point">

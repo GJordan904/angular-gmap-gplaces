@@ -53,11 +53,11 @@
 
 	var styles = __webpack_require__(2);
 	var aggDirections = __webpack_require__(8);
-	var aggGeolocation = __webpack_require__(10);
-	var aggMap = __webpack_require__(12);
-	var aggPlaces = __webpack_require__(13);
-	var aggUtils = __webpack_require__(15);
-	var aggMapMenu = __webpack_require__(16);
+	var aggGeolocation = __webpack_require__(9);
+	var aggMap = __webpack_require__(11);
+	var aggPlaces = __webpack_require__(12);
+	var aggUtils = __webpack_require__(14);
+	var aggMapMenu = __webpack_require__(15);
 	var aggSearch = __webpack_require__(19);
 	var aggAnimations = __webpack_require__(20);
 
@@ -112,7 +112,7 @@
 
 
 	// module
-	exports.push([module.id, "@keyframes aggPulsate {\n  0% {\n    transform: scale(0.1);\n    opacity: 0; }\n  50% {\n    opacity: 1; }\n  to {\n    transform: scale(1.2);\n    opacity: 0; } }\n\n.locMarker {\n  position: absolute;\n  margin-top: -50px;\n  margin-left: -50px;\n  transform: rotateX(55deg); }\n\n.locMarker:after {\n  display: block;\n  width: 100px;\n  height: 100px;\n  content: '';\n  animation: aggPulsate 1s ease-out;\n  animation-delay: 1.1s;\n  animation-iteration-count: infinite;\n  opacity: 0;\n  border-radius: 50%;\n  box-shadow: 0 0 6px 3px #f93c11; }\n\n.markerCenter {\n  position: absolute;\n  height: 15px;\n  width: 15px;\n  margin-top: -7.5px;\n  margin-left: -7.5px; }\n\n.aggBack {\n  color: white; }\n\n.aggClear {\n  color: white;\n  float: right; }\n  .aggClear span {\n    font-size: .5em; }\n  .aggClear.colored {\n    color: #ff4b33; }\n\n/* Menu Button */\n#aggMenuBtn {\n  position: absolute;\n  text-align: center;\n  top: 2%;\n  right: 0;\n  color: rgba(39, 39, 39, 0.91);\n  width: 7%;\n  border-radius: 5px;\n  border: thin rgba(0, 0, 0, 0.91);\n  background-color: #eae6e3;\n  box-shadow: -3px 5px 2px 0 rgba(0, 0, 0, 0.35);\n  transition: .5s ease all; }\n  @media (min-width: 992px) {\n    #aggMenuBtn {\n      width: 3.75%; } }\n\n/* Menu */\n#aggMenu {\n  background-color: transparent;\n  position: absolute;\n  top: 2%;\n  right: -75%;\n  height: 95%;\n  width: 75%;\n  transition: .5s ease all;\n  border-radius: 5px;\n  overflow: hidden;\n  /* Search box and results */ }\n  @media (min-width: 992px) {\n    #aggMenu {\n      right: -25%;\n      width: 25%; }\n      #aggMenu.animateDirections {\n        width: 35%;\n        right: -35%; } }\n  #aggMenu ul {\n    list-style: none;\n    padding: 0;\n    display: inline-block;\n    margin-left: 5px; }\n  #aggMenu #aggSearch {\n    height: 100%;\n    width: 80%;\n    background-color: #eae6e3;\n    border: thin;\n    border-radius: 5px;\n    font-size: 1.25em;\n    position: absolute;\n    left: 0;\n    border-right: 1px solid #c4c0bd; }\n    #aggMenu #aggSearch:focus {\n      outline: none; }\n  #aggMenu .genSearch {\n    width: 100%;\n    height: 42px;\n    position: relative;\n    background-color: #eae6e3;\n    box-shadow: -3px 5px 2px 0 rgba(0, 0, 0, 0.35); }\n  #aggMenu .searchResults {\n    position: absolute;\n    top: 7%;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    padding: .75em;\n    overflow: auto;\n    background-color: #f5f1ee; }\n    #aggMenu .searchResults hr {\n      background-color: #3f3f3f; }\n  #aggMenu .resultsList {\n    width: 100%; }\n    #aggMenu .resultsList li:first-child {\n      margin-top: 1em; }\n    #aggMenu .resultsList img {\n      float: right; }\n    #aggMenu .resultsList .aggResult li {\n      font-size: .95em;\n      color: #1d1d1d; }\n      #aggMenu .resultsList .aggResult li:first-child {\n        font-weight: bold;\n        font-size: .95em; }\n    #aggMenu .resultsList .aggResult .openNow {\n      font-size: .75em;\n      color: #72a078; }\n\n/* Directions search box and results */\n/* Info Box */\n.infoBox {\n  background-color: #3f3f3f;\n  width: 300px;\n  border-radius: 15px; }\n\n.ibHeader {\n  width: 100%;\n  background-color: #1d1d1d;\n  color: #72a078;\n  padding: 2px;\n  border-radius: 15px 15px 0 0; }\n  .ibHeader h3, .ibHeader hr {\n    margin: 0; }\n\n.ibBody {\n  color: #72a078;\n  font-size: 16px; }\n  .ibBody ul {\n    list-style: none; }\n\n.directIcon {\n  background: url(" + __webpack_require__(5) + ") no-repeat;\n  height: 100%;\n  width: 16.5%;\n  position: absolute;\n  right: 0; }\n\n.directControls {\n  background-color: #f93c11;\n  width: 100%; }\n\n.directBtnBar {\n  width: 95%;\n  margin: 0 auto;\n  text-align: center; }\n  .directBtnBar .searchType {\n    width: 45px;\n    height: 45px;\n    border-radius: 50%;\n    border: none;\n    margin: 0 16px 16px 16px;\n    background-color: #f93c11; }\n    @media (max-width: 1350px) {\n      .directBtnBar .searchType {\n        margin: 0 10px 10px 10px; } }\n    .directBtnBar .searchType.selected {\n      background-color: #a02104; }\n    .directBtnBar .searchType:focus {\n      outline: none; }\n    .directBtnBar .searchType i {\n      text-align: center;\n      font-size: 2em; }\n\n.directSearch input {\n  display: block;\n  width: 75%;\n  margin: 16px auto;\n  background-color: #f93c11;\n  color: #1d1d1d;\n  border-top: none;\n  border-left: none;\n  border-right: none;\n  border-bottom: 1px solid #1d1d1d; }\n  .directSearch input:focus {\n    color: #1d1d1d;\n    outline: none; }\n  .directSearch input::-webkit-input-placeholder {\n    color: #1d1d1d; }\n  .directSearch input::-moz-placeholder {\n    color: #1d1d1d; }\n  .directSearch input:-ms-input-placeholder {\n    color: #1d1d1d; }\n  .directSearch input:-moz-placeholder {\n    color: #1d1d1d; }\n\n.directResults {\n  padding: 1em;\n  background-color: #eae6e3; }\n  .directResults hr {\n    background-color: #2d2622; }\n  .directResults .overview .duration {\n    display: inline;\n    font-size: 2em;\n    color: #72a078; }\n  .directResults .overview .distance {\n    display: inline;\n    font-size: 1.25em;\n    color: #3b583f; }\n  .directResults .route .start {\n    font-size: 1.25em;\n    font-weight: bold;\n    margin-bottom: 1.5em;\n    color: #72a078; }\n  .directResults .route .step .instruction p {\n    margin: 0; }\n  .directResults .route .step .duration {\n    display: inline;\n    font-size: .75em; }\n  .directResults .route .step .distance {\n    display: inline;\n    font-size: .75em; }\n  .directResults .route .end {\n    font-size: 1.25em;\n    font-weight: bold;\n    margin-top: 1.5em;\n    color: #72a078; }\n\n/**************************\nMenu Animations\n**************************/\n@keyframes aggSlideInLeft {\n  from {\n    transform: translateX(0); }\n  to {\n    transform: translateX(-100%); } }\n\n@keyframes aggSlideOutRight {\n  from {\n    transform: translateX(100%); }\n  to {\n    transform: translateX(0); } }\n\n.animateMenu {\n  transform: translateX(-105%); }\n\n.animateDirections {\n  transform: translateX(-100%); }\n\n.animateBtn {\n  transform: translateX(-1135%); }\n  @media (min-width: 992px) {\n    .animateBtn {\n      transform: translateX(-710%); } }\n\n.animateBtnDirect {\n  transform: translateX(-1071%); }\n  @media (min-width: 992px) {\n    .animateBtnDirect {\n      transform: translateX(-930%); } }\n\n.slide.ng-leave {\n  animation: aggSlideInLeft .5s ease-in; }\n\n.slide.ng-enter {\n  animation: aggSlideOutRight .5s ease-in; }\n\n.slide.ng-enter-active {\n  transform: translateX(100%); }\n\n.slide.ng-leave-active {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0; }\n\n/**********************************\nDirection Icon Animation\n**********************************/\n@keyframes aggSpin {\n  0% {\n    transform: rotate(0deg); }\n  50% {\n    transform: rotate(180deg); }\n  100% {\n    transform: rotate(360deg); } }\n\n.aggSpin {\n  animation: aggSpin .25s infinite; }\n\nspan.stars, span.stars span {\n  display: inline-block;\n  background: url(" + __webpack_require__(6) + ") 0 -11px repeat-x;\n  width: 60px;\n  height: 12px; }\n\nspan.stars span {\n  background-position: 0 0; }\n", ""]);
+	exports.push([module.id, "@keyframes aggPulsate {\n  0% {\n    transform: scale(0.1);\n    opacity: 0; }\n  50% {\n    opacity: 1; }\n  to {\n    transform: scale(1.2);\n    opacity: 0; } }\n\n.locMarker {\n  position: absolute;\n  margin-top: -50px;\n  margin-left: -50px;\n  transform: rotateX(55deg); }\n\n.locMarker:after {\n  display: block;\n  width: 100px;\n  height: 100px;\n  content: '';\n  animation: aggPulsate 1s ease-out;\n  animation-delay: 1.1s;\n  animation-iteration-count: infinite;\n  opacity: 0;\n  border-radius: 50%;\n  box-shadow: 0 0 6px 3px #0000ff; }\n\n.markerCenter {\n  position: absolute;\n  height: 15px;\n  width: 15px;\n  margin-top: -7.5px;\n  margin-left: -7.5px; }\n\n.aggBack {\n  color: white; }\n\n.aggClear {\n  color: white;\n  float: right; }\n  .aggClear span {\n    font-size: .5em; }\n  .aggClear.search {\n    float: left;\n    color: #ff4b33; }\n\n/* Menu Button */\n#aggMenuBtn {\n  position: absolute;\n  text-align: center;\n  top: 2%;\n  right: 0;\n  color: rgba(39, 39, 39, 0.91);\n  width: 7%;\n  border-radius: 5px;\n  border: thin rgba(0, 0, 0, 0.91);\n  background-color: #eae6e3;\n  box-shadow: -3px 5px 2px 0 rgba(0, 0, 0, 0.35);\n  transition: .5s ease all; }\n  @media (min-width: 992px) {\n    #aggMenuBtn {\n      width: 3.75%; } }\n\n/* Menu */\n#aggMenu {\n  background-color: transparent;\n  position: absolute;\n  top: 2%;\n  right: -75%;\n  height: 95%;\n  width: 75%;\n  transition: .5s ease all;\n  border-radius: 5px;\n  overflow: hidden;\n  /* Search box and results */ }\n  @media (min-width: 992px) {\n    #aggMenu {\n      right: -25%;\n      width: 25%; }\n      #aggMenu.animateDirections {\n        width: 35%;\n        right: -35%; } }\n  #aggMenu ul {\n    list-style: none;\n    padding: 0;\n    display: inline-block;\n    margin-left: 5px; }\n  #aggMenu #aggSearch {\n    height: 100%;\n    width: 80%;\n    background-color: #eae6e3;\n    border: thin;\n    border-radius: 5px;\n    font-size: 1.25em;\n    position: absolute;\n    left: 0;\n    border-right: 1px solid #c4c0bd; }\n    #aggMenu #aggSearch:focus {\n      outline: none; }\n  #aggMenu .genSearch {\n    width: 100%;\n    height: 42px;\n    position: relative;\n    background-color: #eae6e3;\n    box-shadow: -3px 5px 2px 0 rgba(0, 0, 0, 0.35); }\n  #aggMenu .searchResults {\n    position: absolute;\n    top: 7%;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    padding: .75em;\n    overflow: auto;\n    background-color: #f5f1ee; }\n    #aggMenu .searchResults .resultHeader {\n      background-color: #f93c11;\n      width: 100%; }\n      #aggMenu .searchResults .resultHeader img {\n        width: 100%; }\n    #aggMenu .searchResults .ratingNum {\n      font-size: .65em; }\n    #aggMenu .searchResults hr {\n      background-color: #3f3f3f; }\n    #aggMenu .searchResults .resultsList {\n      width: 100%; }\n      #aggMenu .searchResults .resultsList hr {\n        margin: 10px 0; }\n      #aggMenu .searchResults .resultsList li:first-child {\n        margin-top: 1em; }\n      #aggMenu .searchResults .resultsList .aggResult ul {\n        width: 50%; }\n      #aggMenu .searchResults .resultsList .aggResult li {\n        font-size: .95em;\n        color: #1d1d1d; }\n        #aggMenu .searchResults .resultsList .aggResult li:first-child {\n          font-weight: bold;\n          font-size: .95em; }\n      #aggMenu .searchResults .resultsList .aggResult img {\n        float: right;\n        width: 45%; }\n      #aggMenu .searchResults .resultsList .aggResult .openNow {\n        font-size: .75em;\n        color: #72a078; }\n\n/* Directions search box and results */\n/* Info Box */\n.infoBox {\n  background-color: #3f3f3f;\n  width: 300px;\n  border-radius: 15px; }\n\n.ibHeader {\n  width: 100%;\n  background-color: #1d1d1d;\n  color: #72a078;\n  padding: 2px;\n  border-radius: 15px 15px 0 0; }\n  .ibHeader h3, .ibHeader hr {\n    margin: 0; }\n\n.ibBody {\n  color: #72a078;\n  font-size: 16px; }\n  .ibBody ul {\n    list-style: none; }\n\n.directIcon {\n  background: url(" + __webpack_require__(5) + ") no-repeat;\n  height: 100%;\n  width: 16.5%;\n  position: absolute;\n  right: 0; }\n\n.directControls {\n  background-color: #f93c11;\n  width: 100%; }\n\n.directBtnBar {\n  width: 95%;\n  margin: 0 auto;\n  text-align: center; }\n  .directBtnBar .searchType {\n    width: 45px;\n    height: 45px;\n    border-radius: 50%;\n    border: none;\n    margin: 0 16px 16px 16px;\n    background-color: #f93c11; }\n    @media (max-width: 1350px) {\n      .directBtnBar .searchType {\n        margin: 0 10px 10px 10px; } }\n    .directBtnBar .searchType.selected {\n      background-color: #a02104; }\n    .directBtnBar .searchType:focus {\n      outline: none; }\n    .directBtnBar .searchType i {\n      text-align: center;\n      font-size: 2em; }\n\n.directSearch input {\n  display: block;\n  width: 75%;\n  margin: 16px auto;\n  background-color: #f93c11;\n  color: #1d1d1d;\n  border-top: none;\n  border-left: none;\n  border-right: none;\n  border-bottom: 1px solid #1d1d1d; }\n  .directSearch input:focus {\n    color: #1d1d1d;\n    outline: none; }\n  .directSearch input::-webkit-input-placeholder {\n    color: #1d1d1d; }\n  .directSearch input::-moz-placeholder {\n    color: #1d1d1d; }\n  .directSearch input:-ms-input-placeholder {\n    color: #1d1d1d; }\n  .directSearch input:-moz-placeholder {\n    color: #1d1d1d; }\n\n.directResults {\n  padding: 1em;\n  background-color: #eae6e3; }\n  .directResults hr {\n    background-color: #2d2622; }\n  .directResults .overview .duration {\n    display: inline;\n    font-size: 2em;\n    color: #72a078; }\n  .directResults .overview .distance {\n    display: inline;\n    font-size: 1.25em;\n    color: #3b583f; }\n  .directResults .route .start {\n    font-size: 1.25em;\n    font-weight: bold;\n    margin-bottom: 1.5em;\n    color: #72a078; }\n  .directResults .route .step .instruction p {\n    margin: 0; }\n  .directResults .route .step .duration {\n    display: inline;\n    font-size: .75em; }\n  .directResults .route .step .distance {\n    display: inline;\n    font-size: .75em; }\n  .directResults .route .end {\n    font-size: 1.25em;\n    font-weight: bold;\n    margin-top: 1.5em;\n    color: #72a078; }\n\n/**************************\nMenu Animations\n**************************/\n@keyframes aggSlideInLeft {\n  from {\n    transform: translateX(0); }\n  to {\n    transform: translateX(-100%); } }\n\n@keyframes aggSlideOutRight {\n  from {\n    transform: translateX(100%); }\n  to {\n    transform: translateX(0); } }\n\n.animateMenu {\n  transform: translateX(-105%); }\n\n.animateDirections {\n  transform: translateX(-100%); }\n\n.animateBtn {\n  transform: translateX(-1135%); }\n  @media (min-width: 992px) {\n    .animateBtn {\n      transform: translateX(-710%); } }\n\n.animateBtnDirect {\n  transform: translateX(-1071%); }\n  @media (min-width: 992px) {\n    .animateBtnDirect {\n      transform: translateX(-930%); } }\n\n.slide.ng-leave {\n  animation: aggSlideInLeft .5s ease-in; }\n\n.slide.ng-enter {\n  animation: aggSlideOutRight .5s ease-in; }\n\n.slide.ng-enter-active {\n  transform: translateX(100%); }\n\n.slide.ng-leave-active {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0; }\n\n/**********************************\nDirection Icon Animation\n**********************************/\n@keyframes aggSpin {\n  0% {\n    transform: rotate(0deg); }\n  50% {\n    transform: rotate(180deg); }\n  100% {\n    transform: rotate(360deg); } }\n\n.aggSpin {\n  animation: aggSpin .25s infinite; }\n\n.aggStars, .aggStars span {\n  display: inline-block;\n  background: url(" + __webpack_require__(6) + ") 0 -25px repeat-x;\n  width: 100px;\n  height: 21px; }\n\n.aggStars span {\n  background-position: 0 0; }\n", ""]);
 
 	// exports
 
@@ -183,7 +183,7 @@
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAYCAYAAADOMhxqAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AwQFh42TCl+OAAAAi9JREFUOMuNks1LlFEYxX/PnTu+M/iOTRiG7TKlQSFq4SKhvEulyKw/IWgTQWgQBFEUtA2igiBoVYv2tYnq0pQQtBX6giCkphGdSd908P1q0Ts2X4ln+Tzn3PPcwxFaUC4WBNgB9PQd+fCtda9ohwaOASc67NoFWmudTqenHcc53kkg5WJBxXFMGIb4vk8+n9+ptV4QEa9UKg0NTC5Uv78aVKlUChFBA4dEpM9xHOU4joRhOJzNZjOpVCpyXXd2aW7kDaCjKIriOF6UcrEwqJR67LruqFLq7ytaAxAEAXX3tbW1t0EQnJX6bUtzIzdd173Q1dWVbbzZ9/3l1dXVB71j85eaPt07Nn95ZWXlShiGm+QoitYrlcr9OrkeYd1BK6UKSinCMFwHQhHpzmQyQx1jVUpltdanfN//UalUbler1RsbGxu/tNZjX57u6Wly+Pl6vwRBcDCO40XP8873m8/Pk/l7x3Gu5XK5CeDJpoOIEMexW6vVxutkgN1HP770PG9KRAK2grXWtdYObKsa1loNTACntyUA0sB0UsD2LllrW0V54CsQAgVjTLmRo4EDQH/iJsA+oAdYB2attS8S1whYEmvtXuARcJit8Q741yVr7XVgBuhuIVaBh8aYGZITGhM6B9xpGNWAe8aY2bYuJXEWGog+kAOG/herk2RfAu4CV4FlYNRau6tJYK0VYBj4DZwxxlw0xtwCTgKfgMlODnlg3BjzrD4wxhSBqSRiAP4Aaj3QONtcBxwAAAAASUVORK5CYII="
+	module.exports = "data:image/png;base64,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/GMzLdsAAEBOaVRYdFhNTDpjb20uYWRvYmUueG1wAAAAAAA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/Pgo8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjYtYzA2NyA3OS4xNTc3NDcsIDIwMTUvMDMvMzAtMjM6NDA6NDIgICAgICAgICI+CiAgIDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+CiAgICAgIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICAgICAgICAgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIKICAgICAgICAgICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICAgICAgICAgICB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIKICAgICAgICAgICAgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIKICAgICAgICAgICAgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiCiAgICAgICAgICAgIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iCiAgICAgICAgICAgIHhtbG5zOmV4aWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vZXhpZi8xLjAvIj4KICAgICAgICAgPHhtcDpDcmVhdG9yVG9vbD5BZG9iZSBQaG90b3Nob3AgQ0MgMjAxNSAoV2luZG93cyk8L3htcDpDcmVhdG9yVG9vbD4KICAgICAgICAgPHhtcDpDcmVhdGVEYXRlPjIwMTYtMTItMjhUMTA6MjA6NDUrMDg6MDA8L3htcDpDcmVhdGVEYXRlPgogICAgICAgICA8eG1wOk1ldGFkYXRhRGF0ZT4yMDE2LTEyLTI4VDIxOjI4OjU5KzA4OjAwPC94bXA6TWV0YWRhdGFEYXRlPgogICAgICAgICA8eG1wOk1vZGlmeURhdGU+MjAxNi0xMi0yOFQyMToyODo1OSswODowMDwveG1wOk1vZGlmeURhdGU+CiAgICAgICAgIDxkYzpmb3JtYXQ+aW1hZ2UvcG5nPC9kYzpmb3JtYXQ+CiAgICAgICAgIDx4bXBNTTpJbnN0YW5jZUlEPnhtcC5paWQ6YjM4YzBjZDUtMGQxMS1iMjRlLThlMmQtNjM2OWNlYjA0Y2YxPC94bXBNTTpJbnN0YW5jZUlEPgogICAgICAgICA8eG1wTU06RG9jdW1lbnRJRD5hZG9iZTpkb2NpZDpwaG90b3Nob3A6YzcwNjc5YTEtY2NhNC0xMWU2LWJlZTAtOWFjMzI0YzE0MjUyPC94bXBNTTpEb2N1bWVudElEPgogICAgICAgICA8eG1wTU06T3JpZ2luYWxEb2N1bWVudElEPnhtcC5kaWQ6NDc0MTYxZDMtMTJmZi04ZjQ5LTk5NTctN2RiNzk3OWExMTFkPC94bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ+CiAgICAgICAgIDx4bXBNTTpIaXN0b3J5PgogICAgICAgICAgICA8cmRmOlNlcT4KICAgICAgICAgICAgICAgPHJkZjpsaSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDphY3Rpb24+Y3JlYXRlZDwvc3RFdnQ6YWN0aW9uPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6aW5zdGFuY2VJRD54bXAuaWlkOjQ3NDE2MWQzLTEyZmYtOGY0OS05OTU3LTdkYjc5NzlhMTExZDwvc3RFdnQ6aW5zdGFuY2VJRD4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OndoZW4+MjAxNi0xMi0yOFQxMDoyMDo0NSswODowMDwvc3RFdnQ6d2hlbj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OnNvZnR3YXJlQWdlbnQ+QWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpPC9zdEV2dDpzb2Z0d2FyZUFnZW50PgogICAgICAgICAgICAgICA8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDphY3Rpb24+c2F2ZWQ8L3N0RXZ0OmFjdGlvbj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0Omluc3RhbmNlSUQ+eG1wLmlpZDphMTRkZDFjNS1mYWRjLWEwNDYtYjlmZC02OWExNTQyZGYyMTk8L3N0RXZ0Omluc3RhbmNlSUQ+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDp3aGVuPjIwMTYtMTItMjhUMjE6Mjg6NTkrMDg6MDA8L3N0RXZ0OndoZW4+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDpzb2Z0d2FyZUFnZW50PkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE1IChXaW5kb3dzKTwvc3RFdnQ6c29mdHdhcmVBZ2VudD4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OmNoYW5nZWQ+Lzwvc3RFdnQ6Y2hhbmdlZD4KICAgICAgICAgICAgICAgPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGkgcmRmOnBhcnNlVHlwZT0iUmVzb3VyY2UiPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6YWN0aW9uPmNvbnZlcnRlZDwvc3RFdnQ6YWN0aW9uPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6cGFyYW1ldGVycz5mcm9tIGFwcGxpY2F0aW9uL3ZuZC5hZG9iZS5waG90b3Nob3AgdG8gaW1hZ2UvcG5nPC9zdEV2dDpwYXJhbWV0ZXJzPgogICAgICAgICAgICAgICA8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDphY3Rpb24+ZGVyaXZlZDwvc3RFdnQ6YWN0aW9uPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6cGFyYW1ldGVycz5jb252ZXJ0ZWQgZnJvbSBhcHBsaWNhdGlvbi92bmQuYWRvYmUucGhvdG9zaG9wIHRvIGltYWdlL3BuZzwvc3RFdnQ6cGFyYW1ldGVycz4KICAgICAgICAgICAgICAgPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGkgcmRmOnBhcnNlVHlwZT0iUmVzb3VyY2UiPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6YWN0aW9uPnNhdmVkPC9zdEV2dDphY3Rpb24+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDppbnN0YW5jZUlEPnhtcC5paWQ6YjM4YzBjZDUtMGQxMS1iMjRlLThlMmQtNjM2OWNlYjA0Y2YxPC9zdEV2dDppbnN0YW5jZUlEPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6d2hlbj4yMDE2LTEyLTI4VDIxOjI4OjU5KzA4OjAwPC9zdEV2dDp3aGVuPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6c29mdHdhcmVBZ2VudD5BZG9iZSBQaG90b3Nob3AgQ0MgMjAxNSAoV2luZG93cyk8L3N0RXZ0OnNvZnR3YXJlQWdlbnQ+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDpjaGFuZ2VkPi88L3N0RXZ0OmNoYW5nZWQ+CiAgICAgICAgICAgICAgIDwvcmRmOmxpPgogICAgICAgICAgICA8L3JkZjpTZXE+CiAgICAgICAgIDwveG1wTU06SGlzdG9yeT4KICAgICAgICAgPHhtcE1NOkRlcml2ZWRGcm9tIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgPHN0UmVmOmluc3RhbmNlSUQ+eG1wLmlpZDphMTRkZDFjNS1mYWRjLWEwNDYtYjlmZC02OWExNTQyZGYyMTk8L3N0UmVmOmluc3RhbmNlSUQ+CiAgICAgICAgICAgIDxzdFJlZjpkb2N1bWVudElEPnhtcC5kaWQ6NDc0MTYxZDMtMTJmZi04ZjQ5LTk5NTctN2RiNzk3OWExMTFkPC9zdFJlZjpkb2N1bWVudElEPgogICAgICAgICAgICA8c3RSZWY6b3JpZ2luYWxEb2N1bWVudElEPnhtcC5kaWQ6NDc0MTYxZDMtMTJmZi04ZjQ5LTk5NTctN2RiNzk3OWExMTFkPC9zdFJlZjpvcmlnaW5hbERvY3VtZW50SUQ+CiAgICAgICAgIDwveG1wTU06RGVyaXZlZEZyb20+CiAgICAgICAgIDxwaG90b3Nob3A6RG9jdW1lbnRBbmNlc3RvcnM+CiAgICAgICAgICAgIDxyZGY6QmFnPgogICAgICAgICAgICAgICA8cmRmOmxpPkVFQzg5MTQ0MDZBMTNDRjAyQjUyMzI0NTkzMUM2ODU2PC9yZGY6bGk+CiAgICAgICAgICAgIDwvcmRmOkJhZz4KICAgICAgICAgPC9waG90b3Nob3A6RG9jdW1lbnRBbmNlc3RvcnM+CiAgICAgICAgIDxwaG90b3Nob3A6Q29sb3JNb2RlPjM8L3Bob3Rvc2hvcDpDb2xvck1vZGU+CiAgICAgICAgIDxwaG90b3Nob3A6SUNDUHJvZmlsZT5zUkdCIElFQzYxOTY2LTIuMTwvcGhvdG9zaG9wOklDQ1Byb2ZpbGU+CiAgICAgICAgIDx0aWZmOk9yaWVudGF0aW9uPjE8L3RpZmY6T3JpZW50YXRpb24+CiAgICAgICAgIDx0aWZmOlhSZXNvbHV0aW9uPjcyMDAwMC8xMDAwMDwvdGlmZjpYUmVzb2x1dGlvbj4KICAgICAgICAgPHRpZmY6WVJlc29sdXRpb24+NzIwMDAwLzEwMDAwPC90aWZmOllSZXNvbHV0aW9uPgogICAgICAgICA8dGlmZjpSZXNvbHV0aW9uVW5pdD4yPC90aWZmOlJlc29sdXRpb25Vbml0PgogICAgICAgICA8ZXhpZjpDb2xvclNwYWNlPjE8L2V4aWY6Q29sb3JTcGFjZT4KICAgICAgICAgPGV4aWY6UGl4ZWxYRGltZW5zaW9uPjIwPC9leGlmOlBpeGVsWERpbWVuc2lvbj4KICAgICAgICAgPGV4aWY6UGl4ZWxZRGltZW5zaW9uPjUwPC9leGlmOlBpeGVsWURpbWVuc2lvbj4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgCjw/eHBhY2tldCBlbmQ9InciPz7DpHR5AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAhsSURBVHja5JdZjJ5VGcd/55x3+/ZZvs7SlnamnbbIXsumFhCaEMGiRnGBQAgJsknUhN6gURKNMWg0waTRyIXGKwxokITI0hQRkbIjtKW0nS6zfTPfOt/+vds5XszQGZN6xx0nORfn4vnnfZ7zX84rjDF8nEvyMa+PHdB6+8XfscV6mfnTh8htvpFcJkfXB8HSKKSdwG+VhvzJx93sQH46iuLlUoM0PUz+agqn/sPwQIp5cTHWR8hC2kTdKsppkUyOEYVdhDE4CZtO4egdPRLbvb6rb9VR56MCRFBGGoFAn6VlYWGiNpUTL2CrRRKqSMIuE1cP4I2su2twx5duKR38S7ZTO06n/AHNygnKJ19B+xWEcs42Q4PnOcyXeswu9DDGJdIZygvFr1lrJrb2nXcZiVziQdEtQVAklcuDm0fEAaxiyv9cijGgHJeoXUQqm6BeR2SHH0qtHQfKpCc2PxC1OgnXsnG9LNKyMZj/d8sCIQQoD+EvUJp8n3I9uqFv84YdxAvQOkVuozNgpxPfa9UddFBHKHepRogVQGOnMFaSsFaiW5tBNyuO3+1dUzr16lflgPpZ4pwtmOaHmN4UVs4mc8HgD9t+5dvtWvEGv1bt85sRfs1HiwShTCLeevLe8b7w9T/2X3zHqPQGbFu2xrTtkEhFqESE8csQnEboKggLXAW9Bu16BH4PLQcXdNQsVt47kuxGE/db6aR1MlkuPKMxj/SP3wYcAXMCggVMbx7CaYSugViejh+DnSO1PgFe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"
 
 /***/ },
 /* 7 */
@@ -526,151 +526,165 @@
 
 /***/ },
 /* 9 */
-/***/ function(module, exports) {
-
-	var path = '/home/grant/Development/Projects/Libraries/angular-gmap-gplaces/master/src/templates/aggMenuDirections.html';
-	var html = "<div class=\"directControls\">\n    <i ng-if=\"inMenu\" role=\"button\" class=\"fa fa-arrow-left fa-2x aggBack\" ng-click=\"direct.goBack()\"></i>\n    <i role=\"button\" class=\"fa fa-times fa-2x aggClear\" ng-click=\"direct.clearMap()\"><span>Clear Map</span></i>\n\n    <div class=\"directSearch\">\n        <input id=\"aggOrigin\" agg-auto-complete=\"direct.request.origin\" type=\"text\" name=\"from\" placeholder=\"Choose a starting point\">\n        <input id=\"aggDestination\" agg-auto-complete=\"direct.request.destination\" type=\"text\" name=\"to\" placeholder=\"Destination\">\n    </div>\n\n    <div class=\"directBtnBar\">\n        <button id=\"modeDriving\" class=\"searchType\" ng-class=\"{selected: direct.request.travelMode === 'DRIVING'}\" ng-click=\"direct.toggleMode('DRIVING')\">\n            <i class=\"fa fa-car fa-2x\"></i>\n        </button>\n        <button id=\"modeWalking\" class=\"searchType\" ng-class=\"{selected: direct.request.travelMode === 'WALKING'}\" ng-click=\"direct.toggleMode('WALKING')\">\n            <i class=\"fa fa-blind fa-2x\" ></i>\n        </button>\n        <button id=\"modeBicycling\" class=\"searchType\" ng-class=\"{selected: direct.request.travelMode === 'BICYCLING'}\" ng-click=\"direct.toggleMode('BICYCLING')\">\n            <i class=\"fa fa-bicycle fa-2x\"></i>\n        </button>\n        <button id=\"modeTransit\" class=\"searchType\" ng-class=\"{selected: direct.request.travelMode === 'TRANSIT'}\" ng-click=\"direct.toggleMode('TRANSIT')\">\n            <i class=\"fa fa-bus fa-2x\"></i>\n        </button>\n    </div>\n</div>\n\n<div class=\"directResults aggEnterDown\" ng-if=\"direct.showDirect\">\n    <div class=\"overview\">\n        <div class=\"duration\">\n            {{direct.duration}}\n        </div>\n        <div class=\"distance\">\n            ({{direct.distance}})\n        </div>\n        <div class=\"via\">\n           via {{direct.via}}\n        </div>\n    </div>\n    <hr>\n    <div class=\"route\">\n        <div class=\"start\">\n            {{direct.startLoc}}\n        </div>\n        <div class=\"steps\">\n            <div class=\"step\" ng-repeat=\"step in direct.steps\">\n                <div class=\"instruction\">\n                    <p ng-bind-html=\"step.instructions\"></p>\n                </div>\n                <div class=\"duration\">\n                    {{step.duration.text}}\n                </div>\n                <div class=\"distance\">\n                    ({{step.distance.text}})\n                </div>\n                <hr ng-hide=\"$last\">\n            </div>\n        </div>\n        <div class=\"end\">\n            {{direct.endLoc}}\n        </div>\n    </div>\n</div>";
-	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
-	module.exports = path;
-
-/***/ },
-/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 
-	//
-	// The aggGeolocation module is home to all things geolocation related
-	// Included is the gLocation directive and supporting service and factory
-	//
+	/**
+	 * @module aggGeolocation
+	 * @desc This module contains the components necessary to display a users location on the map
+	 */
 	angular.module('aggGeolocation', [])
-	//
-	// Directive for showing user location
-	//
-	.directive('aggLocation', function(aggMapServ, aggLocationServ, aggLocationMarkerFact) {
-	    return {
-	        restrict: 'E',
-	        require: ['^aggMap'],
-	        link: function(scope, elem, attrs, mapCtrl) {
-	            var location = aggLocationServ.getLoc();
 
-	            var watcher = scope.$watch(function(){return mapCtrl[0].gMap;}, function(value) {
-	                if(value !== undefined) {
-	                    location.then(
-	                        function (success) {
-	                            var markOptions = {
-	                                position: new google.maps.LatLng(success.lat, success.lng),
-	                                cursor: 'pointer',
-	                                map: value
-	                            };
+	/**
+	 * @desc Directive that watches user location and places a custom overlay object on the map
+	 * @requires {aggMap}
+	 */
+	    .directive('aggLocation', function(aggLocationServ) {
+	        return {
+	            restrict: 'E',
+	            require: ['^aggMap'],
+	            link: function(scope, elem, attrs, ctrlrs) {
+	                var watcher = scope.$watch(function(){return ctrlrs[0].map;}, function(value) {
+	                    console.log(value);
+	                    if(value !== undefined) {
+	                        aggLocationServ.watchLoc(value);
+	                        watcher();
+	                    }
+	                });
+	            }
+	        };
+	    })
+	/**
+	 * @desc A custom OverlayView class that draws the location marker on the map
+	 * @class AggLocationMarker
+	 * @extends {google.maps.OverlayView}
+	 */
+	    .factory('AggLocationMarker', function() {
 
-	                            var marker = new aggLocationMarkerFact(markOptions);
-	                        },
-	                        function (failed) {
-	                            alert(failed);
-	                        }
-	                    );
-	                    watcher();
-	                }
-	            });
+	        // Animated Location Marker made with custom Overlay
+	        LocationMarker.prototype = new google.maps.OverlayView();
+
+	        function LocationMarker(opts) {
+	            this.setValues(opts);
 	        }
-	    };
-	})
-	//
-	// This factory creates a custom google maps overlay object
-	//
-	.factory('aggLocationMarkerFact', function() {
 
-	    // Animated Location Marker made with custom Overlay
-	    LocationMarker.prototype = new google.maps.OverlayView();
+	        LocationMarker.prototype.draw = function () {
+	            var div = this.div;
 
-	    function LocationMarker(opts) {
-	        this.setValues(opts);
-	    }
+	            if (!div) {
+	                div = this.div = document.createElement('div');
+	                div.style.position = 'absolute';
 
-	    LocationMarker.prototype.draw = function () {
-	        var div = this.div;
+	                var pulse = document.createElement('div');
+	                pulse.className = 'locMarker';
+	                div.appendChild(pulse);
 
-	        if (!div) {
-	            div = this.div = document.createElement('div');
-	            div.style.position = 'absolute';
+	                var center = document.createElement('img');
+	                center.className = 'markerCenter';
+	                center.src = __webpack_require__(10);
+	                div.appendChild(center);
 
-	            var pulse = document.createElement('div');
-	            pulse.className = 'locMarker';
-	            div.appendChild(pulse);
+	                var panes = this.getPanes();
+	                panes.overlayImage.appendChild(div);
+	            }
+	            var point = this.getProjection().fromLatLngToDivPixel(this.position);
+	            if (point) {
+	                div.style.left = point.x + 'px';
+	                div.style.top = point.y + 'px';
+	            }
+	        };
+	        return LocationMarker;
+	    })
 
-	            var center = document.createElement('img');
-	            center.className = 'markerCenter';
-	            center.src = __webpack_require__(11);
-	            div.appendChild(center);
+	/**
+	 * @desc Service for checking or watching user location
+	 *
+	 */
+	    .service('aggLocationServ', function($q, AggLocationMarker) {
+	        var self = this,
+	            q = $q.defer(),
+	            navGeo = navigator.geolocation,
+	            geoOptions = {
+	                enableHighAccuracy: true,
+	                timeout: 15000,
+	                maximumAge: 30000
+	            };
 
-	            var panes = this.getPanes();
-	            panes.overlayImage.appendChild(div);
+	        function getSuccess(position) {
+	            q.resolve({lat: position.coords.latitude, lng: position.coords.longitude});
 	        }
-	        var point = this.getProjection().fromLatLngToDivPixel(this.position);
-	        if (point) {
-	            div.style.left = point.x + 'px';
-	            div.style.top = point.y + 'px';
+	        function watchSuccess(position) {
+	            if(self.marker == null) {
+	                var markOptions = {
+	                    position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+	                    cursor: 'pointer',
+	                    map: self.gMap
+	                };
+	                self.marker = new AggLocationMarker(markOptions);
+	            }else {
+	                self.marker.position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	                self.marker.draw();
+	            }
 	        }
-	    };
-	return LocationMarker;
-	})
-
-	//
-	// This service gets the users location and handles errors
-	//
-	.service('aggLocationServ', function($q) {
-	    var deferred = $q.defer();
-
-	    // Check User Location
-	    var navGeo = navigator.geolocation;
-	    var geoOptions = {
-	        enableHighAccuracy: true,
-	        timeout: 30000,
-	        maximumAge: 27000
-	    };
-	    function geoSuccess(position) {
-	        deferred.resolve({lat: position.coords.latitude, lng: position.coords.longitude});
-	    }
-	    function geoError(error) {
-	        switch(error.code) {
-	            case error.PERMISSION_DENIED:
-	                deferred.reject("You did not allow access to your location");
-	                break;
-	            case error.POSITION_UNAVAILABLE:
-	                deferred.reject("Your location information is unavailable");
-	                break;
-	            case error.TIMEOUT:
-	                deferred.reject("The location request timed out");
-	                break;
-	            case error.UNKNOWN_ERROR:
-	                deferred.reject("An unknown error has occurred");
-	                break;
+	        function geoError(error) {
+	            switch(error.code) {
+	                case error.PERMISSION_DENIED:
+	                    q.reject("You did not allow access to your location");
+	                    break;
+	                case error.POSITION_UNAVAILABLE:
+	                    q.reject("Your location information is unavailable");
+	                    break;
+	                case error.TIMEOUT:
+	                    q.reject("The location request timed out");
+	                    break;
+	                case error.UNKNOWN_ERROR:
+	                    q.reject("An unknown error has occurred");
+	                    break;
+	            }
 	        }
-	    }
 
-	    this.watchLoc = function(){};
+	        this.gMap = null;
+	        this.marker = null;
 
-	    this.getLoc = function(){
-	        if(navGeo) {
-	            navGeo.watchPosition(geoSuccess, geoError);
-	        }else {
-	            deferred.reject("Geolocation service is unavailable.");
-	        }
-	        return deferred.promise;
-	    };
-	});
+	        /**
+	         * @method watches user location and on successful response draws an
+	         * AggLocationMarker at the users location
+	         * @param map - the map object where the marker will be drawn
+	         */
+	        this.watchLoc = function(map){
+	            this.gMap = map;
+	            if(navGeo) {
+	                navGeo.watchPosition(watchSuccess, geoError, geoOptions);
+	            }else {
+	                console.log("Geolocation service is unavailable.");
+	            }
+	        };
 
+	        /**
+	         * @method gets user location and returns the coords as a promise
+	         * @returns {Promise}
+	         */
+	        this.getLoc = function(){
+	            if(navGeo) {
+	                navGeo.getCurrentPosition(getSuccess, geoError, geoOptions);
+	            }else {
+	                q.reject("Geolocation service is unavailable.");
+	            }
+	            return q.promise;
+	        };
+	    });
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/png;base64,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/GMzLdsAAD+RaVRYdFhNTDpjb20uYWRvYmUueG1wAAAAAAA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/Pgo8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjYtYzA2NyA3OS4xNTc3NDcsIDIwMTUvMDMvMzAtMjM6NDA6NDIgICAgICAgICI+CiAgIDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+CiAgICAgIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICAgICAgICAgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIKICAgICAgICAgICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICAgICAgICAgICB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIKICAgICAgICAgICAgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIKICAgICAgICAgICAgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiCiAgICAgICAgICAgIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iCiAgICAgICAgICAgIHhtbG5zOmV4aWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vZXhpZi8xLjAvIj4KICAgICAgICAgPHhtcDpDcmVhdG9yVG9vbD5BZG9iZSBQaG90b3Nob3AgQ0MgMjAxNSAoV2luZG93cyk8L3htcDpDcmVhdG9yVG9vbD4KICAgICAgICAgPHhtcDpDcmVhdGVEYXRlPjIwMTYtMTItMjhUMjE6Mzk6MzQrMDg6MDA8L3htcDpDcmVhdGVEYXRlPgogICAgICAgICA8eG1wOk1ldGFkYXRhRGF0ZT4yMDE2LTEyLTI4VDIxOjQ1OjQxKzA4OjAwPC94bXA6TWV0YWRhdGFEYXRlPgogICAgICAgICA8eG1wOk1vZGlmeURhdGU+MjAxNi0xMi0yOFQyMTo0NTo0MSswODowMDwveG1wOk1vZGlmeURhdGU+CiAgICAgICAgIDxkYzpmb3JtYXQ+aW1hZ2UvcG5nPC9kYzpmb3JtYXQ+CiAgICAgICAgIDx4bXBNTTpJbnN0YW5jZUlEPnhtcC5paWQ6NTdlOTkyMzEtY2JjNS03MDQxLTkyMzAtZjFkMDAzYjVlNmY2PC94bXBNTTpJbnN0YW5jZUlEPgogICAgICAgICA8eG1wTU06RG9jdW1lbnRJRD5hZG9iZTpkb2NpZDpwaG90b3Nob3A6ZDg0MTUxNDEtY2QwMy0xMWU2LWJlZTAtOWFjMzI0YzE0MjUyPC94bXBNTTpEb2N1bWVudElEPgogICAgICAgICA8eG1wTU06T3JpZ2luYWxEb2N1bWVudElEPnhtcC5kaWQ6OWQxYWJhZWQtMWFiOS1lNjQ4LWE2YWYtNWEzYTY1YjcyZjZjPC94bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ+CiAgICAgICAgIDx4bXBNTTpIaXN0b3J5PgogICAgICAgICAgICA8cmRmOlNlcT4KICAgICAgICAgICAgICAgPHJkZjpsaSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDphY3Rpb24+Y3JlYXRlZDwvc3RFdnQ6YWN0aW9uPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6aW5zdGFuY2VJRD54bXAuaWlkOjlkMWFiYWVkLTFhYjktZTY0OC1hNmFmLTVhM2E2NWI3MmY2Yzwvc3RFdnQ6aW5zdGFuY2VJRD4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OndoZW4+MjAxNi0xMi0yOFQyMTozOTozNCswODowMDwvc3RFdnQ6d2hlbj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OnNvZnR3YXJlQWdlbnQ+QWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpPC9zdEV2dDpzb2Z0d2FyZUFnZW50PgogICAgICAgICAgICAgICA8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDphY3Rpb24+c2F2ZWQ8L3N0RXZ0OmFjdGlvbj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0Omluc3RhbmNlSUQ+eG1wLmlpZDoyOWM1OGVkZC1mZGU5LWIyNGQtOWM4Ny1mNmE0ODVkNjgyNGM8L3N0RXZ0Omluc3RhbmNlSUQ+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDp3aGVuPjIwMTYtMTItMjhUMjE6NDU6NDErMDg6MDA8L3N0RXZ0OndoZW4+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDpzb2Z0d2FyZUFnZW50PkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE1IChXaW5kb3dzKTwvc3RFdnQ6c29mdHdhcmVBZ2VudD4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OmNoYW5nZWQ+Lzwvc3RFdnQ6Y2hhbmdlZD4KICAgICAgICAgICAgICAgPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGkgcmRmOnBhcnNlVHlwZT0iUmVzb3VyY2UiPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6YWN0aW9uPmNvbnZlcnRlZDwvc3RFdnQ6YWN0aW9uPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6cGFyYW1ldGVycz5mcm9tIGFwcGxpY2F0aW9uL3ZuZC5hZG9iZS5waG90b3Nob3AgdG8gaW1hZ2UvcG5nPC9zdEV2dDpwYXJhbWV0ZXJzPgogICAgICAgICAgICAgICA8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDphY3Rpb24+ZGVyaXZlZDwvc3RFdnQ6YWN0aW9uPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6cGFyYW1ldGVycz5jb252ZXJ0ZWQgZnJvbSBhcHBsaWNhdGlvbi92bmQuYWRvYmUucGhvdG9zaG9wIHRvIGltYWdlL3BuZzwvc3RFdnQ6cGFyYW1ldGVycz4KICAgICAgICAgICAgICAgPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGkgcmRmOnBhcnNlVHlwZT0iUmVzb3VyY2UiPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6YWN0aW9uPnNhdmVkPC9zdEV2dDphY3Rpb24+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDppbnN0YW5jZUlEPnhtcC5paWQ6NTdlOTkyMzEtY2JjNS03MDQxLTkyMzAtZjFkMDAzYjVlNmY2PC9zdEV2dDppbnN0YW5jZUlEPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6d2hlbj4yMDE2LTEyLTI4VDIxOjQ1OjQxKzA4OjAwPC9zdEV2dDp3aGVuPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6c29mdHdhcmVBZ2VudD5BZG9iZSBQaG90b3Nob3AgQ0MgMjAxNSAoV2luZG93cyk8L3N0RXZ0OnNvZnR3YXJlQWdlbnQ+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDpjaGFuZ2VkPi88L3N0RXZ0OmNoYW5nZWQ+CiAgICAgICAgICAgICAgIDwvcmRmOmxpPgogICAgICAgICAgICA8L3JkZjpTZXE+CiAgICAgICAgIDwveG1wTU06SGlzdG9yeT4KICAgICAgICAgPHhtcE1NOkRlcml2ZWRGcm9tIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgPHN0UmVmOmluc3RhbmNlSUQ+eG1wLmlpZDoyOWM1OGVkZC1mZGU5LWIyNGQtOWM4Ny1mNmE0ODVkNjgyNGM8L3N0UmVmOmluc3RhbmNlSUQ+CiAgICAgICAgICAgIDxzdFJlZjpkb2N1bWVudElEPnhtcC5kaWQ6OWQxYWJhZWQtMWFiOS1lNjQ4LWE2YWYtNWEzYTY1YjcyZjZjPC9zdFJlZjpkb2N1bWVudElEPgogICAgICAgICAgICA8c3RSZWY6b3JpZ2luYWxEb2N1bWVudElEPnhtcC5kaWQ6OWQxYWJhZWQtMWFiOS1lNjQ4LWE2YWYtNWEzYTY1YjcyZjZjPC9zdFJlZjpvcmlnaW5hbERvY3VtZW50SUQ+CiAgICAgICAgIDwveG1wTU06RGVyaXZlZEZyb20+CiAgICAgICAgIDxwaG90b3Nob3A6Q29sb3JNb2RlPjM8L3Bob3Rvc2hvcDpDb2xvck1vZGU+CiAgICAgICAgIDxwaG90b3Nob3A6SUNDUHJvZmlsZT5zUkdCIElFQzYxOTY2LTIuMTwvcGhvdG9zaG9wOklDQ1Byb2ZpbGU+CiAgICAgICAgIDx0aWZmOk9yaWVudGF0aW9uPjE8L3RpZmY6T3JpZW50YXRpb24+CiAgICAgICAgIDx0aWZmOlhSZXNvbHV0aW9uPjcyMDAwMC8xMDAwMDwvdGlmZjpYUmVzb2x1dGlvbj4KICAgICAgICAgPHRpZmY6WVJlc29sdXRpb24+NzIwMDAwLzEwMDAwPC90aWZmOllSZXNvbHV0aW9uPgogICAgICAgICA8dGlmZjpSZXNvbHV0aW9uVW5pdD4yPC90aWZmOlJlc29sdXRpb25Vbml0PgogICAgICAgICA8ZXhpZjpDb2xvclNwYWNlPjE8L2V4aWY6Q29sb3JTcGFjZT4KICAgICAgICAgPGV4aWY6UGl4ZWxYRGltZW5zaW9uPjUwPC9leGlmOlBpeGVsWERpbWVuc2lvbj4KICAgICAgICAgPGV4aWY6UGl4ZWxZRGltZW5zaW9uPjUwPC9leGlmOlBpeGVsWURpbWVuc2lvbj4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgCjw/eHBhY2tldCBlbmQ9InciPz6MlaWXAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAATpSURBVHja3NpZjBzVFcbxX1X39PQMtmlwggCBwQkyxDGSRZAFYhGInTwkaUAhZomyEEARkUFiUeIIsZgHQDjIYLMIErIAiVG9YQVDlIAQAisBFC+AJYwIYTdQ3sbjmV7yUF3T9jBLz9CDu/I9tUqq6vOve0+d5Z6AujZqPxyLIzEHM7APQuzAFryJ1/EyPmrXH+dBFE/+CeXSUbgUZ2F+w+hWVMd6rMZKUfziF7BBQH3iIOVSiO/ieiwYuj69ztwKh1Q5uMa+dYr1BK0f20I+DvlPyIY8m/dgXovb8bgorkw9SLl0OpZiHphZ4+RBThzg8CrBBAz4IGRNF38v8HYuvfoWfimKH58akHJpJu7BheCwKuVdnDDQ+mYaS+vyPFHk3/n0ylP4iSh+t30g5dJx+DNmmVbn4p2cMTCxt9+qXu7ioR7eD+FjXCyKV48HErZAewmexSzzKyzbyplTBAHHDLJ0W/IffBWrlEtXjndbOA7E5XgEBRf08+vtiQNPtQp1rujjmj665LBcufSryYGUSxdhhVDgij5+0D91qzCaThxIXl5PHW4da2XCUSCOx8MI/HRnusx7R/Mq3LAjjXjLlEvntAZSLu2Px1BQ7ufsXfa6jq5w9Q4COfxBuTSrlRVZjsMcXWFhv47R8YOcuwtm4nfKpWB0kCTYfV9vnUV97YkP7dQPd3JoFU5tpEUjgCRpx1Ikjr1fTccpj5/tTD86tymXukdake9hnoNqneEXo+mbFRYMwsH40Ugg1yU4/eR0ts4f8t1rU18JG9tqLhaYXueUAR2vr1eTleFrOHn3FVmIJAHMy4ZOHXrhl+wOkgSZEwZlRgsGU6f/NoIQ+2O+Qp05leyATKszuwoH4qgQ30JoTpUu2dLcoRd/TNhoFCTladbUtPnIEEeAg2rZA2nafETYaOEwo549kKbN+4aYjqTbkTU1bZ4RouD/QGkHkP4ge9Y3bd4eStuWWzMI0rR5S4h3kLZfsqWmzZtCvAb+m8seSNPm10O8hLqNOQYzBrJhKMN9NfWR9QYCNuazA7E94K0cfIp16SZLWpIvZCjZWtOVHu08iVoK8kfwfIGsJMD/GAp/f2rWI1H8CtbaFvBsBuLjm7mke8+7eGZ4zX5nAlWk0xPhJ4rprxWiuDoc5FFs8n7IU92d/aVa05U6+bLPd1GS465rE6Qin3VggKzg/p7UyW8SxVs/D5LARFilL+A3vXRaifJID+/k4F+4d3jSOFyX4SNr86wsdg7Ei12s6oY+XJr6xuggUfxeo8VS9Zcif+uAr9hree7uTbfUlaJ4w0hpvBFgVuMqdazoZfVehFmXZ8k+7ApgsSj+/Wj1iFFgVmCxGu7r5bFim4ckWtDzBW6ZRl8Ad4viJWMVVsaAWYKfo2plMXnoli+hbhkMeKCHu3rTRPZGUbxovArRODDL8R184tU8v5jB04WpW51Xulg0nb92w3ZcJIpvHu+2iQwMHIrf4jQkAwPnNQYGgjb5wp4DAy81vk4bW7BtUiMcC3GH5HyCr9Q4aZIjHB+GScb93B4jHJuxGA+K4lqLNk16qKYbP25kArP36DONNVSzNWRzkAS19flkwKap9xpB7p7dI/bUgjQfEOAkzTGnQyb4hA8btdCjeHp4kJs4SPs0RzJ49g3JIcwB0k4mcWPbbMIb+KdkXqst+t8A38+IoI/77/MAAAAASUVORK5CYII="
 
 /***/ },
 /* 11 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AkMDhUt5aL7gAAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAE4SURBVGje7drLEYMwDARQ1iXRSGpNI7QE52SGA9JaH7y6cYn1ItuDsbZNoXhVYPLvn9XyQiFkSI4oDJ2SKxpAqTmjEZSSO5pizfmjMdZkQDT2u+8/z5/jCEUjAvuPvAsnHkzwORNKhIMBPqOgJDjCwCyoE+4Cp2PZ6MFIZjaWOQa81Y3AGisNeoWjsYwxR5O3Kdrr7+hUXcbYY1ssYJnOmdU1bGBYusKj09pl5KIKC1x0OltzUoUFXhlM+uCWeU5WhQWuPK0tuei01OXEZDkpaQ13WcuescfDqd5+uY6sfzprTMrNQ9QG5v0mTdu0IirNGkOXaR4wG551XWpCe+DZF+Iu9BN4pZYHN/oOX7mphYYOOg9Q36iWakyrgg5tPcyEpzWXRsPLtA/PhpdtEGfi33A8VSgUCn9ckxdqTPOyv3QAAAAASUVORK5CYII="
-
-/***/ },
-/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -682,8 +696,18 @@
 	//
 	angular.module('aggMap', [])
 
-	// The map directive
-	.directive('aggMap', function(aggMapServ) {
+	/**
+	 * @desc Directive that creates a google map with the supplied options. No options are necessary
+	 * to display a map but are needed to customize the map. Listed below are the options unique to
+	 * the aggMap directive. A complete list of options to configure the map can be found at
+	 * https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+	 * @attr {obj} options - the options object for configuring the map
+	 * @attr {int} options.index - the maps index. Used for identifying the map in the array
+	 * The index is only needed if multiple maps are used.
+	 * The default value of 0 will work fine for a single map
+	 * @attr {string} options.mapId - (required) the ID of the maps Div tag
+	 */
+	    .directive('aggMap', function(aggMapServ, $document) {
 	    return {
 	        restrict: 'E',
 	        scope: {
@@ -691,12 +715,10 @@
 	        },
 	        transclude: true,
 	        controller: function ($scope) {
+	            var self = this;
 	            $scope.divId = $scope.options.mapId;
-	        },
-	        link: function(scope, elem, attrs, ctrlr) {
-	            var options = scope.$watch('options', function(value) {
-	                ctrlr.gMap = aggMapServ.make(value);
-	                options();
+	            $document.ready(function() {
+	                self.map = aggMapServ.getMap($scope.options);
 	            });
 	        },
 	        template: '<div id="{{divId}}"></div><div ng-transclude></div>'
@@ -745,8 +767,13 @@
 	    };
 	    return marker;
 	})
-	// Service to create map and store maps data
-	.service('aggMapServ', function() {
+	/**
+	 * @desc Service for creating, storing, and serving google maps instances. Once a map is created
+	 * it is stored in an array to be referenced by the directives. Doing this allows us to save map
+	 * details so when users navigate away from  a map and then returns the map can be reinstated to
+	 * its previous center, zoom, and map type
+	 */
+	    .service('aggMapServ', function() {
 	    var self = this;
 	    var setOptions = function(args) {
 	        var defaults = {
@@ -762,7 +789,7 @@
 
 	    this.maps = [];
 
-	    this.make = function(options) {
+	    this.getMap = function(options) {
 	        var index = options.index,
 	            id = options.mapId,
 	            instance = self.maps[index],
@@ -773,593 +800,790 @@
 	            map = new google.maps.Map(document.getElementById(id), opt);
 	            self.maps.push(map);
 	        }else{
-	            console.log(instance);
 	            map = new google.maps.Map(document.getElementById(id), {
 	                center: instance.center,
 	                zoom: instance.zoom,
 	                styles: instance.styles,
 	                mapTypeId: instance.mapTypeId
 	            });
-	            self.maps.push(map);
+	            self.maps.splice(index, 1, map);
 	        }
 	        return map;
+
 	    }
 	})
-	// Factory creating custom info box class.
-	// Code courtesy of google-maps-utility-library-v3
-	// Original code can be found at https://code.google.com/p/google-maps-utility-library-v3/source/browse/trunk/infobox/src/infobox.js?r=466
-	.factory('aggInfoBoxFact', function() {
-	    /**
-	     * @name InfoBox
-	     * @version 1.1.13 [March 19, 2014]
-	     * @author Gary Little (inspired by proof-of-concept code from Pamela Fox of Google)
-	     * @copyright Copyright 2010 Gary Little [gary at luxcentral.com]
-	     * @fileoverview InfoBox extends the Google Maps JavaScript API V3 <tt>OverlayView</tt> class.
-	     *  <p>
-	     *  An InfoBox behaves like a <tt>google.maps.InfoWindow</tt>, but it supports several
-	     *  additional properties for advanced styling. An InfoBox can also be used as a map label.
-	     *  <p>
-	     *  An InfoBox also fires the same events as a <tt>google.maps.InfoWindow</tt>.
-	     */
 
-	    /**
-	     * @name InfoBoxOptions
-	     * @class This class represents the optional parameter passed to the {@link InfoBox} constructor.
-	     * @property {string|Node} content The content of the InfoBox (plain text or an HTML DOM node).
-	     * @property {boolean} [disableAutoPan=false] Disable auto-pan on <tt>open</tt>.
-	     * @property {number} maxWidth The maximum width (in pixels) of the InfoBox. Set to 0 if no maximum.
-	     * @property {Size} pixelOffset The offset (in pixels) from the top left corner of the InfoBox
-	     *  (or the bottom left corner if the <code>alignBottom</code> property is <code>true</code>)
-	     *  to the map pixel corresponding to <tt>position</tt>.
-	     * @property {LatLng} position The geographic location at which to display the InfoBox.
-	     * @property {number} zIndex The CSS z-index style value for the InfoBox.
-	     *  Note: This value overrides a zIndex setting specified in the <tt>boxStyle</tt> property.
-	     * @property {string} [boxClass="infoBox"] The name of the CSS class defining the styles for the InfoBox container.
-	     * @property {Object} [boxStyle] An object literal whose properties define specific CSS
-	     *  style values to be applied to the InfoBox. Style values defined here override those that may
-	     *  be defined in the <code>boxClass</code> style sheet. If this property is changed after the
-	     *  InfoBox has been created, all previously set styles (except those defined in the style sheet)
-	     *  are removed from the InfoBox before the new style values are applied.
-	     * @property {string} closeBoxMargin The CSS margin style value for the close box.
-	     *  The default is "2px" (a 2-pixel margin on all sides).
-	     * @property {string} closeBoxURL The URL of the image representing the close box.
-	     *  Note: The default is the URL for Google's standard close box.
-	     *  Set this property to "" if no close box is required.
-	     * @property {Size} infoBoxClearance Minimum offset (in pixels) from the InfoBox to the
-	     *  map edge after an auto-pan.
-	     * @property {boolean} [isHidden=false] Hide the InfoBox on <tt>open</tt>.
-	     *  [Deprecated in favor of the <tt>visible</tt> property.]
-	     * @property {boolean} [visible=true] Show the InfoBox on <tt>open</tt>.
-	     * @property {boolean} alignBottom Align the bottom left corner of the InfoBox to the <code>position</code>
-	     *  location (default is <tt>false</tt> which means that the top left corner of the InfoBox is aligned).
-	     * @property {string} pane The pane where the InfoBox is to appear (default is "floatPane").
-	     *  Set the pane to "mapPane" if the InfoBox is being used as a map label.
-	     *  Valid pane names are the property names for the <tt>google.maps.MapPanes</tt> object.
-	     * @property {boolean} enableEventPropagation Propagate mousedown, mousemove, mouseover, mouseout,
-	     *  mouseup, click, dblclick, touchstart, touchend, touchmove, and contextmenu events in the InfoBox
-	     *  (default is <tt>false</tt> to mimic the behavior of a <tt>google.maps.InfoWindow</tt>). Set
-	     *  this property to <tt>true</tt> if the InfoBox is being used as a map label.
-	     */
+	/**
+	 * @name InfoBox
+	 * @version 1.1.13 [March 19, 2014]
+	 * @author Gary Little (inspired by proof-of-concept code from Pamela Fox of Google)
+	 * @copyright Copyright 2010 Gary Little [gary at luxcentral.com]
+	 * @fileoverview InfoBox extends the Google Maps JavaScript API V3 <tt>OverlayView</tt> class.
+	 *  <p>
+	 *  An InfoBox behaves like a <tt>google.maps.InfoWindow</tt>, but it supports several
+	 *  additional properties for advanced styling. An InfoBox can also be used as a map label.
+	 *  <p>
+	 *  An InfoBox also fires the same events as a <tt>google.maps.InfoWindow</tt>.
+	 */
 
-	    /**
-	     * Creates an InfoBox with the options specified in {@link InfoBoxOptions}.
-	     *  Call <tt>InfoBox.open</tt> to add the box to the map.
-	     * @constructor
-	     * @param {InfoBoxOptions} [opt_opts]
-	     */
-	    function InfoBox(opt_opts) {
+	/**
+	 * @name InfoBoxOptions
+	 * @class This class represents the optional parameter passed to the {@link InfoBox} constructor.
+	 * @property {string|Node} content The content of the InfoBox (plain text or an HTML DOM node).
+	 * @property {boolean} [disableAutoPan=false] Disable auto-pan on <tt>open</tt>.
+	 * @property {number} maxWidth The maximum width (in pixels) of the InfoBox. Set to 0 if no maximum.
+	 * @property {Size} pixelOffset The offset (in pixels) from the top left corner of the InfoBox
+	 *  (or the bottom left corner if the <code>alignBottom</code> property is <code>true</code>)
+	 *  to the map pixel corresponding to <tt>position</tt>.
+	 * @property {LatLng} position The geographic location at which to display the InfoBox.
+	 * @property {number} zIndex The CSS z-index style value for the InfoBox.
+	 *  Note: This value overrides a zIndex setting specified in the <tt>boxStyle</tt> property.
+	 * @property {string} [boxClass="infoBox"] The name of the CSS class defining the styles for the InfoBox container.
+	 * @property {Object} [boxStyle] An object literal whose properties define specific CSS
+	 *  style values to be applied to the InfoBox. Style values defined here override those that may
+	 *  be defined in the <code>boxClass</code> style sheet. If this property is changed after the
+	 *  InfoBox has been created, all previously set styles (except those defined in the style sheet)
+	 *  are removed from the InfoBox before the new style values are applied.
+	 * @property {string} closeBoxMargin The CSS margin style value for the close box.
+	 *  The default is "2px" (a 2-pixel margin on all sides).
+	 * @property {string} closeBoxURL The URL of the image representing the close box.
+	 *  Note: The default is the URL for Google's standard close box.
+	 *  Set this property to "" if no close box is required.
+	 * @property {Size} infoBoxClearance Minimum offset (in pixels) from the InfoBox to the
+	 *  map edge after an auto-pan.
+	 * @property {boolean} [isHidden=false] Hide the InfoBox on <tt>open</tt>.
+	 *  [Deprecated in favor of the <tt>visible</tt> property.]
+	 * @property {boolean} [visible=true] Show the InfoBox on <tt>open</tt>.
+	 * @property {boolean} alignBottom Align the bottom left corner of the InfoBox to the <code>position</code>
+	 *  location (default is <tt>false</tt> which means that the top left corner of the InfoBox is aligned).
+	 * @property {string} pane The pane where the InfoBox is to appear (default is "floatPane").
+	 *  Set the pane to "mapPane" if the InfoBox is being used as a map label.
+	 *  Valid pane names are the property names for the <tt>google.maps.MapPanes</tt> object.
+	 * @property {boolean} enableEventPropagation Propagate mousedown, mousemove, mouseover, mouseout,
+	 *  mouseup, click, dblclick, touchstart, touchend, touchmove, and contextmenu events in the InfoBox
+	 *  (default is <tt>false</tt> to mimic the behavior of a <tt>google.maps.InfoWindow</tt>). Set
+	 *  this property to <tt>true</tt> if the InfoBox is being used as a map label.
+	 */
 
-	        opt_opts = opt_opts || {};
+	/**
+	 * Creates an InfoBox with the options specified in {@link InfoBoxOptions}.
+	 *  Call <tt>InfoBox.open</tt> to add the box to the map.
+	 * @constructor
+	 * @param {InfoBoxOptions} [opt_opts]
+	 */
+	    .factory('aggInfoBoxFact', function() {
 
-	        google.maps.OverlayView.apply(this, arguments);
+	        function InfoBox(opt_opts) {
 
-	        // Standard options (in common with google.maps.InfoWindow):
-	        //
-	        this.content_ = opt_opts.content || "";
-	        this.disableAutoPan_ = opt_opts.disableAutoPan || false;
-	        this.maxWidth_ = opt_opts.maxWidth || 0;
-	        this.pixelOffset_ = opt_opts.pixelOffset || new google.maps.Size(0, 0);
-	        this.position_ = opt_opts.position || new google.maps.LatLng(0, 0);
-	        this.zIndex_ = opt_opts.zIndex || null;
+	            opt_opts = opt_opts || {};
 
-	        // Additional options (unique to InfoBox):
-	        //
-	        this.boxClass_ = opt_opts.boxClass || "infoBox";
-	        this.boxStyle_ = opt_opts.boxStyle || {};
-	        this.closeBoxMargin_ = opt_opts.closeBoxMargin || "2px";
-	        this.closeBoxURL_ = opt_opts.closeBoxURL || "http://www.google.com/intl/en_us/mapfiles/close.gif";
-	        if (opt_opts.closeBoxURL === "") {
-	            this.closeBoxURL_ = "";
+	            google.maps.OverlayView.apply(this, arguments);
+
+	            // Standard options (in common with google.maps.InfoWindow):
+	            //
+	            this.content_ = opt_opts.content || "";
+	            this.disableAutoPan_ = opt_opts.disableAutoPan || false;
+	            this.maxWidth_ = opt_opts.maxWidth || 0;
+	            this.pixelOffset_ = opt_opts.pixelOffset || new google.maps.Size(0, 0);
+	            this.position_ = opt_opts.position || new google.maps.LatLng(0, 0);
+	            this.zIndex_ = opt_opts.zIndex || null;
+
+	            // Additional options (unique to InfoBox):
+	            //
+	            this.boxClass_ = opt_opts.boxClass || "infoBox";
+	            this.boxStyle_ = opt_opts.boxStyle || {};
+	            this.closeBoxMargin_ = opt_opts.closeBoxMargin || "2px";
+	            this.closeBoxURL_ = opt_opts.closeBoxURL || "http://www.google.com/intl/en_us/mapfiles/close.gif";
+	            if (opt_opts.closeBoxURL === "") {
+	                this.closeBoxURL_ = "";
+	            }
+	            this.infoBoxClearance_ = opt_opts.infoBoxClearance || new google.maps.Size(1, 1);
+
+	            if (typeof opt_opts.visible === "undefined") {
+	                if (typeof opt_opts.isHidden === "undefined") {
+	                    opt_opts.visible = true;
+	                } else {
+	                    opt_opts.visible = !opt_opts.isHidden;
+	                }
+	            }
+	            this.isHidden_ = !opt_opts.visible;
+
+	            this.alignBottom_ = opt_opts.alignBottom || false;
+	            this.pane_ = opt_opts.pane || "floatPane";
+	            this.enableEventPropagation_ = opt_opts.enableEventPropagation || false;
+
+	            this.div_ = null;
+	            this.closeListener_ = null;
+	            this.moveListener_ = null;
+	            this.contextListener_ = null;
+	            this.eventListeners_ = null;
+	            this.fixedWidthSet_ = null;
 	        }
-	        this.infoBoxClearance_ = opt_opts.infoBoxClearance || new google.maps.Size(1, 1);
 
-	        if (typeof opt_opts.visible === "undefined") {
-	            if (typeof opt_opts.isHidden === "undefined") {
-	                opt_opts.visible = true;
-	            } else {
-	                opt_opts.visible = !opt_opts.isHidden;
-	            }
-	        }
-	        this.isHidden_ = !opt_opts.visible;
+	        /* InfoBox extends OverlayView in the Google Maps API v3.
+	         */
+	        InfoBox.prototype = new google.maps.OverlayView();
 
-	        this.alignBottom_ = opt_opts.alignBottom || false;
-	        this.pane_ = opt_opts.pane || "floatPane";
-	        this.enableEventPropagation_ = opt_opts.enableEventPropagation || false;
+	        /**
+	         * Creates the DIV representing the InfoBox.
+	         * @private
+	         */
+	        InfoBox.prototype.createInfoBoxDiv_ = function () {
 
-	        this.div_ = null;
-	        this.closeListener_ = null;
-	        this.moveListener_ = null;
-	        this.contextListener_ = null;
-	        this.eventListeners_ = null;
-	        this.fixedWidthSet_ = null;
-	    }
+	            var i;
+	            var events;
+	            var bw;
+	            var me = this;
 
-	    /* InfoBox extends OverlayView in the Google Maps API v3.
-	     */
-	    InfoBox.prototype = new google.maps.OverlayView();
+	            // This handler prevents an event in the InfoBox from being passed on to the map.
+	            //
+	            var cancelHandler = function (e) {
+	                e.cancelBubble = true;
+	                if (e.stopPropagation) {
+	                    e.stopPropagation();
+	                }
+	            };
 
-	    /**
-	     * Creates the DIV representing the InfoBox.
-	     * @private
-	     */
-	    InfoBox.prototype.createInfoBoxDiv_ = function () {
+	            // This handler ignores the current event in the InfoBox and conditionally prevents
+	            // the event from being passed on to the map. It is used for the contextmenu event.
+	            //
+	            var ignoreHandler = function (e) {
 
-	        var i;
-	        var events;
-	        var bw;
-	        var me = this;
+	                e.returnValue = false;
 
-	        // This handler prevents an event in the InfoBox from being passed on to the map.
-	        //
-	        var cancelHandler = function (e) {
-	            e.cancelBubble = true;
-	            if (e.stopPropagation) {
-	                e.stopPropagation();
-	            }
-	        };
+	                if (e.preventDefault) {
 
-	        // This handler ignores the current event in the InfoBox and conditionally prevents
-	        // the event from being passed on to the map. It is used for the contextmenu event.
-	        //
-	        var ignoreHandler = function (e) {
+	                    e.preventDefault();
+	                }
 
-	            e.returnValue = false;
+	                if (!me.enableEventPropagation_) {
 
-	            if (e.preventDefault) {
+	                    cancelHandler(e);
+	                }
+	            };
 
-	                e.preventDefault();
-	            }
+	            if (!this.div_) {
 
-	            if (!me.enableEventPropagation_) {
+	                this.div_ = document.createElement("div");
 
-	                cancelHandler(e);
-	            }
-	        };
+	                this.setBoxStyle_();
 
-	        if (!this.div_) {
+	                if (typeof this.content_.nodeType === "undefined") {
+	                    this.div_.innerHTML = /* this.getCloseBoxImg_() + */ this.content_; // Removed the close button
+	                } else {
+	                    // this.div_.innerHTML = this.getCloseBoxImg_(); Removed the close button
+	                    this.div_.appendChild(this.content_);
+	                }
 
-	            this.div_ = document.createElement("div");
+	                // Add the InfoBox DIV to the DOM
+	                this.getPanes()[this.pane_].appendChild(this.div_);
 
-	            this.setBoxStyle_();
+	                this.addClickHandler_();
 
-	            if (typeof this.content_.nodeType === "undefined") {
-	                this.div_.innerHTML = /* this.getCloseBoxImg_() + */ this.content_; // Removed the close button
-	            } else {
-	                // this.div_.innerHTML = this.getCloseBoxImg_(); Removed the close button
-	                this.div_.appendChild(this.content_);
-	            }
+	                if (this.div_.style.width) {
 
-	            // Add the InfoBox DIV to the DOM
-	            this.getPanes()[this.pane_].appendChild(this.div_);
-
-	            this.addClickHandler_();
-
-	            if (this.div_.style.width) {
-
-	                this.fixedWidthSet_ = true;
-
-	            } else {
-
-	                if (this.maxWidth_ !== 0 && this.div_.offsetWidth > this.maxWidth_) {
-
-	                    this.div_.style.width = this.maxWidth_;
-	                    this.div_.style.overflow = "auto";
 	                    this.fixedWidthSet_ = true;
 
-	                } else { // The following code is needed to overcome problems with MSIE
-
-	                    bw = this.getBoxWidths_();
-
-	                    this.div_.style.width = (this.div_.offsetWidth - bw.left - bw.right) + "px";
-	                    this.fixedWidthSet_ = false;
-	                }
-	            }
-
-	            this.panBox_(this.disableAutoPan_);
-
-	            if (!this.enableEventPropagation_) {
-
-	                this.eventListeners_ = [];
-
-	                // Cancel event propagation.
-	                //
-	                // Note: mousemove not included (to resolve Issue 152)
-	                events = ["mousedown", "mouseover", "mouseout", "mouseup",
-	                    "click", "dblclick", "touchstart", "touchend", "touchmove"];
-
-	                for (i = 0; i < events.length; i++) {
-
-	                    this.eventListeners_.push(google.maps.event.addDomListener(this.div_, events[i], cancelHandler));
-	                }
-
-	                // Workaround for Google bug that causes the cursor to change to a pointer
-	                // when the mouse moves over a marker underneath InfoBox.
-	                this.eventListeners_.push(google.maps.event.addDomListener(this.div_, "mouseover", function (e) {
-	                    this.style.cursor = "default";
-	                }));
-	            }
-
-	            this.contextListener_ = google.maps.event.addDomListener(this.div_, "contextmenu", ignoreHandler);
-
-	            /**
-	             * This event is fired when the DIV containing the InfoBox's content is attached to the DOM.
-	             * @name InfoBox#domready
-	             * @event
-	             */
-	            google.maps.event.trigger(this, "domready");
-	        }
-	    };
-
-	    /**
-	     * Returns the HTML <IMG> tag for the close box.
-	     * @private
-	     */
-	    InfoBox.prototype.getCloseBoxImg_ = function () {
-
-	        var img = "";
-
-	        if (this.closeBoxURL_ !== "") {
-
-	            img  = "<img";
-	            img += " src='" + this.closeBoxURL_ + "'";
-	            img += " align=right"; // Do this because Opera chokes on style='float: right;'
-	            img += " style='";
-	            img += " position: relative;"; // Required by MSIE
-	            img += " cursor: pointer;";
-	            img += " margin: " + this.closeBoxMargin_ + ";";
-	            img += "'>";
-	        }
-
-	        return img;
-	    };
-
-	    /**
-	     * Adds the click handler to the InfoBox close box.
-	     * @private
-	     */
-	    InfoBox.prototype.addClickHandler_ = function () {
-
-	        var closeBox;
-
-	        if (this.closeBoxURL_ !== "") {
-
-	            closeBox = this.div_.firstChild;
-	            this.closeListener_ = google.maps.event.addDomListener(closeBox, "click", this.getCloseClickHandler_());
-
-	        } else {
-
-	            this.closeListener_ = null;
-	        }
-	    };
-
-	    /**
-	     * Returns the function to call when the user clicks the close box of an InfoBox.
-	     * @private
-	     */
-	    InfoBox.prototype.getCloseClickHandler_ = function () {
-
-	        var me = this;
-
-	        return function (e) {
-
-	            // 1.0.3 fix: Always prevent propagation of a close box click to the map:
-	            e.cancelBubble = true;
-
-	            if (e.stopPropagation) {
-
-	                e.stopPropagation();
-	            }
-
-	            /**
-	             * This event is fired when the InfoBox's close box is clicked.
-	             * @name InfoBox#closeclick
-	             * @event
-	             */
-	            google.maps.event.trigger(me, "closeclick");
-
-	            me.close();
-	        };
-	    };
-
-	    /**
-	     * Pans the map so that the InfoBox appears entirely within the map's visible area.
-	     * @private
-	     */
-	    InfoBox.prototype.panBox_ = function (disablePan) {
-
-	        var map;
-	        var bounds;
-	        var xOffset = 0, yOffset = 0;
-
-	        if (!disablePan) {
-
-	            map = this.getMap();
-
-	            if (map instanceof google.maps.Map) { // Only pan if attached to map, not panorama
-
-	                if (!map.getBounds().contains(this.position_)) {
-	                    // Marker not in visible area of map, so set center
-	                    // of map to the marker position first.
-	                    map.setCenter(this.position_);
-	                }
-
-	                bounds = map.getBounds();
-
-	                var mapDiv = map.getDiv();
-	                var mapWidth = mapDiv.offsetWidth;
-	                var mapHeight = mapDiv.offsetHeight;
-	                var iwOffsetX = this.pixelOffset_.width;
-	                var iwOffsetY = this.pixelOffset_.height;
-	                var iwWidth = this.div_.offsetWidth;
-	                var iwHeight = this.div_.offsetHeight;
-	                var padX = this.infoBoxClearance_.width;
-	                var padY = this.infoBoxClearance_.height;
-	                var pixPosition = this.getProjection().fromLatLngToContainerPixel(this.position_);
-
-	                if (pixPosition.x < (-iwOffsetX + padX)) {
-	                    xOffset = pixPosition.x + iwOffsetX - padX;
-	                } else if ((pixPosition.x + iwWidth + iwOffsetX + padX) > mapWidth) {
-	                    xOffset = pixPosition.x + iwWidth + iwOffsetX + padX - mapWidth;
-	                }
-	                if (this.alignBottom_) {
-	                    if (pixPosition.y < (-iwOffsetY + padY + iwHeight)) {
-	                        yOffset = pixPosition.y + iwOffsetY - padY - iwHeight;
-	                    } else if ((pixPosition.y + iwOffsetY + padY) > mapHeight) {
-	                        yOffset = pixPosition.y + iwOffsetY + padY - mapHeight;
-	                    }
 	                } else {
-	                    if (pixPosition.y < (-iwOffsetY + padY)) {
-	                        yOffset = pixPosition.y + iwOffsetY - padY;
-	                    } else if ((pixPosition.y + iwHeight + iwOffsetY + padY) > mapHeight) {
-	                        yOffset = pixPosition.y + iwHeight + iwOffsetY + padY - mapHeight;
+
+	                    if (this.maxWidth_ !== 0 && this.div_.offsetWidth > this.maxWidth_) {
+
+	                        this.div_.style.width = this.maxWidth_;
+	                        this.div_.style.overflow = "auto";
+	                        this.fixedWidthSet_ = true;
+
+	                    } else { // The following code is needed to overcome problems with MSIE
+
+	                        bw = this.getBoxWidths_();
+
+	                        this.div_.style.width = (this.div_.offsetWidth - bw.left - bw.right) + "px";
+	                        this.fixedWidthSet_ = false;
 	                    }
 	                }
 
-	                if (!(xOffset === 0 && yOffset === 0)) {
+	                this.panBox_(this.disableAutoPan_);
 
-	                    // Move the map to the shifted center.
+	                if (!this.enableEventPropagation_) {
+
+	                    this.eventListeners_ = [];
+
+	                    // Cancel event propagation.
 	                    //
-	                    var c = map.getCenter();
-	                    map.panBy(xOffset, yOffset);
+	                    // Note: mousemove not included (to resolve Issue 152)
+	                    events = ["mousedown", "mouseover", "mouseout", "mouseup",
+	                        "click", "dblclick", "touchstart", "touchend", "touchmove"];
+
+	                    for (i = 0; i < events.length; i++) {
+
+	                        this.eventListeners_.push(google.maps.event.addDomListener(this.div_, events[i], cancelHandler));
+	                    }
+
+	                    // Workaround for Google bug that causes the cursor to change to a pointer
+	                    // when the mouse moves over a marker underneath InfoBox.
+	                    this.eventListeners_.push(google.maps.event.addDomListener(this.div_, "mouseover", function (e) {
+	                        this.style.cursor = "default";
+	                    }));
+	                }
+
+	                this.contextListener_ = google.maps.event.addDomListener(this.div_, "contextmenu", ignoreHandler);
+
+	                /**
+	                 * This event is fired when the DIV containing the InfoBox's content is attached to the DOM.
+	                 * @name InfoBox#domready
+	                 * @event
+	                 */
+	                google.maps.event.trigger(this, "domready");
+	            }
+	        };
+
+	        /**
+	         * Returns the HTML <IMG> tag for the close box.
+	         * @private
+	         */
+	        InfoBox.prototype.getCloseBoxImg_ = function () {
+
+	            var img = "";
+
+	            if (this.closeBoxURL_ !== "") {
+
+	                img  = "<img";
+	                img += " src='" + this.closeBoxURL_ + "'";
+	                img += " align=right"; // Do this because Opera chokes on style='float: right;'
+	                img += " style='";
+	                img += " position: relative;"; // Required by MSIE
+	                img += " cursor: pointer;";
+	                img += " margin: " + this.closeBoxMargin_ + ";";
+	                img += "'>";
+	            }
+
+	            return img;
+	        };
+
+	        /**
+	         * Adds the click handler to the InfoBox close box.
+	         * @private
+	         */
+	        InfoBox.prototype.addClickHandler_ = function () {
+
+	            var closeBox;
+
+	            if (this.closeBoxURL_ !== "") {
+
+	                closeBox = this.div_.firstChild;
+	                this.closeListener_ = google.maps.event.addDomListener(closeBox, "click", this.getCloseClickHandler_());
+
+	            } else {
+
+	                this.closeListener_ = null;
+	            }
+	        };
+
+	        /**
+	         * Returns the function to call when the user clicks the close box of an InfoBox.
+	         * @private
+	         */
+	        InfoBox.prototype.getCloseClickHandler_ = function () {
+
+	            var me = this;
+
+	            return function (e) {
+
+	                // 1.0.3 fix: Always prevent propagation of a close box click to the map:
+	                e.cancelBubble = true;
+
+	                if (e.stopPropagation) {
+
+	                    e.stopPropagation();
+	                }
+
+	                /**
+	                 * This event is fired when the InfoBox's close box is clicked.
+	                 * @name InfoBox#closeclick
+	                 * @event
+	                 */
+	                google.maps.event.trigger(me, "closeclick");
+
+	                me.close();
+	            };
+	        };
+
+	        /**
+	         * Pans the map so that the InfoBox appears entirely within the map's visible area.
+	         * @private
+	         */
+	        InfoBox.prototype.panBox_ = function (disablePan) {
+
+	            var map;
+	            var bounds;
+	            var xOffset = 0, yOffset = 0;
+
+	            if (!disablePan) {
+
+	                map = this.getMap();
+
+	                if (map instanceof google.maps.Map) { // Only pan if attached to map, not panorama
+
+	                    if (!map.getBounds().contains(this.position_)) {
+	                        // Marker not in visible area of map, so set center
+	                        // of map to the marker position first.
+	                        map.setCenter(this.position_);
+	                    }
+
+	                    bounds = map.getBounds();
+
+	                    var mapDiv = map.getDiv();
+	                    var mapWidth = mapDiv.offsetWidth;
+	                    var mapHeight = mapDiv.offsetHeight;
+	                    var iwOffsetX = this.pixelOffset_.width;
+	                    var iwOffsetY = this.pixelOffset_.height;
+	                    var iwWidth = this.div_.offsetWidth;
+	                    var iwHeight = this.div_.offsetHeight;
+	                    var padX = this.infoBoxClearance_.width;
+	                    var padY = this.infoBoxClearance_.height;
+	                    var pixPosition = this.getProjection().fromLatLngToContainerPixel(this.position_);
+
+	                    if (pixPosition.x < (-iwOffsetX + padX)) {
+	                        xOffset = pixPosition.x + iwOffsetX - padX;
+	                    } else if ((pixPosition.x + iwWidth + iwOffsetX + padX) > mapWidth) {
+	                        xOffset = pixPosition.x + iwWidth + iwOffsetX + padX - mapWidth;
+	                    }
+	                    if (this.alignBottom_) {
+	                        if (pixPosition.y < (-iwOffsetY + padY + iwHeight)) {
+	                            yOffset = pixPosition.y + iwOffsetY - padY - iwHeight;
+	                        } else if ((pixPosition.y + iwOffsetY + padY) > mapHeight) {
+	                            yOffset = pixPosition.y + iwOffsetY + padY - mapHeight;
+	                        }
+	                    } else {
+	                        if (pixPosition.y < (-iwOffsetY + padY)) {
+	                            yOffset = pixPosition.y + iwOffsetY - padY;
+	                        } else if ((pixPosition.y + iwHeight + iwOffsetY + padY) > mapHeight) {
+	                            yOffset = pixPosition.y + iwHeight + iwOffsetY + padY - mapHeight;
+	                        }
+	                    }
+
+	                    if (!(xOffset === 0 && yOffset === 0)) {
+
+	                        // Move the map to the shifted center.
+	                        //
+	                        var c = map.getCenter();
+	                        map.panBy(xOffset, yOffset);
+	                    }
 	                }
 	            }
-	        }
-	    };
+	        };
 
-	    /**
-	     * Sets the style of the InfoBox by setting the style sheet and applying
-	     * other specific styles requested.
-	     * @private
-	     */
-	    InfoBox.prototype.setBoxStyle_ = function () {
+	        /**
+	         * Sets the style of the InfoBox by setting the style sheet and applying
+	         * other specific styles requested.
+	         * @private
+	         */
+	        InfoBox.prototype.setBoxStyle_ = function () {
 
-	        var i, boxStyle;
+	            var i, boxStyle;
 
-	        if (this.div_) {
+	            if (this.div_) {
 
-	            // Apply style values from the style sheet defined in the boxClass parameter:
-	            this.div_.className = this.boxClass_;
+	                // Apply style values from the style sheet defined in the boxClass parameter:
+	                this.div_.className = this.boxClass_;
 
-	            // Clear existing inline style values:
-	            this.div_.style.cssText = "";
+	                // Clear existing inline style values:
+	                this.div_.style.cssText = "";
 
-	            // Apply style values defined in the boxStyle parameter:
-	            boxStyle = this.boxStyle_;
-	            for (i in boxStyle) {
+	                // Apply style values defined in the boxStyle parameter:
+	                boxStyle = this.boxStyle_;
+	                for (i in boxStyle) {
 
-	                if (boxStyle.hasOwnProperty(i)) {
+	                    if (boxStyle.hasOwnProperty(i)) {
 
-	                    this.div_.style[i] = boxStyle[i];
+	                        this.div_.style[i] = boxStyle[i];
+	                    }
+	                }
+
+	                // Fix for iOS disappearing InfoBox problem.
+	                // See http://stackoverflow.com/questions/9229535/google-maps-markers-disappear-at-certain-zoom-level-only-on-iphone-ipad
+	                this.div_.style.WebkitTransform = "translateZ(0)";
+
+	                // Fix up opacity style for benefit of MSIE:
+	                //
+	                if (typeof this.div_.style.opacity !== "undefined" && this.div_.style.opacity !== "") {
+	                    // See http://www.quirksmode.org/css/opacity.html
+	                    this.div_.style.MsFilter = "\"progid:DXImageTransform.Microsoft.Alpha(Opacity=" + (this.div_.style.opacity * 100) + ")\"";
+	                    this.div_.style.filter = "alpha(opacity=" + (this.div_.style.opacity * 100) + ")";
+	                }
+
+	                // Apply required styles:
+	                //
+	                this.div_.style.position = "absolute";
+	                this.div_.style.visibility = 'hidden';
+	                if (this.zIndex_ !== null) {
+
+	                    this.div_.style.zIndex = this.zIndex_;
+	                }
+	            }
+	        };
+
+	        /**
+	         * Get the widths of the borders of the InfoBox.
+	         * @private
+	         * @return {Object} widths object (top, bottom left, right)
+	         */
+	        InfoBox.prototype.getBoxWidths_ = function () {
+
+	            var computedStyle;
+	            var bw = {top: 0, bottom: 0, left: 0, right: 0};
+	            var box = this.div_;
+
+	            if (document.defaultView && document.defaultView.getComputedStyle) {
+
+	                computedStyle = box.ownerDocument.defaultView.getComputedStyle(box, "");
+
+	                if (computedStyle) {
+
+	                    // The computed styles are always in pixel units (good!)
+	                    bw.top = parseInt(computedStyle.borderTopWidth, 10) || 0;
+	                    bw.bottom = parseInt(computedStyle.borderBottomWidth, 10) || 0;
+	                    bw.left = parseInt(computedStyle.borderLeftWidth, 10) || 0;
+	                    bw.right = parseInt(computedStyle.borderRightWidth, 10) || 0;
+	                }
+
+	            } else if (document.documentElement.currentStyle) { // MSIE
+
+	                if (box.currentStyle) {
+
+	                    // The current styles may not be in pixel units, but assume they are (bad!)
+	                    bw.top = parseInt(box.currentStyle.borderTopWidth, 10) || 0;
+	                    bw.bottom = parseInt(box.currentStyle.borderBottomWidth, 10) || 0;
+	                    bw.left = parseInt(box.currentStyle.borderLeftWidth, 10) || 0;
+	                    bw.right = parseInt(box.currentStyle.borderRightWidth, 10) || 0;
 	                }
 	            }
 
-	            // Fix for iOS disappearing InfoBox problem.
-	            // See http://stackoverflow.com/questions/9229535/google-maps-markers-disappear-at-certain-zoom-level-only-on-iphone-ipad
-	            this.div_.style.WebkitTransform = "translateZ(0)";
+	            return bw;
+	        };
 
-	            // Fix up opacity style for benefit of MSIE:
-	            //
-	            if (typeof this.div_.style.opacity !== "undefined" && this.div_.style.opacity !== "") {
-	                // See http://www.quirksmode.org/css/opacity.html
-	                this.div_.style.MsFilter = "\"progid:DXImageTransform.Microsoft.Alpha(Opacity=" + (this.div_.style.opacity * 100) + ")\"";
-	                this.div_.style.filter = "alpha(opacity=" + (this.div_.style.opacity * 100) + ")";
+	        /**
+	         * Invoked when <tt>close</tt> is called. Do not call it directly.
+	         */
+	        InfoBox.prototype.onRemove = function () {
+
+	            if (this.div_) {
+
+	                this.div_.parentNode.removeChild(this.div_);
+	                this.div_ = null;
+	            }
+	        };
+
+	        /**
+	         * Draws the InfoBox based on the current map projection and zoom level.
+	         */
+	        InfoBox.prototype.draw = function () {
+
+	            this.createInfoBoxDiv_();
+
+	            var pixPosition = this.getProjection().fromLatLngToDivPixel(this.position_);
+
+	            this.div_.style.left = (pixPosition.x + this.pixelOffset_.width) + "px";
+
+	            if (this.alignBottom_) {
+	                this.div_.style.bottom = -(pixPosition.y + this.pixelOffset_.height) + "px";
+	            } else {
+	                this.div_.style.top = (pixPosition.y + this.pixelOffset_.height) + "px";
 	            }
 
-	            // Apply required styles:
-	            //
-	            this.div_.style.position = "absolute";
-	            this.div_.style.visibility = 'hidden';
-	            if (this.zIndex_ !== null) {
+	            if (this.isHidden_) {
 
-	                this.div_.style.zIndex = this.zIndex_;
+	                this.div_.style.visibility = "hidden";
+
+	            } else {
+
+	                this.div_.style.visibility = "visible";
 	            }
-	        }
-	    };
+	        };
 
-	    /**
-	     * Get the widths of the borders of the InfoBox.
-	     * @private
-	     * @return {Object} widths object (top, bottom left, right)
-	     */
-	    InfoBox.prototype.getBoxWidths_ = function () {
+	        /**
+	         * Sets the options for the InfoBox. Note that changes to the <tt>maxWidth</tt>,
+	         *  <tt>closeBoxMargin</tt>, <tt>closeBoxURL</tt>, and <tt>enableEventPropagation</tt>
+	         *  properties have no affect until the current InfoBox is <tt>close</tt>d and a new one
+	         *  is <tt>open</tt>ed.
+	         * @param {InfoBoxOptions} opt_opts
+	         */
+	        InfoBox.prototype.setOptions = function (opt_opts) {
+	            if (typeof opt_opts.boxClass !== "undefined") { // Must be first
 
-	        var computedStyle;
-	        var bw = {top: 0, bottom: 0, left: 0, right: 0};
-	        var box = this.div_;
+	                this.boxClass_ = opt_opts.boxClass;
+	                this.setBoxStyle_();
+	            }
+	            if (typeof opt_opts.boxStyle !== "undefined") { // Must be second
 
-	        if (document.defaultView && document.defaultView.getComputedStyle) {
+	                this.boxStyle_ = opt_opts.boxStyle;
+	                this.setBoxStyle_();
+	            }
+	            if (typeof opt_opts.content !== "undefined") {
 
-	            computedStyle = box.ownerDocument.defaultView.getComputedStyle(box, "");
+	                this.setContent(opt_opts.content);
+	            }
+	            if (typeof opt_opts.disableAutoPan !== "undefined") {
 
-	            if (computedStyle) {
+	                this.disableAutoPan_ = opt_opts.disableAutoPan;
+	            }
+	            if (typeof opt_opts.maxWidth !== "undefined") {
 
-	                // The computed styles are always in pixel units (good!)
-	                bw.top = parseInt(computedStyle.borderTopWidth, 10) || 0;
-	                bw.bottom = parseInt(computedStyle.borderBottomWidth, 10) || 0;
-	                bw.left = parseInt(computedStyle.borderLeftWidth, 10) || 0;
-	                bw.right = parseInt(computedStyle.borderRightWidth, 10) || 0;
+	                this.maxWidth_ = opt_opts.maxWidth;
+	            }
+	            if (typeof opt_opts.pixelOffset !== "undefined") {
+
+	                this.pixelOffset_ = opt_opts.pixelOffset;
+	            }
+	            if (typeof opt_opts.alignBottom !== "undefined") {
+
+	                this.alignBottom_ = opt_opts.alignBottom;
+	            }
+	            if (typeof opt_opts.position !== "undefined") {
+
+	                this.setPosition(opt_opts.position);
+	            }
+	            if (typeof opt_opts.zIndex !== "undefined") {
+
+	                this.setZIndex(opt_opts.zIndex);
+	            }
+	            if (typeof opt_opts.closeBoxMargin !== "undefined") {
+
+	                this.closeBoxMargin_ = opt_opts.closeBoxMargin;
+	            }
+	            if (typeof opt_opts.closeBoxURL !== "undefined") {
+
+	                this.closeBoxURL_ = opt_opts.closeBoxURL;
+	            }
+	            if (typeof opt_opts.infoBoxClearance !== "undefined") {
+
+	                this.infoBoxClearance_ = opt_opts.infoBoxClearance;
+	            }
+	            if (typeof opt_opts.isHidden !== "undefined") {
+
+	                this.isHidden_ = opt_opts.isHidden;
+	            }
+	            if (typeof opt_opts.visible !== "undefined") {
+
+	                this.isHidden_ = !opt_opts.visible;
+	            }
+	            if (typeof opt_opts.enableEventPropagation !== "undefined") {
+
+	                this.enableEventPropagation_ = opt_opts.enableEventPropagation;
 	            }
 
-	        } else if (document.documentElement.currentStyle) { // MSIE
+	            if (this.div_) {
 
-	            if (box.currentStyle) {
-
-	                // The current styles may not be in pixel units, but assume they are (bad!)
-	                bw.top = parseInt(box.currentStyle.borderTopWidth, 10) || 0;
-	                bw.bottom = parseInt(box.currentStyle.borderBottomWidth, 10) || 0;
-	                bw.left = parseInt(box.currentStyle.borderLeftWidth, 10) || 0;
-	                bw.right = parseInt(box.currentStyle.borderRightWidth, 10) || 0;
+	                this.draw();
 	            }
-	        }
+	        };
 
-	        return bw;
-	    };
+	        /**
+	         * Sets the content of the InfoBox.
+	         *  The content can be plain text or an HTML DOM node.
+	         * @param {string|Node} content
+	         */
+	        InfoBox.prototype.setContent = function (content) {
+	            this.content_ = content;
 
-	    /**
-	     * Invoked when <tt>close</tt> is called. Do not call it directly.
-	     */
-	    InfoBox.prototype.onRemove = function () {
+	            if (this.div_) {
 
-	        if (this.div_) {
+	                if (this.closeListener_) {
 
-	            this.div_.parentNode.removeChild(this.div_);
-	            this.div_ = null;
-	        }
-	    };
+	                    google.maps.event.removeListener(this.closeListener_);
+	                    this.closeListener_ = null;
+	                }
 
-	    /**
-	     * Draws the InfoBox based on the current map projection and zoom level.
-	     */
-	    InfoBox.prototype.draw = function () {
+	                // Odd code required to getMap things work with MSIE.
+	                //
+	                if (!this.fixedWidthSet_) {
 
-	        this.createInfoBoxDiv_();
+	                    this.div_.style.width = "";
+	                }
 
-	        var pixPosition = this.getProjection().fromLatLngToDivPixel(this.position_);
+	                if (typeof content.nodeType === "undefined") {
+	                    this.div_.innerHTML = this.getCloseBoxImg_() + content;
+	                } else {
+	                    this.div_.innerHTML = this.getCloseBoxImg_();
+	                    this.div_.appendChild(content);
+	                }
 
-	        this.div_.style.left = (pixPosition.x + this.pixelOffset_.width) + "px";
+	                // Perverse code required to getMap things work with MSIE.
+	                // (Ensures the close box does, in fact, float to the right.)
+	                //
+	                if (!this.fixedWidthSet_) {
+	                    this.div_.style.width = this.div_.offsetWidth + "px";
+	                    if (typeof content.nodeType === "undefined") {
+	                        this.div_.innerHTML = this.getCloseBoxImg_() + content;
+	                    } else {
+	                        this.div_.innerHTML = this.getCloseBoxImg_();
+	                        this.div_.appendChild(content);
+	                    }
+	                }
 
-	        if (this.alignBottom_) {
-	            this.div_.style.bottom = -(pixPosition.y + this.pixelOffset_.height) + "px";
-	        } else {
-	            this.div_.style.top = (pixPosition.y + this.pixelOffset_.height) + "px";
-	        }
+	                this.addClickHandler_();
+	            }
 
-	        if (this.isHidden_) {
+	            /**
+	             * This event is fired when the content of the InfoBox changes.
+	             * @name InfoBox#content_changed
+	             * @event
+	             */
+	            google.maps.event.trigger(this, "content_changed");
+	        };
 
-	            this.div_.style.visibility = "hidden";
+	        /**
+	         * Sets the geographic location of the InfoBox.
+	         * @param {LatLng} latlng
+	         */
+	        InfoBox.prototype.setPosition = function (latlng) {
 
-	        } else {
+	            this.position_ = latlng;
 
-	            this.div_.style.visibility = "visible";
-	        }
-	    };
+	            if (this.div_) {
 
-	    /**
-	     * Sets the options for the InfoBox. Note that changes to the <tt>maxWidth</tt>,
-	     *  <tt>closeBoxMargin</tt>, <tt>closeBoxURL</tt>, and <tt>enableEventPropagation</tt>
-	     *  properties have no affect until the current InfoBox is <tt>close</tt>d and a new one
-	     *  is <tt>open</tt>ed.
-	     * @param {InfoBoxOptions} opt_opts
-	     */
-	    InfoBox.prototype.setOptions = function (opt_opts) {
-	        if (typeof opt_opts.boxClass !== "undefined") { // Must be first
+	                this.draw();
+	            }
 
-	            this.boxClass_ = opt_opts.boxClass;
-	            this.setBoxStyle_();
-	        }
-	        if (typeof opt_opts.boxStyle !== "undefined") { // Must be second
+	            /**
+	             * This event is fired when the position of the InfoBox changes.
+	             * @name InfoBox#position_changed
+	             * @event
+	             */
+	            google.maps.event.trigger(this, "position_changed");
+	        };
 
-	            this.boxStyle_ = opt_opts.boxStyle;
-	            this.setBoxStyle_();
-	        }
-	        if (typeof opt_opts.content !== "undefined") {
+	        /**
+	         * Sets the zIndex style for the InfoBox.
+	         * @param {number} index
+	         */
+	        InfoBox.prototype.setZIndex = function (index) {
 
-	            this.setContent(opt_opts.content);
-	        }
-	        if (typeof opt_opts.disableAutoPan !== "undefined") {
+	            this.zIndex_ = index;
 
-	            this.disableAutoPan_ = opt_opts.disableAutoPan;
-	        }
-	        if (typeof opt_opts.maxWidth !== "undefined") {
+	            if (this.div_) {
 
-	            this.maxWidth_ = opt_opts.maxWidth;
-	        }
-	        if (typeof opt_opts.pixelOffset !== "undefined") {
+	                this.div_.style.zIndex = index;
+	            }
 
-	            this.pixelOffset_ = opt_opts.pixelOffset;
-	        }
-	        if (typeof opt_opts.alignBottom !== "undefined") {
+	            /**
+	             * This event is fired when the zIndex of the InfoBox changes.
+	             * @name InfoBox#zindex_changed
+	             * @event
+	             */
+	            google.maps.event.trigger(this, "zindex_changed");
+	        };
 
-	            this.alignBottom_ = opt_opts.alignBottom;
-	        }
-	        if (typeof opt_opts.position !== "undefined") {
+	        /**
+	         * Sets the visibility of the InfoBox.
+	         * @param {boolean} isVisible
+	         */
+	        InfoBox.prototype.setVisible = function (isVisible) {
 
-	            this.setPosition(opt_opts.position);
-	        }
-	        if (typeof opt_opts.zIndex !== "undefined") {
+	            this.isHidden_ = !isVisible;
+	            if (this.div_) {
+	                this.div_.style.visibility = (this.isHidden_ ? "hidden" : "visible");
+	            }
+	        };
 
-	            this.setZIndex(opt_opts.zIndex);
-	        }
-	        if (typeof opt_opts.closeBoxMargin !== "undefined") {
+	        /**
+	         * Returns the content of the InfoBox.
+	         * @returns {string}
+	         */
+	        InfoBox.prototype.getContent = function () {
 
-	            this.closeBoxMargin_ = opt_opts.closeBoxMargin;
-	        }
-	        if (typeof opt_opts.closeBoxURL !== "undefined") {
+	            return this.content_;
+	        };
 
-	            this.closeBoxURL_ = opt_opts.closeBoxURL;
-	        }
-	        if (typeof opt_opts.infoBoxClearance !== "undefined") {
+	        /**
+	         * Returns the geographic location of the InfoBox.
+	         * @returns {LatLng}
+	         */
+	        InfoBox.prototype.getPosition = function () {
 
-	            this.infoBoxClearance_ = opt_opts.infoBoxClearance;
-	        }
-	        if (typeof opt_opts.isHidden !== "undefined") {
+	            return this.position_;
+	        };
 
-	            this.isHidden_ = opt_opts.isHidden;
-	        }
-	        if (typeof opt_opts.visible !== "undefined") {
+	        /**
+	         * Returns the zIndex for the InfoBox.
+	         * @returns {number}
+	         */
+	        InfoBox.prototype.getZIndex = function () {
 
-	            this.isHidden_ = !opt_opts.visible;
-	        }
-	        if (typeof opt_opts.enableEventPropagation !== "undefined") {
+	            return this.zIndex_;
+	        };
 
-	            this.enableEventPropagation_ = opt_opts.enableEventPropagation;
-	        }
+	        /**
+	         * Returns a flag indicating whether the InfoBox is visible.
+	         * @returns {boolean}
+	         */
+	        InfoBox.prototype.getVisible = function () {
 
-	        if (this.div_) {
+	            var isVisible;
 
-	            this.draw();
-	        }
-	    };
+	            if ((typeof this.getMap() === "undefined") || (this.getMap() === null)) {
+	                isVisible = false;
+	            } else {
+	                isVisible = !this.isHidden_;
+	            }
+	            return isVisible;
+	        };
 
-	    /**
-	     * Sets the content of the InfoBox.
-	     *  The content can be plain text or an HTML DOM node.
-	     * @param {string|Node} content
-	     */
-	    InfoBox.prototype.setContent = function (content) {
-	        this.content_ = content;
+	        /**
+	         * Shows the InfoBox. [Deprecated; use <tt>setVisible</tt> instead.]
+	         */
+	        InfoBox.prototype.show = function () {
 
-	        if (this.div_) {
+	            this.isHidden_ = false;
+	            if (this.div_) {
+	                this.div_.style.visibility = "visible";
+	            }
+	        };
+
+	        /**
+	         * Hides the InfoBox. [Deprecated; use <tt>setVisible</tt> instead.]
+	         */
+	        InfoBox.prototype.hide = function () {
+
+	            this.isHidden_ = true;
+	            if (this.div_) {
+	                this.div_.style.visibility = "hidden";
+	            }
+	        };
+
+	        /**
+	         * Adds the InfoBox to the specified map or Street View panorama. If <tt>anchor</tt>
+	         *  (usually a <tt>google.maps.Marker</tt>) is specified, the position
+	         *  of the InfoBox is set to the position of the <tt>anchor</tt>. If the
+	         *  anchor is dragged to a new location, the InfoBox moves as well.
+	         * @param {Map|StreetViewPanorama} map
+	         * @param {MVCObject} [anchor]
+	         */
+	        InfoBox.prototype.open = function (map, anchor) {
+
+	            var me = this;
+
+	            if (anchor) {
+
+	                this.position_ = anchor.getPosition();
+	                this.moveListener_ = google.maps.event.addListener(anchor, "position_changed", function () {
+	                    me.setPosition(this.getPosition());
+	                });
+	            }
+
+	            this.setMap(map);
+
+	            if (this.div_) {
+
+	                this.panBox_();
+	            }
+	        };
+
+	        /**
+	         * Removes the InfoBox from the map.
+	         */
+	        InfoBox.prototype.close = function () {
+
+	            var i;
 
 	            if (this.closeListener_) {
 
@@ -1367,237 +1591,39 @@
 	                this.closeListener_ = null;
 	            }
 
-	            // Odd code required to make things work with MSIE.
-	            //
-	            if (!this.fixedWidthSet_) {
+	            if (this.eventListeners_) {
 
-	                this.div_.style.width = "";
-	            }
+	                for (i = 0; i < this.eventListeners_.length; i++) {
 
-	            if (typeof content.nodeType === "undefined") {
-	                this.div_.innerHTML = this.getCloseBoxImg_() + content;
-	            } else {
-	                this.div_.innerHTML = this.getCloseBoxImg_();
-	                this.div_.appendChild(content);
-	            }
-
-	            // Perverse code required to make things work with MSIE.
-	            // (Ensures the close box does, in fact, float to the right.)
-	            //
-	            if (!this.fixedWidthSet_) {
-	                this.div_.style.width = this.div_.offsetWidth + "px";
-	                if (typeof content.nodeType === "undefined") {
-	                    this.div_.innerHTML = this.getCloseBoxImg_() + content;
-	                } else {
-	                    this.div_.innerHTML = this.getCloseBoxImg_();
-	                    this.div_.appendChild(content);
+	                    google.maps.event.removeListener(this.eventListeners_[i]);
 	                }
+	                this.eventListeners_ = null;
 	            }
 
-	            this.addClickHandler_();
-	        }
+	            if (this.moveListener_) {
 
-	        /**
-	         * This event is fired when the content of the InfoBox changes.
-	         * @name InfoBox#content_changed
-	         * @event
-	         */
-	        google.maps.event.trigger(this, "content_changed");
-	    };
-
-	    /**
-	     * Sets the geographic location of the InfoBox.
-	     * @param {LatLng} latlng
-	     */
-	    InfoBox.prototype.setPosition = function (latlng) {
-
-	        this.position_ = latlng;
-
-	        if (this.div_) {
-
-	            this.draw();
-	        }
-
-	        /**
-	         * This event is fired when the position of the InfoBox changes.
-	         * @name InfoBox#position_changed
-	         * @event
-	         */
-	        google.maps.event.trigger(this, "position_changed");
-	    };
-
-	    /**
-	     * Sets the zIndex style for the InfoBox.
-	     * @param {number} index
-	     */
-	    InfoBox.prototype.setZIndex = function (index) {
-
-	        this.zIndex_ = index;
-
-	        if (this.div_) {
-
-	            this.div_.style.zIndex = index;
-	        }
-
-	        /**
-	         * This event is fired when the zIndex of the InfoBox changes.
-	         * @name InfoBox#zindex_changed
-	         * @event
-	         */
-	        google.maps.event.trigger(this, "zindex_changed");
-	    };
-
-	    /**
-	     * Sets the visibility of the InfoBox.
-	     * @param {boolean} isVisible
-	     */
-	    InfoBox.prototype.setVisible = function (isVisible) {
-
-	        this.isHidden_ = !isVisible;
-	        if (this.div_) {
-	            this.div_.style.visibility = (this.isHidden_ ? "hidden" : "visible");
-	        }
-	    };
-
-	    /**
-	     * Returns the content of the InfoBox.
-	     * @returns {string}
-	     */
-	    InfoBox.prototype.getContent = function () {
-
-	        return this.content_;
-	    };
-
-	    /**
-	     * Returns the geographic location of the InfoBox.
-	     * @returns {LatLng}
-	     */
-	    InfoBox.prototype.getPosition = function () {
-
-	        return this.position_;
-	    };
-
-	    /**
-	     * Returns the zIndex for the InfoBox.
-	     * @returns {number}
-	     */
-	    InfoBox.prototype.getZIndex = function () {
-
-	        return this.zIndex_;
-	    };
-
-	    /**
-	     * Returns a flag indicating whether the InfoBox is visible.
-	     * @returns {boolean}
-	     */
-	    InfoBox.prototype.getVisible = function () {
-
-	        var isVisible;
-
-	        if ((typeof this.getMap() === "undefined") || (this.getMap() === null)) {
-	            isVisible = false;
-	        } else {
-	            isVisible = !this.isHidden_;
-	        }
-	        return isVisible;
-	    };
-
-	    /**
-	     * Shows the InfoBox. [Deprecated; use <tt>setVisible</tt> instead.]
-	     */
-	    InfoBox.prototype.show = function () {
-
-	        this.isHidden_ = false;
-	        if (this.div_) {
-	            this.div_.style.visibility = "visible";
-	        }
-	    };
-
-	    /**
-	     * Hides the InfoBox. [Deprecated; use <tt>setVisible</tt> instead.]
-	     */
-	    InfoBox.prototype.hide = function () {
-
-	        this.isHidden_ = true;
-	        if (this.div_) {
-	            this.div_.style.visibility = "hidden";
-	        }
-	    };
-
-	    /**
-	     * Adds the InfoBox to the specified map or Street View panorama. If <tt>anchor</tt>
-	     *  (usually a <tt>google.maps.Marker</tt>) is specified, the position
-	     *  of the InfoBox is set to the position of the <tt>anchor</tt>. If the
-	     *  anchor is dragged to a new location, the InfoBox moves as well.
-	     * @param {Map|StreetViewPanorama} map
-	     * @param {MVCObject} [anchor]
-	     */
-	    InfoBox.prototype.open = function (map, anchor) {
-
-	        var me = this;
-
-	        if (anchor) {
-
-	            this.position_ = anchor.getPosition();
-	            this.moveListener_ = google.maps.event.addListener(anchor, "position_changed", function () {
-	                me.setPosition(this.getPosition());
-	            });
-	        }
-
-	        this.setMap(map);
-
-	        if (this.div_) {
-
-	            this.panBox_();
-	        }
-	    };
-
-	    /**
-	     * Removes the InfoBox from the map.
-	     */
-	    InfoBox.prototype.close = function () {
-
-	        var i;
-
-	        if (this.closeListener_) {
-
-	            google.maps.event.removeListener(this.closeListener_);
-	            this.closeListener_ = null;
-	        }
-
-	        if (this.eventListeners_) {
-
-	            for (i = 0; i < this.eventListeners_.length; i++) {
-
-	                google.maps.event.removeListener(this.eventListeners_[i]);
+	                google.maps.event.removeListener(this.moveListener_);
+	                this.moveListener_ = null;
 	            }
-	            this.eventListeners_ = null;
-	        }
 
-	        if (this.moveListener_) {
+	            if (this.contextListener_) {
 
-	            google.maps.event.removeListener(this.moveListener_);
-	            this.moveListener_ = null;
-	        }
+	                google.maps.event.removeListener(this.contextListener_);
+	                this.contextListener_ = null;
+	            }
 
-	        if (this.contextListener_) {
-
-	            google.maps.event.removeListener(this.contextListener_);
-	            this.contextListener_ = null;
-	        }
-
-	        this.setMap(null);
-	    };
-	    return InfoBox;
-	});
+	            this.setMap(null);
+	        };
+	        return InfoBox;
+	    });
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var gPlacesTemp = __webpack_require__(14);
+	var gPlacesTemp = __webpack_require__(13);
 
 	//
 	// Google Places Factory and Directives
@@ -1744,7 +1770,7 @@
 
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports) {
 
 	var path = '/home/grant/Development/Projects/Libraries/angular-gmap-gplaces/master/src/templates/gPlaces.html';
@@ -1753,7 +1779,7 @@
 	module.exports = path;
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1822,51 +1848,106 @@
 
 	})
 	/**
-	 * @desc Directive that displays a star rating based on a float input
-	 * @attrs {float} aggStarRating - a float <= 5 representing the rating
+	 * @desc Directive that displays a star rating based on a float input. Number of stars and
+	 * scale are configurable. Rating calculated as a percent so stars can be partially filled
+	 * @attr {float} rating - value representing the rating. Can be between 0 and the total number of stars
+	 * @attr {obj} options - optional object used to pass scale and number of stars
+	 * @attr {int} options.size - the number of stars to show (default=5)
+	 * @attr {float} options.scale - sets the scale of stars. At the default value stars are 20px wide (default=1)
 	 */
 	    .directive('aggStarRating', function(){
-	    return {
-	        restrict: 'A',
-	        template: '<span class="stars"><span ng-style="{\'width\': starSize}"></span></span>',
-	        link: function(scope, elem, attrs) {
-	            var observer = attrs.$observe('aggStarRating', function(value) {
-	                scope.starSize = value/5*100+'%';
-	                observer();
-	            });
+	        return {
+	            restrict: 'E',
+	            template: '<div class="aggStars"><span ng-style="{\'width\': starSize}"></span></div>',
+	            link: function(scope, elem, attrs) {
+	                var stars = elem.find('div'),
+	                    rating = scope.$eval(attrs.rating),
+	                    opt = scope.$eval(attrs.options),
+	                    settings = {
+	                        size: 5,
+	                        scale: 1
+	                    };
+	                angular.extend(settings, opt);
+	                if(settings.size !== 5) {
+	                    stars.css({width: settings.size*20+'px'});
+	                }
+	                if(settings.scale !== 1) {
+	                    stars.css({transform: 'scale('+settings.scale+')'});
+	                }
+	                scope.starSize = rating/settings.size*100+'%';
+	            }
 	        }
-	    }
-	});
+	    })
+	/**
+	 * @desc Directive that sizes an img to fill its parents width or height while maintaining aspect
+	 * ratio. If the image is wider than tall it will fill the parents width and if taller than
+	 * wide it fits the parent height
+	 *
+	 */
+	    .directive('scaleImg', function () {
+	        return {
+	            restrict: 'A',
+	            link: function (scope, elem, attrs) {
+	                var pHeight = elem.parent()[0].offsetHeight,
+	                    eWidth = elem[0].offsetWidth;
+
+	                elem[0].onload = function() {
+	                    var imgHeight = elem[0].naturalHeight,
+	                        imgWidth = elem[0].naturalWidth,
+	                        imgRatio, newWidth, newHeight;
+
+	                    if(imgWidth > imgHeight) {
+	                        imgRatio = imgHeight / imgWidth;
+	                        newWidth = eWidth;
+	                        newHeight = newWidth * imgRatio;
+	                        if(newHeight > pHeight) {
+	                            newHeight = pHeight;
+	                            newWidth = newHeight * imgRatio;
+	                        }
+	                    }else{
+	                        imgRatio = imgWidth / imgHeight;
+	                        newHeight = pHeight;
+	                        newWidth = newHeight * imgRatio;
+	                    }
+	                    elem.css({height: newHeight+'px', width: newWidth+'px'})
+	                };
+	            }
+	        }
+	    });
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 
-	var aggMenuView = __webpack_require__(17);
-	var aggMenuSearchTemp = __webpack_require__(18);
-	var aggDirectionsTemp = __webpack_require__(9);
+	var aggMenuView = __webpack_require__(16);
+	var aggMenuSearchTemp = __webpack_require__(17);
+	var aggDirectionsTemp = __webpack_require__(18);
 
 	angular.module('aggMapMenu', [])
 	/**
-	 * @desc Animated off-screen menu for the map with directions and search
-	 * @attr {}
+	 * @desc Animated off-screen menu for the map with directions and search functionality
+	 * Parent of the aggMenuSearch and aggMenuDirections directives
+	 * @attr {string} mapIndex - the index of the map the menu is to be associated with
 	 */
-	    .directive('aggMenu', function() {
+	    .directive('aggMenu', function($document, aggMapServ) {
 	    return {
 	        restrict: 'E',
 	        templateUrl: aggMenuView,
 	        scope: {
-	            mapId: '@mapId'
+	            mapIndex: '@mapIndex'
 	        },
 	        controllerAs: 'aggMenu',
 	        bindToController: true,
-	        controller: function() {
-	            // Toggle Menu
+	        controller: function($scope) {
+	            var self = this;
+
+	            this.map = {};
 	            this.isSearch = false;
 	            this.isDirections = false;
+	            this.view = '';
 	            this.toggle = function() {
 	                if(this.isSearch) {
 	                    this.isSearch = false;
@@ -1880,40 +1961,41 @@
 	                    this.isSearch = true;
 	                }
 	            };
-	            // Toggle search/directions
-	            this.view = '';
-
+	            this.goSearch = function () {
+	                this.view = 'default';
+	                this.isSearch = true;
+	                this.isDirections = false;
+	            };
+	            this.goDirections = function () {
+	                this.view = 'directions';
+	                this.isSearch = false;
+	                this.isDirections = true;
+	            };
 	        },
-	        link: function(scope, elem, attrs, ctrl) {
-	            // Direction Options
-	            attrs.$observe('mapId', function(value) {
-	                ctrl.directOpt = {
-	                    inMenu: true,
-	                    mapId: value,
-	                    goBack: function () {
-	                        ctrl.view = 'default';
-	                        ctrl.isSearch = true;
-	                        ctrl.isDirections = false;
-	                    }
-	                };
-	            });
+	        link: function (scope, elem, attrs, ctrl) {
+	            var observer = attrs.$observe('mapIndex', function (value) {
+	                $document.ready(function () {
+	                    ctrl.map = aggMapServ.maps[value];
+	                    observer();
+	                })
+	            })
 	        }
 	    }
 	})
-
-	.directive('aggMenuSearch', function(aggSearchFact, aggMapServ, aggDirectionsServ) {
+	/**
+	 * @desc Search widget for the aggMenu. Uses the aggSearch directive on the input element to
+	 * provide google place predictions. Displays the results in a list under the search box and
+	 * places a marker on the map for each place
+	 * @requires {aggMenu}
+	 */
+	    .directive('aggMenuSearch', function(aggSearchFact, aggDirectionsServ) {
 	    return {
 	        restrict: 'E',
 	        templateUrl: aggMenuSearchTemp,
 	        controllerAs: 'search',
 	        require: ['^aggMenu', 'aggMenuSearch'],
-	        scope: {
-	            mapId: '@mapId'
-	        },
 	        bindToController: true,
 	        controller: function() {
-	            this.results = [];
-
 	            this.openText = function(open) {
 	                var answer = '';
 	                if(open) {
@@ -1930,52 +2012,53 @@
 	            // Clear Map
 	            this.clearMap = function() {
 	                aggSearchFact.clear();
-	                this.results = [];
+	                this.searchBox.model = [];
 	                aggDirectionsServ.markers.forEach(function(marker) {
 	                    marker.setMap(null);
 	                });
 	                aggDirectionsServ.renderer.setMap(null);
-	            }
+	            };
+	            this.resultLength = function() {
+	                return this.searchBox.model.length.toString();
+	            };
+	            this.resultsPadding = {padding: .75+'em'}
 	        },
 	        link: function(scope, elem, attrs, ctrls) {
-	            var directionIcon = angular.element(elem.find('.directIcon'));
 	            // Options to pass to search box directive
-	            ctrls[1].searchBox = {
-	                map: aggMapServ.maps[parseInt(attrs.mapId)],
-	                start: function() {
-	                    console.log(directionIcon);
-	                    // TODO: This isn't working class is not being added. Element is valid angular.element
-	                    directionIcon.addClass('aggSpin');
-	                }
-	            };
-	            // Add watcher to handle search results
-	            scope.$watch('search.results', function(value) {
-	                if(value.length>0) {
-	                    aggSearchFact.handleSearch(value, ctrls[1].searchBox.map)
-	                        .then(function() {
-	                            // TODO: Mentioned above class isn't added
-	                            directionIcon.removeClass('aggSpin');
-	                            ctrls[1].showResults = true;
-	                        });
+	            var watcher = scope.$watch('aggMenu.map', function(value) {
+	                if(value instanceof google.maps.Map) {
+	                    ctrls[1].searchBox = {
+	                        map: value,
+	                        model: []
+	                    };
+	                    watcher();
 	                }
 	            });
-
 	            // Opens associated marker when clicking on results in list and animates marker
 	            ctrls[1].openMarker = function(id) {
 	                google.maps.event.trigger(aggMenuFact.searchObj.markers[id], 'click');
 	                ctrls[0].toggle();
 	            };
-
-	            ctrls[1].getDirections = function () {
-	                ctrls[0].view = 'directions';
-	                ctrls[0].isSearch = false;
-	                ctrls[0].isDirections = true;
-	            }
+	            // Add watcher to handle search results
+	            scope.$watch('search.searchBox.model', function(value) {
+	                if(value !== undefined) {
+	                    if (value.length > 0) {
+	                        aggSearchFact.mapSearch(value, ctrls[1].searchBox.map);
+	                        if(value.length == 1) ctrls[1].resultsPadding.padding = 0;
+	                        else ctrls[1].resultsPadding.padding = .75+'em';
+	                    }
+	                }
+	            });
 	        }
 	    }
 	})
-
-	    .directive('aggMenuDirections', function(aggDirectionsServ, aggMapServ) {
+	/**
+	 * @desc Directive that displays a directions widget inside the aggMenu. Uses the aggAutoComplete
+	 * directive on the input elements to provide google place predictions. Displays directions in list
+	 * under autocomplete boxes, draws a polyline representing the route and places markers at each step
+	 * @requires {aggMenu}
+	 */
+	    .directive('aggMenuDirections', function(aggDirectionsServ) {
 
 	        function processAutoComp(origin, destination, mode) {
 	            return {
@@ -1988,10 +2071,8 @@
 	        return {
 	            restrict: 'E',
 	            templateUrl: aggDirectionsTemp,
-	            scope: {
-	                options: '=options'
-	            },
 	            controllerAs: 'direct',
+	            require: ['^aggMenu', '^aggMenuDirections'],
 	            bindToController: true,
 	            controller: function(){
 	                this.request = {
@@ -2019,33 +2100,23 @@
 	                    aggDirectionsServ.renderer.setMap(null);
 	                }
 	            },
-	            link: function(scope, elem, attrs, ctrl) {
-	                var mapId;
-	                var setOptions = scope.$watch('direct.options', function(value){
-	                    mapId = value.mapId;
-	                    scope.inMenu = value.inMenu;
-	                    if(value.hasOwnProperty('goBack')) {
-	                        ctrl.goBack = value.goBack;
-	                    }
-	                    setOptions();
-	                });
-
+	            link: function(scope, elem, attrs, ctrls) {
 	                scope.$watch('direct.request', function(newVal) {
 	                    if(newVal.origin.hasOwnProperty('geometry') && newVal.destination.hasOwnProperty('geometry')) {
 	                        var req = processAutoComp(newVal.origin, newVal.destination, newVal.travelMode);
 
-	                        aggDirectionsServ.getSteps(req, aggMapServ.maps[mapId])
+	                        aggDirectionsServ.getSteps(req, ctrls[0].map)
 	                            .then(function(response) {
 	                                var leg = response.routes[0].legs[0];
-	                                ctrl.startLoc = leg.start_address;
-	                                ctrl.endLoc = leg.end_address;
-	                                ctrl.via = response.routes[0].summary;
-	                                ctrl.distance = leg.distance.text;
-	                                ctrl.duration = leg.duration.text;
+	                                ctrls[1].startLoc = leg.start_address;
+	                                ctrls[1].endLoc = leg.end_address;
+	                                ctrls[1].via = response.routes[0].summary;
+	                                ctrls[1].distance = leg.distance.text;
+	                                ctrls[1].duration = leg.duration.text;
 	                                for(var i=0; i<leg.steps.length; i++) {
-	                                    ctrl.steps.push(leg.steps[i])
+	                                    ctrls[1].steps.push(leg.steps[i])
 	                                }
-	                                ctrl.showDirect = true;
+	                                ctrls[1].showDirect = true;
 	                            });
 	                    }
 
@@ -2056,11 +2127,20 @@
 
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports) {
 
 	var path = '/home/grant/Development/Projects/Libraries/angular-gmap-gplaces/master/src/templates/aggMenu.html';
-	var html = "<div id=\"aggMenuBtn\" role=\"button\" ng-click=\"aggMenu.toggle()\" ng-class=\"{animateBtn: aggMenu.isSearch, animateBtnDirect: aggMenu.isDirections}\">\n    <i class=\"fa fa-3x\" ng-class=\"{'fa-chevron-right': aggMenu.isSearch || aggMenu.isDirections, 'fa-bars': !aggMenu.isSearch && !aggMenu.isDirections}\"></i>\n</div>\n\n<div id=\"aggMenu\" ng-class=\"{animateMenu: aggMenu.isSearch, animateDirections: aggMenu.isDirections}\">\n    <!-- Use ng-switch to switch between the different directives -->\n    <div style=\"height: 100%\" ng-switch=\"aggMenu.view\">\n\n        <div style=\"height: 100%; overflow: auto\" ng-switch-when=\"directions\" class=\"slide\">\n            <agg-menu-directions options=\"aggMenu.directOpt\"></agg-menu-directions>\n        </div>\n\n        <div ng-switch-default class=\"slide\">\n            <agg-menu-search map-id=\"0\"></agg-menu-search>\n        </div>\n    </div>\n</div>";
+	var html = "<div id=\"aggMenuBtn\" role=\"button\" ng-click=\"aggMenu.toggle()\" ng-class=\"{animateBtn: aggMenu.isSearch, animateBtnDirect: aggMenu.isDirections}\">\n    <i class=\"fa fa-3x\" ng-class=\"{'fa-chevron-right': aggMenu.isSearch || aggMenu.isDirections, 'fa-bars': !aggMenu.isSearch && !aggMenu.isDirections}\"></i>\n</div>\n\n<div id=\"aggMenu\" ng-class=\"{animateMenu: aggMenu.isSearch, animateDirections: aggMenu.isDirections}\">\n    <!-- Use ng-switch to switch between the different directives -->\n    <div style=\"height: 100%\" ng-switch=\"aggMenu.view\">\n\n        <div style=\"height: 100%; overflow: auto\" ng-switch-when=\"directions\" class=\"slide\">\n            <agg-menu-directions options=\"aggMenu.directOpt\"></agg-menu-directions>\n        </div>\n\n        <div ng-switch-default class=\"slide\">\n            <agg-menu-search></agg-menu-search>\n        </div>\n    </div>\n</div>";
+	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
+	module.exports = path;
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	var path = '/home/grant/Development/Projects/Libraries/angular-gmap-gplaces/master/src/templates/aggMenuSearch.html';
+	var html = "<div class=\"genSearch\">\n    <input id=\"aggSearch\" agg-search=\"search.searchBox\" type=\"text\" placeholder=\"Search for something close by.\">\n    <div id=\"directionIcon\" class=\"directIcon\" ng-click=\"aggMenu.goDirections()\"></div>\n</div>\n\n<div class=\"searchResults aggEnterDown\" ng-if=\"search.searchBox.model.length > 0\" ng-style=\"search.resultsPadding\">\n    <i role=\"button\" class=\"fa fa-times fa-2x aggClear search\" ng-click=\"search.clearMap()\"></i>\n    <div ng-switch=\"search.resultLength()\">\n        <div ng-switch-when=\"1\">\n            <div class=\"resultHeader\">\n                <img ng-src=\"{{search.searchBox.model[0].photos[0].getUrl({'maxWidth': 500, 'maxHeight': 250})}}\" width=\"100%\" height=\"auto\">\n                <div class=\"title\">{{search.searchBox.model[0].name}}</div>\n                <div><span class=\"ratingNum\">{{search.searchBox.model[0].rating}}</span><agg-star-rating rating=\"{{search.searchBox.model[0].rating}}\"></agg-star-rating></div>\n            </div>\n        </div>\n\n        <div ng-switch-default>\n            <ul class=\"resultsList\">\n                <li class=\"aggResult\" ng-repeat-start=\"result in search.searchBox.model track by $index\" ng-click=\"search.openMarker($index)\" role=\"button\">\n\n                    <ul>\n                        <li>{{result.name}}</li>\n                        <li>\n                            <agg-star-rating rating=\"{{result.rating}}\"></agg-star-rating>\n                        </li>\n                        <li>{{search.addressText(result.formatted_address)}}</li>\n                        <li class=\"openNow\">{{search.openText(result.opening_hours.open_now)}}</li>\n                    </ul>\n                    <img scale-img ng-src=\"{{result.photos[0].getUrl({'maxWidth': 250, 'maxHeight': 250})}}\">\n                </li>\n                <li ng-repeat-end><hr></li>\n            </ul>\n        </div>\n    </div>\n\n</div>\n\n\n\n";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
 
@@ -2068,8 +2148,8 @@
 /* 18 */
 /***/ function(module, exports) {
 
-	var path = '/home/grant/Development/Projects/Libraries/angular-gmap-gplaces/master/src/templates/aggMenuSearch.html';
-	var html = "<div class=\"genSearch\">\n    <input id=\"aggSearch\" agg-search=\"search.results\" options=\"search.searchBox\" type=\"text\" placeholder=\"Search for something close by.\">\n    <div class=\"directIcon\" ng-click=\"search.getDirections()\"></div>\n</div>\n\n<div class=\"searchResults aggEnterDown\" ng-if=\"search.results.length > 0\">\n    <i role=\"button\" class=\"fa fa-times fa-2x aggClear colored\" ng-click=\"search.clearMap()\"><span>Clear Results</span></i>\n    <div ng-switch=\"search.numResults\">\n        <div ng-switch-when=\"1\">\n            <div class=\"resultHeader\">\n                <img ng-src=\"{{search.results[0].photos[0].getUrl({'maxWidth': 500, 'maxHeight': 500})}}\">\n                <div class=\"title\">{{search.results[0].name}}</div>\n                <div agg-star-rating=\"{{search.results}}\"></div>\n            </div>\n        </div>\n\n        <div ng-switch-default>\n            <ul class=\"resultsList\">\n                <li class=\"aggResult\" ng-repeat=\"result in search.results track by $index\" ng-click=\"search.openMarker($index)\" role=\"button\">\n\n                    <ul>\n                        <li>{{result.name}}</li>\n                        <li>\n                            <div agg-star-rating=\"{{result.rating}}\"></div>\n                        </li>\n                        <li>{{search.addressText(result.formatted_address)}}</li>\n                        <li class=\"openNow\">{{search.openText(result.opening_hours.open_now)}}</li>\n                    </ul>\n                    <img ng-src=\"{{result.photos[0].getUrl({'maxWidth': 80, 'maxHeight': 92})}}\">\n                    <hr>\n                </li>\n            </ul>\n        </div>\n    </div>\n\n</div>\n\n\n\n";
+	var path = '/home/grant/Development/Projects/Libraries/angular-gmap-gplaces/master/src/templates/aggMenuDirections.html';
+	var html = "<div class=\"directControls\">\n    <i role=\"button\" class=\"fa fa-arrow-left fa-2x aggBack\" ng-click=\"aggMenu.goSearch()\"></i>\n    <i role=\"button\" class=\"fa fa-times fa-2x aggClear\" ng-click=\"direct.clearMap()\"></i>\n\n    <div class=\"directSearch\">\n        <input id=\"aggOrigin\" agg-auto-complete=\"direct.request.origin\" type=\"text\" name=\"from\" placeholder=\"Choose a starting point\">\n        <input id=\"aggDestination\" agg-auto-complete=\"direct.request.destination\" type=\"text\" name=\"to\" placeholder=\"Destination\">\n    </div>\n\n    <div class=\"directBtnBar\">\n        <button id=\"modeDriving\" class=\"searchType\" ng-class=\"{selected: direct.request.travelMode === 'DRIVING'}\" ng-click=\"direct.toggleMode('DRIVING')\">\n            <i class=\"fa fa-car fa-2x\"></i>\n        </button>\n        <button id=\"modeWalking\" class=\"searchType\" ng-class=\"{selected: direct.request.travelMode === 'WALKING'}\" ng-click=\"direct.toggleMode('WALKING')\">\n            <i class=\"fa fa-blind fa-2x\" ></i>\n        </button>\n        <button id=\"modeBicycling\" class=\"searchType\" ng-class=\"{selected: direct.request.travelMode === 'BICYCLING'}\" ng-click=\"direct.toggleMode('BICYCLING')\">\n            <i class=\"fa fa-bicycle fa-2x\"></i>\n        </button>\n        <button id=\"modeTransit\" class=\"searchType\" ng-class=\"{selected: direct.request.travelMode === 'TRANSIT'}\" ng-click=\"direct.toggleMode('TRANSIT')\">\n            <i class=\"fa fa-bus fa-2x\"></i>\n        </button>\n    </div>\n</div>\n\n<div class=\"directResults aggEnterDown\" ng-if=\"direct.showDirect\">\n    <div class=\"overview\">\n        <div class=\"duration\">\n            {{direct.duration}}\n        </div>\n        <div class=\"distance\">\n            ({{direct.distance}})\n        </div>\n        <div class=\"via\">\n           via {{direct.via}}\n        </div>\n    </div>\n    <hr>\n    <div class=\"route\">\n        <div class=\"start\">\n            {{direct.startLoc}}\n        </div>\n        <div class=\"steps\">\n            <div class=\"step\" ng-repeat=\"step in direct.steps\">\n                <div class=\"instruction\">\n                    <p ng-bind-html=\"step.instructions\"></p>\n                </div>\n                <div class=\"duration\">\n                    {{step.duration.text}}\n                </div>\n                <div class=\"distance\">\n                    ({{step.distance.text}})\n                </div>\n                <hr ng-hide=\"$last\">\n            </div>\n        </div>\n        <div class=\"end\">\n            {{direct.endLoc}}\n        </div>\n    </div>\n</div>";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
 
@@ -2106,43 +2186,39 @@
 
 	/**
 	 * @desc Turns an input box into a google place search box
-	 * @attr {obj} the model to be updated with place details
-	 * @attr {google.maps.Map} the google map to bind search box to
+	 * @attr {obj} options - the configurable options object for the search box
+	 * @attr {obj} options.model - the model to be updated with the search results
+	 * @attr {google.maps.Map} options.map - the google map to bind the search box to
 	  */
 	    .directive('aggSearch', function () {
 	        return {
 	            restrict: 'A',
 	            scope: {
-	                model: '=aggSearch',
-	                options: '=options'
+	                options: '=aggSearch'
 	            },
 	            link: function (scope, elem, attrs) {
 	                var input = document.getElementById(elem.attr('id')),
-	                    searchBox = new google.maps.places.SearchBox(input),
-	                    startFn = null;
-
-	                searchBox.addListener('places_changed', updateModel);
+	                    searchBox = new google.maps.places.SearchBox(input);
 
 	                // Bias the SearchBox results towards current map's viewport.
 	                // Change the SearchBox bounds on map bounds change
 	                var watcher = scope.$watch('options', function(value) {
-	                    if(value.hasOwnProperty('map')) {
-	                        searchBox.setBounds(value.map.getBounds());
-	                        value.map.addListener('bounds_changed', function() {
+	                    if(value !== undefined) {
+	                        if (value.hasOwnProperty('map')) {
 	                            searchBox.setBounds(value.map.getBounds());
-	                        });
+	                            value.map.addListener('bounds_changed', function () {
+	                                searchBox.setBounds(value.map.getBounds());
+	                            });
+	                        }
+	                        if(value.hasOwnProperty('model')) {
+	                            searchBox.addListener('places_changed', function () {
+	                                value.model = searchBox.getPlaces();
+	                                scope.$apply();
+	                            });
+	                        }
+	                        watcher();
 	                    }
-	                    if(value.hasOwnProperty('start')) {
-	                        startFn = value.start;
-	                    }
-	                    watcher();
 	                });
-
-	                function updateModel() {
-	                    if(startFn !== null) startFn();
-	                    scope.model = searchBox.getPlaces();
-	                    scope.$apply();
-	                }
 	            }
 	        }
 	    })
@@ -2154,7 +2230,7 @@
 	 * @prop {google.maps.Marker[]} searchObj.markers - array for holding markers generated for search results
 	 * @prop {google.maps.places.PlaceResult[]} searchObj.results - array for holding PlaceResult objects returned by search
 	 */
-	    .factory('aggSearchFact', function($q, aggPlacesFact, aggInfoBoxFact) {
+	    .factory('aggSearchFact', function($q, $compile, $rootScope, aggPlacesFact, aggInfoBoxFact) {
 	        return {
 	            searchObj: {
 	                markers: [],
@@ -2193,23 +2269,20 @@
 	                return deferred.promise;
 	            },
 	            /**
-	             * @method handleSearch - takes a search response and creates markers and infoboxes for each place. Updates the searchObj prop with results
+	             * @method mapSearch - takes a PlaceResult[] and creates markers and infoboxes for each place. Updates the searchObj prop with results
 	             * @param {google.maps.places.PlaceResult[]} places - a place result array returned by one of the search directives
 	             * @param {google.maps.Map} map - the google maps Map object where the markers will be displayed
 	             * @returns {Promise} the updated searchObj is returned as a promise
 	             */
-	            handleSearch: function(places, map) {
-	            var self = this,
-	                bounds = new google.maps.LatLngBounds(),
-	                deferred = $q.defer();
+	            mapSearch: function(places, map) {
+	            var q = $q.defer(),
+	                self = this,
+	                bounds = new google.maps.LatLngBounds();
 
 	            // Alert if no results
 	            if (places.length == 0){
 	                alert('No places found');
 	            }
-
-	            // TODO: Activate more button and attach click handler
-
 
 	            // Clear out the old markers and search results
 	            this.searchObj.results = [];
@@ -2218,8 +2291,9 @@
 	            });
 	            this.searchObj.markers = [];
 
-	            // Create Info Box and map click handler for closing info box
-	            var infoBox = new aggInfoBoxFact();
+	            // Create Info Box and Scope.
+	            var infoBox = new aggInfoBoxFact(),
+	                scope = $rootScope.$new();
 
 	            // For each place, create an icon, marker, and info box
 	            // Push the markers and results to arrays for viewing
@@ -2261,7 +2335,8 @@
 	                    aggPlacesFact.getPlace(place.place_id)
 	                        .then(function(results) {
 	                            // Info Box Content
-	                            var content = '<div class="ibHeader">' +
+	                            var content = '<div class="aggInfoBox">'+
+	                                '<div class="ibHeader">' +
 	                                '<h3>' + results.name + '</h3>' +
 	                                '</div>' +
 	                                '<div class="ibBody">' +
@@ -2269,11 +2344,13 @@
 	                                '<ul>' +
 	                                '<li>' + results.formatted_phone_number + '</li>' +
 	                                '<li>' + results.vicinity + '</li>' +
-	                                '<li>' + results.rating + '</li>' +
+	                                '<li><agg-star-rating rating="' + results.rating + '"></agg-star-rating></li>' +
 	                                '</ul>' +
-	                                '</div> ';
+	                                '</div>' +
+	                                '</div>';
+	                            var compiled = $compile(content)(scope);
 	                            // Set content of InfoBox
-	                            infoBox.setContent(content);
+	                            infoBox.setContent(compiled[0]);
 	                            // Open Info Box on marker click
 	                            infoBox.open(map, marker);
 	                        })
@@ -2292,19 +2369,20 @@
 	                self.searchObj.markers.push(marker);
 	                self.searchObj.results.push(place);
 
-	                deferred.resolve(self.searchObj);
+	                q.resolve(self.searchObj);
 	            });
 	            map.fitBounds(bounds);
-	            return deferred.promise;
+	            return q.promise;
 	            },
 	            /**
-	             * @method clear - clears out the searchObj
+	             * @method clear - clears out the searchObj and sets map to null on all markers
 	             */
 	            clear: function () {
 	                this.searchObj.results = [];
 	                this.searchObj.markers.forEach(function(marker) {
 	                    marker.setMap(null);
 	                });
+	                this.searchObj.markers = [];
 	            }
 	        }
 	    })
@@ -2323,13 +2401,12 @@
 	    return {
 	        enter: function (element) {
 	            var endHeight = element[0].offsetHeight;
-	            console.log(endHeight);
 	            return $animateCss(element, {
 	                event: 'enter',
 	                structural: true,
 	                from: {height: 0, overflow: 'hidden'},
 	                to: {height: endHeight+'px', overflow: 'auto'},
-	                duration: 2
+	                duration: 1
 	            });
 	        },
 	        leave: function (element) {

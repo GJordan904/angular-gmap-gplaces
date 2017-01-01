@@ -6,13 +6,12 @@ angular.module('aggAnimations', [])
     return {
         enter: function (element) {
             var endHeight = element[0].offsetHeight;
-            console.log(endHeight);
             return $animateCss(element, {
                 event: 'enter',
                 structural: true,
                 from: {height: 0, overflow: 'hidden'},
                 to: {height: endHeight+'px', overflow: 'auto'},
-                duration: 2
+                duration: 1
             });
         },
         leave: function (element) {

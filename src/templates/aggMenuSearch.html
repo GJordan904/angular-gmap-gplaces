@@ -1,34 +1,34 @@
 <div class="genSearch">
-    <input id="aggSearch" agg-search="search.results" options="search.searchBox" type="text" placeholder="Search for something close by.">
-    <div class="directIcon" ng-click="search.getDirections()"></div>
+    <input id="aggSearch" agg-search="search.searchBox" type="text" placeholder="Search for something close by.">
+    <div id="directionIcon" class="directIcon" ng-click="aggMenu.goDirections()"></div>
 </div>
 
-<div class="searchResults aggEnterDown" ng-if="search.results.length > 0">
-    <i role="button" class="fa fa-times fa-2x aggClear colored" ng-click="search.clearMap()"><span>Clear Results</span></i>
-    <div ng-switch="search.numResults">
+<div class="searchResults aggEnterDown" ng-if="search.searchBox.model.length > 0" ng-style="search.resultsPadding">
+    <i role="button" class="fa fa-times fa-2x aggClear search" ng-click="search.clearMap()"></i>
+    <div ng-switch="search.resultLength()">
         <div ng-switch-when="1">
             <div class="resultHeader">
-                <img ng-src="{{search.results[0].photos[0].getUrl({'maxWidth': 500, 'maxHeight': 500})}}">
-                <div class="title">{{search.results[0].name}}</div>
-                <div agg-star-rating="{{search.results}}"></div>
+                <img ng-src="{{search.searchBox.model[0].photos[0].getUrl({'maxWidth': 500, 'maxHeight': 250})}}" width="100%" height="auto">
+                <div class="title">{{search.searchBox.model[0].name}}</div>
+                <div><span class="ratingNum">{{search.searchBox.model[0].rating}}</span><agg-star-rating rating="{{search.searchBox.model[0].rating}}"></agg-star-rating></div>
             </div>
         </div>
 
         <div ng-switch-default>
             <ul class="resultsList">
-                <li class="aggResult" ng-repeat="result in search.results track by $index" ng-click="search.openMarker($index)" role="button">
+                <li class="aggResult" ng-repeat-start="result in search.searchBox.model track by $index" ng-click="search.openMarker($index)" role="button">
 
                     <ul>
                         <li>{{result.name}}</li>
                         <li>
-                            <div agg-star-rating="{{result.rating}}"></div>
+                            <agg-star-rating rating="{{result.rating}}"></agg-star-rating>
                         </li>
                         <li>{{search.addressText(result.formatted_address)}}</li>
                         <li class="openNow">{{search.openText(result.opening_hours.open_now)}}</li>
                     </ul>
-                    <img ng-src="{{result.photos[0].getUrl({'maxWidth': 80, 'maxHeight': 92})}}">
-                    <hr>
+                    <img scale-img ng-src="{{result.photos[0].getUrl({'maxWidth': 250, 'maxHeight': 250})}}">
                 </li>
+                <li ng-repeat-end><hr></li>
             </ul>
         </div>
     </div>

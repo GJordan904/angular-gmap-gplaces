@@ -7,22 +7,26 @@ var aggDirectionsTemp = require('./../templates/aggMenuDirections.html');
 
 angular.module('aggMapMenu', [])
 /**
- * @desc Animated off-screen menu for the map with directions and search
- * @attr {}
+ * @desc Animated off-screen menu for the map with directions and search functionality
+ * Parent of the aggMenuSearch and aggMenuDirections directives
+ * @attr {string} mapIndex - the index of the map the menu is to be associated with
  */
-    .directive('aggMenu', function() {
+    .directive('aggMenu', function($document, aggMapServ) {
     return {
         restrict: 'E',
         templateUrl: aggMenuView,
         scope: {
-            mapId: '@mapId'
+            mapIndex: '@mapIndex'
         },
         controllerAs: 'aggMenu',
         bindToController: true,
-        controller: function() {
-            // Toggle Menu
+        controller: function($scope) {
+            var self = this;
+
+            this.map = {};
             this.isSearch = false;
             this.isDirections = false;
+            this.view = '';
             this.toggle = function() {
                 if(this.isSearch) {
                     this.isSearch = false;
@@ -36,40 +40,41 @@ angular.module('aggMapMenu', [])
                     this.isSearch = true;
                 }
             };
-            // Toggle search/directions
-            this.view = '';
-
+            this.goSearch = function () {
+                this.view = 'default';
+                this.isSearch = true;
+                this.isDirections = false;
+            };
+            this.goDirections = function () {
+                this.view = 'directions';
+                this.isSearch = false;
+                this.isDirections = true;
+            };
         },
-        link: function(scope, elem, attrs, ctrl) {
-            // Direction Options
-            attrs.$observe('mapId', function(value) {
-                ctrl.directOpt = {
-                    inMenu: true,
-                    mapId: value,
-                    goBack: function () {
-                        ctrl.view = 'default';
-                        ctrl.isSearch = true;
-                        ctrl.isDirections = false;
-                    }
-                };
-            });
+        link: function (scope, elem, attrs, ctrl) {
+            var observer = attrs.$observe('mapIndex', function (value) {
+                $document.ready(function () {
+                    ctrl.map = aggMapServ.maps[value];
+                    observer();
+                })
+            })
         }
     }
 })
-
-.directive('aggMenuSearch', function(aggSearchFact, aggMapServ, aggDirectionsServ) {
+/**
+ * @desc Search widget for the aggMenu. Uses the aggSearch directive on the input element to
+ * provide google place predictions. Displays the results in a list under the search box and
+ * places a marker on the map for each place
+ * @requires {aggMenu}
+ */
+    .directive('aggMenuSearch', function(aggSearchFact, aggDirectionsServ) {
     return {
         restrict: 'E',
         templateUrl: aggMenuSearchTemp,
         controllerAs: 'search',
         require: ['^aggMenu', 'aggMenuSearch'],
-        scope: {
-            mapId: '@mapId'
-        },
         bindToController: true,
         controller: function() {
-            this.results = [];
-
             this.openText = function(open) {
                 var answer = '';
                 if(open) {
@@ -86,52 +91,53 @@ angular.module('aggMapMenu', [])
             // Clear Map
             this.clearMap = function() {
                 aggSearchFact.clear();
-                this.results = [];
+                this.searchBox.model = [];
                 aggDirectionsServ.markers.forEach(function(marker) {
                     marker.setMap(null);
                 });
                 aggDirectionsServ.renderer.setMap(null);
-            }
+            };
+            this.resultLength = function() {
+                return this.searchBox.model.length.toString();
+            };
+            this.resultsPadding = {padding: .75+'em'}
         },
         link: function(scope, elem, attrs, ctrls) {
-            var directionIcon = angular.element(elem.find('.directIcon'));
             // Options to pass to search box directive
-            ctrls[1].searchBox = {
-                map: aggMapServ.maps[parseInt(attrs.mapId)],
-                start: function() {
-                    console.log(directionIcon);
-                    // TODO: This isn't working class is not being added. Element is valid angular.element
-                    directionIcon.addClass('aggSpin');
-                }
-            };
-            // Add watcher to handle search results
-            scope.$watch('search.results', function(value) {
-                if(value.length>0) {
-                    aggSearchFact.handleSearch(value, ctrls[1].searchBox.map)
-                        .then(function() {
-                            // TODO: Mentioned above class isn't added
-                            directionIcon.removeClass('aggSpin');
-                            ctrls[1].showResults = true;
-                        });
+            var watcher = scope.$watch('aggMenu.map', function(value) {
+                if(value instanceof google.maps.Map) {
+                    ctrls[1].searchBox = {
+                        map: value,
+                        model: []
+                    };
+                    watcher();
                 }
             });
-
             // Opens associated marker when clicking on results in list and animates marker
             ctrls[1].openMarker = function(id) {
                 google.maps.event.trigger(aggMenuFact.searchObj.markers[id], 'click');
                 ctrls[0].toggle();
             };
-
-            ctrls[1].getDirections = function () {
-                ctrls[0].view = 'directions';
-                ctrls[0].isSearch = false;
-                ctrls[0].isDirections = true;
-            }
+            // Add watcher to handle search results
+            scope.$watch('search.searchBox.model', function(value) {
+                if(value !== undefined) {
+                    if (value.length > 0) {
+                        aggSearchFact.mapSearch(value, ctrls[1].searchBox.map);
+                        if(value.length == 1) ctrls[1].resultsPadding.padding = 0;
+                        else ctrls[1].resultsPadding.padding = .75+'em';
+                    }
+                }
+            });
         }
     }
 })
-
-    .directive('aggMenuDirections', function(aggDirectionsServ, aggMapServ) {
+/**
+ * @desc Directive that displays a directions widget inside the aggMenu. Uses the aggAutoComplete
+ * directive on the input elements to provide google place predictions. Displays directions in list
+ * under autocomplete boxes, draws a polyline representing the route and places markers at each step
+ * @requires {aggMenu}
+ */
+    .directive('aggMenuDirections', function(aggDirectionsServ) {
 
         function processAutoComp(origin, destination, mode) {
             return {
@@ -144,10 +150,8 @@ angular.module('aggMapMenu', [])
         return {
             restrict: 'E',
             templateUrl: aggDirectionsTemp,
-            scope: {
-                options: '=options'
-            },
             controllerAs: 'direct',
+            require: ['^aggMenu', '^aggMenuDirections'],
             bindToController: true,
             controller: function(){
                 this.request = {
@@ -175,33 +179,23 @@ angular.module('aggMapMenu', [])
                     aggDirectionsServ.renderer.setMap(null);
                 }
             },
-            link: function(scope, elem, attrs, ctrl) {
-                var mapId;
-                var setOptions = scope.$watch('direct.options', function(value){
-                    mapId = value.mapId;
-                    scope.inMenu = value.inMenu;
-                    if(value.hasOwnProperty('goBack')) {
-                        ctrl.goBack = value.goBack;
-                    }
-                    setOptions();
-                });
-
+            link: function(scope, elem, attrs, ctrls) {
                 scope.$watch('direct.request', function(newVal) {
                     if(newVal.origin.hasOwnProperty('geometry') && newVal.destination.hasOwnProperty('geometry')) {
                         var req = processAutoComp(newVal.origin, newVal.destination, newVal.travelMode);
 
-                        aggDirectionsServ.getSteps(req, aggMapServ.maps[mapId])
+                        aggDirectionsServ.getSteps(req, ctrls[0].map)
                             .then(function(response) {
                                 var leg = response.routes[0].legs[0];
-                                ctrl.startLoc = leg.start_address;
-                                ctrl.endLoc = leg.end_address;
-                                ctrl.via = response.routes[0].summary;
-                                ctrl.distance = leg.distance.text;
-                                ctrl.duration = leg.duration.text;
+                                ctrls[1].startLoc = leg.start_address;
+                                ctrls[1].endLoc = leg.end_address;
+                                ctrls[1].via = response.routes[0].summary;
+                                ctrls[1].distance = leg.distance.text;
+                                ctrls[1].duration = leg.duration.text;
                                 for(var i=0; i<leg.steps.length; i++) {
-                                    ctrl.steps.push(leg.steps[i])
+                                    ctrls[1].steps.push(leg.steps[i])
                                 }
-                                ctrl.showDirect = true;
+                                ctrls[1].showDirect = true;
                             });
                     }
 

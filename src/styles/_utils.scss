@@ -1,11 +1,11 @@
 // Star Rating
-span.stars, span.stars span {
+.aggStars, .aggStars span {
   display: inline-block;
-  background: url(../img/stars2.png) 0 -11px repeat-x;
-  width: 60px;
-  height: 12px;
+  background: url(../img/stars.png) 0 -25px repeat-x;
+  width: 100px;
+  height: 21px;
 }
 
-span.stars span {
+.aggStars span {
   background-position: 0 0;
 }

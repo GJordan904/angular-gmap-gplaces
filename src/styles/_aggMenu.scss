@@ -10,7 +10,8 @@
     font-size: .5em;
   }
 
-  &.colored {
+  &.search {
+    float: left;
     color: #ff4b33;;
   }
 }
@@ -94,38 +95,62 @@
     overflow: auto;
     background-color: #f5f1ee;
 
+    .resultHeader {
+      background-color: #f93c11;
+      width: 100%;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .ratingNum {
+      font-size: .65em;
+    }
+
     hr {
       background-color: #3f3f3f;
     }
-  }
-  .resultsList {
-    width: 100%;
 
-    li {
+    .resultsList {
+      width: 100%;
 
-      &:first-child {
-        margin-top: 1em;
+      hr {
+        margin: 10px 0;
       }
-    }
-
-    img {
-      float: right;
-    }
-
-    .aggResult {
 
       li {
-        font-size: .95em;
-        color: #1d1d1d;
 
         &:first-child {
-          font-weight: bold;
-          font-size: .95em;
+          margin-top: 1em;
         }
       }
-      .openNow {
-        font-size: .75em;
-        color: #72a078;
+
+      .aggResult {
+
+        ul {
+          width: 50%;
+        }
+
+        li {
+          font-size: .95em;
+          color: #1d1d1d;
+
+          &:first-child {
+            font-weight: bold;
+            font-size: .95em;
+          }
+        }
+
+        img {
+          float: right;
+          width: 45%;
+        }
+
+        .openNow {
+          font-size: .75em;
+          color: #72a078;
+        }
       }
     }
   }

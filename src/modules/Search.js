@@ -27,43 +27,39 @@ angular.module('aggSearch', [])
 
 /**
  * @desc Turns an input box into a google place search box
- * @attr {obj} the model to be updated with place details
- * @attr {google.maps.Map} the google map to bind search box to
+ * @attr {obj} options - the configurable options object for the search box
+ * @attr {obj} options.model - the model to be updated with the search results
+ * @attr {google.maps.Map} options.map - the google map to bind the search box to
   */
     .directive('aggSearch', function () {
         return {
             restrict: 'A',
             scope: {
-                model: '=aggSearch',
-                options: '=options'
+                options: '=aggSearch'
             },
             link: function (scope, elem, attrs) {
                 var input = document.getElementById(elem.attr('id')),
-                    searchBox = new google.maps.places.SearchBox(input),
-                    startFn = null;
-
-                searchBox.addListener('places_changed', updateModel);
+                    searchBox = new google.maps.places.SearchBox(input);
 
                 // Bias the SearchBox results towards current map's viewport.
                 // Change the SearchBox bounds on map bounds change
                 var watcher = scope.$watch('options', function(value) {
-                    if(value.hasOwnProperty('map')) {
-                        searchBox.setBounds(value.map.getBounds());
-                        value.map.addListener('bounds_changed', function() {
+                    if(value !== undefined) {
+                        if (value.hasOwnProperty('map')) {
                             searchBox.setBounds(value.map.getBounds());
-                        });
+                            value.map.addListener('bounds_changed', function () {
+                                searchBox.setBounds(value.map.getBounds());
+                            });
+                        }
+                        if(value.hasOwnProperty('model')) {
+                            searchBox.addListener('places_changed', function () {
+                                value.model = searchBox.getPlaces();
+                                scope.$apply();
+                            });
+                        }
+                        watcher();
                     }
-                    if(value.hasOwnProperty('start')) {
-                        startFn = value.start;
-                    }
-                    watcher();
                 });
-
-                function updateModel() {
-                    if(startFn !== null) startFn();
-                    scope.model = searchBox.getPlaces();
-                    scope.$apply();
-                }
             }
         }
     })
@@ -75,7 +71,7 @@ angular.module('aggSearch', [])
  * @prop {google.maps.Marker[]} searchObj.markers - array for holding markers generated for search results
  * @prop {google.maps.places.PlaceResult[]} searchObj.results - array for holding PlaceResult objects returned by search
  */
-    .factory('aggSearchFact', function($q, aggPlacesFact, aggInfoBoxFact) {
+    .factory('aggSearchFact', function($q, $compile, $rootScope, aggPlacesFact, aggInfoBoxFact) {
         return {
             searchObj: {
                 markers: [],
@@ -114,23 +110,20 @@ angular.module('aggSearch', [])
                 return deferred.promise;
             },
             /**
-             * @method handleSearch - takes a search response and creates markers and infoboxes for each place. Updates the searchObj prop with results
+             * @method mapSearch - takes a PlaceResult[] and creates markers and infoboxes for each place. Updates the searchObj prop with results
              * @param {google.maps.places.PlaceResult[]} places - a place result array returned by one of the search directives
              * @param {google.maps.Map} map - the google maps Map object where the markers will be displayed
              * @returns {Promise} the updated searchObj is returned as a promise
              */
-            handleSearch: function(places, map) {
-            var self = this,
-                bounds = new google.maps.LatLngBounds(),
-                deferred = $q.defer();
+            mapSearch: function(places, map) {
+            var q = $q.defer(),
+                self = this,
+                bounds = new google.maps.LatLngBounds();
 
             // Alert if no results
             if (places.length == 0){
                 alert('No places found');
             }
-
-            // TODO: Activate more button and attach click handler
-
 
             // Clear out the old markers and search results
             this.searchObj.results = [];
@@ -139,8 +132,9 @@ angular.module('aggSearch', [])
             });
             this.searchObj.markers = [];
 
-            // Create Info Box and map click handler for closing info box
-            var infoBox = new aggInfoBoxFact();
+            // Create Info Box and Scope.
+            var infoBox = new aggInfoBoxFact(),
+                scope = $rootScope.$new();
 
             // For each place, create an icon, marker, and info box
             // Push the markers and results to arrays for viewing
@@ -182,7 +176,8 @@ angular.module('aggSearch', [])
                     aggPlacesFact.getPlace(place.place_id)
                         .then(function(results) {
                             // Info Box Content
-                            var content = '<div class="ibHeader">' +
+                            var content = '<div class="aggInfoBox">'+
+                                '<div class="ibHeader">' +
                                 '<h3>' + results.name + '</h3>' +
                                 '</div>' +
                                 '<div class="ibBody">' +
@@ -190,11 +185,13 @@ angular.module('aggSearch', [])
                                 '<ul>' +
                                 '<li>' + results.formatted_phone_number + '</li>' +
                                 '<li>' + results.vicinity + '</li>' +
-                                '<li>' + results.rating + '</li>' +
+                                '<li><agg-star-rating rating="' + results.rating + '"></agg-star-rating></li>' +
                                 '</ul>' +
-                                '</div> ';
+                                '</div>' +
+                                '</div>';
+                            var compiled = $compile(content)(scope);
                             // Set content of InfoBox
-                            infoBox.setContent(content);
+                            infoBox.setContent(compiled[0]);
                             // Open Info Box on marker click
                             infoBox.open(map, marker);
                         })
@@ -213,19 +210,20 @@ angular.module('aggSearch', [])
                 self.searchObj.markers.push(marker);
                 self.searchObj.results.push(place);
 
-                deferred.resolve(self.searchObj);
+                q.resolve(self.searchObj);
             });
             map.fitBounds(bounds);
-            return deferred.promise;
+            return q.promise;
             },
             /**
-             * @method clear - clears out the searchObj
+             * @method clear - clears out the searchObj and sets map to null on all markers
              */
             clear: function () {
                 this.searchObj.results = [];
                 this.searchObj.markers.forEach(function(marker) {
                     marker.setMap(null);
                 });
+                this.searchObj.markers = [];
             }
         }
     })
