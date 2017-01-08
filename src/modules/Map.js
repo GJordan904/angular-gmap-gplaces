@@ -18,18 +18,25 @@ angular.module('aggMap', [])
  * The default value of 0 will work fine for a single map
  * @attr {string} options.mapId - (required) the ID of the maps Div tag
  */
-    .directive('aggMap', function(aggMapServ, $document) {
+    .directive('aggMap', function(aggMapServ, $timeout) {
     return {
         restrict: 'E',
         scope: {
             'options': '=options'
         },
         transclude: true,
+        controllerAs: 'aggMap',
         controller: function ($scope) {
             var self = this;
-            $scope.divId = $scope.options.mapId || 'map-canvas';
-            $document.ready(function() {
-                self.map = aggMapServ.getMap($scope.options);
+            this.map = {};
+            var watcher = $scope.$watch('options', function(value) {
+                if(value !== undefined) {
+                    $scope.divId = (value.mapId === undefined) ? 'map-canvas' : value.mapId;
+                    $timeout(function() {
+                        self.map = aggMapServ.getMap($scope.options);
+                    }, 0);
+                    watcher();
+                }
             });
         },
         template: '<div id="{{divId}}"></div><div ng-transclude></div>'
@@ -101,13 +108,13 @@ angular.module('aggMap', [])
     this.maps = [];
 
     this.getMap = function(options) {
-        var index = options.index,
-            id = options.mapId,
+        var opt = setOptions(options),
+            index = opt.index,
+            id = opt.mapId,
             instance = self.maps[index],
             map;
 
         if(instance === undefined){
-            var opt = setOptions(options);
             map = new google.maps.Map(document.getElementById(id), opt);
             self.maps.splice(index, 0, map);
         }else{

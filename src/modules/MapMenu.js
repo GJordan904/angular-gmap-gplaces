@@ -11,18 +11,14 @@ angular.module('aggMapMenu', [])
  * Parent of the aggMenuSearch and aggMenuDirections directives
  * @attr {string} mapIndex - the index of the map the menu is to be associated with
  */
-    .directive('aggMenu', function($document, aggMapServ) {
+    .directive('aggMenu', function() {
     return {
         restrict: 'E',
         templateUrl: aggMenuView,
-        scope: {
-            mapIndex: '@mapIndex'
-        },
+        require: ['^aggMap', 'aggMenu'],
         controllerAs: 'aggMenu',
         bindToController: true,
-        controller: function($scope) {
-            var self = this;
-
+        controller: function() {
             this.map = {};
             this.isSearch = false;
             this.isDirections = false;
@@ -51,13 +47,22 @@ angular.module('aggMapMenu', [])
                 this.isDirections = true;
             };
         },
-        link: function (scope, elem, attrs, ctrl) {
-            var observer = attrs.$observe('mapIndex', function (value) {
-                $document.ready(function () {
-                    ctrl.map = aggMapServ.maps[value];
-                    observer();
-                })
-            })
+        link: function (scope, elem, attrs, ctrlrs) {
+            var parent = elem.parent(),
+                button = angular.element(document.querySelector('#aggMenuBtn')),
+                menu = angular.element(document.querySelector('#aggMenu'));
+
+            if(parent[0].offsetWidth > 992) {
+                menu.addClass('menuLg');
+                button.addClass('menuBtnLg');
+            }
+
+            var watcher = scope.$watch(function(){ return ctrlrs[0].map;}, function(value) {
+                if(value instanceof google.maps.Map) {
+                    ctrlrs[1].map = value;
+                    watcher();
+                }
+            });
         }
     }
 })
@@ -100,7 +105,7 @@ angular.module('aggMapMenu', [])
             this.resultLength = function() {
                 return this.searchBox.model.length.toString();
             };
-            this.resultsPadding = {padding: .75+'em'}
+            this.resultsPadding = {padding: .75+'em'};
         },
         link: function(scope, elem, attrs, ctrls) {
             // Options to pass to search box directive

@@ -10,7 +10,7 @@ angular.module('aggAnimations', [])
                 event: 'enter',
                 structural: true,
                 from: {height: 0, overflow: 'hidden'},
-                to: {height: endHeight+'px', overflow: 'auto'},
+                to: {height: 95+'%', overflow: 'auto'},
                 duration: 1
             });
         },
@@ -19,7 +19,7 @@ angular.module('aggAnimations', [])
             return $animateCss(element, {
                 event: 'leave',
                 structural: true,
-                from: {height: height, overflow: 'auto'},
+                from: {height: height+'px', overflow: 'auto'},
                 to: {height: 0, overflow: 'hidden'},
                 duration: 1
             });

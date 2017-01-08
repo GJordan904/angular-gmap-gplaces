@@ -18,7 +18,7 @@ angular.module('aggGeolocation', [])
             link: function(scope, elem, attrs, ctrlrs) {
                 var watcher = scope.$watch(function(){return ctrlrs[0].map;}, function(value) {
                     console.log(value);
-                    if(value !== undefined) {
+                    if(value instanceof google.maps.Map) {
                         aggLocationServ.watchLoc(value);
                         watcher();
                     }
@@ -53,7 +53,7 @@ angular.module('aggGeolocation', [])
 
                 var center = document.createElement('img');
                 center.className = 'markerCenter';
-                center.src = require('./../img/locationCircle1.png');
+                center.src = require('./../img/locationCircle.png');
                 div.appendChild(center);
 
                 var panes = this.getPanes();
@@ -77,7 +77,7 @@ angular.module('aggGeolocation', [])
             q = $q.defer(),
             navGeo = navigator.geolocation,
             geoOptions = {
-                enableHighAccuracy: true,
+                enableHighAccuracy: false,
                 timeout: 15000,
                 maximumAge: 30000
             };

@@ -7,7 +7,7 @@ angular.module('aggUtils', [])
  *       configured in angular config and then used as a resolve for each state or route.
  *
  */
-    .provider('$aggMap', function () {
+    .provider('$aggLoader', function () {
     // Default Options
     var options = {
             lang: 'en-US',
@@ -127,6 +127,19 @@ angular.module('aggUtils', [])
                     }
                     elem.css({height: newHeight+'px', width: newWidth+'px'})
                 };
+            }
+        }
+    })
+
+    .directive('scaleDiv', function() {
+        return {
+            restrict: 'A',
+            link: function (scope, elem, attrs) {
+                var pHeight = elem.parent()[0].offsetHeight,
+                    pWidth = elem.parent()[0].offsetWidth;
+
+                if(pHeight < pWidth) elem.css({height: pHeight+'px', width: pHeight+'px'});
+                else elem.css({height: pWidth+'px', width: pWidth+'px'});
             }
         }
     });

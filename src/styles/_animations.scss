@@ -28,14 +28,14 @@ Menu Animations
 .animateBtn {
   transform: translateX(-1135%);
 
-  @media(min-width: 992px) {
+  &.menuBtnLg {
     transform: translateX(-710%)
   }
 }
 .animateBtnDirect {
   transform: translateX(-1071%);
 
-  @media(min-width: 992px) {
+  &.menuBtnLg {
     transform: translateX(-930%);
   }
 }
