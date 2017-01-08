@@ -1,0 +1,45 @@
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h2 class="panel-title">aggMapServ</h2>
+    </div>
+
+    <div class="panel-body">
+        <p>The <code>aggMapServ</code> service creates google maps and stores them in an array.</p>
+
+        <h3>Properties</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th class="col-xs-2">Property</th>
+                <th class="col-xs-2">Type</th>
+                <th class="col-xs-8">Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>maps</td>
+                <td>google.maps.Map[]</td>
+                <td>An array for storing the applications maps. Anytime a map is created it is stored in this array. This allows referencing the map by its index and storing details like zoom, center, and map type so that when a map is destroyed then recreated it will be restored to its previous state.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3>Methods</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th class="col-xs-2">Method</th>
+                <th class="col-xs-2">Type</th>
+                <th class="col-xs-8">Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>getMap()</td>
+                <td>google.maps.Map</td>
+                <td>Method that creates a Google map with the supplied options. This method first checks to see if the map already exists in the maps array. If the map already exists it will be recreated using its previous zoom, center, styles, and map type.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

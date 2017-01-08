@@ -6,9 +6,9 @@ angular.module('myApp', [
 	'angular-gmap-gplace',
 	'ui.router'
 ])
-.config(function($stateProvider, $urlRouterProvider, $aggMapProvider, $provide) {
+.config(function($stateProvider, $urlRouterProvider, $aggLoaderProvider) {
 	// Configuration for Google Maps
-	$aggMapProvider.setOptions({
+	$aggLoaderProvider.setOptions({
 		lang: 'en-US',
 		key: 'AIzaSyDJ6F9fpMOP8urg1cVzPkMnrrmgOYCNuCQ',
 		libs: 'places'
@@ -45,48 +45,57 @@ angular.module('myApp', [
 				}
 			}
 		})
-		.state('app.docs.places', {
-			url: '/places',
+		.state('app.docs.aggAutoComplete', {
+			url: '/agg-auto-complete',
 			views: {
 				'docs': {
-					templateUrl: 'views/docsPlaces.html'
+					templateUrl: 'views/docs/aggAutoComplete.html'
 				}
 			}
 		})
-		.state('app.exPlace', {
-			url: '/ex/place',
+		.state('app.docs.aggMapServ', {
+			url: '/aggMapServ',
 			views: {
-				'mainContent': {
-					templateUrl: 'views/exPlace.html',
-					controller: 'PlacesCtrl as places'
+				'docs': {
+					templateUrl: 'views/docs/aggMapServ.html'
 				}
-			},
-            resolve: {
-                googleMap: '$aggMap'
-            }
-		})
-		.state('app.exPlaces', {
-			url: '/ex/places',
-			views: {
-				'mainContent': {
-					templateUrl: 'views/exPlaces.html',
-					controller: 'PlacesCtrl as places'
-				}
-			},
-			resolve: {
-				googleMap: '$aggMap'
 			}
 		})
-		.state('app.exMap', {
-			url: '/ex/map',
+		.state('app.samples', {
+			url: '/samples',
+			abstract: true,
 			views: {
 				'mainContent': {
-					templateUrl: 'views/exMap.html',
-					controller: 'MapCtrl as map'
+					templateUrl: 'views/samples.html',
+					controller: 'SamplesCtrl as samples'
 				}
 			},
 			resolve: {
-				googleMap: '$aggMap'
+				google: '$aggLoader'
+			}
+		})
+		.state('app.samples.bMap', {
+			url: '/basic-map',
+			views: {
+				'samples': {
+					templateUrl: 'views/samples/basicMap.html'
+				}
+			}
+		})
+		.state('app.samples.mMap', {
+			url: '/menu-map',
+			views: {
+				'samples': {
+					templateUrl: 'views/samples/menuMap.html'
+				}
+			}
+		})
+		.state('app.samples.lMap', {
+			url: '/location-map',
+			views: {
+				'samples': {
+					templateUrl: 'views/samples/locationMap.html'
+				}
 			}
 		});
 
