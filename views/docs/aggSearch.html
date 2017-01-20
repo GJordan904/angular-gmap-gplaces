@@ -1,0 +1,57 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">agg-search</h2>
+    </div>
+
+    <div class="panel-body">
+        <p>The <code>agg-search</code> directive is used to turn an input box into a Google Place SearchBox. This SearchBox will present place suggestions based on user input and on selection of a place will update the model with the places details. The returned details may be either a single PlaceResult object or multiple objects returned as a PlaceResult[ ]</p>
+        <p>For more information see: <a href="https://developers.google.com/maps/documentation/javascript/places-autocomplete" target="_blank">Autocomplete for Addresses and Search Terms</a></p>
+        <div class="required">Requires the Places library</div>
+
+        <h3>Usage</h3>
+        <pre class="prettyprint">
+&lt;input agg-search="obj" type="text" placeholder="Search for places"&gt;
+        </pre>
+
+        <h3>Attributes</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th class="col-xs-2">Attribute</th>
+                <th class="col-xs-2">Type</th>
+                <th class="col-xs-8">Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>agg-search</td>
+                <td>Object</td>
+                <td>An object literal containing the model to update and optionally a map to associate with the SearchBox. If a map reference is passed to the SearchBox, results will be biased to the maps viewport.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3>agg-search</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th class="col-xs-2">Property</th>
+                <th class="col-xs-2">Type</th>
+                <th class="col-xs-8">Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>map</td>
+                <td>google.maps.Map</td>
+                <td>A reference to the map to associate with the SearchBox. If this property is specified then the SearchBox results will be biased to the maps viewport.</td>
+            </tr>
+            <tr>
+                <td>model</td>
+                <td>Object</td>
+                <td>The model to be updated with the PlaceResults.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

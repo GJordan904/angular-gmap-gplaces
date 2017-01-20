@@ -1,0 +1,18 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">agg-location</h2>
+    </div>
+
+    <div class="panel-body">
+        <p>The <code>agg-location</code> directive uses the Geolocation API to retrieve the users location and adds a custom marker to the map at that location. The marker is a custom OverlayView created by the AggLocationMarker factory.</p>
+        <p>This directive requires the users permission for access to their location. In Chrome, the Geolocation API will only work on sites served from a secure context. (ie. HTTPS)</p>
+        <p class="required">Requires the agg-map directive</p>
+
+        <h3>Usage</h3>
+        <pre class="prettyprint">
+&lt;agg-map options="Object"&gt;
+    &lt;agg-location&gt;&lt;/agg-location&gt;
+&lt;/agg-map&gt;
+        </pre>
+    </div>
+</div>

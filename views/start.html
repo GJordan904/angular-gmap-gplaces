@@ -1,0 +1,96 @@
+<div class="site-bg">
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Getting Started</h1>
+            <p>All you need to get started using the angular-gmap-gplaces modules</p>
+        </div>
+    </div>
+    <div class="container">
+        <section>
+            <div class="row">
+                <h1 class="page-header">Install</h1>
+                <p>First we will need to install the package. This can be done automatically with Bower or manually. <mark>If you  choose to manually install be sure you have all required dependencies.</mark></p>
+                <h2>Bower</h2>
+                <div class="col-xs-6">
+                    <pre class="prettyprint">
+bower install angular-gmap-gplaces
+                    </pre>
+                </div>
+            </div>
+            <div class="row">
+                <h2>Manual</h2>
+                <div class="col-xs-4">
+                    <h3>angular-gmap-gplaces</h3>
+                    <p>Includes minified and and non-minified variants. No source files included.</p>
+                    <button class="btn btn-danger">Download</button>
+                </div>
+
+                <div class="col-xs-4">
+                    <h3>Source Code</h3>
+                    <p>All source files, includes scripts, html templates, stylesheets and webpack config.</p>
+                    <button class="btn btn-danger">Download</button>
+                </div>
+
+                <div class="col-xs-4">
+                    <h3>Clone Repository</h3>
+                    <p>Clone the master branch from github. Includes all source files and compiled/minified code.</p>
+                    <a class="btn btn-danger" href="https://github.com/GJordan904/angular-gmap-gplaces/archive/master.zip" download="angular-gmap-gplaces">Download</a>
+                </div>
+
+                <div class="col-xs-12">
+                    <h3>Dependencies</h3>
+                    <ul>
+                        <li>angular-animate</li>
+                        <li>angular-sanitize</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="row">
+                <h1 class="page-header">Configure</h1>
+                <ol class="config-list">
+                    <li>Add <code>angular-gmap-gplaces</code> as a dependency to your application
+                        <pre class="prettyprint">
+angular.module('App', ['angular-gmap-gplaces']
+                        </pre>
+                    </li>
+
+                    <li>Configure the <code>$aggLoader</code>. This provider will load the Google maps API.
+                        <pre class="prettyprint">
+.config(function($aggLoaderProvider) {
+	$aggLoaderProvider.setOptions({
+		lang: 'en-US',
+		key: 'Your API Key',
+		libs: 'places',
+		numMaps: 4,
+                loadFontAwesome: true
+	});
+});
+                        </pre>
+                    </li>
+
+                    <li>Add a <code>resolve</code> for any route using the modules. This ensures the Google Map API is loaded prior to loading any directives requiring it.
+                        <pre class="prettyprint">
+state('app.home', {
+    url: '/home',
+    views: {
+        'mainContent': {
+            templateUrl: 'views/home.html',
+            controller: 'HomeCtrl as home'
+        }
+    },
+    resolve: {
+        google: '$aggLoader'
+    }
+})
+                        </pre>
+                    </li>
+
+                    <li>You are now ready to start using the modules. Head over to the <a ui-sref="app.docs.aggMap">Docs</a> for details on usage.</li>
+                </ol>
+            </div>
+        </section>
+    </div>
+</div>

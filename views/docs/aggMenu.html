@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">agg-menu</h2>
+    </div>
+
+    <div class="panel-body">
+        <p>The <code>agg-menu</code> directive creates a menu button on the map. This button, when clicked, will slide out an <a ui-sref=".aggSearch">agg-search</a> input box that allows searching the map. Results are displayed in a list that slides down from the input box.</p>
+        <p>In addition to the input box are two buttons, one is an X that clears the map and search results and the other is the directions icon.</p>
+        <p>When clicked, the directions button will slide the input box out and slide in the directions menu. This menu allows searching for directions between two points by four different travel methods, walking, driving, bicycling, or transit.</p>
+        <p>The directions menu has two <a ui-sref=".aggAutoComplete">agg-auto-complete</a> input boxes for starting point and destination. Once a directions request has been made and a successful response received, the route will be drawn on the map and the directions will display in a list that slides down from the menu.</p>
+        <p class="required">Requires the Places Library</p>
+        <p class="required">Requires the agg-map directive</p>
+
+        <h3>Usage</h3>
+        <pre class="prettyprint">
+&lt;agg-map options="Object"&gt;
+    &lt;agg-menu&gt;&lt;/agg-menu&gt;
+&lt;/agg-map&gt;
+            </pre>
+
+    </div>
+</div>

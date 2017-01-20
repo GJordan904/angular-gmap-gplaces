@@ -61,4 +61,15 @@ angular.module('app.directives', [])
         }
     })
 
+    .directive('thisHeight', function() {
+        return {
+            restrict: 'A',
+            link: function(scope, elem, attrs){
+                var row = document.querySelector('#thisHeight'),
+                    height = row.offsetHeight;
+                elem.css({height: height+'px'});
+            }
+        }
+    })
+
 }());

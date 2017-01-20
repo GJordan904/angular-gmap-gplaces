@@ -1,0 +1,69 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">aggLocationServ</h2>
+    </div>
+
+    <div class="panel-body">
+        <p>The <code>aggLocationServ</code> service holds methods for watching or getting a users location.</p>
+
+        <h3>Properties</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th class="col-xs-2">Property</th>
+                <th class="col-xs-2">Type</th>
+                <th class="col-xs-8">Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>gMap</td>
+                <td><code>google.maps.Map</code></td>
+                <td>A reference to the map where the location marker is being displayed</td>
+            </tr>
+            <tr>
+                <td>marker</td>
+                <td><code>google.maps.Marker</code></td>
+                <td>The location marker</td>
+            </tr>
+            <tr>
+                <td>watchId</td>
+                <td><code>int</code></td>
+                <td>The id returned by the watchPosition call.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3>Methods</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th class="col-xs-2">Method</th>
+                <th class="col-xs-2">Returns</th>
+                <th class="col-xs-8">Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><code>getLoc()</code></td>
+                <td>Promise</td>
+                <td><p>Method that checks the users location and returns the coordinates as a promise.</p>
+                    <p>The returned promise is of the form <code>{lat: float, lng: float}</code></p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>watchLoc(map)</code></td>
+                <td>void</td>
+                <td><p>Method that watches the users location and on successful response draws an AggLocationMarker on the map.</p>
+                    <p>Takes the <code>google.maps.Map</code> where the marker will be displayed as its argument</p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>cancelWatch()</code></td>
+                <td>void</td>
+                <td>Method for cancelling the current watchPosition call.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

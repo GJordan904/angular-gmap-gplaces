@@ -1,6 +1,6 @@
 <h2>Map with Menu</h2>
 <div class="map-container">
-    <agg-map options="samples.bMap">
+    <agg-map options="samples.mMap">
         <agg-menu></agg-menu>
     </agg-map>
 </div>
@@ -11,7 +11,7 @@
         <pane title="HTML">
             <div class="well">
                 <pre class="prettyprint">
-&lt;agg-map options="samples.bMap"&gt;
+&lt;agg-map options="samples.mMap"&gt;
     &lt;agg-menu&gt;&lt;/agg-menu&gt;
 &lt;/agg-map&gt;
                 </pre>
@@ -22,7 +22,8 @@
             <div class="well">
                 <pre class="prettyprint lang-js">
 .controller('SamplesCtrl', function() {
-    this.bMap = {
+    this.mMap = {
+        index: 1,
         center: {lat: 29.892410, lng: -81.31445},
         zoom: 10
     }

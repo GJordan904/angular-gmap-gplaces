@@ -1,6 +1,17 @@
 .panelHeight {
   height: 600px;
 }
-.panel-body {
-  padding-bottom: 0;
+.panel-default {
+  background-color: rgba(63,63,63,0.75);
+  color: #dfdedc;
+  border-color: #3f3f3f;
+
+  .panel-heading {
+    background-color: #973a39;
+
+    h2 {
+      color: #dfdedc;
+      margin: 0;
+    }
+  }
 }

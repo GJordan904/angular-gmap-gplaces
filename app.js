@@ -3,7 +3,7 @@
 angular.module('myApp', [
 	'app.controllers',
 	'app.directives',
-	'angular-gmap-gplace',
+	'angular-gmap-gplaces',
 	'ui.router'
 ])
 .config(function($stateProvider, $urlRouterProvider, $aggLoaderProvider) {
@@ -11,7 +11,8 @@ angular.module('myApp', [
 	$aggLoaderProvider.setOptions({
 		lang: 'en-US',
 		key: 'AIzaSyDJ6F9fpMOP8urg1cVzPkMnrrmgOYCNuCQ',
-		libs: 'places'
+		libs: 'places',
+		numMaps: 4
 	});
 
 	$stateProvider
@@ -24,7 +25,19 @@ angular.module('myApp', [
 			url: '/home',
 			views: {
 				'mainContent': {
-					templateUrl: 'views/home.html'
+					templateUrl: 'views/home.html',
+					controller: 'HomeCtrl as home'
+				}
+			},
+            resolve: {
+                google: '$aggLoader'
+            }
+		})
+		.state('app.start', {
+			url: '/start',
+			views: {
+				'mainContent': {
+					templateUrl: 'views/start.html'
 				}
 			}
 		})
@@ -45,6 +58,14 @@ angular.module('myApp', [
 				}
 			}
 		})
+		.state('app.docs.aggMenu', {
+			url: '/agg-menu',
+			views: {
+				'docs': {
+					templateUrl: 'views/docs/aggMenu.html'
+				}
+			}
+		})
 		.state('app.docs.aggAutoComplete', {
 			url: '/agg-auto-complete',
 			views: {
@@ -61,6 +82,46 @@ angular.module('myApp', [
 				}
 			}
 		})
+		.state('app.docs.aggSearch', {
+			url: '/agg-search',
+			views: {
+				'docs': {
+					templateUrl: 'views/docs/aggSearch.html'
+				}
+			}
+		})
+		.state('app.docs.aggSearchFact', {
+			url: '/aggSearchFact',
+			views: {
+				'docs': {
+					templateUrl: 'views/docs/aggSearchFact.html'
+				}
+			}
+		})
+		.state('app.docs.aggLocation', {
+			url: '/agg-location',
+			views: {
+				'docs': {
+					templateUrl: 'views/docs/aggLocation.html'
+				}
+			}
+		})
+        .state('app.docs.aggLocationMarker', {
+            url: '/aggLocationMarker',
+            views: {
+                'docs': {
+                    templateUrl: 'views/docs/aggLocationMarker.html'
+                }
+            }
+        })
+        .state('app.docs.aggLocationServ', {
+            url: '/aggLocationServ',
+            views: {
+                'docs': {
+                    templateUrl: 'views/docs/aggLocationServ.html'
+                }
+            }
+        })
 		.state('app.samples', {
 			url: '/samples',
 			abstract: true,
@@ -95,6 +156,14 @@ angular.module('myApp', [
 			views: {
 				'samples': {
 					templateUrl: 'views/samples/locationMap.html'
+				}
+			}
+		})
+		.state('app.samples.autocomplete', {
+			url: '/autocomplete',
+			views: {
+				'samples': {
+					templateUrl: 'views/samples/autocomplete.html'
 				}
 			}
 		});

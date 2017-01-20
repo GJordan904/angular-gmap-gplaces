@@ -3,3 +3,13 @@
     border: 1px solid #333;
   }
 }
+.table-striped {
+  tbody {
+    tr{
+      &:nth-of-type(odd) {
+        color: #020202;
+        background-color: #D0DB97;
+      }
+    }
+  }
+}

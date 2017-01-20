@@ -1,5 +1,5 @@
 <h2>Map with Location Marker</h2>
-<agg-map options="samples.bMap">
+<agg-map options="samples.lMap">
     <agg-location></agg-location>
 </agg-map>
 
@@ -9,7 +9,9 @@
         <pane title="HTML">
             <div class="well">
                 <pre class="prettyprint">
-&lt;agg-map options="samples.bMap"&gt;&lt;/agg-map&gt;
+&lt;agg-map options="samples.lMap"&gt;
+    &lt;agg-location&gt;&lt;/agg-location&gt;
+&lt;/agg-map&gt;
                 </pre>
             </div>
         </pane>
@@ -17,10 +19,13 @@
         <pane title="JS">
             <div class="well">
                 <pre class="prettyprint">
+// In this example we set center to the string 'location'
+// Doing this centers the map on the users location
 .controller('SamplesCtrl', function() {
-    this.bMap = {
-        center: {lat: 29.892410, lng: -81.31445},
-        zoom: 10
+    this.lMap = {
+        index: 2,
+        center: 'location',
+        zoom: 15
     }
 })
                 </pre>

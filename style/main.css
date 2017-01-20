@@ -46,11 +46,22 @@
   height: 500px;
   width: 100%; }
 
+#home-map {
+  height: 100%;
+  width: 100%; }
+
 .panelHeight {
   height: 600px; }
 
-.panel-body {
-  padding-bottom: 0; }
+.panel-default {
+  background-color: rgba(63, 63, 63, 0.75);
+  color: #dfdedc;
+  border-color: #3f3f3f; }
+  .panel-default .panel-heading {
+    background-color: #973a39; }
+    .panel-default .panel-heading h2 {
+      color: #dfdedc;
+      margin: 0; }
 
 .navbar {
   margin-bottom: 0; }
@@ -61,13 +72,13 @@
   padding: 0; }
 
 .nav-header {
-  font-size: 1.5em;
-  font-weight: bold; }
+  font-size: 1.75em;
+  font-weight: bold;
+  color: #1B998B; }
 
 .nav-sub-header {
-  font-size: 1.15em;
-  padding-left: .5em;
-  color: #3f3f3f; }
+  font-size: 1.25em;
+  padding-left: .5em; }
 
 .nav-item {
   padding-left: 1.5em; }
@@ -88,10 +99,13 @@
   text-align: center; }
 
 .map-bg {
-  background: url("../img/worldMap.jpg") no-repeat;
-  padding: .75em; }
+  background: url("../img/largeMap.jpg");
+  min-height: 100vh; }
 
-.page-header {
+.site-bg {
+  background-color: #1d1d1d; }
+
+.pageHeader {
   font-size: 3em;
   text-align: center; }
 
@@ -101,7 +115,40 @@
 .container {
   width: 90% !important; }
 
+.required {
+  display: inline-block;
+  background-color: #d8ecf6;
+  color: #317097;
+  padding: 2px;
+  font-size: .75em; }
+
+.well {
+  background-color: rgba(63, 63, 63, 0.75); }
+
+.features-list {
+  font-size: 1.25em; }
+
+.config-list {
+  font-size: 1.25em; }
+  .config-list li {
+    margin-bottom: 1.5em; }
+  .config-list pre {
+    margin-top: 1em; }
+
 .table-bordered td {
   border: 1px solid #333; }
+
+.table-striped tbody tr:nth-of-type(odd) {
+  color: #020202;
+  background-color: #D0DB97; }
+
+.jumbotron {
+  background-color: #973a39; }
+
+body {
+  color: #FFEEDB; }
+
+h1, h2, h3, h4, h5, h6 {
+  color: #1B998B; }
 
 /*# sourceMappingURL=main.css.map */

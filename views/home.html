@@ -1,26 +1,63 @@
 <div class="map-bg">
-    <div class="container">
+    <div class="jumbotron">
+        <div class="container">
+            <h1>angular-gmap-gplaces</h1>
+            <p>Modules for integrating the Google maps, places, and directions libraries into an angular application</p>
+        </div>
+    </div>
 
+    <div class="container">
         <div class="row">
-            <div class="jumbotron">
-                <div class="container">
-                    <h1>angular-gmap-gplaces</h1>
-                    <p>Modules for integrating google maps, places, and directions libraries into an angular application</p>
-                    <p><a class="btn btn-primary btn-lg" role="button" href="https://github.com/GJordan904/angular-gmap-gplaces">Code on Github</a></p>
+            <div class="col-xs-4">
+                <div class="panel panel-default">
+                    <div id="thisHeight" class="panel-body">
+                        <p class="lead"><a href="https://www.angularjs.org/" target="_blank">Angular</a> modules for easy integration of the <a href="https://developers.google.com/maps/documentation/javascript/" target="_blank">Google Maps</a> Javascript API, including the <a href="https://developers.google.com/maps/documentation/javascript/places" target="_blank">Places</a> library and <a href="https://developers.google.com/maps/documentation/javascript/directions" target="_blank">Directions</a> service.</p>
+                        <hr>
+                        <button class="btn btn-default">Download</button>
+                        <a href="https://github.com/GJordan904/angular-gmap-gplaces" target="_blank" class="btn btn-danger">Code on Github</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-8">
+                <div class="panel panel-default">
+                    <div this-height class="panel-body">
+                        <agg-map this-height options="home.map">
+                            <agg-location></agg-location>
+                        </agg-map>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="row">
            <div class="col-xs-12 col-sm-6">
-               <h2>About</h2>
-               <p>angular-gmap-gplaces is a set of modules, written in Javascript, that facilitates easy integration of the Google Maps, Places, and Directions libraries into an angular application.</p>
-               <p>I started working on these modules as a way to learn JS, and Angular, and to become more familiar with some Google API's. I am sharing them now in hopes that they may be of use to others and hopefully I can get some feedback on my work</p>
+               <div class="panel panel-default">
+                   <div class="panel-heading"><h2>About</h2></div>
+                   <div class="panel-body">
+                       <p>angular-gmap-gplaces is a set of modules, written in Javascript, that facilitates easy integration of the Google Maps, Places, and Directions libraries into an angular application.</p>
+                       <p>This package focuses more on the features of the Directions service and the Places library of the Google Maps Javascript API version 3.</p>
+                       <p>I started working on these modules as a way to learn JS, and Angular, and to become more familiar with some Google API's. I am sharing them now in hopes that they may be of use to others and hopefully I can get some feedback on my work</p>
+                   </div>
+               </div>
            </div>
-        </div>
 
-        <div class="col-xs-12 col-sm-6">
-            <h2></h2>
+            <div class="col-xs-12 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h2>Features</h2></div>
+                    <div class="panel-body">
+                        <ul class="features-list">
+                            <li>Autocomplete</li>
+                            <li>Directions</li>
+                            <li>Geolocation</li>
+                            <li>Map</li>
+                            <li>Map Menu</li>
+                            <li>Place Details</li>
+                            <li>SearchBox</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

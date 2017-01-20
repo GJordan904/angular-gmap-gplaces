@@ -5,10 +5,34 @@ angular.module('app.controllers', [])
         var vm = this;
     })
 
+    .controller('HomeCtrl', function() {
+        this.map = {
+            index: 0,
+            mapId: 'home-map',
+            center: 'location',
+            zoom: 12
+        };
+    })
+
     .controller('SamplesCtrl', function() {
         this.bMap = {
+            index: 1,
             center: {lat: 29.892410, lng: -81.31445},
             zoom: 10
+        };
+        this.mMap = {
+            index: 2,
+            center: {lat: 29.892410, lng: -81.31445},
+            zoom: 10
+        };
+        this.lMap = {
+            index: 3,
+            center: 'location',
+            zoom: 15
+        };
+        this.autoModel = {};
+        this.empty = function (model) {
+            Object.keys(model).forEach(function(key){delete model[key];});
         }
     })
 

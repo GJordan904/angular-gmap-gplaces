@@ -14,10 +14,13 @@
   text-align: center;
 }
 .map-bg {
-  background: url("../img/worldMap.jpg") no-repeat;
-  padding: .75em;
+  background: url("../img/largeMap.jpg");
+  min-height: 100vh;
 }
-.page-header {
+.site-bg {
+  background-color: #1d1d1d;
+}
+.pageHeader {
   font-size: 3em;
   text-align: center;
 }
@@ -26,4 +29,28 @@
 }
 .container {
   width: 90% !important;
+}
+.required {
+  display: inline-block;
+  background-color: #d8ecf6;
+  color: #317097;
+  padding: 2px;
+  font-size: .75em;
+}
+.well {
+  background-color: rgba(63,63,63,0.75);;
+}
+.features-list {
+  font-size: 1.25em;
+}
+.config-list {
+  font-size: 1.25em;
+
+  li {
+    margin-bottom: 1.5em;
+  }
+
+  pre {
+    margin-top: 1em;
+  }
 }
