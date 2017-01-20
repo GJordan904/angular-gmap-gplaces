@@ -716,7 +716,7 @@
 	        transclude: true,
 	        controller: function ($scope) {
 	            var self = this;
-	            $scope.divId = $scope.options.mapId;
+	            $scope.divId = $scope.options.mapId || 'map-canvas';
 	            $document.ready(function() {
 	                self.map = aggMapServ.getMap($scope.options);
 	            });
@@ -798,7 +798,7 @@
 	        if(instance === undefined){
 	            var opt = setOptions(options);
 	            map = new google.maps.Map(document.getElementById(id), opt);
-	            self.maps.push(map);
+	            self.maps.splice(index, 0, map);
 	        }else{
 	            map = new google.maps.Map(document.getElementById(id), {
 	                center: instance.center,
