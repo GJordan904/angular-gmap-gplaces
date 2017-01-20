@@ -16,13 +16,16 @@ angular.module('aggGeolocation', [])
             restrict: 'E',
             require: ['^aggMap'],
             link: function(scope, elem, attrs, ctrlrs) {
-                var watcher = scope.$watch(function(){return ctrlrs[0].map;}, function(value) {
-                    console.log(value);
-                    if(value !== undefined) {
-                        aggLocationServ.watchLoc(value);
+                var watcher = scope.$watch(function(){return ctrlrs[0].map;}, function(newVal, oldVal) {
+                    if(newVal instanceof google.maps.Map) {
+                        aggLocationServ.watchLoc(newVal);
                         watcher();
                     }
                 });
+                elem.on('$destroy', function () {
+                    aggLocationServ.marker = null;
+                    aggLocationServ.cancelWatch();
+                })
             }
         };
     })
@@ -53,7 +56,7 @@ angular.module('aggGeolocation', [])
 
                 var center = document.createElement('img');
                 center.className = 'markerCenter';
-                center.src = require('./../img/locationCircle1.png');
+                center.src = require('./../img/locationCircle.png');
                 div.appendChild(center);
 
                 var panes = this.getPanes();
@@ -78,7 +81,7 @@ angular.module('aggGeolocation', [])
             navGeo = navigator.geolocation,
             geoOptions = {
                 enableHighAccuracy: true,
-                timeout: 15000,
+                timeout: 30000,
                 maximumAge: 30000
             };
 
@@ -117,6 +120,14 @@ angular.module('aggGeolocation', [])
 
         this.gMap = null;
         this.marker = null;
+        this.watchId = null;
+
+        /**
+         * @method cancels the watchPosition call
+         */
+        this.cancelWatch = function () {
+            navGeo.clearWatch(this.watchId);
+        };
 
         /**
          * @method watches user location and on successful response draws an
@@ -126,7 +137,7 @@ angular.module('aggGeolocation', [])
         this.watchLoc = function(map){
             this.gMap = map;
             if(navGeo) {
-                navGeo.watchPosition(watchSuccess, geoError, geoOptions);
+                this.watchId = navGeo.watchPosition(watchSuccess, geoError, geoOptions);
             }else {
                 console.log("Geolocation service is unavailable.");
             }
