@@ -20,21 +20,10 @@ angular.module('aggMapMenu', [])
         bindToController: true,
         controller: function() {
             this.map = {};
-            this.isSearch = false;
-            this.isDirections = false;
+            this.isOpen = false;
             this.view = '';
             this.toggle = function() {
-                if(this.isSearch) {
-                    this.isSearch = false;
-                    return;
-                }
-                if(this.isDirections) {
-                    this.isDirections = false;
-                    return;
-                }
-                if(!this.isSearch && !this.isDirections) {
-                    this.isSearch = true;
-                }
+                this.isOpen = !this.isOpen
             };
             this.goSearch = function () {
                 this.view = 'default';
@@ -49,13 +38,9 @@ angular.module('aggMapMenu', [])
         },
         link: function (scope, elem, attrs, ctrlrs) {
             var parent = elem.parent(),
-                button = angular.element(document.querySelector('#aggMenuBtn')),
-                menu = angular.element(document.querySelector('#aggMenu'));
+                container = angular.element(document.querySelector('#aggMenuContainer'));
 
-            if(parent[0].offsetWidth > 992) {
-                menu.addClass('menuLg');
-                button.addClass('menuBtnLg');
-            }
+            if(parent[0].offsetWidth > 992) container.addClass('menuLg');
 
             var watcher = scope.$watch(function(){ return ctrlrs[0].map;}, function(value) {
                 if(value instanceof google.maps.Map) {

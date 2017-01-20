@@ -91,11 +91,11 @@ angular.module('aggMap', [])
  * details so when users navigate away from  a map and then returns the map can be reinstated to
  * its previous center, zoom, and map type
  */
-    .service('aggMapServ', function() {
+    .service('aggMapServ', function(aggLocationServ, numMaps) {
     var self = this;
     var setOptions = function(args) {
         var defaults = {
-            index: self.maps.length,
+            index: 0,
             mapId: 'map-canvas',
             zoom: 8,
             center: {lat: 0, lng: 0}
@@ -105,19 +105,25 @@ angular.module('aggMap', [])
         return options;
     };
 
-    this.maps = [];
+    this.maps = Array.apply(null, new Array(numMaps)).map(function(){return {}});
 
     this.getMap = function(options) {
         var opt = setOptions(options),
             index = opt.index,
             id = opt.mapId,
             instance = self.maps[index],
+            centerOnLoc = false,
             map;
 
-        if(instance === undefined){
+        if(!(instance instanceof google.maps.Map)){
+            if(opt.center === 'location') {
+                centerOnLoc = true;
+                opt.center = {lat: 0, lng: 0};
+            }
             map = new google.maps.Map(document.getElementById(id), opt);
             self.maps.splice(index, 0, map);
         }else{
+            if(opt.center === 'location') centerOnLoc = true;
             map = new google.maps.Map(document.getElementById(id), {
                 center: instance.center,
                 zoom: instance.zoom,
@@ -125,6 +131,12 @@ angular.module('aggMap', [])
                 mapTypeId: instance.mapTypeId
             });
             self.maps.splice(index, 1, map);
+        }
+        if(centerOnLoc) {
+            aggLocationServ.getLoc()
+                .then(function (location) {
+                    map.panTo(location);
+                });
         }
         return map;
 

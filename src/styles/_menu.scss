@@ -1,4 +1,8 @@
-// Back Button and Clear Buttons
+/*
+ *
+ * Back Button and Clear Buttons
+ *
+ */
 .aggBack {
   color: white;
 }
@@ -14,24 +18,47 @@
     color: #ff4b33;;
   }
 }
-/* Menu Button */
-#aggMenuBtn {
+/*
+ *
+ * Menu Container
+ *
+ */
+#aggMenuContainer {
   position: absolute;
-  text-align: center;
   top: 2%;
-  right: 0;
+  right: -75%;
+  width: 82%;
+  transition: .5s ease all;
+
+  &.menuLgScreen {
+    width: 28.75%;
+    right: -25%;
+  }
+}
+/*
+ *
+ * Menu Button
+ *
+ */
+#aggMenuBtn {
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
   color: rgba(39, 39, 39, 0.91);
-  width: 7%;
+  width: 8%;
   border-radius: 5px;
   border: thin rgba(0, 0, 0, 0.91);
   background-color: #eae6e3;
   box-shadow: -3px 5px 2px 0 rgba(0,0,0,0.35);
-  transition: .5s ease all;
 }
 .menuBtnLg {
   width: 3.75% !important;
 }
-/* Menu */
+/*
+ *
+ * Menu
+ *
+ */
 .menuLg {
   right: -25%;
   width: 25%;
@@ -42,13 +69,10 @@
   }
 }
 #aggMenu {
+  display: inline-block;
   background-color: transparent;
-  position: absolute;
-  top: 2%;
-  right: -75%;
   height: 95%;
-  width: 75%;
-  transition: .5s ease all;
+  width: 91%;
   border-radius: 5px;
   overflow: hidden;
 
@@ -148,9 +172,11 @@
   }
 }
 
-/* Directions search box and results */
-
-/* Info Box */
+/*
+ *
+ * Info Box
+ *
+ */
 .infoBox {
   background-color: #3f3f3f;
   width: 300px;

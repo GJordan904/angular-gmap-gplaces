@@ -1,17 +1,19 @@
-<div id="aggMenuBtn" role="button" ng-click="aggMenu.toggle()" ng-class="{animateBtn: aggMenu.isSearch, animateBtnDirect: aggMenu.isDirections}">
-    <i class="fa fa-3x" ng-class="{'fa-chevron-right': aggMenu.isSearch || aggMenu.isDirections, 'fa-bars': !aggMenu.isSearch && !aggMenu.isDirections}"></i>
-</div>
+<div id="aggMenuContainer" ng-class="{animateMenu: aggMenu.isOpen}">
+    <div id="aggMenuBtn" role="button" ng-click="aggMenu.toggle()">
+        <i class="fa fa-3x" ng-class="{'fa-chevron-right': aggMenu.isSearch || aggMenu.isDirections, 'fa-bars': !aggMenu.isSearch && !aggMenu.isDirections}"></i>
+    </div>
 
-<div id="aggMenu" ng-class="{animateMenu: aggMenu.isSearch, animateDirections: aggMenu.isDirections}">
-    <!-- Use ng-switch to switch between the different directives -->
-    <div style="height: 100%" ng-switch="aggMenu.view">
+    <div id="aggMenu">
+        <!-- Use ng-switch to switch between the different directives -->
+        <div style="height: 100%" ng-switch="aggMenu.view">
 
-        <div style="height: 100%; overflow: auto" ng-switch-when="directions" class="slide">
-            <agg-menu-directions options="aggMenu.directOpt"></agg-menu-directions>
-        </div>
+            <div style="height: 100%; overflow: auto" ng-switch-when="directions" class="slide">
+                <agg-menu-directions options="aggMenu.directOpt"></agg-menu-directions>
+            </div>
 
-        <div style="height: 100%;" ng-switch-default class="slide">
-            <agg-menu-search></agg-menu-search>
+            <div style="height: 100%;" ng-switch-default class="slide">
+                <agg-menu-search></agg-menu-search>
+            </div>
         </div>
     </div>
 </div>

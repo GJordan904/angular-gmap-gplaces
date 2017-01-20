@@ -1,6 +1,8 @@
 /**************************
 Menu Animations
 **************************/
+
+// Sliding Transition
 @keyframes aggSlideInLeft {
   from {
     transform: translateX(0);
@@ -19,8 +21,25 @@ Menu Animations
     transform: translateX(0);
   }
 }
+.slide.ng-leave {
+  animation: aggSlideInLeft .5s ease-in;
+}
+.slide.ng-enter {
+  animation: aggSlideOutRight .5s ease-in;
+}
+.slide.ng-enter-active {
+  transform: translateX(100%);
+}
+.slide.ng-leave-active {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+// Offscreen Animation
 .animateMenu {
-  transform: translateX(-105%);
+  transform: translateX(-91%);
 }
 .animateDirections {
   transform: translateX(-100%);
@@ -38,21 +57,6 @@ Menu Animations
   &.menuBtnLg {
     transform: translateX(-930%);
   }
-}
-.slide.ng-leave {
-  animation: aggSlideInLeft .5s ease-in;
-}
-.slide.ng-enter {
-  animation: aggSlideOutRight .5s ease-in;
-}
-.slide.ng-enter-active {
-  transform: translateX(100%);
-}
-.slide.ng-leave-active {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
 }
 /**********************************
 Direction Icon Animation

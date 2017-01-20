@@ -7,12 +7,13 @@ angular.module('aggUtils', [])
  *       configured in angular config and then used as a resolve for each state or route.
  *
  */
-    .provider('$aggLoader', function () {
+    .provider('$aggLoader', function ($provide) {
     // Default Options
     var options = {
             lang: 'en-US',
             key: '',
             libs: 'places',
+            numMaps: 1,
             loadFontAwesome: true
         };
 
@@ -51,6 +52,8 @@ angular.module('aggUtils', [])
     this.$get = function($document, $q, $window) {
         var deferred = $q.defer();
         loadScript($document[0]);
+
+        $provide.value('numMaps', options.numMaps);
 
         $window.mapReady = (function(deferred) {
             return function() {
