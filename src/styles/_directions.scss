@@ -1,9 +1,8 @@
 .directIcon {
   background: url('../img/icon_directions.svg') no-repeat;
-  height: 100%;
-  width: 16.5%;
+  display: inline-block;
   position: absolute;
-  right: 0;
+  cursor: pointer;
 }
 .directControls {
   background-color: #f93c11;

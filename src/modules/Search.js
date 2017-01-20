@@ -13,7 +13,7 @@ angular.module('aggSearch', [])
                 model: '=aggAutoComplete'
             },
             link: function (scope, elem, attrs) {
-                var input = document.getElementById(elem.attr('id'));
+                var input = elem[0];
                 var autocomplete = new google.maps.places.Autocomplete(input, {});
                 autocomplete.addListener('place_changed', updateModel);
 
@@ -38,7 +38,7 @@ angular.module('aggSearch', [])
                 options: '=aggSearch'
             },
             link: function (scope, elem, attrs) {
-                var input = document.getElementById(elem.attr('id')),
+                var input = elem[0],
                     searchBox = new google.maps.places.SearchBox(input);
 
                 // Bias the SearchBox results towards current map's viewport.

@@ -8,7 +8,7 @@ var aggMapMenu = require('./modules/MapMenu.js');
 var aggSearch = require('./modules/Search.js');
 var aggAnimations = require('./modules/Animations.js');
 
-angular.module('angular-gmap-gplace', [
+angular.module('angular-gmap-gplaces', [
     'ngAnimate',
     'ngSanitize',
     'aggGeolocation',

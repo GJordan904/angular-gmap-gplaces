@@ -1,10 +1,10 @@
 <div class="genSearch">
     <input id="aggSearch" agg-search="search.searchBox" type="text" placeholder="Search for something close by.">
-    <div id="directionIcon" class="directIcon" ng-click="aggMenu.goDirections()"></div>
+    <div scale-div id="directionIcon" class="directIcon" ng-click="aggMenu.goDirections()"></div>
+    <i role="button" class="fa fa-times fa-3x aggClear search" ng-click="search.clearMap()"></i>
 </div>
 
 <div class="searchResults aggEnterDown" ng-if="search.searchBox.model.length > 0" ng-style="search.resultsPadding">
-    <i role="button" class="fa fa-times fa-2x aggClear search" ng-click="search.clearMap()"></i>
     <div ng-switch="search.resultLength()">
         <div ng-switch-when="1">
             <div class="resultHeader">

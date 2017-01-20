@@ -2,7 +2,7 @@ var path = require('path');
 var CleanPlugin = require('clean-webpack-plugin');
 
 var config = {
-    entry: [path.resolve(__dirname, 'src/angular-gmap-gplace.js')],
+    entry: [path.resolve(__dirname, 'src/angular-gmap-gplaces.js')],
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'angular-gmap-gplaces.js'

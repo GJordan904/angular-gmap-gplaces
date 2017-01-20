@@ -1,4 +1,8 @@
-// Back Button and Clear Buttons
+/*
+ *
+ * Back Button and Clear Buttons
+ *
+ */
 .aggBack {
   color: white;
 }
@@ -11,50 +15,66 @@
   }
 
   &.search {
-    float: left;
     color: #ff4b33;;
   }
 }
-/* Menu Button */
-#aggMenuBtn {
+/*
+ *
+ * Menu Container
+ *
+ */
+#aggMenuContainer {
   position: absolute;
-  text-align: center;
   top: 2%;
-  right: 0;
+  right: -75%;
+  width: 82%;
+  transition: .5s ease all;
+
+  &.menuLgScreen {
+    width: 28.75%;
+    right: -25%;
+  }
+}
+/*
+ *
+ * Menu Button
+ *
+ */
+#aggMenuBtn {
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
   color: rgba(39, 39, 39, 0.91);
-  width: 7%;
+  width: 8%;
   border-radius: 5px;
   border: thin rgba(0, 0, 0, 0.91);
   background-color: #eae6e3;
   box-shadow: -3px 5px 2px 0 rgba(0,0,0,0.35);
-  transition: .5s ease all;
-
-  @media(min-width: 992px) {
-    width: 3.75%;
-  }
-
 }
-/* Menu */
+.menuBtnLg {
+  width: 3.75% !important;
+}
+/*
+ *
+ * Menu
+ *
+ */
+.menuLg {
+  right: -25%;
+  width: 25%;
+
+  &.animateDirections {
+    width: 35%;
+    right: -35%;
+  }
+}
 #aggMenu {
+  display: inline-block;
   background-color: transparent;
-  position: absolute;
-  top: 2%;
-  right: -75%;
   height: 95%;
-  width: 75%;
-  transition: .5s ease all;
+  width: 91%;
   border-radius: 5px;
   overflow: hidden;
-
-  @media(min-width: 992px) {
-    right: -25%;
-    width: 25%;
-
-    &.animateDirections {
-      width: 35%;
-      right: -35%;
-    }
-  }
 
   /* Search box and results */
   ul {
@@ -64,13 +84,13 @@
     margin-left: 5px;
   }
   #aggSearch {
+    display: inline-block;
     height: 100%;
-    width: 80%;
+    width: 85%;
     background-color: #eae6e3;
     border: thin;
     border-radius: 5px;
     font-size: 1.25em;
-    position: absolute;
     left: 0;
     border-right: 1px solid #c4c0bd;
 
@@ -79,18 +99,14 @@
     }
   }
   .genSearch {
+    position: relative;
     width: 100%;
     height: 42px;
-    position: relative;
     background-color: #eae6e3;
     box-shadow: -3px 5px 2px 0 rgba(0,0,0,0.35);
   }
   .searchResults {
-    position: absolute;
-    top: 7%;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    height: 100%;
     padding: .75em;
     overflow: auto;
     background-color: #f5f1ee;
@@ -156,9 +172,11 @@
   }
 }
 
-/* Directions search box and results */
-
-/* Info Box */
+/*
+ *
+ * Info Box
+ *
+ */
 .infoBox {
   background-color: #3f3f3f;
   width: 300px;
