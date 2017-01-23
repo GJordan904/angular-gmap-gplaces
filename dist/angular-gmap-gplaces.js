@@ -61,7 +61,7 @@
 	var aggSearch = __webpack_require__(19);
 	var aggAnimations = __webpack_require__(20);
 
-	angular.module('angular-gmap-gplace', [
+	angular.module('angular-gmap-gplaces', [
 	    'ngAnimate',
 	    'ngSanitize',
 	    'aggGeolocation',
@@ -112,7 +112,7 @@
 
 
 	// module
-	exports.push([module.id, "@keyframes aggPulsate {\n  0% {\n    transform: scale(0.1);\n    opacity: 0; }\n  50% {\n    opacity: 1; }\n  to {\n    transform: scale(1.2);\n    opacity: 0; } }\n\n.locMarker {\n  position: absolute;\n  margin-top: -50px;\n  margin-left: -50px;\n  transform: rotateX(55deg); }\n\n.locMarker:after {\n  display: block;\n  width: 100px;\n  height: 100px;\n  content: '';\n  animation: aggPulsate 1s ease-out;\n  animation-delay: 1.1s;\n  animation-iteration-count: infinite;\n  opacity: 0;\n  border-radius: 50%;\n  box-shadow: 0 0 6px 3px #0000ff; }\n\n.markerCenter {\n  position: absolute;\n  height: 15px;\n  width: 15px;\n  margin-top: -7.5px;\n  margin-left: -7.5px; }\n\n.aggBack {\n  color: white; }\n\n.aggClear {\n  color: white;\n  float: right; }\n  .aggClear span {\n    font-size: .5em; }\n  .aggClear.search {\n    float: left;\n    color: #ff4b33; }\n\n/* Menu Button */\n#aggMenuBtn {\n  position: absolute;\n  text-align: center;\n  top: 2%;\n  right: 0;\n  color: rgba(39, 39, 39, 0.91);\n  width: 7%;\n  border-radius: 5px;\n  border: thin rgba(0, 0, 0, 0.91);\n  background-color: #eae6e3;\n  box-shadow: -3px 5px 2px 0 rgba(0, 0, 0, 0.35);\n  transition: .5s ease all; }\n  @media (min-width: 992px) {\n    #aggMenuBtn {\n      width: 3.75%; } }\n\n/* Menu */\n#aggMenu {\n  background-color: transparent;\n  position: absolute;\n  top: 2%;\n  right: -75%;\n  height: 95%;\n  width: 75%;\n  transition: .5s ease all;\n  border-radius: 5px;\n  overflow: hidden;\n  /* Search box and results */ }\n  @media (min-width: 992px) {\n    #aggMenu {\n      right: -25%;\n      width: 25%; }\n      #aggMenu.animateDirections {\n        width: 35%;\n        right: -35%; } }\n  #aggMenu ul {\n    list-style: none;\n    padding: 0;\n    display: inline-block;\n    margin-left: 5px; }\n  #aggMenu #aggSearch {\n    height: 100%;\n    width: 80%;\n    background-color: #eae6e3;\n    border: thin;\n    border-radius: 5px;\n    font-size: 1.25em;\n    position: absolute;\n    left: 0;\n    border-right: 1px solid #c4c0bd; }\n    #aggMenu #aggSearch:focus {\n      outline: none; }\n  #aggMenu .genSearch {\n    width: 100%;\n    height: 42px;\n    position: relative;\n    background-color: #eae6e3;\n    box-shadow: -3px 5px 2px 0 rgba(0, 0, 0, 0.35); }\n  #aggMenu .searchResults {\n    position: absolute;\n    top: 7%;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    padding: .75em;\n    overflow: auto;\n    background-color: #f5f1ee; }\n    #aggMenu .searchResults .resultHeader {\n      background-color: #f93c11;\n      width: 100%; }\n      #aggMenu .searchResults .resultHeader img {\n        width: 100%; }\n    #aggMenu .searchResults .ratingNum {\n      font-size: .65em; }\n    #aggMenu .searchResults hr {\n      background-color: #3f3f3f; }\n    #aggMenu .searchResults .resultsList {\n      width: 100%; }\n      #aggMenu .searchResults .resultsList hr {\n        margin: 10px 0; }\n      #aggMenu .searchResults .resultsList li:first-child {\n        margin-top: 1em; }\n      #aggMenu .searchResults .resultsList .aggResult ul {\n        width: 50%; }\n      #aggMenu .searchResults .resultsList .aggResult li {\n        font-size: .95em;\n        color: #1d1d1d; }\n        #aggMenu .searchResults .resultsList .aggResult li:first-child {\n          font-weight: bold;\n          font-size: .95em; }\n      #aggMenu .searchResults .resultsList .aggResult img {\n        float: right;\n        width: 45%; }\n      #aggMenu .searchResults .resultsList .aggResult .openNow {\n        font-size: .75em;\n        color: #72a078; }\n\n/* Directions search box and results */\n/* Info Box */\n.infoBox {\n  background-color: #3f3f3f;\n  width: 300px;\n  border-radius: 15px; }\n\n.ibHeader {\n  width: 100%;\n  background-color: #1d1d1d;\n  color: #72a078;\n  padding: 2px;\n  border-radius: 15px 15px 0 0; }\n  .ibHeader h3, .ibHeader hr {\n    margin: 0; }\n\n.ibBody {\n  color: #72a078;\n  font-size: 16px; }\n  .ibBody ul {\n    list-style: none; }\n\n.directIcon {\n  background: url(" + __webpack_require__(5) + ") no-repeat;\n  height: 100%;\n  width: 16.5%;\n  position: absolute;\n  right: 0; }\n\n.directControls {\n  background-color: #f93c11;\n  width: 100%; }\n\n.directBtnBar {\n  width: 95%;\n  margin: 0 auto;\n  text-align: center; }\n  .directBtnBar .searchType {\n    width: 45px;\n    height: 45px;\n    border-radius: 50%;\n    border: none;\n    margin: 0 16px 16px 16px;\n    background-color: #f93c11; }\n    @media (max-width: 1350px) {\n      .directBtnBar .searchType {\n        margin: 0 10px 10px 10px; } }\n    .directBtnBar .searchType.selected {\n      background-color: #a02104; }\n    .directBtnBar .searchType:focus {\n      outline: none; }\n    .directBtnBar .searchType i {\n      text-align: center;\n      font-size: 2em; }\n\n.directSearch input {\n  display: block;\n  width: 75%;\n  margin: 16px auto;\n  background-color: #f93c11;\n  color: #1d1d1d;\n  border-top: none;\n  border-left: none;\n  border-right: none;\n  border-bottom: 1px solid #1d1d1d; }\n  .directSearch input:focus {\n    color: #1d1d1d;\n    outline: none; }\n  .directSearch input::-webkit-input-placeholder {\n    color: #1d1d1d; }\n  .directSearch input::-moz-placeholder {\n    color: #1d1d1d; }\n  .directSearch input:-ms-input-placeholder {\n    color: #1d1d1d; }\n  .directSearch input:-moz-placeholder {\n    color: #1d1d1d; }\n\n.directResults {\n  padding: 1em;\n  background-color: #eae6e3; }\n  .directResults hr {\n    background-color: #2d2622; }\n  .directResults .overview .duration {\n    display: inline;\n    font-size: 2em;\n    color: #72a078; }\n  .directResults .overview .distance {\n    display: inline;\n    font-size: 1.25em;\n    color: #3b583f; }\n  .directResults .route .start {\n    font-size: 1.25em;\n    font-weight: bold;\n    margin-bottom: 1.5em;\n    color: #72a078; }\n  .directResults .route .step .instruction p {\n    margin: 0; }\n  .directResults .route .step .duration {\n    display: inline;\n    font-size: .75em; }\n  .directResults .route .step .distance {\n    display: inline;\n    font-size: .75em; }\n  .directResults .route .end {\n    font-size: 1.25em;\n    font-weight: bold;\n    margin-top: 1.5em;\n    color: #72a078; }\n\n/**************************\nMenu Animations\n**************************/\n@keyframes aggSlideInLeft {\n  from {\n    transform: translateX(0); }\n  to {\n    transform: translateX(-100%); } }\n\n@keyframes aggSlideOutRight {\n  from {\n    transform: translateX(100%); }\n  to {\n    transform: translateX(0); } }\n\n.animateMenu {\n  transform: translateX(-105%); }\n\n.animateDirections {\n  transform: translateX(-100%); }\n\n.animateBtn {\n  transform: translateX(-1135%); }\n  @media (min-width: 992px) {\n    .animateBtn {\n      transform: translateX(-710%); } }\n\n.animateBtnDirect {\n  transform: translateX(-1071%); }\n  @media (min-width: 992px) {\n    .animateBtnDirect {\n      transform: translateX(-930%); } }\n\n.slide.ng-leave {\n  animation: aggSlideInLeft .5s ease-in; }\n\n.slide.ng-enter {\n  animation: aggSlideOutRight .5s ease-in; }\n\n.slide.ng-enter-active {\n  transform: translateX(100%); }\n\n.slide.ng-leave-active {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0; }\n\n/**********************************\nDirection Icon Animation\n**********************************/\n@keyframes aggSpin {\n  0% {\n    transform: rotate(0deg); }\n  50% {\n    transform: rotate(180deg); }\n  100% {\n    transform: rotate(360deg); } }\n\n.aggSpin {\n  animation: aggSpin .25s infinite; }\n\n.aggStars, .aggStars span {\n  display: inline-block;\n  background: url(" + __webpack_require__(6) + ") 0 -25px repeat-x;\n  width: 100px;\n  height: 21px; }\n\n.aggStars span {\n  background-position: 0 0; }\n", ""]);
+	exports.push([module.id, "@keyframes aggPulsate {\n  0% {\n    transform: scale(0.1);\n    opacity: 0; }\n  50% {\n    opacity: 1; }\n  to {\n    transform: scale(1.2);\n    opacity: 0; } }\n\n.locMarker {\n  position: absolute;\n  margin-top: -50px;\n  margin-left: -50px;\n  transform: rotateX(55deg); }\n\n.locMarker:after {\n  display: block;\n  width: 100px;\n  height: 100px;\n  content: '';\n  animation: aggPulsate 1s ease-out;\n  animation-delay: 1.1s;\n  animation-iteration-count: infinite;\n  opacity: 0;\n  border-radius: 50%;\n  box-shadow: 0 0 6px 3px #0000ff; }\n\n.markerCenter {\n  position: absolute;\n  height: 10px;\n  width: 10px;\n  margin-top: -5px;\n  margin-left: -5px; }\n\n/*\n *\n * Back Button and Clear Buttons\n *\n */\n.aggBack {\n  color: white; }\n\n.aggClear {\n  color: white;\n  float: right; }\n  .aggClear span {\n    font-size: .5em; }\n  .aggClear.search {\n    color: #ff4b33; }\n\n/*\n *\n * Menu Container\n *\n */\n#aggMenuContainer {\n  position: absolute;\n  top: 2%;\n  right: -75%;\n  width: 82%;\n  transition: .5s ease all; }\n  #aggMenuContainer.menuLgScreen {\n    width: 28.75%;\n    right: -25%; }\n\n/*\n *\n * Menu Button\n *\n */\n#aggMenuBtn {\n  display: inline-block;\n  text-align: center;\n  vertical-align: top;\n  color: rgba(39, 39, 39, 0.91);\n  width: 8%;\n  border-radius: 5px;\n  border: thin rgba(0, 0, 0, 0.91);\n  background-color: #eae6e3;\n  box-shadow: -3px 5px 2px 0 rgba(0, 0, 0, 0.35); }\n\n.menuBtnLg {\n  width: 3.75% !important; }\n\n/*\n *\n * Menu\n *\n */\n.menuLg {\n  right: -25%;\n  width: 25%; }\n  .menuLg.animateDirections {\n    width: 35%;\n    right: -35%; }\n\n#aggMenu {\n  display: inline-block;\n  background-color: transparent;\n  height: 95%;\n  width: 91%;\n  border-radius: 5px;\n  overflow: hidden;\n  /* Search box and results */ }\n  #aggMenu ul {\n    list-style: none;\n    padding: 0;\n    display: inline-block;\n    margin-left: 5px; }\n  #aggMenu #aggSearch {\n    display: inline-block;\n    height: 100%;\n    width: 85%;\n    background-color: #eae6e3;\n    border: thin;\n    border-radius: 5px;\n    font-size: 1.25em;\n    left: 0;\n    border-right: 1px solid #c4c0bd; }\n    #aggMenu #aggSearch:focus {\n      outline: none; }\n  #aggMenu .genSearch {\n    position: relative;\n    width: 100%;\n    height: 42px;\n    background-color: #eae6e3;\n    box-shadow: -3px 5px 2px 0 rgba(0, 0, 0, 0.35); }\n  #aggMenu .searchResults {\n    height: 100%;\n    padding: .75em;\n    overflow: auto;\n    background-color: #f5f1ee; }\n    #aggMenu .searchResults .resultHeader {\n      background-color: #f93c11;\n      width: 100%; }\n      #aggMenu .searchResults .resultHeader img {\n        width: 100%; }\n    #aggMenu .searchResults .ratingNum {\n      font-size: .65em; }\n    #aggMenu .searchResults hr {\n      background-color: #3f3f3f; }\n    #aggMenu .searchResults .resultsList {\n      width: 100%; }\n      #aggMenu .searchResults .resultsList hr {\n        margin: 10px 0; }\n      #aggMenu .searchResults .resultsList li:first-child {\n        margin-top: 1em; }\n      #aggMenu .searchResults .resultsList .aggResult ul {\n        width: 50%; }\n      #aggMenu .searchResults .resultsList .aggResult li {\n        font-size: .95em;\n        color: #1d1d1d; }\n        #aggMenu .searchResults .resultsList .aggResult li:first-child {\n          font-weight: bold;\n          font-size: .95em; }\n      #aggMenu .searchResults .resultsList .aggResult img {\n        float: right;\n        width: 45%; }\n      #aggMenu .searchResults .resultsList .aggResult .openNow {\n        font-size: .75em;\n        color: #72a078; }\n\n/*\n *\n * Info Box\n *\n */\n.infoBox {\n  background-color: #3f3f3f;\n  width: 300px;\n  border-radius: 15px; }\n\n.ibHeader {\n  width: 100%;\n  background-color: #1d1d1d;\n  color: #72a078;\n  padding: 2px;\n  border-radius: 15px 15px 0 0; }\n  .ibHeader h3, .ibHeader hr {\n    margin: 0; }\n\n.ibBody {\n  color: #72a078;\n  font-size: 16px; }\n  .ibBody ul {\n    list-style: none; }\n\n.directIcon {\n  background: url(" + __webpack_require__(5) + ") no-repeat;\n  display: inline-block;\n  position: absolute;\n  cursor: pointer; }\n\n.directControls {\n  background-color: #f93c11;\n  width: 100%; }\n\n.directBtnBar {\n  width: 95%;\n  margin: 0 auto;\n  text-align: center; }\n  .directBtnBar .searchType {\n    width: 45px;\n    height: 45px;\n    border-radius: 50%;\n    border: none;\n    margin: 0 16px 16px 16px;\n    background-color: #f93c11; }\n    @media (max-width: 1350px) {\n      .directBtnBar .searchType {\n        margin: 0 10px 10px 10px; } }\n    .directBtnBar .searchType.selected {\n      background-color: #a02104; }\n    .directBtnBar .searchType:focus {\n      outline: none; }\n    .directBtnBar .searchType i {\n      text-align: center;\n      font-size: 2em; }\n\n.directSearch input {\n  display: block;\n  width: 75%;\n  margin: 16px auto;\n  background-color: #f93c11;\n  color: #1d1d1d;\n  border-top: none;\n  border-left: none;\n  border-right: none;\n  border-bottom: 1px solid #1d1d1d; }\n  .directSearch input:focus {\n    color: #1d1d1d;\n    outline: none; }\n  .directSearch input::-webkit-input-placeholder {\n    color: #1d1d1d; }\n  .directSearch input::-moz-placeholder {\n    color: #1d1d1d; }\n  .directSearch input:-ms-input-placeholder {\n    color: #1d1d1d; }\n  .directSearch input:-moz-placeholder {\n    color: #1d1d1d; }\n\n.directResults {\n  padding: 1em;\n  background-color: #eae6e3; }\n  .directResults hr {\n    background-color: #2d2622; }\n  .directResults .overview .duration {\n    display: inline;\n    font-size: 2em;\n    color: #72a078; }\n  .directResults .overview .distance {\n    display: inline;\n    font-size: 1.25em;\n    color: #3b583f; }\n  .directResults .route .start {\n    font-size: 1.25em;\n    font-weight: bold;\n    margin-bottom: 1.5em;\n    color: #72a078; }\n  .directResults .route .step .instruction p {\n    margin: 0; }\n  .directResults .route .step .duration {\n    display: inline;\n    font-size: .75em; }\n  .directResults .route .step .distance {\n    display: inline;\n    font-size: .75em; }\n  .directResults .route .end {\n    font-size: 1.25em;\n    font-weight: bold;\n    margin-top: 1.5em;\n    color: #72a078; }\n\n/**************************\nMenu Animations\n**************************/\n@keyframes aggSlideInLeft {\n  from {\n    transform: translateX(0); }\n  to {\n    transform: translateX(-100%); } }\n\n@keyframes aggSlideOutRight {\n  from {\n    transform: translateX(100%); }\n  to {\n    transform: translateX(0); } }\n\n.slide.ng-leave {\n  animation: aggSlideInLeft .5s ease-in; }\n\n.slide.ng-enter {\n  animation: aggSlideOutRight .5s ease-in; }\n\n.slide.ng-enter-active {\n  transform: translateX(100%); }\n\n.slide.ng-leave-active {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0; }\n\n.animateMenu {\n  transform: translateX(-91%); }\n\n.animateDirections {\n  transform: translateX(-100%); }\n\n.animateBtn {\n  transform: translateX(-1135%); }\n  .animateBtn.menuBtnLg {\n    transform: translateX(-710%); }\n\n.animateBtnDirect {\n  transform: translateX(-1071%); }\n  .animateBtnDirect.menuBtnLg {\n    transform: translateX(-930%); }\n\n/**********************************\nDirection Icon Animation\n**********************************/\n@keyframes aggSpin {\n  0% {\n    transform: rotate(0deg); }\n  50% {\n    transform: rotate(180deg); }\n  100% {\n    transform: rotate(360deg); } }\n\n.aggSpin {\n  animation: aggSpin .25s infinite; }\n\n.aggStars, .aggStars span {\n  display: inline-block;\n  background: url(" + __webpack_require__(6) + ") 0 -25px repeat-x;\n  width: 100px;\n  height: 21px; }\n\n.aggStars span {\n  background-position: 0 0; }\n", ""]);
 
 	// exports
 
@@ -546,13 +546,16 @@
 	            restrict: 'E',
 	            require: ['^aggMap'],
 	            link: function(scope, elem, attrs, ctrlrs) {
-	                var watcher = scope.$watch(function(){return ctrlrs[0].map;}, function(value) {
-	                    console.log(value);
-	                    if(value !== undefined) {
-	                        aggLocationServ.watchLoc(value);
+	                var watcher = scope.$watch(function(){return ctrlrs[0].map;}, function(newVal, oldVal) {
+	                    if(newVal instanceof google.maps.Map) {
+	                        aggLocationServ.watchLoc(newVal);
 	                        watcher();
 	                    }
 	                });
+	                elem.on('$destroy', function () {
+	                    aggLocationServ.marker = null;
+	                    aggLocationServ.cancelWatch();
+	                })
 	            }
 	        };
 	    })
@@ -608,7 +611,7 @@
 	            navGeo = navigator.geolocation,
 	            geoOptions = {
 	                enableHighAccuracy: true,
-	                timeout: 15000,
+	                timeout: 30000,
 	                maximumAge: 30000
 	            };
 
@@ -647,6 +650,14 @@
 
 	        this.gMap = null;
 	        this.marker = null;
+	        this.watchId = null;
+
+	        /**
+	         * @method cancels the watchPosition call
+	         */
+	        this.cancelWatch = function () {
+	            navGeo.clearWatch(this.watchId);
+	        };
 
 	        /**
 	         * @method watches user location and on successful response draws an
@@ -656,7 +667,7 @@
 	        this.watchLoc = function(map){
 	            this.gMap = map;
 	            if(navGeo) {
-	                navGeo.watchPosition(watchSuccess, geoError, geoOptions);
+	                this.watchId = navGeo.watchPosition(watchSuccess, geoError, geoOptions);
 	            }else {
 	                console.log("Geolocation service is unavailable.");
 	            }
@@ -707,18 +718,25 @@
 	 * The default value of 0 will work fine for a single map
 	 * @attr {string} options.mapId - (required) the ID of the maps Div tag
 	 */
-	    .directive('aggMap', function(aggMapServ, $document) {
+	    .directive('aggMap', function(aggMapServ, $timeout) {
 	    return {
 	        restrict: 'E',
 	        scope: {
 	            'options': '=options'
 	        },
 	        transclude: true,
+	        controllerAs: 'aggMap',
 	        controller: function ($scope) {
 	            var self = this;
-	            $scope.divId = $scope.options.mapId || 'map-canvas';
-	            $document.ready(function() {
-	                self.map = aggMapServ.getMap($scope.options);
+	            this.map = {};
+	            var watcher = $scope.$watch('options', function(value) {
+	                if(value !== undefined) {
+	                    $scope.divId = (value.mapId === undefined) ? 'map-canvas' : value.mapId;
+	                    $timeout(function() {
+	                        self.map = aggMapServ.getMap($scope.options);
+	                    }, 0);
+	                    watcher();
+	                }
 	            });
 	        },
 	        template: '<div id="{{divId}}"></div><div ng-transclude></div>'
@@ -773,11 +791,11 @@
 	 * details so when users navigate away from  a map and then returns the map can be reinstated to
 	 * its previous center, zoom, and map type
 	 */
-	    .service('aggMapServ', function() {
+	    .service('aggMapServ', function(aggLocationServ, numMaps) {
 	    var self = this;
 	    var setOptions = function(args) {
 	        var defaults = {
-	            index: self.maps.length,
+	            index: 0,
 	            mapId: 'map-canvas',
 	            zoom: 8,
 	            center: {lat: 0, lng: 0}
@@ -787,19 +805,25 @@
 	        return options;
 	    };
 
-	    this.maps = [];
+	    this.maps = Array.apply(null, new Array(numMaps)).map(function(){return {}});
 
 	    this.getMap = function(options) {
-	        var index = options.index,
-	            id = options.mapId,
+	        var opt = setOptions(options),
+	            index = opt.index,
+	            id = opt.mapId,
 	            instance = self.maps[index],
+	            centerOnLoc = false,
 	            map;
 
-	        if(instance === undefined){
-	            var opt = setOptions(options);
+	        if(!(instance instanceof google.maps.Map)){
+	            if(opt.center === 'location') {
+	                centerOnLoc = true;
+	                opt.center = {lat: 0, lng: 0};
+	            }
 	            map = new google.maps.Map(document.getElementById(id), opt);
 	            self.maps.splice(index, 0, map);
 	        }else{
+	            if(opt.center === 'location') centerOnLoc = true;
 	            map = new google.maps.Map(document.getElementById(id), {
 	                center: instance.center,
 	                zoom: instance.zoom,
@@ -807,6 +831,12 @@
 	                mapTypeId: instance.mapTypeId
 	            });
 	            self.maps.splice(index, 1, map);
+	        }
+	        if(centerOnLoc) {
+	            aggLocationServ.getLoc()
+	                .then(function (location) {
+	                    map.panTo(location);
+	                });
 	        }
 	        return map;
 
@@ -1791,12 +1821,13 @@
 	 *       configured in angular config and then used as a resolve for each state or route.
 	 *
 	 */
-	    .provider('$aggMap', function () {
+	    .provider('$aggLoader', function ($provide) {
 	    // Default Options
 	    var options = {
 	            lang: 'en-US',
 	            key: '',
 	            libs: 'places',
+	            numMaps: 1,
 	            loadFontAwesome: true
 	        };
 
@@ -1835,6 +1866,8 @@
 	    this.$get = function($document, $q, $window) {
 	        var deferred = $q.defer();
 	        loadScript($document[0]);
+
+	        $provide.value('numMaps', options.numMaps);
 
 	        $window.mapReady = (function(deferred) {
 	            return function() {
@@ -1913,6 +1946,19 @@
 	                };
 	            }
 	        }
+	    })
+
+	    .directive('scaleDiv', function() {
+	        return {
+	            restrict: 'A',
+	            link: function (scope, elem, attrs) {
+	                var pHeight = elem.parent()[0].offsetHeight,
+	                    pWidth = elem.parent()[0].offsetWidth;
+
+	                if(pHeight < pWidth) elem.css({height: pHeight+'px', width: pHeight+'px'});
+	                else elem.css({height: pWidth+'px', width: pWidth+'px'});
+	            }
+	        }
 	    });
 
 /***/ },
@@ -1932,34 +1978,19 @@
 	 * Parent of the aggMenuSearch and aggMenuDirections directives
 	 * @attr {string} mapIndex - the index of the map the menu is to be associated with
 	 */
-	    .directive('aggMenu', function($document, aggMapServ) {
+	    .directive('aggMenu', function() {
 	    return {
 	        restrict: 'E',
 	        templateUrl: aggMenuView,
-	        scope: {
-	            mapIndex: '@mapIndex'
-	        },
+	        require: ['^aggMap', 'aggMenu'],
 	        controllerAs: 'aggMenu',
 	        bindToController: true,
-	        controller: function($scope) {
-	            var self = this;
-
+	        controller: function() {
 	            this.map = {};
-	            this.isSearch = false;
-	            this.isDirections = false;
+	            this.isOpen = false;
 	            this.view = '';
 	            this.toggle = function() {
-	                if(this.isSearch) {
-	                    this.isSearch = false;
-	                    return;
-	                }
-	                if(this.isDirections) {
-	                    this.isDirections = false;
-	                    return;
-	                }
-	                if(!this.isSearch && !this.isDirections) {
-	                    this.isSearch = true;
-	                }
+	                this.isOpen = !this.isOpen
 	            };
 	            this.goSearch = function () {
 	                this.view = 'default';
@@ -1972,13 +2003,18 @@
 	                this.isDirections = true;
 	            };
 	        },
-	        link: function (scope, elem, attrs, ctrl) {
-	            var observer = attrs.$observe('mapIndex', function (value) {
-	                $document.ready(function () {
-	                    ctrl.map = aggMapServ.maps[value];
-	                    observer();
-	                })
-	            })
+	        link: function (scope, elem, attrs, ctrlrs) {
+	            var parent = elem.parent(),
+	                container = angular.element(document.querySelector('#aggMenuContainer'));
+
+	            if(parent[0].offsetWidth > 992) container.addClass('menuLg');
+
+	            var watcher = scope.$watch(function(){ return ctrlrs[0].map;}, function(value) {
+	                if(value instanceof google.maps.Map) {
+	                    ctrlrs[1].map = value;
+	                    watcher();
+	                }
+	            });
 	        }
 	    }
 	})
@@ -2021,7 +2057,7 @@
 	            this.resultLength = function() {
 	                return this.searchBox.model.length.toString();
 	            };
-	            this.resultsPadding = {padding: .75+'em'}
+	            this.resultsPadding = {padding: .75+'em'};
 	        },
 	        link: function(scope, elem, attrs, ctrls) {
 	            // Options to pass to search box directive
@@ -2131,7 +2167,7 @@
 /***/ function(module, exports) {
 
 	var path = '/home/grant/Development/Projects/Libraries/angular-gmap-gplaces/master/src/templates/aggMenu.html';
-	var html = "<div id=\"aggMenuBtn\" role=\"button\" ng-click=\"aggMenu.toggle()\" ng-class=\"{animateBtn: aggMenu.isSearch, animateBtnDirect: aggMenu.isDirections}\">\n    <i class=\"fa fa-3x\" ng-class=\"{'fa-chevron-right': aggMenu.isSearch || aggMenu.isDirections, 'fa-bars': !aggMenu.isSearch && !aggMenu.isDirections}\"></i>\n</div>\n\n<div id=\"aggMenu\" ng-class=\"{animateMenu: aggMenu.isSearch, animateDirections: aggMenu.isDirections}\">\n    <!-- Use ng-switch to switch between the different directives -->\n    <div style=\"height: 100%\" ng-switch=\"aggMenu.view\">\n\n        <div style=\"height: 100%; overflow: auto\" ng-switch-when=\"directions\" class=\"slide\">\n            <agg-menu-directions options=\"aggMenu.directOpt\"></agg-menu-directions>\n        </div>\n\n        <div ng-switch-default class=\"slide\">\n            <agg-menu-search></agg-menu-search>\n        </div>\n    </div>\n</div>";
+	var html = "<div id=\"aggMenuContainer\" ng-class=\"{animateMenu: aggMenu.isOpen}\">\n    <div id=\"aggMenuBtn\" role=\"button\" ng-click=\"aggMenu.toggle()\">\n        <i class=\"fa fa-3x\" ng-class=\"{'fa-chevron-right': aggMenu.isSearch || aggMenu.isDirections, 'fa-bars': !aggMenu.isSearch && !aggMenu.isDirections}\"></i>\n    </div>\n\n    <div id=\"aggMenu\">\n        <!-- Use ng-switch to switch between the different directives -->\n        <div style=\"height: 100%\" ng-switch=\"aggMenu.view\">\n\n            <div style=\"height: 100%; overflow: auto\" ng-switch-when=\"directions\" class=\"slide\">\n                <agg-menu-directions options=\"aggMenu.directOpt\"></agg-menu-directions>\n            </div>\n\n            <div style=\"height: 100%;\" ng-switch-default class=\"slide\">\n                <agg-menu-search></agg-menu-search>\n            </div>\n        </div>\n    </div>\n</div>";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
 
@@ -2140,7 +2176,7 @@
 /***/ function(module, exports) {
 
 	var path = '/home/grant/Development/Projects/Libraries/angular-gmap-gplaces/master/src/templates/aggMenuSearch.html';
-	var html = "<div class=\"genSearch\">\n    <input id=\"aggSearch\" agg-search=\"search.searchBox\" type=\"text\" placeholder=\"Search for something close by.\">\n    <div id=\"directionIcon\" class=\"directIcon\" ng-click=\"aggMenu.goDirections()\"></div>\n</div>\n\n<div class=\"searchResults aggEnterDown\" ng-if=\"search.searchBox.model.length > 0\" ng-style=\"search.resultsPadding\">\n    <i role=\"button\" class=\"fa fa-times fa-2x aggClear search\" ng-click=\"search.clearMap()\"></i>\n    <div ng-switch=\"search.resultLength()\">\n        <div ng-switch-when=\"1\">\n            <div class=\"resultHeader\">\n                <img ng-src=\"{{search.searchBox.model[0].photos[0].getUrl({'maxWidth': 500, 'maxHeight': 250})}}\" width=\"100%\" height=\"auto\">\n                <div class=\"title\">{{search.searchBox.model[0].name}}</div>\n                <div><span class=\"ratingNum\">{{search.searchBox.model[0].rating}}</span><agg-star-rating rating=\"{{search.searchBox.model[0].rating}}\"></agg-star-rating></div>\n            </div>\n        </div>\n\n        <div ng-switch-default>\n            <ul class=\"resultsList\">\n                <li class=\"aggResult\" ng-repeat-start=\"result in search.searchBox.model track by $index\" ng-click=\"search.openMarker($index)\" role=\"button\">\n\n                    <ul>\n                        <li>{{result.name}}</li>\n                        <li>\n                            <agg-star-rating rating=\"{{result.rating}}\"></agg-star-rating>\n                        </li>\n                        <li>{{search.addressText(result.formatted_address)}}</li>\n                        <li class=\"openNow\">{{search.openText(result.opening_hours.open_now)}}</li>\n                    </ul>\n                    <img scale-img ng-src=\"{{result.photos[0].getUrl({'maxWidth': 250, 'maxHeight': 250})}}\">\n                </li>\n                <li ng-repeat-end><hr></li>\n            </ul>\n        </div>\n    </div>\n\n</div>\n\n\n\n";
+	var html = "<div class=\"genSearch\">\n    <input id=\"aggSearch\" agg-search=\"search.searchBox\" type=\"text\" placeholder=\"Search for something close by.\">\n    <div scale-div id=\"directionIcon\" class=\"directIcon\" ng-click=\"aggMenu.goDirections()\"></div>\n    <i role=\"button\" class=\"fa fa-times fa-3x aggClear search\" ng-click=\"search.clearMap()\"></i>\n</div>\n\n<div class=\"searchResults aggEnterDown\" ng-if=\"search.searchBox.model.length > 0\" ng-style=\"search.resultsPadding\">\n    <div ng-switch=\"search.resultLength()\">\n        <div ng-switch-when=\"1\">\n            <div class=\"resultHeader\">\n                <img ng-src=\"{{search.searchBox.model[0].photos[0].getUrl({'maxWidth': 500, 'maxHeight': 250})}}\" width=\"100%\" height=\"auto\">\n                <div class=\"title\">{{search.searchBox.model[0].name}}</div>\n                <div><span class=\"ratingNum\">{{search.searchBox.model[0].rating}}</span><agg-star-rating rating=\"{{search.searchBox.model[0].rating}}\"></agg-star-rating></div>\n            </div>\n        </div>\n\n        <div ng-switch-default>\n            <ul class=\"resultsList\">\n                <li class=\"aggResult\" ng-repeat-start=\"result in search.searchBox.model track by $index\" ng-click=\"search.openMarker($index)\" role=\"button\">\n\n                    <ul>\n                        <li>{{result.name}}</li>\n                        <li>\n                            <agg-star-rating rating=\"{{result.rating}}\"></agg-star-rating>\n                        </li>\n                        <li>{{search.addressText(result.formatted_address)}}</li>\n                        <li class=\"openNow\">{{search.openText(result.opening_hours.open_now)}}</li>\n                    </ul>\n                    <img scale-img ng-src=\"{{result.photos[0].getUrl({'maxWidth': 250, 'maxHeight': 250})}}\">\n                </li>\n                <li ng-repeat-end><hr></li>\n            </ul>\n        </div>\n    </div>\n\n</div>\n\n\n\n";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;
 
@@ -2172,7 +2208,7 @@
 	                model: '=aggAutoComplete'
 	            },
 	            link: function (scope, elem, attrs) {
-	                var input = document.getElementById(elem.attr('id'));
+	                var input = elem[0];
 	                var autocomplete = new google.maps.places.Autocomplete(input, {});
 	                autocomplete.addListener('place_changed', updateModel);
 
@@ -2197,7 +2233,7 @@
 	                options: '=aggSearch'
 	            },
 	            link: function (scope, elem, attrs) {
-	                var input = document.getElementById(elem.attr('id')),
+	                var input = elem[0],
 	                    searchBox = new google.maps.places.SearchBox(input);
 
 	                // Bias the SearchBox results towards current map's viewport.
@@ -2405,7 +2441,7 @@
 	                event: 'enter',
 	                structural: true,
 	                from: {height: 0, overflow: 'hidden'},
-	                to: {height: endHeight+'px', overflow: 'auto'},
+	                to: {height: 95+'%', overflow: 'auto'},
 	                duration: 1
 	            });
 	        },
@@ -2414,7 +2450,7 @@
 	            return $animateCss(element, {
 	                event: 'leave',
 	                structural: true,
-	                from: {height: height, overflow: 'auto'},
+	                from: {height: height+'px', overflow: 'auto'},
 	                to: {height: 0, overflow: 'hidden'},
 	                duration: 1
 	            });
