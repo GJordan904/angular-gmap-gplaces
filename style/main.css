@@ -128,12 +128,13 @@
 .features-list {
   font-size: 1.25em; }
 
-.config-list {
-  font-size: 1.25em; }
-  .config-list li {
-    margin-bottom: 1.5em; }
-  .config-list pre {
-    margin-top: 1em; }
+.config-list li {
+  margin-bottom: 1.5em; }
+.config-list pre {
+  margin-top: 1em; }
+
+.bordered {
+  border: 1px solid; }
 
 .table-bordered td {
   border: 1px solid #333; }

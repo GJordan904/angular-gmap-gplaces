@@ -44,7 +44,6 @@
   font-size: 1.25em;
 }
 .config-list {
-  font-size: 1.25em;
 
   li {
     margin-bottom: 1.5em;
@@ -53,4 +52,7 @@
   pre {
     margin-top: 1em;
   }
+}
+.bordered {
+  border: 1px solid;
 }
