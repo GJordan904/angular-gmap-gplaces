@@ -107,7 +107,8 @@
 
 .pageHeader {
   font-size: 3em;
-  text-align: center; }
+  text-align: center;
+  border-bottom: 1px solid; }
 
 .code-tabs {
   margin-bottom: 25px; }
@@ -136,6 +137,28 @@
 .bordered {
   border: 1px solid; }
 
+.travel-mode {
+  padding: .25em;
+  border: 1px solid #1B998B;
+  margin-bottom: .5em; }
+  .travel-mode:before, .travel-mode:after {
+    content: " ";
+    display: table; }
+  .travel-mode:after {
+    clear: both; }
+
+.directions-demo {
+  padding: 1em;
+  margin-bottom: 1em;
+  border: 1px solid #1B998B; }
+  .directions-demo .input-group {
+    width: 50%; }
+    .directions-demo .input-group input {
+      float: right;
+      width: 75%; }
+  .directions-demo h5 {
+    margin-bottom: 0; }
+
 .table-bordered td {
   border: 1px solid #333; }
 
@@ -151,5 +174,8 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   color: #1B998B; }
+
+input {
+  color: #3f3f3f; }
 
 /*# sourceMappingURL=main.css.map */

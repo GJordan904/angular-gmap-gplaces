@@ -23,6 +23,7 @@
 .pageHeader {
   font-size: 3em;
   text-align: center;
+  border-bottom: 1px solid;
 }
 .code-tabs {
   margin-bottom: 25px;
@@ -55,4 +56,28 @@
 }
 .bordered {
   border: 1px solid;
+}
+.travel-mode {
+  @include clearfix();
+  padding: .25em;
+  border: 1px solid #1B998B;
+  margin-bottom: .5em;
+}
+.directions-demo {
+  padding: 1em;
+  margin-bottom: 1em;
+  border: 1px solid #1B998B;
+
+  .input-group {
+    width: 50%;
+
+    input {
+      float: right;
+      width: 75%;
+    }
+  }
+
+  h5 {
+    margin-bottom: 0;
+  }
 }

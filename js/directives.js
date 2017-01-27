@@ -72,4 +72,22 @@ angular.module('app.directives', [])
         }
     })
 
+    .directive('pageTitle', function($timeout, $transitions, $state) {
+        return {
+            restrict: 'A',
+            link: function(scope, elem, attrs) {
+                var title = 'angular-gmap-gplaces';
+                setTitle();
+                $transitions.onSuccess({}, setTitle);
+
+                function setTitle() {
+                    if ($state.$current.data && $state.$current.data.title) {
+                        title = $state.$current.data.title;
+                    }
+                    elem.text(title);
+                }
+            }
+        }
+    })
+
 }());

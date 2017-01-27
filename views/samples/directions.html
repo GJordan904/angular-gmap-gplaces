@@ -1,9 +1,5 @@
-<h2>Map with Menu</h2>
-<div class="map-container">
-    <agg-map options="samples.mMap">
-        <agg-menu></agg-menu>
-    </agg-map>
-</div>
+<agg-directions template="views/partials/directTemp.html" map="4"></agg-directions>
+<agg-map options="samples.dMap"></agg-map>
 
 <h3>Code</h3>
 <div class="code-tabs">
@@ -11,11 +7,9 @@
         <pane title="HTML">
             <div class="well">
                 <pre class="prettyprint">
-&lt;div class="map-container"&gt;
-    &lt;agg-map options="samples.mMap"&gt;
-        &lt;agg-menu&gt;&lt;/agg-menu&gt;
-    &lt;/agg-map&gt;
-&lt;/div&gt;
+&lt;agg-map options="samples.mMap"&gt;
+    &lt;agg-menu&gt;&lt;/agg-menu&gt;
+&lt;/agg-map&gt;
                 </pre>
             </div>
         </pane>

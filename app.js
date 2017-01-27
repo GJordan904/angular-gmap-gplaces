@@ -31,7 +31,10 @@ angular.module('myApp', [
 			},
             resolve: {
                 google: '$aggLoader'
-            }
+            },
+			data: {
+				title: 'angular-gmap-gplaces'
+			}
 		})
 		.state('app.start', {
 			url: '/start',
@@ -39,7 +42,10 @@ angular.module('myApp', [
 				'mainContent': {
 					templateUrl: 'views/start.html'
 				}
-			}
+			},
+            data: {
+                title: 'Getting Started'
+            }
 		})
 		.state('app.docs', {
 			url: '/docs',
@@ -56,7 +62,10 @@ angular.module('myApp', [
 				'docs': {
 					templateUrl: 'views/docs/aggMap.html'
 				}
-			}
+			},
+            data: {
+                title: 'agg-map'
+            }
 		})
 		.state('app.docs.aggMenu', {
 			url: '/agg-menu',
@@ -64,7 +73,10 @@ angular.module('myApp', [
 				'docs': {
 					templateUrl: 'views/docs/aggMenu.html'
 				}
-			}
+			},
+            data: {
+                title: 'agg-menu'
+            }
 		})
 		.state('app.docs.aggAutoComplete', {
 			url: '/agg-auto-complete',
@@ -72,7 +84,10 @@ angular.module('myApp', [
 				'docs': {
 					templateUrl: 'views/docs/aggAutoComplete.html'
 				}
-			}
+			},
+            data: {
+                title: 'agg-auto-complete'
+            }
 		})
 		.state('app.docs.aggMapServ', {
 			url: '/aggMapServ',
@@ -80,7 +95,10 @@ angular.module('myApp', [
 				'docs': {
 					templateUrl: 'views/docs/aggMapServ.html'
 				}
-			}
+			},
+            data: {
+                title: 'aggMapServ'
+            }
 		})
 		.state('app.docs.aggSearch', {
 			url: '/agg-search',
@@ -88,7 +106,10 @@ angular.module('myApp', [
 				'docs': {
 					templateUrl: 'views/docs/aggSearch.html'
 				}
-			}
+			},
+            data: {
+                title: 'agg-search'
+            }
 		})
 		.state('app.docs.aggSearchFact', {
 			url: '/aggSearchFact',
@@ -96,7 +117,10 @@ angular.module('myApp', [
 				'docs': {
 					templateUrl: 'views/docs/aggSearchFact.html'
 				}
-			}
+			},
+            data: {
+                title: 'aggSearchFact'
+            }
 		})
 		.state('app.docs.aggLocation', {
 			url: '/agg-location',
@@ -104,7 +128,10 @@ angular.module('myApp', [
 				'docs': {
 					templateUrl: 'views/docs/aggLocation.html'
 				}
-			}
+			},
+            data: {
+                title: 'agg-location'
+            }
 		})
         .state('app.docs.aggLocationMarker', {
             url: '/aggLocationMarker',
@@ -112,6 +139,9 @@ angular.module('myApp', [
                 'docs': {
                     templateUrl: 'views/docs/aggLocationMarker.html'
                 }
+            },
+            data: {
+                title: 'aggLocationMarker'
             }
         })
         .state('app.docs.aggLocationServ', {
@@ -120,6 +150,9 @@ angular.module('myApp', [
                 'docs': {
                     templateUrl: 'views/docs/aggLocationServ.html'
                 }
+            },
+            data: {
+                title: 'aggLocationServ'
             }
         })
 		.state('app.samples', {
@@ -141,7 +174,10 @@ angular.module('myApp', [
 				'samples': {
 					templateUrl: 'views/samples/basicMap.html'
 				}
-			}
+			},
+            data: {
+                title: 'Basic Map Demo'
+            }
 		})
 		.state('app.samples.mMap', {
 			url: '/menu-map',
@@ -149,7 +185,10 @@ angular.module('myApp', [
 				'samples': {
 					templateUrl: 'views/samples/menuMap.html'
 				}
-			}
+			},
+            data: {
+                title: 'Menu Map Demo'
+            }
 		})
 		.state('app.samples.lMap', {
 			url: '/location-map',
@@ -157,7 +196,10 @@ angular.module('myApp', [
 				'samples': {
 					templateUrl: 'views/samples/locationMap.html'
 				}
-			}
+			},
+            data: {
+                title: 'Location Map Demo'
+            }
 		})
 		.state('app.samples.autocomplete', {
 			url: '/autocomplete',
@@ -165,7 +207,21 @@ angular.module('myApp', [
 				'samples': {
 					templateUrl: 'views/samples/autocomplete.html'
 				}
-			}
+			},
+            data: {
+                title: 'Autocomplete Demo'
+            }
+		})
+		.state('app.samples.directions', {
+			url: '/directions',
+			views: {
+				'samples': {
+					templateUrl: 'views/samples/directions.html'
+				}
+			},
+            data: {
+                title: 'Directions Demo'
+            }
 		});
 
 	$urlRouterProvider.otherwise('/home');

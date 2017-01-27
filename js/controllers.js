@@ -15,25 +15,45 @@ angular.module('app.controllers', [])
     })
 
     .controller('SamplesCtrl', function() {
+        //
+        // Maps
+        //
+        // Basic Map
         this.bMap = {
             index: 1,
             center: {lat: 29.892410, lng: -81.31445},
             zoom: 10
         };
+        // Menu Map
         this.mMap = {
             index: 2,
             center: {lat: 29.892410, lng: -81.31445},
             zoom: 10
         };
+        // Location Map
         this.lMap = {
             index: 3,
             center: 'location',
             zoom: 15
         };
+        // Directions Map
+        this.dMap = {
+            index: 4,
+            center: 'location',
+            zoom: 10
+        };
+        this.dModel = {
+            origin: {},
+            destination: {},
+            travelMode: 'DRIVING'
+        };
+        //
+        // Autocomplete
+        //
         this.autoModel = {};
         this.empty = function (model) {
             Object.keys(model).forEach(function(key){delete model[key];});
-        }
+        };
     })
 
     .controller('PlacesCtrl', function () {

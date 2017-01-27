@@ -1,0 +1,37 @@
+<div class="container">
+    <form class="directions-demo">
+        <div class="input-group">
+            <label for="origin">Origin:</label>
+            <input agg-auto-complete="samples.dModel.origin" id="origin" type="text" placeholder="From Here">
+        </div>
+        <div class="input-group">
+            <label for="destination">Destination:</label>
+            <input agg-auto-complete="samples.dModel.destination" id="destination" type="text" placeholder="To Here">
+        </div>
+
+        <h5>Travel Mode</h5>
+        <div class="travel-mode">
+            <div class="col-xs-3">
+                <label for="driving">Driving</label>
+                <input id="driving" type="radio" checked>
+            </div>
+            <div class="col-xs-3">
+                <label for="walking">Walking</label>
+                <input id="walking" type="radio">
+            </div>
+            <div class="col-xs-3">
+                <label for="bicycling">Bicycling</label>
+                <input id="bicycling" type="radio">
+            </div>
+            <div class="col-xs-3">
+                <label for="transit">Transit</label>
+                <input id="transit" type="radio">
+            </div>
+        </div>
+
+        <button class="btn btn-danger">Get Directions</button>
+    </form>
+</div>
+<div class="directions">
+
+</div>

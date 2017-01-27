@@ -8,14 +8,17 @@
         <p>In addition to the input box are two buttons, one is an X that clears the map and search results and the other is the directions icon.</p>
         <p>When clicked, the directions button will slide the input box out and slide in the directions menu. This menu allows searching for directions between two points by four different travel methods, walking, driving, bicycling, or transit.</p>
         <p>The directions menu has two <a ui-sref=".aggAutoComplete">agg-auto-complete</a> input boxes for starting point and destination. Once a directions request has been made and a successful response received, the route will be drawn on the map and the directions will display in a list that slides down from the menu.</p>
+        <p><mark>For the menu to be positioned properly and for animations to work, the parent agg-map directive must be placed inside of a relatively positioned div with overflow hidden.</mark></p>
         <p class="required">Requires the Places Library</p>
         <p class="required">Requires the agg-map directive</p>
 
         <h3>Usage</h3>
         <pre class="prettyprint">
-&lt;agg-map options="Object"&gt;
-    &lt;agg-menu&gt;&lt;/agg-menu&gt;
-&lt;/agg-map&gt;
+&lt;div class="map-container"&gt;
+    &lt;agg-map options="samples.mMap"&gt;
+        &lt;agg-menu&gt;&lt;/agg-menu&gt;
+    &lt;/agg-map&gt;
+&lt;/div&gt;
             </pre>
 
     </div>
