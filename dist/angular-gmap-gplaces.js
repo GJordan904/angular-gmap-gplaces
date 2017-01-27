@@ -449,9 +449,27 @@
 	 * @desc Takes in an origin, destination, and travel mode; outputs directions.
 	 * Requires the aggMap directive to render directions
 	 */
+	    .directive('aggDirections', function (aggMapServ, $timeout) {
+	        return {
+	            restrict: 'E',
+	            scope: {
+	                template: '@',
+	                map: '@'
+	            },
+	            template: '<div ng-include="template"></div>',
+	            link: function (scope, elem, attrs) {
+	                aggMapServ.getMap(parseInt(attrs.map)).then(function (map) {
+	                        console.log(map);
+	                    })
+	            }
+	        }
+	    })
 
-
-	.service('aggDirectionsServ', function($q){
+	/**
+	 * @desc This service provides methods for getting directions, drawing
+	 * them on the map and optionally returning step by step instructions.
+	 */
+	    .service('aggDirectionsServ', function($q){
 	    var self = this;
 
 	    function getDirections(request) {
@@ -519,6 +537,14 @@
 	            q.resolve(response);
 	        });
 	        return q.promise;
+	    };
+
+	    this.prepareRequest = function (origin, destination, mode) {
+	        return {
+	            origin: new google.maps.LatLng(origin.geometry.location.lat(), origin.geometry.location.lng()),
+	            destination: new google.maps.LatLng(destination.geometry.location.lat(), destination.geometry.location.lng()),
+	            travelMode: mode
+	        };
 	    };
 	});
 
@@ -733,7 +759,7 @@
 	                if(value !== undefined) {
 	                    $scope.divId = (value.mapId === undefined) ? 'map-canvas' : value.mapId;
 	                    $timeout(function() {
-	                        self.map = aggMapServ.getMap($scope.options);
+	                        self.map = aggMapServ.makeMap($scope.options);
 	                    }, 0);
 	                    watcher();
 	                }
@@ -791,23 +817,24 @@
 	 * details so when users navigate away from  a map and then returns the map can be reinstated to
 	 * its previous center, zoom, and map type
 	 */
-	    .service('aggMapServ', function(aggLocationServ, numMaps) {
-	    var self = this;
-	    var setOptions = function(args) {
-	        var defaults = {
-	            index: 0,
-	            mapId: 'map-canvas',
-	            zoom: 8,
-	            center: {lat: 0, lng: 0}
+	    .service('aggMapServ', function(aggLocationServ, numMaps, $q, $timeout) {
+	    var self = this,
+	        q = $q.defer(),
+	        attempts = 0,
+	        setOptions = function(args) {
+	            var defaults = {
+	                index: 0,
+	                mapId: 'map-canvas',
+	                zoom: 8,
+	                center: {lat: 0, lng: 0}
+	            };
+	            angular.extend(defaults, args);
+	            return options;
 	        };
-	        var options = angular.copy(defaults, {});
-	        angular.extend(options, args);
-	        return options;
-	    };
 
 	    this.maps = Array.apply(null, new Array(numMaps)).map(function(){return {}});
 
-	    this.getMap = function(options) {
+	    this.makeMap = function(options) {
 	        var opt = setOptions(options),
 	            index = opt.index,
 	            id = opt.mapId,
@@ -823,7 +850,9 @@
 	            map = new google.maps.Map(document.getElementById(id), opt);
 	            self.maps.splice(index, 0, map);
 	        }else{
-	            if(opt.center === 'location') centerOnLoc = true;
+	            if(opt.center === 'location') {
+	                centerOnLoc = true;
+	            }
 	            map = new google.maps.Map(document.getElementById(id), {
 	                center: instance.center,
 	                zoom: instance.zoom,
@@ -839,7 +868,24 @@
 	                });
 	        }
 	        return map;
+	    };
 
+	    this.getMap = function (index) {
+	        var maxAttempts = 20;
+	        if(this.maps[index] == undefined && attempts < maxAttempts) {
+	            $timeout(function () {
+	                if(self.maps[index] == undefined) {
+	                    attempts++;
+	                    self.getMap();
+	                }else{
+	                    attempts = 0;
+	                    q.resolve(self.maps[index])
+	                }
+	            }, 50)
+	        }else if(this.maps[index] instanceof google.maps.Map){
+	              q.reject("The map with that index was not found and the request has timed out.")
+	        }
+	        return q.promise;
 	    }
 	})
 
@@ -1149,7 +1195,7 @@
 
 	            if (!disablePan) {
 
-	                map = this.getMap();
+	                map = this.makeMap();
 
 	                if (map instanceof google.maps.Map) { // Only pan if attached to map, not panorama
 
@@ -1423,7 +1469,7 @@
 	                    this.closeListener_ = null;
 	                }
 
-	                // Odd code required to getMap things work with MSIE.
+	                // Odd code required to makeMap things work with MSIE.
 	                //
 	                if (!this.fixedWidthSet_) {
 
@@ -1437,7 +1483,7 @@
 	                    this.div_.appendChild(content);
 	                }
 
-	                // Perverse code required to getMap things work with MSIE.
+	                // Perverse code required to makeMap things work with MSIE.
 	                // (Ensures the close box does, in fact, float to the right.)
 	                //
 	                if (!this.fixedWidthSet_) {
@@ -1550,7 +1596,7 @@
 
 	            var isVisible;
 
-	            if ((typeof this.getMap() === "undefined") || (this.getMap() === null)) {
+	            if ((typeof this.makeMap() === "undefined") || (this.makeMap() === null)) {
 	                isVisible = false;
 	            } else {
 	                isVisible = !this.isHidden_;
@@ -2096,14 +2142,6 @@
 	 */
 	    .directive('aggMenuDirections', function(aggDirectionsServ) {
 
-	        function processAutoComp(origin, destination, mode) {
-	            return {
-	                origin: new google.maps.LatLng(origin.geometry.location.lat(), origin.geometry.location.lng()),
-	                destination: new google.maps.LatLng(destination.geometry.location.lat(), destination.geometry.location.lng()),
-	                travelMode: mode
-	            }
-	        }
-
 	        return {
 	            restrict: 'E',
 	            templateUrl: aggDirectionsTemp,
@@ -2139,7 +2177,7 @@
 	            link: function(scope, elem, attrs, ctrls) {
 	                scope.$watch('direct.request', function(newVal) {
 	                    if(newVal.origin.hasOwnProperty('geometry') && newVal.destination.hasOwnProperty('geometry')) {
-	                        var req = processAutoComp(newVal.origin, newVal.destination, newVal.travelMode);
+	                        var req = aggDirectionsServ.prepareRequest(newVal.origin, newVal.destination, newVal.travelMode);
 
 	                        aggDirectionsServ.getSteps(req, ctrls[0].map)
 	                            .then(function(response) {

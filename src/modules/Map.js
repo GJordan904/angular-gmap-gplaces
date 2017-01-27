@@ -33,7 +33,7 @@ angular.module('aggMap', [])
                 if(value !== undefined) {
                     $scope.divId = (value.mapId === undefined) ? 'map-canvas' : value.mapId;
                     $timeout(function() {
-                        self.map = aggMapServ.getMap($scope.options);
+                        self.map = aggMapServ.makeMap($scope.options);
                     }, 0);
                     watcher();
                 }
@@ -91,23 +91,25 @@ angular.module('aggMap', [])
  * details so when users navigate away from  a map and then returns the map can be reinstated to
  * its previous center, zoom, and map type
  */
-    .service('aggMapServ', function(aggLocationServ, numMaps) {
-    var self = this;
-    var setOptions = function(args) {
-        var defaults = {
-            index: 0,
-            mapId: 'map-canvas',
-            zoom: 8,
-            center: {lat: 0, lng: 0}
+    .service('aggMapServ', function(aggLocationServ, numMaps, $q, $timeout) {
+    var self = this,
+        q = $q.defer(),
+        attempts = 0,
+        setOptions = function(args) {
+            var defaults = {
+                index: 0,
+                mapId: 'map-canvas',
+                zoom: 8,
+                center: {lat: 0, lng: 0}
+            };
+            //noinspection JSUnresolvedFunction
+            angular.extend(defaults, args);
+            return options;
         };
-        var options = angular.copy(defaults, {});
-        angular.extend(options, args);
-        return options;
-    };
 
     this.maps = Array.apply(null, new Array(numMaps)).map(function(){return {}});
 
-    this.getMap = function(options) {
+    this.makeMap = function(options) {
         var opt = setOptions(options),
             index = opt.index,
             id = opt.mapId,
@@ -123,7 +125,9 @@ angular.module('aggMap', [])
             map = new google.maps.Map(document.getElementById(id), opt);
             self.maps.splice(index, 0, map);
         }else{
-            if(opt.center === 'location') centerOnLoc = true;
+            if(opt.center === 'location') {
+                centerOnLoc = true;
+            }
             map = new google.maps.Map(document.getElementById(id), {
                 center: instance.center,
                 zoom: instance.zoom,
@@ -139,7 +143,24 @@ angular.module('aggMap', [])
                 });
         }
         return map;
+    };
 
+    this.getMap = function (index) {
+        var maxAttempts = 20;
+        if(this.maps[index] == undefined && attempts < maxAttempts) {
+            $timeout(function () {
+                if(self.maps[index] == undefined) {
+                    attempts++;
+                    self.getMap();
+                }else{
+                    attempts = 0;
+                    q.resolve(self.maps[index])
+                }
+            }, 50)
+        }else if(this.maps[index] instanceof google.maps.Map){
+              q.reject("The map with that index was not found and the request has timed out.")
+        }
+        return q.promise;
     }
 })
 
@@ -449,7 +470,7 @@ angular.module('aggMap', [])
 
             if (!disablePan) {
 
-                map = this.getMap();
+                map = this.makeMap();
 
                 if (map instanceof google.maps.Map) { // Only pan if attached to map, not panorama
 
@@ -723,7 +744,7 @@ angular.module('aggMap', [])
                     this.closeListener_ = null;
                 }
 
-                // Odd code required to getMap things work with MSIE.
+                // Odd code required to makeMap things work with MSIE.
                 //
                 if (!this.fixedWidthSet_) {
 
@@ -737,7 +758,7 @@ angular.module('aggMap', [])
                     this.div_.appendChild(content);
                 }
 
-                // Perverse code required to getMap things work with MSIE.
+                // Perverse code required to makeMap things work with MSIE.
                 // (Ensures the close box does, in fact, float to the right.)
                 //
                 if (!this.fixedWidthSet_) {
@@ -850,7 +871,7 @@ angular.module('aggMap', [])
 
             var isVisible;
 
-            if ((typeof this.getMap() === "undefined") || (this.getMap() === null)) {
+            if ((typeof this.makeMap() === "undefined") || (this.makeMap() === null)) {
                 isVisible = false;
             } else {
                 isVisible = !this.isHidden_;

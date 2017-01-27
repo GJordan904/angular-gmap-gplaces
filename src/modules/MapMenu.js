@@ -129,14 +129,6 @@ angular.module('aggMapMenu', [])
  */
     .directive('aggMenuDirections', function(aggDirectionsServ) {
 
-        function processAutoComp(origin, destination, mode) {
-            return {
-                origin: new google.maps.LatLng(origin.geometry.location.lat(), origin.geometry.location.lng()),
-                destination: new google.maps.LatLng(destination.geometry.location.lat(), destination.geometry.location.lng()),
-                travelMode: mode
-            }
-        }
-
         return {
             restrict: 'E',
             templateUrl: aggDirectionsTemp,
@@ -172,7 +164,7 @@ angular.module('aggMapMenu', [])
             link: function(scope, elem, attrs, ctrls) {
                 scope.$watch('direct.request', function(newVal) {
                     if(newVal.origin.hasOwnProperty('geometry') && newVal.destination.hasOwnProperty('geometry')) {
-                        var req = processAutoComp(newVal.origin, newVal.destination, newVal.travelMode);
+                        var req = aggDirectionsServ.prepareRequest(newVal.origin, newVal.destination, newVal.travelMode);
 
                         aggDirectionsServ.getSteps(req, ctrls[0].map)
                             .then(function(response) {
