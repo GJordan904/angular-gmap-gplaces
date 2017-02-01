@@ -14,7 +14,7 @@ var config = {
             {test: /src.*\.js$/, loaders: ['ng-annotate']},
             {test: /\.html$/, loader: 'ngtemplate!html'},
             {test: /\.scss$/, loader: 'style!css!sass'},
-            {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'},
+            {test: /\.(png|jpg)$/, loader: 'url-loader?name=./img/[name].[ext]&limit=8192'},
             {test: /\.svg/, loader: 'svg-url-loader'}
         ]
     }

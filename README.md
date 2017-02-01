@@ -59,7 +59,9 @@ Follow these steps to get started using or developing the modules.
        }
    })
    ```
-4. You are now ready to start using the modules. Head over to the [Docs](http://agg.codebyjordan.com/#!/docs/agg-map) for details on usage.   
+4. If you are going to use the minified code and would like to use the `agg-menu` or`agg-location` directives, be sure to move the `img` folder from the `dist` folder to the document root of your application. If you already have an `img` folder at the document root, then simply move the 2 png's from `dist/img` folder into your `img` folder.
+    
+5. You are now ready to start using the modules. Head over to the [Docs](http://agg.codebyjordan.com/#!/docs/agg-map) for details on usage.   
 
 ### Required Directives or Libraries
 Anytime a directive requires another directive or requires a specific Google Maps Library to be loaded for its functionality, the docs will be marked like this: `Requires the XX Library` or `Requires the XX Directive`
