@@ -39,7 +39,7 @@ Follow these steps to get started using or developing the modules.
     		key: 'Your API Key',
     		libs: 'places',
     		numMaps: 4,
-                    loadFontAwesome: true
+            loadFontAwesome: true
     	});
     });
    ```
@@ -67,23 +67,23 @@ Anytime a directive requires another directive or requires a specific Google Map
 #### Directives
 Anytime a directive requires another directive, the child directive should be nested inside the parent directive, like this:
 
-    ```javascript
-    <agg-map options="Object">
+```html
+<agg-map options="Object">
         <agg-location></agg-location>
-    </agg-map>
-    ```
+</agg-map>    
+```
 
 #### Libraries
 Anytime a directive says that it requires a specific Google Maps library, be sure to include that library while configuring the the $aggLoaderProvider. In the below example we include a single library, the Places library. Multiple libraries can be loaded by passing a string of library names separated by a comma.
 
-    ```javascript
-    .config(function($aggLoaderProvider) {
-    	$aggLoaderProvider.setOptions({
-    		lang: 'en-US',
-    		key: 'Your API Key',
-    		libs: 'places',
-    		numMaps: 4,
-                    loadFontAwesome: true
-    	});
+```javascript
+config(function($aggLoaderProvider) {
+    $aggLoaderProvider.setOptions({
+        lang: 'en-US',
+        key: 'Your API Key',
+        libs: 'places',
+        numMaps: 4,
+                loadFontAwesome: true
     });
-    ```
+});
+```
