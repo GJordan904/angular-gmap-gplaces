@@ -83,7 +83,7 @@ config(function($aggLoaderProvider) {
         key: 'Your API Key',
         libs: 'places',
         numMaps: 4,
-                loadFontAwesome: true
+        loadFontAwesome: true
     });
 });
 ```
