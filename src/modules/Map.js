@@ -1,10 +1,5 @@
 'use strict';
-//
-// Google Map Factories, Service, and Directives
-// Directives for making the map and for making markers
-// Factories for custom infobox and making markers
-// Service for creating map
-//
+
 angular.module('aggMap', [])
 
 /**
@@ -16,30 +11,49 @@ angular.module('aggMap', [])
  * @attr {int} options.index - the maps index. Used for identifying the map in the array
  * The index is only needed if multiple maps are used.
  * The default value of 0 will work fine for a single map
- * @attr {string} options.mapId - (required) the ID of the maps Div tag
+ * @attr {string} options.mapId - the ID of the maps Div tag
  */
-    .directive('aggMap', function(aggMapServ, $timeout) {
+.directive('aggMap', function(aggMapServ, $timeout) {
     return {
         restrict: 'E',
         scope: {
             'options': '=options'
         },
         transclude: true,
+        template: '<div id="{{divId}}"></div><div ng-transclude></div>',
         controllerAs: 'aggMap',
-        controller: function ($scope) {
-            var self = this;
+        controller: function () {
             this.map = {};
-            var watcher = $scope.$watch('options', function(value) {
+        },
+        link: function (scope, elem, attrs, ctrl) {
+            var emptyElem, cachedElem;
+
+            var watcher = scope.$watch('options', function(value) {
                 if(value !== undefined) {
-                    $scope.divId = (value.mapId === undefined) ? 'map-canvas' : value.mapId;
+                    scope.divId = (value.mapId === undefined) ? 'map-canvas' : value.mapId;
                     $timeout(function() {
-                        self.map = aggMapServ.makeMap($scope.options);
+                        if(aggMapServ.maps[scope.options.index] instanceof google.maps.Map) {
+                            ctrl.map = aggMapServ.maps[scope.options.index];
+                            emptyElem = angular.element(document.getElementById(scope.divId));
+                            cachedElem = ctrl.map.getDiv();
+
+                            emptyElem.remove();
+                            elem.prepend(cachedElem);
+                        }else {
+                            ctrl.map = aggMapServ.makeMap(scope.options);
+                        }
                     }, 0);
                     watcher();
                 }
             });
-        },
-        template: '<div id="{{divId}}"></div><div ng-transclude></div>'
+
+            elem.on('$destroy', function () {
+                console.log('destroying listeners');
+                google.maps.event.clearInstanceListeners(window);
+                google.maps.event.clearInstanceListeners(document);
+                google.maps.event.clearInstanceListeners(ctrl.map)
+            });
+        }
     };
 })
 // Directive for a single map marker
@@ -88,10 +102,10 @@ angular.module('aggMap', [])
 /**
  * @desc Service for creating, storing, and serving google maps instances. Once a map is created
  * it is stored in an array to be referenced by the directives. Doing this allows us to save map
- * details so when users navigate away from  a map and then returns the map can be reinstated to
- * its previous center, zoom, and map type
+ * details so when users navigate away from  a map and then returns, the map can be reinstated to
+ * its previous state
  */
-    .service('aggMapServ', function(aggLocationServ, numMaps, $q, $timeout) {
+.service('aggMapServ', function(aggLocationServ, numMaps, $q, $timeout) {
     var self = this,
         q = $q.defer(),
         attempts = 0,
@@ -104,7 +118,7 @@ angular.module('aggMap', [])
             };
             //noinspection JSUnresolvedFunction
             angular.extend(defaults, args);
-            return options;
+            return defaults;
         };
 
     this.maps = Array.apply(null, new Array(numMaps)).map(function(){return {}});
@@ -113,29 +127,13 @@ angular.module('aggMap', [])
         var opt = setOptions(options),
             index = opt.index,
             id = opt.mapId,
-            instance = self.maps[index],
-            centerOnLoc = false,
+            centerOnLoc = (opt.center === 'location'),
             map;
+        opt.center = (centerOnLoc) ? {lat: 0, lng: 0} : opt.center;
 
-        if(!(instance instanceof google.maps.Map)){
-            if(opt.center === 'location') {
-                centerOnLoc = true;
-                opt.center = {lat: 0, lng: 0};
-            }
-            map = new google.maps.Map(document.getElementById(id), opt);
-            self.maps.splice(index, 0, map);
-        }else{
-            if(opt.center === 'location') {
-                centerOnLoc = true;
-            }
-            map = new google.maps.Map(document.getElementById(id), {
-                center: instance.center,
-                zoom: instance.zoom,
-                styles: instance.styles,
-                mapTypeId: instance.mapTypeId
-            });
-            self.maps.splice(index, 1, map);
-        }
+        map = new google.maps.Map(document.getElementById(id), opt);
+        self.maps.splice(index, 0, map);
+
         if(centerOnLoc) {
             aggLocationServ.getLoc()
                 .then(function (location) {
@@ -147,18 +145,23 @@ angular.module('aggMap', [])
 
     this.getMap = function (index) {
         var maxAttempts = 20;
-        if(this.maps[index] == undefined && attempts < maxAttempts) {
+        if(!(this.maps[index] instanceof google.maps.Map) && attempts <= maxAttempts) {
             $timeout(function () {
-                if(self.maps[index] == undefined) {
+                if(!(self.maps[index] instanceof google.maps.Map)) {
+                    console.log('not instance of gmaps, trying again.');
                     attempts++;
-                    self.getMap();
+                    self.getMap(index);
                 }else{
                     attempts = 0;
                     q.resolve(self.maps[index])
                 }
             }, 50)
         }else if(this.maps[index] instanceof google.maps.Map){
-              q.reject("The map with that index was not found and the request has timed out.")
+              attempts = 0;
+              q.resolve(this.maps[index])
+        }else {
+            attempts = 0;
+            q.reject("The map with that index was not found and the request has timed out.")
         }
         return q.promise;
     }
@@ -470,7 +473,7 @@ angular.module('aggMap', [])
 
             if (!disablePan) {
 
-                map = this.makeMap();
+                map = this.getMap();
 
                 if (map instanceof google.maps.Map) { // Only pan if attached to map, not panorama
 
@@ -744,7 +747,7 @@ angular.module('aggMap', [])
                     this.closeListener_ = null;
                 }
 
-                // Odd code required to makeMap things work with MSIE.
+                // Odd code required to getMap things work with MSIE.
                 //
                 if (!this.fixedWidthSet_) {
 
@@ -758,7 +761,7 @@ angular.module('aggMap', [])
                     this.div_.appendChild(content);
                 }
 
-                // Perverse code required to makeMap things work with MSIE.
+                // Perverse code required to getMap things work with MSIE.
                 // (Ensures the close box does, in fact, float to the right.)
                 //
                 if (!this.fixedWidthSet_) {
@@ -871,7 +874,7 @@ angular.module('aggMap', [])
 
             var isVisible;
 
-            if ((typeof this.makeMap() === "undefined") || (this.makeMap() === null)) {
+            if ((typeof this.getMap() === "undefined") || (this.getMap() === null)) {
                 isVisible = false;
             } else {
                 isVisible = !this.isHidden_;

@@ -27,13 +27,9 @@ angular.module('aggMapMenu', [])
             };
             this.goSearch = function () {
                 this.view = 'default';
-                this.isSearch = true;
-                this.isDirections = false;
             };
             this.goDirections = function () {
                 this.view = 'directions';
-                this.isSearch = false;
-                this.isDirections = true;
             };
         },
         link: function (scope, elem, attrs, ctrlrs) {
@@ -155,10 +151,7 @@ angular.module('aggMapMenu', [])
 
                 this.clearMap = function () {
                     this.showDirect = false;
-                    aggDirectionsServ.markers.forEach(function(marker) {
-                        marker.setMap(null);
-                    });
-                    aggDirectionsServ.renderer.setMap(null);
+                    aggDirectionsServ.clearDirections();
                 }
             },
             link: function(scope, elem, attrs, ctrls) {

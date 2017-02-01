@@ -25,9 +25,11 @@
  */
 #aggMenuContainer {
   position: absolute;
+  height: 100%;
   top: 2%;
   right: -75%;
   width: 82%;
+  z-index: 1000;
   transition: .5s ease all;
 
   &.menuLgScreen {
@@ -143,7 +145,7 @@
       }
 
       .aggResult {
-
+        padding-right: 2em;
         ul {
           width: 50%;
         }

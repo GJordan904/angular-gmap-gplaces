@@ -1,6 +1,6 @@
 <div id="aggMenuContainer" ng-class="{animateMenu: aggMenu.isOpen}">
     <div id="aggMenuBtn" role="button" ng-click="aggMenu.toggle()">
-        <i class="fa fa-3x" ng-class="{'fa-chevron-right': aggMenu.isSearch || aggMenu.isDirections, 'fa-bars': !aggMenu.isSearch && !aggMenu.isDirections}"></i>
+        <i class="fa fa-3x" ng-class="{'fa-chevron-right': aggMenu.isOpen, 'fa-bars': !aggMenu.isOpen}"></i>
     </div>
 
     <div id="aggMenu">

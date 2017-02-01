@@ -25,7 +25,7 @@ angular.module('aggGeolocation', [])
                 elem.on('$destroy', function () {
                     aggLocationServ.marker = null;
                     aggLocationServ.cancelWatch();
-                })
+                });
             }
         };
     })
