@@ -1,7 +1,7 @@
 <h2>Autocomplete</h2>
 <p>Start typing in the box below to see autocomplete predictions. Select a prediction to update the model.</p>
-<input agg-auto-complete="samples.autoModel" type="text" placeholder="Search for a place" style="width: 100%;">
-<button class="btn btn-danger" ng-click="samples.empty(samples.autoModel)">Clear Results</button>
+<input agg-auto-complete="samples.autoModel" type="text" ng-model="samples.inputModel" style="width: 100%;">
+<button class="btn btn-danger" ng-click="samples.clearAuto()">Clear Results</button>
 <p><strong>Model:</strong> {{samples.autoModel}}</p>
 
 <h3>Code</h3>

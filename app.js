@@ -155,6 +155,28 @@ angular.module('myApp', [
                 title: 'aggLocationServ'
             }
         })
+		.state('app.docs.aggDirections', {
+			url: '/agg-directions',
+			views: {
+				'docs': {
+					templateUrl: 'views/docs/aggDirections.html'
+				}
+			},
+			data: {
+				title: 'agg-directions'
+			}
+		})
+		.state('app.docs.aggLoader', {
+			url: '/$aggLoader',
+			views: {
+				'docs': {
+					templateUrl: 'views/docs/aggLoader.html'
+				}
+			},
+			data: {
+				title: '$aggLoader'
+			}
+		})
 		.state('app.samples', {
 			url: '/samples',
 			abstract: true,
@@ -176,7 +198,7 @@ angular.module('myApp', [
 				}
 			},
             data: {
-                title: 'Basic Map Demo'
+                title: 'Basic Map'
             }
 		})
 		.state('app.samples.mMap', {
@@ -187,7 +209,7 @@ angular.module('myApp', [
 				}
 			},
             data: {
-                title: 'Menu Map Demo'
+                title: 'Menu Map'
             }
 		})
 		.state('app.samples.lMap', {
@@ -198,7 +220,7 @@ angular.module('myApp', [
 				}
 			},
             data: {
-                title: 'Location Map Demo'
+                title: 'Location Map'
             }
 		})
 		.state('app.samples.autocomplete', {
@@ -209,20 +231,53 @@ angular.module('myApp', [
 				}
 			},
             data: {
-                title: 'Autocomplete Demo'
+                title: 'Autocomplete'
             }
 		})
-		.state('app.samples.directions', {
-			url: '/directions',
+		.state('app.samples.directMap', {
+			url: '/directions-map',
 			views: {
 				'samples': {
-					templateUrl: 'views/samples/directions.html'
+					templateUrl: 'views/samples/directMap.html'
 				}
 			},
             data: {
-                title: 'Directions Demo'
+                title: 'Map Directions'
             }
-		});
+		})
+        .state('app.samples.directMapSteps', {
+            url: '/directions-map-steps',
+            views: {
+                'samples': {
+                    templateUrl: 'views/samples/directMapSteps.html'
+                }
+            },
+            data: {
+                title: 'Map Directions with Steps'
+            }
+        })
+        .state('app.samples.directMapText', {
+            url: '/directions-map-text',
+            views: {
+                'samples': {
+                    templateUrl: 'views/samples/directMapText.html'
+                }
+            },
+            data: {
+                title: 'Map Directions with Text'
+            }
+        })
+        .state('app.samples.directMapTextSteps', {
+            url: '/directions-map-text-steps',
+            views: {
+                'samples': {
+                    templateUrl: 'views/samples/directMapTextSteps.html'
+                }
+            },
+            data: {
+                title: 'Map Directions with Steps and Text'
+            }
+        });
 
 	$urlRouterProvider.otherwise('/home');
 })

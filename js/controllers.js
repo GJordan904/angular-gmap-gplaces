@@ -15,6 +15,7 @@ angular.module('app.controllers', [])
     })
 
     .controller('SamplesCtrl', function() {
+        var self = this;
         //
         // Maps
         //
@@ -36,23 +37,35 @@ angular.module('app.controllers', [])
             center: 'location',
             zoom: 15
         };
-        // Directions Map
+        // Directions Maps
         this.dMap = {
             index: 4,
             center: 'location',
             zoom: 10
         };
-        this.dModel = {
-            origin: {},
-            destination: {},
-            travelMode: 'DRIVING'
+        this.dMap2 = {
+            index: 5,
+            center: 'location',
+            zoom: 10
+        };
+        this.dMap3 = {
+            index: 6,
+            center: 'location',
+            zoom: 10
+        };
+        this.dMap4 = {
+            index: 7,
+            center: 'location',
+            zoom: 10
         };
         //
         // Autocomplete
         //
         this.autoModel = {};
-        this.empty = function (model) {
-            Object.keys(model).forEach(function(key){delete model[key];});
+        this.inputModel = "";
+        this.clearAuto = function () {
+            this.inputModel = "";
+            Object.keys(this.autoModel).forEach(function(key){delete self.autoModel[key];})
         };
     })
 

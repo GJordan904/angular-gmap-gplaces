@@ -1,0 +1,100 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">agg-directions</h2>
+    </div>
+
+    <div class="panel-body">
+        <p>The <code>agg-directions</code> directive provides methods and models for quickly creating a custom directions widget for your application. Unlike the <code>agg-menu</code> directive, this directive requires a template for it's display, thus allowing for complete customization of the directives style and layout.</p>
+        <p>In its simplest form, the template provided to this directive must contain 2 <code>agg-auto-complete</code> input boxes for taking in start and end locations as well as some markup for display of the generated directions</p>
+        <p>The directive uses controllerAs syntax with the namespace <code>dir</code> for the controller. Therefore, to call a method or access a model in your template, prefix the name with <code>dir.</code> For example, to assign the models to the origin input box you would write <pre class="prettyprint">&lt;input agg-auto-complete="dir.request.origin" id="origin" type="text" ng-model="dir.input.origin"></pre></p>
+        <p class="required">Requires the agg-map directive</p>
+
+        <h3>Usage</h3>
+        <pre class="prettyprint">
+&lt;agg-map options="Object"&gt;
+    &lt;agg-directions template="path/to/template" method="String"&gt;&lt;/agg-directions&gt;
+&lt;/agg-map&gt;
+
+            </pre>
+
+
+        <h3>Attributes</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th class="col-xs-2">Attribute</th>
+                <th class="col-xs-2">Type</th>
+                <th class="col-xs-8">Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>template</td>
+                <td>String</td>
+                <td>The path to the template to be used.</td>
+            </tr>
+            <tr>
+                <td>method</td>
+                <td>String</td>
+                <td>The type of directions to be returned. This optional attribute can have one of the following options or be omitted: <br><code>steps</code>: this method will draw a route with markers at each step with text directions and fill every property of the route model, <br><code>simple</code>: This method will draw a simple route with a marker at the start and end and fills the route models properties except for the steps[], <br><code>mapsteps</code>: this method will draw a route with markers at each step with text directions but does NOT fill the route model, <br><code>default</code>: if the method attribute is omitted or set to anything else only a simple route will be drawn on the map.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3>Models</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th class="col-xs-2">Model</th>
+                <th class="col-xs-3">Properties</th>
+                <th class="col-xs-7">Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>input</td>
+                <td><code>origin</code>: String, <br><code>destination</code>: String</td>
+                <td>The input model is for attaching an ng-model directive to the two input boxes. The clear() method will clear this model out, subsequently clearing the input elements as well if this model is assigned to them.</td>
+            </tr>
+            <tr>
+                <td>request</td>
+                <td><code>origin</code>: Obj, <br><code>destination</code>: Obj, <br><code>travelMode</code>: String</td>
+                <td>The request model's origin and destination properties are for the agg-auto-complete directives that should be attached to the input boxes. The travelMode property specifies which travelMode the directions will be returned as. Options for travelMode are: <code>'DRIVING'</code>, <code>'WALKING'</code>, <code>'BICYCLING'</code>, or <code>'TRANSIT'</code></td>
+            </tr>
+            <tr>
+                <td>route</td>
+                <td><code>start</code>: String, <br><code>end</code>: String, <br><code>via</code>: String, <br><code>distance</code>: String, <br><code>duration</code>: String, <br><code>steps</code>: []</td>
+                <td>This model stores the returned directions and is used to display the directions in the template. The properties start, end, via, distance, and duration all hold strings while the steps property is an array of DirectionsStep objects. For more information on the returned directions see the documentation for the <a href="https://developers.google.com/maps/documentation/javascript/directions#DirectionsResults" target="_blank">DirectionsResult Object</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3>Methods & Properties</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th class="col-xs-2">Method</th>
+                <th>Type</th>
+                <th class="col-xs-10">Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>clear()</td>
+                <td>void</td>
+                <td>Clears out all the models, sets showDirect to false, and clears any markers and route from the map.</td>
+            </tr>
+            <tr>
+                <td>toggle()</td>
+                <td>void</td>
+                <td>Toggles the value of showDirect between true and false.</td>
+            </tr>
+            <tr>
+                <td>showDirect</td>
+                <td>boolean</td>
+                <td>A boolean value that can be used used with a directive like ng-if or ng-show to hide or display text directions. This value is toggled by the toggle() method and will be set to true anytime directions are successfully returned.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

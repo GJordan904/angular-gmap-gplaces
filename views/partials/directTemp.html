@@ -2,36 +2,69 @@
     <form class="directions-demo">
         <div class="input-group">
             <label for="origin">Origin:</label>
-            <input agg-auto-complete="samples.dModel.origin" id="origin" type="text" placeholder="From Here">
+            <input agg-auto-complete="dir.request.origin" id="origin" type="text" ng-model="dir.input.origin">
         </div>
         <div class="input-group">
             <label for="destination">Destination:</label>
-            <input agg-auto-complete="samples.dModel.destination" id="destination" type="text" placeholder="To Here">
+            <input agg-auto-complete="dir.request.destination" id="destination" type="text" ng-model="dir.input.destination">
         </div>
 
         <h5>Travel Mode</h5>
         <div class="travel-mode">
             <div class="col-xs-3">
                 <label for="driving">Driving</label>
-                <input id="driving" type="radio" checked>
+                <input id="driving" type="radio" name="mode" ng-model="dir.request.travelMode" value="DRIVING" checked>
             </div>
             <div class="col-xs-3">
                 <label for="walking">Walking</label>
-                <input id="walking" type="radio">
+                <input id="walking" type="radio" name="mode" ng-model="dir.request.travelMode" value="WALKING">
             </div>
             <div class="col-xs-3">
                 <label for="bicycling">Bicycling</label>
-                <input id="bicycling" type="radio">
+                <input id="bicycling" type="radio" name="mode" ng-model="dir.request.travelMode" value="BICYCLING">
             </div>
             <div class="col-xs-3">
                 <label for="transit">Transit</label>
-                <input id="transit" type="radio">
+                <input id="transit" type="radio" name="mode" ng-model="dir.request.travelMode" value="TRANSIT">
             </div>
         </div>
 
-        <button class="btn btn-danger">Get Directions</button>
+        <button class="btn btn-danger" ng-click="dir.clear()">Clear</button>
     </form>
 </div>
-<div class="directions">
-
+<div class="directions" ng-if="dir.showDirect">
+    <div class="overview">
+        <div class="duration">
+            {{dir.route.duration}}
+        </div>
+        <div class="distance">
+            ({{dir.route.distance}})
+        </div>
+        <div class="via">
+            via {{dir.route.via}}
+        </div>
+    </div>
+    <hr>
+    <div class="route">
+        <div class="start">
+            {{dir.route.start}}
+        </div>
+        <div class="steps">
+            <div class="step" ng-repeat="step in dir.route.steps">
+                <div class="instruction">
+                    <p ng-bind-html="step.instructions"></p>
+                </div>
+                <div class="duration">
+                    {{step.duration.text}}
+                </div>
+                <div class="distance">
+                    ({{step.distance.text}})
+                </div>
+                <hr ng-hide="$last">
+            </div>
+        </div>
+        <div class="end">
+            {{dir.route.end}}
+        </div>
+    </div>
 </div>

@@ -1,0 +1,95 @@
+<agg-map options="samples.dMap">
+    <agg-directions template="views/partials/directTemp.html"></agg-directions>
+</agg-map>
+
+
+<h3>Code</h3>
+<div class="code-tabs">
+    <tabs>
+        <pane title="View">
+            <div class="well">
+                <pre class="prettyprint">
+&lt;agg-map options="samples.dMap"&gt;
+    &lt;agg-directions template="views/partials/directTemp.html"&gt;&lt;/agg-directions&gt;
+&lt;/agg-map&gt;
+                </pre>
+            </div>
+        </pane>
+
+        <pane title="Template">
+            <div class="well">
+                <pre class="prettyprint">
+&lt;div class="container"&gt;
+    &lt;form class="directions-demo"&gt;
+        &lt;div class="input-group"&gt;
+            &lt;label for="origin">Origin:&lt;/label&gt;
+            &lt;!-- An input box will be needed for the starting point
+                    We make the input box an agg-auto-complete box and
+                    set the model to dir.request.origin -->
+            &lt;input agg-auto-complete="dir.request.origin" id="origin" type="text" ng-model="dir.input.origin">
+        &lt;/div>
+        &lt;div class="input-group">
+            &lt;label for="destination">Destination:&lt;/label>
+            &lt;!-- An input box will also be needed for the destination
+                    We also make it an agg-auto-complete box and set
+                    the model to dir.request.destination -->
+            &lt;input agg-auto-complete="dir.request.destination" id="destination" type="text" ng-model="dir.input.destination">
+        &lt;/div>
+
+        &lt;!-- We want to allow the user to select a travel mode so we create some radio buttons
+                and add the ng-model directive to them with the model dir.request.travelMode. The
+                possible values are WALKING, DRIVING, BICYCLING, and TRANSIT -->
+        &lt;h5>Travel Mode&lt;/h5>
+        &lt;div class="travel-mode">
+            &lt;div class="col-xs-3">
+                &lt;label for="driving">Driving&lt;/label>
+                &lt;input id="driving" type="radio" name="mode" ng-model="dir.request.travelMode" value="DRIVING" checked>
+            &lt;/div>
+            &lt;div class="col-xs-3">
+                &lt;label for="walking">Walking&lt;/label>
+                &lt;input id="walking" type="radio" name="mode" ng-model="dir.request.travelMode" value="WALKING">
+            &lt;/div>
+            &lt;div class="col-xs-3">
+                &lt;label for="bicycling">Bicycling&lt;/label>
+                &lt;input id="bicycling" type="radio" name="mode" ng-model="dir.request.travelMode" value="BICYCLING">
+            &lt;/div>
+            &lt;div class="col-xs-3">
+                &lt;label for="transit">Transit&lt;/label>
+                &lt;input id="transit" type="radio" name="mode" ng-model="dir.request.travelMode" value="TRANSIT">
+            &lt;/div>
+        &lt;/div>
+
+        &lt;!-- This button triggers the clear() method which clears the input and result models -->
+        &lt;button class="btn btn-danger" ng-click="dir.clear()">Clear&lt;/button>
+    &lt;/form>
+&lt;/div>
+                </pre>
+            </div>
+        </pane>
+
+        <pane title="Controller">
+            <div class="well">
+                <pre class="prettyprint lang-js">
+.controller('SamplesCtrl', function() {
+    this.dMap = {
+        index: 4,
+        center: 'location',
+        zoom: 10
+    }
+})
+                </pre>
+            </div>
+        </pane>
+
+        <pane title="Style">
+            <div class="well">
+                <pre class="prettyprint lang-css">
+#map-canvas {
+  height: 100%;
+  width: 100%;
+}
+                </pre>
+            </div>
+        </pane>
+    </tabs>
+</div>

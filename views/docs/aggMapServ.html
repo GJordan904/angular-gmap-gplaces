@@ -19,7 +19,7 @@
             <tr>
                 <td>maps</td>
                 <td>google.maps.Map[]</td>
-                <td>An array for storing the applications maps. Anytime a map is created it is stored in this array. This allows referencing the map by its index and storing details like zoom, center, and map type so that when a map is destroyed then recreated it will be restored to its previous state.</td>
+                <td>An array for storing the applications maps. Anytime a map is created it is stored in this array. The size of array is defined when configuring the module with the <a ui-sref=".aggLoader">$aggLoaderProvider</a></td>
             </tr>
             </tbody>
         </table>
@@ -35,9 +35,14 @@
             </thead>
             <tbody>
             <tr>
-                <td>getMap()</td>
+                <td>makeMap()</td>
                 <td>google.maps.Map</td>
-                <td>Method that creates a Google map with the supplied options. This method first checks to see if the map already exists in the maps array. If the map already exists it will be recreated using its previous zoom, center, styles, and map type.</td>
+                <td>Method that creates a Google map with the supplied options and saves it to the map array.</td>
+            </tr>
+            <tr>
+                <td>getMap(int: index)</td>
+                <td>promise</td>
+                <td>Method that checks the maps array for the map at the index provided and returns the map as a promise if it exists. Due to the nature of the directives, this method will check multiple times for the map before returning a rejection. This method is currently not in use and I am not sure it functions completely right at the moment.</td>
             </tr>
             </tbody>
         </table>
